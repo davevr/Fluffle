@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UIKit;
 using CoreGraphics;
 using Fluffimax.Core;
+using System.Timers;
 
 namespace Fluffimax
 {
@@ -11,6 +12,17 @@ namespace Fluffimax
 		private bool givingCarrot = false;
 		private List<BunnyGraphic> _bunnyGraphicList = new List<BunnyGraphic> ();
 		private static int _bunSizePerLevel = 32;
+		private static int kBunnyHopChance = 90;
+		private static int kVerticalHopMin = 16;
+		private static int kHorizontalHopMin = 16;
+		private static int kVerticalHopMax = 32;
+		private static int kHorizontalHopMax = 32;
+		private static int kMinWidth = -100;
+		private static int kMinHeight = -100;
+		private static int kMaxWidth = 100;
+		private static int kMaxHeight = 100;
+		private Bunny _currentBuns = null;
+		private Timer _idleTimer = new Timer ();
 
 		private class BunnyGraphic
 		{
@@ -21,7 +33,6 @@ namespace Fluffimax
 			public NSLayoutConstraint Horizontal {get; set;}
 			public NSLayoutConstraint Vertical {get; set;}
 			public int BunnyState { get; set;}
-
 		}
 
 		public GameViewController () : base ("GameViewController", null)
@@ -34,7 +45,25 @@ namespace Fluffimax
 			// Perform any additional setup after loading the view, typically from a nib
 
 			InitGame();
+			UITapGestureRecognizer tapGesture = new UITapGestureRecognizer (() => {
+				SetCurrentBunny(null);
+			});
+			tapGesture.NumberOfTapsRequired = 1;
+
+			View.AddGestureRecognizer (tapGesture);
+			BunnyDetailView.Hidden = true;
+
+			FeedBunnyBtn.TouchUpInside += (object sender, EventArgs e) => {
+				if (_currentBuns != null)
+					MaybeGiveCarrot(_currentBuns);
+			};
+
+			SellBunnyBtn.TouchUpInside += (object sender, EventArgs e) => {
+				// todo
+			};
 		}
+
+
 
 		private UIButton AddBunnyToScreen(Bunny thebuns) {
 			UIButton bunsBtn = UIButton.FromType (UIButtonType.Custom);
@@ -42,9 +71,9 @@ namespace Fluffimax
 			bunsBtn.TranslatesAutoresizingMaskIntoConstraints = false;
 			UIImage bunsImage = UIImage.FromBundle ("bunny");
 			bunsBtn.SetImage (bunsImage, UIControlState.Normal);
-			CGRect bunsRect = new CGRect (200, 200, 64, 64);
-			bunsBtn.Bounds = bunsRect;
-			bunsBtn.Frame = bunsRect;
+			//CGRect bunsRect = new CGRect (200, 200, 64, 64);
+			//bunsBtn.Bounds = bunsRect;
+			//bunsBtn.Frame = bunsRect;
 
 			NSLayoutConstraint csWidth = NSLayoutConstraint.Create (bunsBtn, NSLayoutAttribute.Width, NSLayoutRelation.Equal,
 				                            null, NSLayoutAttribute.NoAttribute, 1, 32);
@@ -57,7 +86,7 @@ namespace Fluffimax
 				View, NSLayoutAttribute.CenterX, 1, 0);
 			csHorizontal.Active = true;
 			NSLayoutConstraint csVertical = NSLayoutConstraint.Create (bunsBtn, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal,
-				View, NSLayoutAttribute.CenterX, 1, 0);
+				View, NSLayoutAttribute.CenterY, 1, 0);
 			csVertical.Active = true;
 
 			View.AddConstraint (csHorizontal);
@@ -110,7 +139,8 @@ namespace Fluffimax
 		private void HandleBunnyClick (object sender, EventArgs e) {
 			UIButton bunsBtn = sender as UIButton;
 			Bunny	theBuns = _bunnyGraphicList.Find (i => i.Button == bunsBtn).LinkedBuns;
-			MaybeGiveCarrot(theBuns);
+			//MaybeGiveCarrot(theBuns);
+			SetCurrentBunny(theBuns);
 		}
 
 		public double BunnySizeForLevel(int level) {
@@ -125,13 +155,191 @@ namespace Fluffimax
 
 		private void InitGame() {
 			InvokeOnMainThread (() => {
+				CarrotImg.Hidden = true;
+				// ad bunnies
 				foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies) {
 					AddBunnyToScreen(curBunny);
 				}
-
+				HideBunnyPanel();
 				UpdateScore();
-				CarrotImg.Hidden = true;
+				StartTimers();
+
 			});
+		}
+
+		private void SetCurrentBunny(Bunny newBuns) {
+			if (_currentBuns != null)
+				DeselectBunny (_currentBuns);
+			_currentBuns = newBuns;
+			if (newBuns != null) {
+				SelectBunny (newBuns);
+				ShowBunnyPanel ();
+			}
+			else {
+				HideBunnyPanel ();
+
+			}
+		}
+
+		private void SelectBunny(Bunny theBuns) {
+			InvokeOnMainThread (() => {
+
+			});
+		}
+
+		private void DeselectBunny(Bunny theBuns) {
+			InvokeOnMainThread (() => {
+
+			});
+		}
+
+		private void ShowBunnyPanel() {
+			InvokeOnMainThread (() => {
+				UpdateBunnyPanel();
+				if (BunnyDetailView.Hidden) {
+					BunnyDetailView.Layer.Opacity = 0;
+					BunnyDetailView.Hidden = false;
+					UIView.Animate (.5, () => {
+						BunnyDetailView.Layer.Opacity = 1;
+					}, () => {
+						BunnyDetailView.Layer.Opacity = 1;
+						UpdateBunnyPanel();
+					});
+				}
+			});
+		}
+
+		private void UpdateBunnyPanel() {
+			if (_currentBuns != null) {
+				InvokeOnMainThread (() => {
+					BunnyNameLabel.Text = _currentBuns.BunnyName;
+					BunnyBreedLabel.Text = _currentBuns.BunnyBreed;
+					BunnyGenderLabel.Text = _currentBuns.Gender;
+					SizeCount.Text = _currentBuns.BunnySize.ToString();
+					ProgressCount.Text = String.Format("{0}/{1}", _currentBuns.FeedState,_currentBuns.CarrotsForNextSize(_currentBuns.BunnySize));
+				});
+			}
+		}
+
+		private void HideBunnyPanel() {
+			if (!BunnyDetailView.Hidden) {
+				InvokeOnMainThread (() => {
+					BunnyDetailView.Layer.Opacity = 1;
+					BunnyDetailView.Hidden = false;
+					UIView.Animate (.25, () => {
+						BunnyDetailView.Layer.Opacity = 0;
+					}, () => {
+						BunnyDetailView.Layer.Opacity = 0;
+						BunnyDetailView.Hidden = true;
+					});
+				});
+			}
+		}
+
+		private void StartTimers() {
+			_idleTimer.Interval = 2000;
+			_idleTimer.AutoReset = false;
+			_idleTimer.Elapsed += (object sender, ElapsedEventArgs e) => {
+				MaybeBunniesHop();
+			};
+			_idleTimer.Start ();
+		}
+
+		private void MaybeBunniesHop() {
+			if ((_bunnyGraphicList.Count > 0) && (Game.Rnd.Next (100) < kBunnyHopChance)) {
+				int whichBunny = Game.Rnd.Next (_bunnyGraphicList.Count);
+				BunnyGraphic bunsGraphic = _bunnyGraphicList [whichBunny];
+				DoBunnyHop (bunsGraphic);
+			} else {
+				_idleTimer.Start ();
+			}
+		}
+
+		private void DoBunnyHop(BunnyGraphic buns) {
+			int dir = Game.Rnd.Next (8);
+			int xDif = 0, yDif = 0;
+			int verticalHop = Game.Rnd.Next (kVerticalHopMin, kVerticalHopMax);
+			int horizontalHop = Game.Rnd.Next (kHorizontalHopMin, kHorizontalHopMax);
+			switch (dir) {
+			case 0://up
+				yDif = -verticalHop;
+				break;
+			case 1: //upright
+				yDif = -verticalHop;
+				xDif = horizontalHop;
+				break;
+			case 2: // right
+				xDif = horizontalHop;
+				break;
+			case 3: // downright
+				yDif = verticalHop;
+				xDif = horizontalHop;
+				break;
+			case 4: // down
+				yDif = verticalHop;
+				break;
+			case 5: // downleft
+				yDif = verticalHop;
+				xDif = -horizontalHop;
+				break;
+			case 6:// left
+				xDif = -horizontalHop;
+				break;
+			case 7: // upleft
+				yDif = -verticalHop;
+				xDif = -horizontalHop;
+				break;
+			}
+
+			InvokeOnMainThread (() => {
+				int newX = (int)buns.Horizontal.Constant + xDif;
+				int newY = (int)buns.Vertical.Constant + yDif;
+
+				if (newX < kMinWidth)
+					newX = kMinWidth;
+				else if (newX > kMaxWidth)
+					newX = kMaxWidth;
+
+				if (newY < kMinHeight)
+					newY = kMinHeight;
+				else if (newY > kMaxHeight)
+					newY = kMaxHeight;
+
+				BunnyHopToNewLoc (buns, dir, newX, newY);
+			});
+		}
+
+		private void BunnyHopToNewLoc(BunnyGraphic buns, int dir, int newX, int newY) {
+			SetBunnyDirectionGraphic (buns, dir);
+			UIView.Animate (.5, () => {
+				buns.Horizontal.Constant = newX;
+				buns.Vertical.Constant = newY;
+				View.LayoutIfNeeded();
+			}, () => {
+				SetBunnyIdleGraphic (buns);
+				buns.LinkedBuns.UpdateLocation(newX, newY);
+				_idleTimer.Start();
+			});
+		}
+
+		private void SetBunnyDirectionGraphic(BunnyGraphic buns, int dir) {
+			BeginInvokeOnMainThread (() => {
+				// to do - change the bunny to face the direction
+			});
+		}
+
+		private void SetBunnyIdleGraphic(BunnyGraphic buns) {
+			BeginInvokeOnMainThread (() => {
+				// to do - change the bunny to a random idle state
+			});
+		}
+
+		private void PauseTimers() {
+			_idleTimer.Stop ();
+		}
+
+		private void ResumeTimers() {
+			_idleTimer.Start ();
 		}
 
 		private void UpdateScore() {
@@ -145,7 +353,9 @@ namespace Fluffimax
 			if ((Game.CurrentPlayer.CarrotCount > 0) && !givingCarrot) {
 				givingCarrot = true;
 				// ok give one
-				CarrotImg.Hidden = false;
+				InvokeOnMainThread (() => {
+					CarrotImg.Hidden = false;
+				});
 
 				bool grew = Game.CurrentPlayer.FeedBunny(theBuns);
 				AnimateBunsSizeAndLocation (theBuns, grew);
@@ -157,26 +367,40 @@ namespace Fluffimax
 
 		private void AnimateBunsSizeAndLocation(Bunny thebuns, bool grew) {
 			BunnyGraphic theGraphic = _bunnyGraphicList.Find (b => b.LinkedBuns == thebuns);
-
+			View.BringSubviewToFront (CarrotImg);
 			if (theGraphic != null) {
-				CSCarrotX.Constant = theGraphic.Horizontal.Constant;
-				CSCarrotY.Constant = theGraphic.Vertical.Constant;
+				
 				nfloat bunsSizeBase = (nfloat)BunnySizeForLevel (thebuns.BunnySize);
 				double nextLevelSize = BunnySizeForLevel (thebuns.BunnySize + 1);
 				nfloat deltaSize = (nfloat)((nextLevelSize - bunsSizeBase) * thebuns.Progress);
+				nfloat oldX = CSCarrotX.Constant;
+				nfloat oldY = CSCarrotY.Constant;
 				double duration = .5;
 				if (grew)
 					duration = 4;
 				
-				UIView.Animate (duration, () => {
-					theGraphic.Height.Constant = bunsSizeBase;
-					theGraphic.Width.Constant = bunsSizeBase + deltaSize;
-					theGraphic.Horizontal.Constant = thebuns.HorizontalLoc;
-					theGraphic.Vertical.Constant = thebuns.VerticalLoc;
+				UIView.Animate (1, () => {
+					CSCarrotX.Constant = theGraphic.Horizontal.Constant;
+					CSCarrotY.Constant = theGraphic.Vertical.Constant;
+					View.LayoutIfNeeded();
 				}, () => {
-					UpdateBunsSizeAndLocation(thebuns);
-					CarrotImg.Hidden = true;
-					givingCarrot = false;
+					InvokeOnMainThread(() => {
+						CSCarrotX.Constant = oldX;
+						CSCarrotY.Constant = oldY;
+						View.LayoutIfNeeded();
+
+						UIView.Animate (duration, () => {
+							theGraphic.Height.Constant = bunsSizeBase;
+							theGraphic.Width.Constant = bunsSizeBase + deltaSize;
+							View.LayoutIfNeeded();
+						}, () => {
+							InvokeOnMainThread(() => {
+								UpdateBunsSizeAndLocation(thebuns);
+								givingCarrot = false;
+							});
+						});
+
+					});
 				});
 
 

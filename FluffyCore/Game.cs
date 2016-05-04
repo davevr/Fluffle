@@ -35,6 +35,8 @@ namespace Fluffimax.Core
 			_player = new Player ();
 			Bunny startBunny = Bunny.MakeRandomBunny ("minilop", 0);
 			_player.BuyBunny (startBunny);
+			Bunny startBunny2 = Bunny.MakeRandomBunny ("lop", 0);
+			_player.BuyBunny (startBunny2);
 		}
 
 		public static bool LoadExistingPlayer() {
@@ -145,7 +147,7 @@ namespace Fluffimax.Core
 		private int _yLoc;
 		private DateTime _lastBred;
 
-		private int[] _growthStages = new int[] {10,50,100,200,300,500,750,1000,1250,1500,1750,2000,2500,3000,3500,5000,7500,10000};
+		private int[] _growthStages = new int[] {1, 10,50,100,200,300,500,750,1000,1250,1500,1750,2000,2500,3000,3500,5000,7500,10000};
 
 		public Bunny() {
 			_id = curId++;
@@ -159,6 +161,11 @@ namespace Fluffimax.Core
 				_gender = "boy";
 			else
 				_gender = "girl";
+		}
+
+		public void UpdateLocation(int xLoc, int yLoc) {
+			_xLoc = xLoc;
+			_yLoc = yLoc;
 		}
 
 		public int HorizontalLoc {

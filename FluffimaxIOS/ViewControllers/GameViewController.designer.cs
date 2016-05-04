@@ -16,6 +16,22 @@ namespace Fluffimax
 	{
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
+		UILabel BunnyBreedLabel { get; set; }
+
+		[Outlet]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		UIView BunnyDetailView { get; set; }
+
+		[Outlet]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		UILabel BunnyGenderLabel { get; set; }
+
+		[Outlet]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		UILabel BunnyNameLabel { get; set; }
+
+		[Outlet]
+		[GeneratedCode ("iOS Designer", "1.0")]
 		UIButton BuyBunnyBtn { get; set; }
 
 		[Outlet]
@@ -48,7 +64,23 @@ namespace Fluffimax
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
+		UILabel EyeColorLabel { get; set; }
+
+		[Outlet]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		UIButton FeedBunnyBtn { get; set; }
+
+		[Outlet]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		UILabel FurColorLabel { get; set; }
+
+		[Outlet]
+		[GeneratedCode ("iOS Designer", "1.0")]
 		UILabel ProgressCount { get; set; }
+
+		[Outlet]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		UIButton SellBunnyBtn { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
@@ -56,6 +88,22 @@ namespace Fluffimax
 
 		void ReleaseDesignerOutlets ()
 		{
+			if (BunnyBreedLabel != null) {
+				BunnyBreedLabel.Dispose ();
+				BunnyBreedLabel = null;
+			}
+			if (BunnyDetailView != null) {
+				BunnyDetailView.Dispose ();
+				BunnyDetailView = null;
+			}
+			if (BunnyGenderLabel != null) {
+				BunnyGenderLabel.Dispose ();
+				BunnyGenderLabel = null;
+			}
+			if (BunnyNameLabel != null) {
+				BunnyNameLabel.Dispose ();
+				BunnyNameLabel = null;
+			}
 			if (BuyBunnyBtn != null) {
 				BuyBunnyBtn.Dispose ();
 				BuyBunnyBtn = null;
@@ -88,9 +136,25 @@ namespace Fluffimax
 				CSCarrotY.Dispose ();
 				CSCarrotY = null;
 			}
+			if (EyeColorLabel != null) {
+				EyeColorLabel.Dispose ();
+				EyeColorLabel = null;
+			}
+			if (FeedBunnyBtn != null) {
+				FeedBunnyBtn.Dispose ();
+				FeedBunnyBtn = null;
+			}
+			if (FurColorLabel != null) {
+				FurColorLabel.Dispose ();
+				FurColorLabel = null;
+			}
 			if (ProgressCount != null) {
 				ProgressCount.Dispose ();
 				ProgressCount = null;
+			}
+			if (SellBunnyBtn != null) {
+				SellBunnyBtn.Dispose ();
+				SellBunnyBtn = null;
 			}
 			if (SizeCount != null) {
 				SizeCount.Dispose ();
