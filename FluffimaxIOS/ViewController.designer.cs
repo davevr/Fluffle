@@ -5,7 +5,7 @@
 //
 using Foundation;
 
-namespace Fluffimax
+namespace Fluffimax.iOS
 {
 	[Register ("ViewController")]
 	partial class ViewController

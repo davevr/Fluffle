@@ -79,6 +79,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
+    <Reference Include="ServiceStack.Text.XamarinIOS">
+      <HintPath>..\Components\servicestacktext-3.9.61.3\lib\ios-unified\ServiceStack.Text.XamarinIOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -87,6 +90,11 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
     <InterfaceDefinition Include="ViewControllers\HomeViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\GameViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\BunnyShopViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\CarrotShopViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\AboutViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\BunnyCamViewController.xib" />
+    <InterfaceDefinition Include="Views\BunnyCellView.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -110,13 +118,48 @@
     <Compile Include="..\FluffyCore\Game.cs">
       <Link>FluffyCore\Game.cs</Link>
     </Compile>
+    <Compile Include="..\FluffyCore\Bunny.cs">
+      <Link>FluffyCore\Bunny.cs</Link>
+    </Compile>
+    <Compile Include="..\FluffyCore\Player.cs">
+      <Link>FluffyCore\Player.cs</Link>
+    </Compile>
+    <Compile Include="ViewControllers\BunnyShopViewController.cs" />
+    <Compile Include="ViewControllers\BunnyShopViewController.designer.cs">
+      <DependentUpon>BunnyShopViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\CarrotShopViewController.cs" />
+    <Compile Include="ViewControllers\CarrotShopViewController.designer.cs">
+      <DependentUpon>CarrotShopViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\AboutViewController.cs" />
+    <Compile Include="ViewControllers\AboutViewController.designer.cs">
+      <DependentUpon>AboutViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\BunnyCamViewController.cs" />
+    <Compile Include="ViewControllers\BunnyCamViewController.designer.cs">
+      <DependentUpon>BunnyCamViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BunnyCellView.cs" />
+    <Compile Include="Views\BunnyCellView.designer.cs">
+      <DependentUpon>BunnyCellView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collections\BunnyShopTableSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <Folder Include="ViewControllers\" />
+    <Folder Include="Views\" />
+    <Folder Include="Collections\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\carrot.png" />
     <BundleResource Include="Resources\bunny.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="servicestacktext">
+      <Version>3.9.61.3</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
 </Project>

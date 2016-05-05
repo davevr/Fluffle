@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace Fluffimax
+namespace Fluffimax.iOS
 {
 	public class Application
 	{

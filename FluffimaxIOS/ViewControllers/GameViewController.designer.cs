@@ -9,7 +9,7 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace Fluffimax
+namespace Fluffimax.iOS
 {
 	[Register ("GameViewController")]
 	partial class GameViewController

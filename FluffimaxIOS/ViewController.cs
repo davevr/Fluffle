@@ -2,7 +2,7 @@
 
 using UIKit;
 
-namespace Fluffimax
+namespace Fluffimax.iOS
 {
 	public partial class ViewController : UIViewController
 	{

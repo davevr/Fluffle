@@ -1,7 +1,7 @@
 ﻿using Foundation;
 using UIKit;
 
-namespace Fluffimax
+namespace Fluffimax.iOS
 {
 	// The UIApplicationDelegate for the application. This class is responsible for launching the
 	// User Interface of the application, as well as listening (and optionally responding) to application events from iOS.
@@ -34,7 +34,9 @@ namespace Fluffimax
 
 			Window.MakeKeyAndVisible ();
 			return true;
+
 		}
+
 
 		public override void OnResignActivation (UIApplication application)
 		{
@@ -48,6 +50,7 @@ namespace Fluffimax
 		{
 			// Use this method to release shared resources, save user data, invalidate timers and store the application state.
 			// If your application supports background exection this method is called instead of WillTerminate when the user quits.
+			Fluffimax.Core.Game.SavePlayer();
 		}
 
 		public override void WillEnterForeground (UIApplication application)

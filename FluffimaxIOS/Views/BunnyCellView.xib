@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="96" id="cxk-wN-pdQ" customClass="BunnyCellView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cxk-wN-pdQ" id="YTl-1W-gDM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="95.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qu4-nQ-ysD">
+                        <rect key="frame" x="142.5" y="12" width="54.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fur color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbh-xL-uwB">
+                        <rect key="frame" x="80" y="49" width="48" height="14.5"/>
+                        <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B9y-zB-F47">
+                        <rect key="frame" x="252" y="53" width="64" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="64" id="IXR-5N-PbE"/>
+                        </constraints>
+                        <state key="normal" title="Buy"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt1-B1-ZAC">
+                        <rect key="frame" x="279" y="12" width="33" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bunny.png" translatesAutoresizingMaskIntoConstraints="NO" id="gkx-Xr-uMw">
+                        <rect key="frame" x="12" y="12" width="64" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="64" id="2Oa-5Z-Z11"/>
+                            <constraint firstAttribute="width" constant="64" id="NWP-c4-ZJX"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="nUL-nF-zlx"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="oJA-AH-uBA"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="nUL-nF-zlx"/>
+                                <exclude reference="oJA-AH-uBA"/>
+                            </mask>
+                        </variation>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carrot.png" translatesAutoresizingMaskIntoConstraints="NO" id="YGA-Wt-Wh7">
+                        <rect key="frame" x="243" y="12" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="Pj3-uy-1sa"/>
+                            <constraint firstAttribute="width" constant="32" id="xX5-v7-nXb"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbO-TJ-R3A">
+                        <rect key="frame" x="80" y="12" width="50.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="eye color" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oc1-BH-9Kp">
+                        <rect key="frame" x="135.5" y="49" width="52" height="14.5"/>
+                        <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="vt1-B1-ZAC" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="topMargin" constant="4" id="4uL-iB-QUu"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="B9y-zB-F47" secondAttribute="bottom" constant="4" id="6VB-Cf-kTu"/>
+                    <constraint firstItem="gkx-Xr-uMw" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="topMargin" constant="4" id="9C8-6p-8uS"/>
+                    <constraint firstItem="AbO-TJ-R3A" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="topMargin" constant="4" id="ACr-3J-3Ai"/>
+                    <constraint firstItem="gkx-Xr-uMw" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leadingMargin" constant="4" id="CJS-ZS-ljC"/>
+                    <constraint firstItem="vt1-B1-ZAC" firstAttribute="leading" secondItem="YGA-Wt-Wh7" secondAttribute="trailing" constant="4" id="GIS-gt-o6N"/>
+                    <constraint firstItem="oc1-BH-9Kp" firstAttribute="leading" secondItem="xbh-xL-uwB" secondAttribute="trailing" constant="8" id="KSt-BA-Foe"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="xbh-xL-uwB" secondAttribute="bottom" constant="4" id="MJ6-ig-YJL"/>
+                    <constraint firstItem="oc1-BH-9Kp" firstAttribute="top" secondItem="Qu4-nQ-ysD" secondAttribute="bottom" constant="16" id="MQM-SC-4f4"/>
+                    <constraint firstItem="gkx-Xr-uMw" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leadingMargin" constant="-4" id="MlD-Ax-KWO"/>
+                    <constraint firstItem="gkx-Xr-uMw" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="topMargin" constant="4" id="Q6K-zK-tGU"/>
+                    <constraint firstItem="xbh-xL-uwB" firstAttribute="top" secondItem="AbO-TJ-R3A" secondAttribute="bottom" constant="16" id="StT-6B-Diu"/>
+                    <constraint firstItem="YGA-Wt-Wh7" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="topMargin" constant="4" id="XnA-0n-61J"/>
+                    <constraint firstItem="B9y-zB-F47" firstAttribute="trailing" secondItem="YTl-1W-gDM" secondAttribute="trailingMargin" constant="4" id="c2Z-gk-fSN"/>
+                    <constraint firstItem="Qu4-nQ-ysD" firstAttribute="leading" secondItem="AbO-TJ-R3A" secondAttribute="trailing" constant="12" id="hpg-jv-wUb"/>
+                    <constraint firstItem="AbO-TJ-R3A" firstAttribute="leading" secondItem="gkx-Xr-uMw" secondAttribute="trailing" constant="4" id="lX0-hN-jJK"/>
+                    <constraint firstItem="vt1-B1-ZAC" firstAttribute="trailing" secondItem="YTl-1W-gDM" secondAttribute="trailingMargin" id="mtt-UU-3Kg"/>
+                    <constraint firstItem="xbh-xL-uwB" firstAttribute="leading" secondItem="gkx-Xr-uMw" secondAttribute="trailing" constant="4" id="qox-rZ-Zlz"/>
+                    <constraint firstItem="Qu4-nQ-ysD" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="topMargin" constant="4" id="zVU-8s-Oeb"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="9C8-6p-8uS"/>
+                        <exclude reference="MlD-Ax-KWO"/>
+                        <exclude reference="MJ6-ig-YJL"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="BreedLabel" destination="AbO-TJ-R3A" id="name-outlet-AbO-TJ-R3A"/>
+                <outlet property="BunnyImage" destination="gkx-Xr-uMw" id="name-outlet-gkx-Xr-uMw"/>
+                <outlet property="BuyBtn" destination="B9y-zB-F47" id="name-outlet-B9y-zB-F47"/>
+                <outlet property="EyeColorLabel" destination="oc1-BH-9Kp" id="name-outlet-oc1-BH-9Kp"/>
+                <outlet property="FurColorLabel" destination="xbh-xL-uwB" id="name-outlet-xbh-xL-uwB"/>
+                <outlet property="GenderLabel" destination="Qu4-nQ-ysD" id="name-outlet-Qu4-nQ-ysD"/>
+                <outlet property="PriceLabel" destination="vt1-B1-ZAC" id="name-outlet-vt1-B1-ZAC"/>
+            </connections>
+            <point key="canvasLocation" x="576" y="400"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="bunny.png" width="512" height="512"/>
+        <image name="carrot.png" width="512" height="512"/>
+    </resources>
+</document>

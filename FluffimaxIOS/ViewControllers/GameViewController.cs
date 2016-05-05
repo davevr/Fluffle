@@ -5,7 +5,7 @@ using CoreGraphics;
 using Fluffimax.Core;
 using System.Timers;
 
-namespace Fluffimax
+namespace Fluffimax.iOS
 {
 	public partial class GameViewController : UIViewController
 	{
@@ -13,14 +13,14 @@ namespace Fluffimax
 		private List<BunnyGraphic> _bunnyGraphicList = new List<BunnyGraphic> ();
 		private static int _bunSizePerLevel = 32;
 		private static int kBunnyHopChance = 90;
-		private static int kVerticalHopMin = 16;
+		private static int kVerticalHopMin = 8;
 		private static int kHorizontalHopMin = 16;
 		private static int kVerticalHopMax = 32;
-		private static int kHorizontalHopMax = 32;
-		private static int kMinWidth = -100;
+		private static int kHorizontalHopMax = 64;
+		private static int kMinWidth = -200;
 		private static int kMinHeight = -100;
-		private static int kMaxWidth = 100;
-		private static int kMaxHeight = 100;
+		private static int kMaxWidth = 200;
+		private static int kMaxHeight = 400;
 		private Bunny _currentBuns = null;
 		private Timer _idleTimer = new Timer ();
 
@@ -61,6 +61,39 @@ namespace Fluffimax
 			SellBunnyBtn.TouchUpInside += (object sender, EventArgs e) => {
 				// todo
 			};
+
+			BuyBunnyBtn.TouchUpInside += (object sender, EventArgs e) => {
+				NavController.PushViewController(new BunnyShopViewController(), true);
+			};
+
+			BuyCarrotsBtn.TouchUpInside += (object sender, EventArgs e) => {
+				NavController.PushViewController(new CarrotShopViewController(), true);
+			};
+		}
+
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+			NavController.NavigationBarHidden = true;
+			UpdateScore ();
+			CheckForNewBunnies ();
+		}
+
+		private void CheckForNewBunnies() {
+			if (Game.CurrentPlayer.RecentlyPurchased) {
+				// more bunnies have been bought - add them if needed
+				foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies) {
+					if (_bunnyGraphicList.Find (b => b.LinkedBuns == curBunny) == null) {
+						AddBunnyToScreen (curBunny);
+					}
+				}
+			}
+		}
+
+		protected UINavigationController NavController { 
+			get {
+				return (UIApplication.SharedApplication.Delegate as AppDelegate).NavController;
+			} 
 		}
 
 
@@ -215,6 +248,8 @@ namespace Fluffimax
 					BunnyNameLabel.Text = _currentBuns.BunnyName;
 					BunnyBreedLabel.Text = _currentBuns.BunnyBreed;
 					BunnyGenderLabel.Text = _currentBuns.Gender;
+					FurColorLabel.Text = _currentBuns.FurColor;
+					EyeColorLabel.Text = _currentBuns.EyeColor;
 					SizeCount.Text = _currentBuns.BunnySize.ToString();
 					ProgressCount.Text = String.Format("{0}/{1}", _currentBuns.FeedState,_currentBuns.CarrotsForNextSize(_currentBuns.BunnySize));
 				});
@@ -249,7 +284,12 @@ namespace Fluffimax
 			if ((_bunnyGraphicList.Count > 0) && (Game.Rnd.Next (100) < kBunnyHopChance)) {
 				int whichBunny = Game.Rnd.Next (_bunnyGraphicList.Count);
 				BunnyGraphic bunsGraphic = _bunnyGraphicList [whichBunny];
-				DoBunnyHop (bunsGraphic);
+				if ((bunsGraphic.LinkedBuns == _currentBuns) && givingCarrot) {
+					// don't jump when eating
+					_idleTimer.Start ();
+				} else 
+					DoBunnyHop (bunsGraphic);
+
 			} else {
 				_idleTimer.Start ();
 			}
@@ -319,7 +359,28 @@ namespace Fluffimax
 				SetBunnyIdleGraphic (buns);
 				buns.LinkedBuns.UpdateLocation(newX, newY);
 				_idleTimer.Start();
+				CheckBunnyBreeding();
 			});
+		}
+
+		private void CheckBunnyBreeding() {
+			if (_bunnyGraphicList.Count > 1) {
+				for (int i = 0; i < _bunnyGraphicList.Count - 1; i++) {
+					BunnyGraphic firstBuns = _bunnyGraphicList [i];
+					for (int j = 1; j < _bunnyGraphicList.Count; j++) {
+						BunnyGraphic secondBuns = _bunnyGraphicList [j];
+
+						if (firstBuns.Button.Frame.IntersectsWith (secondBuns.Button.Frame)) {
+							Bunny newBuns = Bunny.BreedBunnies (firstBuns.LinkedBuns, secondBuns.LinkedBuns);
+							if (newBuns != null) {
+								Game.CurrentPlayer.Bunnies.Add (newBuns);
+								AddBunnyToScreen (newBuns);
+								return;
+							}
+						}
+					}
+				}
+			}
 		}
 
 		private void SetBunnyDirectionGraphic(BunnyGraphic buns, int dir) {
@@ -345,6 +406,7 @@ namespace Fluffimax
 		private void UpdateScore() {
 			InvokeOnMainThread (() => {
 				CarrotCount.Text = Game.CurrentPlayer.CarrotCount.ToString();
+
 			});
 		}
 
@@ -354,13 +416,13 @@ namespace Fluffimax
 				givingCarrot = true;
 				// ok give one
 				InvokeOnMainThread (() => {
+					FeedBunnyBtn.Enabled = false;
 					CarrotImg.Hidden = false;
+					UpdateScore();
 				});
 
 				bool grew = Game.CurrentPlayer.FeedBunny(theBuns);
 				AnimateBunsSizeAndLocation (theBuns, grew);
-
-				UpdateScore ();
 
 			}
 		}
@@ -387,6 +449,7 @@ namespace Fluffimax
 					InvokeOnMainThread(() => {
 						CSCarrotX.Constant = oldX;
 						CSCarrotY.Constant = oldY;
+						CarrotImg.Hidden = true;
 						View.LayoutIfNeeded();
 
 						UIView.Animate (duration, () => {
@@ -396,7 +459,9 @@ namespace Fluffimax
 						}, () => {
 							InvokeOnMainThread(() => {
 								UpdateBunsSizeAndLocation(thebuns);
+								UpdateBunnyPanel(); 
 								givingCarrot = false;
+								FeedBunnyBtn.Enabled = true;
 							});
 						});
 
