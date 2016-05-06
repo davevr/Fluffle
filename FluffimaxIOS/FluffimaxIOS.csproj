@@ -85,6 +85,10 @@
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\bunny_180.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\bunny_120.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\bunny_114.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\bunny_57.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
@@ -154,7 +158,16 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\carrot.png" />
-    <BundleResource Include="Resources\bunny.png" />
+    <BundleResource Include="Resources\bunny_downleft.png" />
+    <BundleResource Include="Resources\bunny_down.png" />
+    <BundleResource Include="Resources\bunny_downright.png" />
+    <BundleResource Include="Resources\bunny_right.png" />
+    <BundleResource Include="Resources\bunny_upright.png" />
+    <BundleResource Include="Resources\bunny_up.png" />
+    <BundleResource Include="Resources\bunny_upleft.png" />
+    <BundleResource Include="Resources\bunny_left.png" />
+    <BundleResource Include="Resources\bunny_back.png" />
+    <BundleResource Include="Resources\bunny_front.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="servicestacktext">

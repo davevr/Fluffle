@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleName</key>
-	<string>Fluffimax</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.eweware.fluffimax</string>
 	<key>CFBundleShortVersionString</key>
@@ -43,5 +41,7 @@
 	<false/>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>CFBundleName</key>
+	<string>Fluffle</string>
 </dict>
 </plist>
