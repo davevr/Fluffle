@@ -36,13 +36,15 @@ namespace Fluffimax.Core
 			_feedState = 0;
 			_size = 1;
 			_price = 0;
-			_lastBred = DateTime.Now;
+			_lastBred = DateTime.Now.AddDays (-5);
 			BunnyName = "Flopsy #" + _id.ToString();
 
 			if (Game.Rnd.Next (100) < kBoyChance)
 				_gender = "boy";
 			else
 				_gender = "girl";
+
+			_childList = new List<long> ();
 		}
 
 		public void UpdateLocation(int xLoc, int yLoc) {
@@ -241,8 +243,13 @@ namespace Fluffimax.Core
 					else
 						babyBuns._eyeColor = dadBuns.EyeColor;
 
-					babyBuns._motherId = momBuns._id;
-					babyBuns._fatherId = dadBuns._id;
+					if (dadBuns.Gender == "boy") {
+						babyBuns._motherId = momBuns._id;
+						babyBuns._fatherId = dadBuns._id;
+					} else {
+						babyBuns._motherId = dadBuns._id;
+						babyBuns._fatherId = momBuns._id;
+					}
 					momBuns._childList.Add (babyBuns._id);
 					dadBuns._childList.Add (babyBuns._id);
 					dadBuns._lastBred = DateTime.Now;

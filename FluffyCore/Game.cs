@@ -8,7 +8,7 @@ namespace Fluffimax.Core
 	public class Game
 	{
 		public static int kInitialCarrots = 250;
-		public static int kBreedChance = 10;
+		public static int kBreedChance = 100;
 
 		private static Player _player;
 		private static List<Bunny>	_bunnyStore = new List<Bunny> ();

@@ -22,6 +22,7 @@ namespace Fluffimax.iOS
 		private static int kMaxWidth = 150;
 		private static int kMaxHeight = 200;
 		private Bunny _currentBuns = null;
+		private bool inited = false;
 		private Timer _idleTimer = new Timer ();
 
 		private class BunnyGraphic
@@ -44,13 +45,11 @@ namespace Fluffimax.iOS
 			base.ViewDidLoad ();
 			// Perform any additional setup after loading the view, typically from a nib
 
-			InitGame();
 			UITapGestureRecognizer tapGesture = new UITapGestureRecognizer (() => {
-				//SetCurrentBunny(null);
+				SetCurrentBunny(null);
 			});
 			tapGesture.NumberOfTapsRequired = 1;
-
-			View.AddGestureRecognizer (tapGesture);
+			GrassField.AddGestureRecognizer (tapGesture);
 			BunnyDetailView.Hidden = true;
 
 			FeedBunnyBtn.TouchUpInside += (object sender, EventArgs e) => {
@@ -69,13 +68,46 @@ namespace Fluffimax.iOS
 			BuyCarrotsBtn.TouchUpInside += (object sender, EventArgs e) => {
 				NavController.PushViewController(new CarrotShopViewController(), true);
 			};
+
+			UITapGestureRecognizer renameTap = new UITapGestureRecognizer (() => {
+				ShowRenameBunny();
+			});
+			renameTap.NumberOfTapsRequired = 1;
+
+			BunnyNameLabel.AddGestureRecognizer (renameTap);
+
+		}
+
+		public void ShowRenameBunny() {
+			UIAlertView alert = new UIAlertView();
+			alert.Title = "Rename Bunny";
+			alert.AddButton("OK");
+			alert.AddButton("Cancel");
+			alert.Message = "What do you want to name this cute bunny?";
+			alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
+			alert.Clicked += (object s, UIButtonEventArgs ev) =>
+			{
+				if(ev.ButtonIndex ==0)
+				{
+					string input = alert.GetTextField(0).Text;
+					_currentBuns.BunnyName = input;
+					UpdateBunnyPanel();
+				}
+			};
+			alert.Show();
+
 		}
 
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
+			BunnyNameLabel.UserInteractionEnabled = true;
+			GrassField.UserInteractionEnabled = true;
 			NavController.NavigationBarHidden = true;
+			InitGame();
+
 			UpdateScore ();
+
 			CheckForNewBunnies ();
 		}
 
@@ -144,7 +176,7 @@ namespace Fluffimax.iOS
 			bunsBtn.TouchUpInside += HandleBunnyClick;
 			View.UpdateConstraints ();
 			UpdateBunsSizeAndLocation (thebuns);
-
+			View.BringSubviewToFront (bunsBtn);
 
 			return bunsBtn;
 		}
@@ -187,17 +219,19 @@ namespace Fluffimax.iOS
 		}
 
 		private void InitGame() {
-			InvokeOnMainThread (() => {
-				CarrotImg.Hidden = true;
-				// ad bunnies
-				foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies) {
-					AddBunnyToScreen(curBunny);
-				}
-				HideBunnyPanel();
-				UpdateScore();
-				StartTimers();
-
-			});
+			if (!inited) {
+				InvokeOnMainThread (() => {
+					CarrotImg.Hidden = true;
+					// ad bunnies
+					foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies) {
+						AddBunnyToScreen (curBunny);
+					}
+					HideBunnyPanel ();
+					UpdateScore ();
+					StartTimers ();
+					inited = true;
+				});
+			}
 		}
 
 		private void SetCurrentBunny(Bunny newBuns) {

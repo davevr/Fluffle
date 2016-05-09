@@ -76,6 +76,10 @@ namespace Fluffimax.iOS
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
+		UIImageView GrassField { get; set; }
+
+		[Outlet]
+		[GeneratedCode ("iOS Designer", "1.0")]
 		UILabel ProgressCount { get; set; }
 
 		[Outlet]
@@ -147,6 +151,10 @@ namespace Fluffimax.iOS
 			if (FurColorLabel != null) {
 				FurColorLabel.Dispose ();
 				FurColorLabel = null;
+			}
+			if (GrassField != null) {
+				GrassField.Dispose ();
+				GrassField = null;
 			}
 			if (ProgressCount != null) {
 				ProgressCount.Dispose ();

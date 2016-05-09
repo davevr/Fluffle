@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using UIKit;
+using HockeyApp;
 
 namespace Fluffimax.iOS
 {
@@ -23,6 +24,10 @@ namespace Fluffimax.iOS
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
+			var manager = BITHockeyManager.SharedHockeyManager;
+			manager.Configure("ab076f11566a4a6c94f870ca7f143ef5");
+			manager.StartManager();
+
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);

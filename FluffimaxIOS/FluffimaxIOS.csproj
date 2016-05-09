@@ -39,8 +39,11 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchUseSGen>true</MtouchUseSGen>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution: eweware, inc. (E3T6HDCQT8)</CodesignKey>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <CodesignProvision>616f9263-90dc-4b27-ad7b-74705f337154</CodesignProvision>
+    <IpaPackageName>
+    </IpaPackageName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -81,6 +84,9 @@
     <Reference Include="Xamarin.iOS" />
     <Reference Include="ServiceStack.Text.XamarinIOS">
       <HintPath>..\Components\servicestacktext-3.9.61.3\lib\ios-unified\ServiceStack.Text.XamarinIOS.dll</HintPath>
+    </Reference>
+    <Reference Include="HockeySDK">
+      <HintPath>..\Components\hockeyappios-4.1.0\lib\ios-unified\HockeySDK.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -168,10 +174,16 @@
     <BundleResource Include="Resources\bunny_left.png" />
     <BundleResource Include="Resources\bunny_back.png" />
     <BundleResource Include="Resources\bunny_front.png" />
+    <BundleResource Include="Resources\bunny.png" />
+    <BundleResource Include="Resources\grass.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="servicestacktext">
       <Version>3.9.61.3</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="hockeyappios">
+      <Version>4.1.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
