@@ -15,80 +15,68 @@ namespace Fluffimax.iOS
 	partial class GameViewController
 	{
 		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel BunnyBreedLabel { get; set; }
+		UIKit.UILabel BunnyBreedLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIView BunnyDetailView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel BunnyGenderLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel BunnyNameLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIButton BuyBunnyBtn { get; set; }
+
+		[Outlet]
+		UIKit.UIButton BuyCarrotsBtn { get; set; }
+
+		[Outlet]
+		UIKit.UILabel CarrotCount { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView CarrotImg { get; set; }
+
+		[Outlet]
+		UIKit.NSLayoutConstraint CSCarrotHeight { get; set; }
+
+		[Outlet]
+		UIKit.NSLayoutConstraint CSCarrotWidth { get; set; }
+
+		[Outlet]
+		UIKit.NSLayoutConstraint CSCarrotX { get; set; }
+
+		[Outlet]
+		UIKit.NSLayoutConstraint CSCarrotY { get; set; }
+
+		[Outlet]
+		UIKit.UILabel EyeColorLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIButton FeedBunnyBtn { get; set; }
+
+		[Outlet]
+		UIKit.UILabel FurColorLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIButton GiveBtn { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView GrassField { get; set; }
+
+		[Outlet]
+		UIKit.UILabel ProgressCount { get; set; }
+
+		[Outlet]
+		UIKit.UIButton SellBunnyBtn { get; set; }
+
+		[Outlet]
+		UIKit.UILabel SizeCount { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		UIView BunnyDetailView { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel BunnyGenderLabel { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel BunnyNameLabel { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIButton BuyBunnyBtn { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIButton BuyCarrotsBtn { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel CarrotCount { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIImageView CarrotImg { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		NSLayoutConstraint CSCarrotHeight { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		NSLayoutConstraint CSCarrotWidth { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		NSLayoutConstraint CSCarrotX { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		NSLayoutConstraint CSCarrotY { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel EyeColorLabel { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIButton FeedBunnyBtn { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel FurColorLabel { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIImageView GrassField { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel ProgressCount { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIButton SellBunnyBtn { get; set; }
-
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel SizeCount { get; set; }
+		UIButton CatchBtn { get; set; }
 
 		void ReleaseDesignerOutlets ()
 		{
@@ -124,6 +112,10 @@ namespace Fluffimax.iOS
 				CarrotImg.Dispose ();
 				CarrotImg = null;
 			}
+			if (CatchBtn != null) {
+				CatchBtn.Dispose ();
+				CatchBtn = null;
+			}
 			if (CSCarrotHeight != null) {
 				CSCarrotHeight.Dispose ();
 				CSCarrotHeight = null;
@@ -151,6 +143,10 @@ namespace Fluffimax.iOS
 			if (FurColorLabel != null) {
 				FurColorLabel.Dispose ();
 				FurColorLabel = null;
+			}
+			if (GiveBtn != null) {
+				GiveBtn.Dispose ();
+				GiveBtn = null;
 			}
 			if (GrassField != null) {
 				GrassField.Dispose ();

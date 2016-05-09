@@ -8,6 +8,8 @@ namespace Fluffimax.iOS
 {
 	public partial class HomeViewController : UIViewController
 	{
+		private string RewardString = null;
+
 		public HomeViewController () : base ("HomeViewController", null)
 		{
 		}
@@ -32,7 +34,7 @@ namespace Fluffimax.iOS
 			MoreBunnyBtn.TouchUpInside += (object sender, EventArgs e) => {
 				NavController.PushViewController(new CarrotShopViewController(), true);
 			};
-
+			RewardString = null;
 			ResumeGame ();
 		}
 
@@ -40,14 +42,25 @@ namespace Fluffimax.iOS
 		{
 			base.ViewWillAppear (animated);
 			NavController.NavigationBarHidden = true;
+			if (!string.IsNullOrEmpty(RewardString))
+				ShowReward();
 		}
 
+		private void ShowReward() {
+
+			UIAlertView alert = new UIAlertView ("Welcome Back", RewardString, null, "Great!");
+			alert.Show ();
+
+			RewardString = null;
+		}
 		private void ResumeGame() {
 			Game.InitBunnyStore();
 
 			// load the player
 			if (Game.LoadExistingPlayer ()) {
 				StartBtn.SetTitle ("Resume", UIControlState.Normal);
+				RewardString =  Game.MaybeRewardPlayer ();
+				bool hungryBuns = Game.MaybeStarveBunnies ();
 			} else {
 				// if no player, create one
 				Game.InitGameForNewPlayer ();

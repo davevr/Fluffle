@@ -6,7 +6,7 @@
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProjectGuid>{5241C2E3-F467-467D-845A-C9BA26768A4F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Fluffimax</RootNamespace>
+    <RootNamespace>Fluffimax.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Fluffimax</AssemblyName>
   </PropertyGroup>
@@ -105,6 +105,8 @@
     <InterfaceDefinition Include="ViewControllers\AboutViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\BunnyCamViewController.xib" />
     <InterfaceDefinition Include="Views\BunnyCellView.xib" />
+    <InterfaceDefinition Include="ViewControllers\GiveBunnyViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\CatchBunnyViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -155,6 +157,17 @@
       <DependentUpon>BunnyCellView.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\BunnyShopTableSource.cs" />
+    <Compile Include="..\FluffyCore\Server.cs">
+      <Link>FluffyCore\Server.cs</Link>
+    </Compile>
+    <Compile Include="ViewControllers\GiveBunnyViewController.cs" />
+    <Compile Include="ViewControllers\GiveBunnyViewController.designer.cs">
+      <DependentUpon>GiveBunnyViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\CatchBunnyViewController.cs" />
+    <Compile Include="ViewControllers\CatchBunnyViewController.designer.cs">
+      <DependentUpon>CatchBunnyViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

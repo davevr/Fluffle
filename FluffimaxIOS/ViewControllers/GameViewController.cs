@@ -76,6 +76,14 @@ namespace Fluffimax.iOS
 
 			BunnyNameLabel.AddGestureRecognizer (renameTap);
 
+			GiveBtn.TouchUpInside += (object sender, EventArgs e) => {
+				NavigationController.PushViewController (new GiveBunnyViewController ());
+			};
+
+			CatchBtn.TouchUpInside += (object sender, EventArgs e) => {
+				NavigationController.PushViewController (new CatchBunnyViewController ());
+			};
+
 		}
 
 		public void ShowRenameBunny() {
@@ -431,7 +439,7 @@ namespace Fluffimax.iOS
 						if (firstBuns.Button.Frame.IntersectsWith (secondBuns.Button.Frame)) {
 							Bunny newBuns = Bunny.BreedBunnies (firstBuns.LinkedBuns, secondBuns.LinkedBuns);
 							if (newBuns != null) {
-								Game.CurrentPlayer.Bunnies.Add (newBuns);
+								Game.CurrentPlayer.GetBunny (newBuns);
 								AddBunnyToScreen (newBuns);
 								return;
 							}

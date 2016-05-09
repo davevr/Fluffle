@@ -11,15 +11,17 @@ namespace Fluffimax.Core
 		private int _totalCarrotsFed;
 		private int _totalBunnies;
 		public bool RecentlyPurchased { get; set; }
-		public DateTime ListAwardDate { get; set; }
-		public bool[] RepeatList { get; set; }
+		public DateTime LastAwardDate { get; set; }
+		public List<DateTime> RepeatPlayList { get; set; }
+		public bool FromServer { get; set; }
+		public string ImageURL { get; set; }
 
 		public Player() {
 			_carrotCount = Game.kInitialCarrots;
 			_totalCarrotsFed = 0;
 			_totalBunnies = 0;
 			_bunnies = new List<Bunny> ();
-
+			RepeatPlayList = new List<DateTime> ();
 		}
 
 		public string PlayerName {
@@ -93,6 +95,12 @@ namespace Fluffimax.Core
 			Bunnies.Add (theBuns);
 			_totalBunnies++;
 			return true;
+		}
+
+		private void UpdateBunnyOwnership(Bunny theBuns) {
+			theBuns.CurrentOwner = ID;
+			if (theBuns.OriginalOwner == 0)
+				theBuns.OriginalOwner = ID;
 		}
 
 		public bool SellBunny(Bunny theBuns) {

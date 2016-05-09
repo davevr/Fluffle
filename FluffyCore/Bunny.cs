@@ -21,7 +21,9 @@ namespace Fluffimax.Core
 		private int _xLoc;
 		private int _yLoc;
 		private DateTime _lastBred;
-
+		public long OriginalOwner;
+		public long CurrentOwner;
+		public DateTime LastFeedDate;
 		private int[] _growthStages = new int[] {1, 10,50,100,200,300,500,750,1000,1250,1500,1750,2000,2500,3000,3500,5000,7500,10000};
 
 		private static string[] _breeds = new string[] {"lop", "mini-lop", "flemish giant"};
@@ -38,6 +40,7 @@ namespace Fluffimax.Core
 			_price = 0;
 			_lastBred = DateTime.Now.AddDays (-5);
 			BunnyName = "Flopsy #" + _id.ToString();
+			LastFeedDate = Game.Today;
 
 			if (Game.Rnd.Next (100) < kBoyChance)
 				_gender = "boy";
@@ -144,11 +147,12 @@ namespace Fluffimax.Core
 				_size++;
 				leveledUp = true;
 			}
+			LastFeedDate = Game.Today;
 			return leveledUp;
 		}
 
-		public void StarveBunny() {
-			_feedState--;
+		public void StarveBunny(int numDays) {
+			_feedState -= numDays;
 			if (_feedState < 0)
 				_feedState = 0;
 		}
