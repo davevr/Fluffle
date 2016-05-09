@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using RestSharp;
 using ServiceStack.Text;
+using System.Net;
 
 namespace Fluffimax.Core
 {
@@ -9,18 +10,27 @@ namespace Fluffimax.Core
 	{
 		public delegate void Player_callback(Player theResult);
 		public delegate void BunnyList_callback(List<Bunny> theResult);
+		public delegate void string_callback(string theResult);
+		public delegate void bool_callback(bool theResult);
+		public delegate void Bunny_callback(Bunny theResult);
 
 		private static RestClient apiClient;
 		private static string localHostStr = "http://localhost:8080/api/v1";
 		private static string networkHostStr = "http://192.168.0.4:8080/api/v1";
-		private static string productionHostStr = "http://lettuce-1045.appspot.com/api/v1";
-		private string apiPath =   productionHostStr;
-		private string _uploadURL;
-		private string _catchURL;
-		private string _userImageURL;
+		private static string productionHostStr = "http://fluffle-1045.appspot.com/api/v1";
+		private static string apiPath =   localHostStr;
+		private static string _uploadURL;
+		private static string _catchURL;
+		private static string _userImageURL;
 
 		public static void InitServer () {
-			System.Console.WriteLine("Using Production Server");
+			if (apiPath == localHostStr)
+				System.Console.WriteLine("Using Local Server");
+			else if (apiPath == productionHostStr)
+				System.Console.WriteLine("Using Production Server");
+			else if (apiPath == networkHostStr)
+				System.Console.WriteLine("Using LAN Server");
+			
 			apiClient = new RestClient(apiPath);
 			apiClient.CookieContainer = new CookieContainer();
 
@@ -85,18 +95,55 @@ namespace Fluffimax.Core
 				});
 		}
 
-		public static void FetchStore(Player curPlayer, BunnyList_callback callback)
+		public static void FetchStore(BunnyList_callback callback)
 		{
 			string fullURL = "store";
 
 			RestRequest request = new RestRequest(fullURL, Method.GET);
 
-			apiClient.ExecuteAsync<Player>(request, (response) =>
+			apiClient.ExecuteAsync<List<Bunny>>(request, (response) =>
 				{
 					List<Bunny> bunsList = response.Data;
 					if (bunsList!= null)
 					{
 						callback(bunsList);
+					}
+					else
+						callback(null);
+				});
+		}
+
+		public static void StartToss(Bunny bunsToToss, string_callback callback)
+		{
+			string fullURL = "toss";
+
+			RestRequest request = new RestRequest(fullURL, Method.GET);
+			request.AddParameter ("bunnyid", bunsToToss.ID);
+
+			apiClient.ExecuteAsync(request, (response) =>
+				{
+					String tossURL = response.Content;
+					if (tossURL != null)
+					{
+						callback(tossURL);
+					}
+					else
+						callback(null);
+				});
+		}
+
+		public static void CatchToss(long tossId, Bunny_callback callback)
+		{
+			string fullURL = "catch";
+
+			RestRequest request = new RestRequest(fullURL, Method.POST);
+			request.AddParameter ("tossid", tossId);
+			apiClient.ExecuteAsync<Bunny>(request, (response) =>
+				{
+					Bunny newBuns = response.Data;
+					if (newBuns != null)
+					{
+						callback(newBuns);
 					}
 					else
 						callback(null);

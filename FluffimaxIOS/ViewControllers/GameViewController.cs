@@ -77,11 +77,11 @@ namespace Fluffimax.iOS
 			BunnyNameLabel.AddGestureRecognizer (renameTap);
 
 			GiveBtn.TouchUpInside += (object sender, EventArgs e) => {
-				NavigationController.PushViewController (new GiveBunnyViewController ());
+				NavigationController.PushViewController (new GiveBunnyViewController (), true);
 			};
 
 			CatchBtn.TouchUpInside += (object sender, EventArgs e) => {
-				NavigationController.PushViewController (new CatchBunnyViewController ());
+				NavigationController.PushViewController (new CatchBunnyViewController (), true);
 			};
 
 		}

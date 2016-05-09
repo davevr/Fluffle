@@ -19,6 +19,7 @@ namespace Fluffimax.Core
 
 		public static List<Bunny> BunnyStore {
 			get { return _bunnyStore; }
+			set { _bunnyStore = value; }
 		}
 
 		public static Player CurrentPlayer {
@@ -71,10 +72,12 @@ namespace Fluffimax.Core
 				string fileText = File.ReadAllText(filePath);
 				_player = fileText.FromJson<Player>();
 				if (_player != null) {
-					Player serverCopy = Server.LoadPlayer (CurrentPlayer.ID);
-					if (serverCopy != null) {
-						_player = serverCopy;
-					}
+					Server.LoadPlayer (CurrentPlayer.ID, (serverCopy) => {
+						if (serverCopy != null) {
+							_player = serverCopy;
+						}
+					});
+
 					didIt = true;
 				}
 			}
@@ -131,7 +134,9 @@ namespace Fluffimax.Core
 				Environment.GetFolderPath (Environment.SpecialFolder.Personal), "BunnyPlayer.json");
 			System.IO.File.WriteAllText (filePath, jsonString);
 
-			Server.SavePlayer(CurrentPlayer);
+			Server.SavePlayer(CurrentPlayer, (savedPlayer) => {
+				//todo: save player
+			});
 
 			return true;
 		}
