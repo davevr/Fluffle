@@ -1,4 +1,4 @@
-﻿// WARNING
+// WARNING
 //
 // This file has been generated automatically by Xamarin Studio from the outlets and
 // actions declared in your storyboard file.
@@ -9,14 +9,48 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace Fluffimax
+namespace Fluffimax.iOS
 {
 	[Register ("GiveBunnyViewController")]
 	partial class GiveBunnyViewController
 	{
+		[Outlet]
+		UILabel BunnyInfoLabel { get; set; }
+
+		[Outlet]
+		UILabel BunnyNameLabel { get; set; }
+
+		[Outlet]
+		UIButton DoneBtn { get; set; }
+
+		[Outlet]
+		UILabel TitleLabel { get; set; }
+
+		[Outlet]
+		UIImageView TossImageView { get; set; }
+
 		void ReleaseDesignerOutlets ()
 		{
+			if (BunnyInfoLabel != null) {
+				BunnyInfoLabel.Dispose ();
+				BunnyInfoLabel = null;
+			}
+			if (BunnyNameLabel != null) {
+				BunnyNameLabel.Dispose ();
+				BunnyNameLabel = null;
+			}
+			if (DoneBtn != null) {
+				DoneBtn.Dispose ();
+				DoneBtn = null;
+			}
+			if (TitleLabel != null) {
+				TitleLabel.Dispose ();
+				TitleLabel = null;
+			}
+			if (TossImageView != null) {
+				TossImageView.Dispose ();
+				TossImageView = null;
+			}
 		}
 	}
 }
-

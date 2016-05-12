@@ -43,7 +43,7 @@ namespace Fluffimax.iOS
 
 		private void UpdateCarrotCount() {
 			BeginInvokeOnMainThread(() => {
-				CarrotCountLabel.Text = String.Format("You have {0} carrots", Game.CurrentPlayer.CarrotCount);
+				CarrotCountLabel.Text = String.Format("You have {0} carrots", Game.CurrentPlayer.carrotCount);
 			});
 		}
 
@@ -60,7 +60,7 @@ namespace Fluffimax.iOS
 		}
 
 		public void MaybeBuyBunny(Bunny theBuns) {
-			if (Game.CurrentPlayer.CarrotCount >= theBuns.Price) {
+			if (Game.CurrentPlayer.carrotCount >= theBuns.Price) {
 				pendingBunny = theBuns;
 				UIAlertView confirmView = new UIAlertView ("Confirm Purchase", String.Format ("Are you sure you want to buy this bunny for {0} carrots?", theBuns.Price),
 					                          buyDelegate, "never mind", new string[] {"Buy!"});

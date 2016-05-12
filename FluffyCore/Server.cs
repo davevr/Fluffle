@@ -13,6 +13,7 @@ namespace Fluffimax.Core
 		public delegate void string_callback(string theResult);
 		public delegate void bool_callback(bool theResult);
 		public delegate void Bunny_callback(Bunny theResult);
+		public delegate void TossRecord_callback(TossRecord theResult);
 
 		private static RestClient apiClient;
 		private static string localHostStr = "http://localhost:8080/api/v1";
@@ -35,6 +36,27 @@ namespace Fluffimax.Core
 			apiClient.CookieContainer = new CookieContainer();
 
 			// todo:  other init, if any
+		}
+
+		public static void Login(string username, string pwd, Player_callback callback) {
+			string fullURL = "login";
+
+			RestRequest request = new RestRequest(fullURL, Method.POST);
+			if (!String.IsNullOrEmpty(username))
+				request.AddParameter ("username", username);
+			if (!String.IsNullOrEmpty(pwd))
+				request.AddParameter ("pwd", pwd);
+
+			apiClient.ExecuteAsync<Player>(request, (response) =>
+				{
+					Player newUser = response.Data;
+					if (newUser!= null)
+					{
+						callback(newUser);
+					}
+					else
+						callback(null);
+				});
 		}
 
 		public static void CreatePlayer(Player_callback callback)
@@ -113,42 +135,48 @@ namespace Fluffimax.Core
 				});
 		}
 
-		public static void StartToss(Bunny bunsToToss, string_callback callback)
+		public static void StartToss(long bunnyId, int price, TossRecord_callback callback)
 		{
 			string fullURL = "toss";
 
-			RestRequest request = new RestRequest(fullURL, Method.GET);
-			request.AddParameter ("bunnyid", bunsToToss.ID);
+			RestRequest request = new RestRequest(fullURL, Method.POST);
+			request.AddParameter("bunny", bunnyId);
+			request.AddParameter("price", price);
 
-			apiClient.ExecuteAsync(request, (response) =>
+			apiClient.ExecuteAsync<TossRecord>(request, (response) =>
 				{
-					String tossURL = response.Content;
-					if (tossURL != null)
-					{
-						callback(tossURL);
-					}
-					else
-						callback(null);
+					callback(response.Data);
 				});
 		}
 
-		public static void CatchToss(long tossId, Bunny_callback callback)
+		public static void CatchToss(long tossid, Bunny_callback callback)
 		{
-			string fullURL = "catch";
+			var request = new RestRequest("", Method.POST);
+			request.AddParameter("toss", tossid);
 
-			RestRequest request = new RestRequest(fullURL, Method.POST);
-			request.AddParameter ("tossid", tossId);
+
 			apiClient.ExecuteAsync<Bunny>(request, (response) =>
 				{
-					Bunny newBuns = response.Data;
-					if (newBuns != null)
-					{
-						callback(newBuns);
-					}
-					else
-						callback(null);
+					callback(response.Data);
 				});
 		}
+
+		public static void GetTossStatus(long tossId, TossRecord_callback callback)
+		{
+			string fullURL = "toss/status";
+
+			RestRequest request = new RestRequest(fullURL, Method.GET);
+			request.AddParameter("toss", tossId);
+
+			apiClient.ExecuteAsync<TossRecord>(request, (response) =>
+				{
+					callback(response.Data);
+				});
+
+		}
+
+
+
 
 	}
 }

@@ -75,7 +75,7 @@ namespace Fluffimax.iOS
 
 		private void UpdateTextLabels() {
 			InvokeOnMainThread (() => {
-				CurrentCarrotLabel.Text = String.Format("you have {0} carrots", Game.CurrentPlayer.CarrotCount);
+				CurrentCarrotLabel.Text = String.Format("you have {0} carrots", Game.CurrentPlayer.carrotCount);
 			});
 		}
 

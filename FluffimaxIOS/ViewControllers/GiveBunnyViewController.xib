@@ -1,62 +1,137 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GiveBunnyViewController">
             <connections>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+                <outlet property="TossImageView" destination="3nc-6U-uzi" id="name-outlet-3nc-6U-uzi"/>
+                <outlet property="DoneBtn" destination="rae-JT-Lok" id="name-outlet-rae-JT-Lok"/>
+                <outlet property="TitleLabel" destination="Q7U-5r-DhT" id="name-outlet-Q7U-5r-DhT"/>
+                <outlet property="BunnyNameLabel" destination="0yy-A2-Dej" id="name-outlet-0yy-A2-Dej"/>
+                <outlet property="BunnyInfoLabel" destination="iQ2-b1-5Rc" id="name-outlet-iQ2-b1-5Rc"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="2">
             <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Giving a bunny!" lineBreakMode="tailTruncation" minimumFontSize="10" id="5" translatesAutoresizingMaskIntoConstraints="NO" textAlignment="center">
-                    <rect key="frame" x="162" y="274" width="42" height="21"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rae-JT-Lok">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <state key="normal" title="Done"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free to Good Home" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7U-5r-DhT">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
-                    <variation key="widthClass=compact">
-                        <rect key="frame" x="30" y="275" width="350" height="20.5"/>
-                    </variation>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flopsy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0yy-A2-Dej">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Male" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQ2-b1-5Rc">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3nc-6U-uzi">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="3nc-6U-uzi" secondAttribute="height" multiplier="1:1" id="Pca-HE-nc9"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Pca-HE-nc9"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact" misplaced="YES">
+                        <mask key="constraints">
+                            <include reference="Pca-HE-nc9"/>
+                        </mask>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    </variation>
+                </imageView>
             </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="rae-JT-Lok" secondAttribute="trailing" constant="8" id="092-Gz-5JX"/>
+                <constraint firstItem="Q7U-5r-DhT" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="8" id="184-Rc-RfO"/>
+                <constraint firstItem="rae-JT-Lok" firstAttribute="top" secondItem="3nc-6U-uzi" secondAttribute="bottom" constant="32" id="1jc-1u-NID">
+                    <variation key="widthClass=compact" constant="8"/>
+                </constraint>
+                <constraint firstAttribute="bottom" secondItem="rae-JT-Lok" secondAttribute="bottom" constant="8" id="29h-bE-zdp"/>
+                <constraint firstAttribute="trailing" secondItem="3nc-6U-uzi" secondAttribute="trailing" constant="8" id="Dsd-xn-icw"/>
+                <constraint firstItem="iQ2-b1-5Rc" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="8" id="G1s-OE-eKq"/>
+                <constraint firstAttribute="trailing" secondItem="0yy-A2-Dej" secondAttribute="trailing" constant="8" id="MUe-2a-M5B"/>
+                <constraint firstItem="rae-JT-Lok" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="8" id="NpR-U5-w7I"/>
+                <constraint firstItem="iQ2-b1-5Rc" firstAttribute="top" secondItem="0yy-A2-Dej" secondAttribute="bottom" id="TGA-vH-Kfi"/>
+                <constraint firstItem="0yy-A2-Dej" firstAttribute="top" secondItem="Q7U-5r-DhT" secondAttribute="bottom" constant="8" id="Wz3-F8-BRF"/>
+                <constraint firstAttribute="trailing" secondItem="iQ2-b1-5Rc" secondAttribute="trailing" constant="8" id="iqS-zU-aPM"/>
+                <constraint firstItem="3nc-6U-uzi" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="8" id="mYI-kK-KGa"/>
+                <constraint firstItem="Q7U-5r-DhT" firstAttribute="top" secondItem="2" secondAttribute="top" constant="8" id="od4-ip-8Pn"/>
+                <constraint firstAttribute="trailing" secondItem="Q7U-5r-DhT" secondAttribute="trailing" constant="8" id="wzm-Xv-09V"/>
+                <constraint firstItem="0yy-A2-Dej" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="8" id="xZQ-m8-zLz"/>
+            </constraints>
             <variation key="default">
                 <mask key="subviews">
-                    <exclude reference="5"/>
+                    <exclude reference="rae-JT-Lok"/>
+                    <exclude reference="Q7U-5r-DhT"/>
+                    <exclude reference="0yy-A2-Dej"/>
+                    <exclude reference="iQ2-b1-5Rc"/>
+                    <exclude reference="3nc-6U-uzi"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="6"/>
-                    <exclude reference="7"/>
-                    <exclude reference="8"/>
-                    <exclude reference="9"/>
+                    <exclude reference="184-Rc-RfO"/>
+                    <exclude reference="od4-ip-8Pn"/>
+                    <exclude reference="wzm-Xv-09V"/>
+                    <exclude reference="MUe-2a-M5B"/>
+                    <exclude reference="Wz3-F8-BRF"/>
+                    <exclude reference="xZQ-m8-zLz"/>
+                    <exclude reference="G1s-OE-eKq"/>
+                    <exclude reference="TGA-vH-Kfi"/>
+                    <exclude reference="iqS-zU-aPM"/>
+                    <exclude reference="Dsd-xn-icw"/>
+                    <exclude reference="mYI-kK-KGa"/>
+                    <exclude reference="092-Gz-5JX"/>
+                    <exclude reference="1jc-1u-NID"/>
+                    <exclude reference="29h-bE-zdp"/>
+                    <exclude reference="NpR-U5-w7I"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
                 <mask key="subviews">
-                    <include reference="5"/>
+                    <include reference="rae-JT-Lok"/>
+                    <include reference="Q7U-5r-DhT"/>
+                    <include reference="0yy-A2-Dej"/>
+                    <include reference="iQ2-b1-5Rc"/>
+                    <include reference="3nc-6U-uzi"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="6"/>
-                    <include reference="7"/>
-                    <include reference="8"/>
-                    <include reference="9"/>
+                    <include reference="184-Rc-RfO"/>
+                    <include reference="od4-ip-8Pn"/>
+                    <include reference="wzm-Xv-09V"/>
+                    <include reference="MUe-2a-M5B"/>
+                    <include reference="Wz3-F8-BRF"/>
+                    <include reference="xZQ-m8-zLz"/>
+                    <include reference="G1s-OE-eKq"/>
+                    <include reference="TGA-vH-Kfi"/>
+                    <include reference="iqS-zU-aPM"/>
+                    <include reference="Dsd-xn-icw"/>
+                    <include reference="mYI-kK-KGa"/>
+                    <include reference="092-Gz-5JX"/>
+                    <include reference="1jc-1u-NID"/>
+                    <include reference="29h-bE-zdp"/>
+                    <include reference="NpR-U5-w7I"/>
                 </mask>
             </variation>
-            <constraints>
-                <constraint id="6" firstItem="5" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" constant="5">
-                    <variation key="widthClass=compact"/>
-                </constraint>
-                <constraint id="7" firstItem="2" firstAttribute="centerY" secondItem="5" secondAttribute="centerY" constant="15"/>
-                <constraint id="8" firstItem="2" firstAttribute="trailing" secondItem="5" secondAttribute="trailing" constant="20">
-                    <variation key="widthClass=compact"/>
-                </constraint>
-                <constraint id="9" firstItem="5" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="30"/>
-            </constraints>
         </view>
     </objects>
     <resources>

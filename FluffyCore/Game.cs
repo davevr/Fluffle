@@ -14,7 +14,7 @@ namespace Fluffimax.Core
 		private static List<Bunny>	_bunnyStore = new List<Bunny> ();
 		public static Random Rnd = new Random();
 		public static Boolean IsNewGame { get; set; }
-
+		public static long CurrentTossId { get; set; }
 
 
 		public static List<Bunny> BunnyStore {
@@ -38,7 +38,7 @@ namespace Fluffimax.Core
 		}
 
 		public static void InitGameForNewPlayer() {
-			Server.CreatePlayer ((newPlayer) => {
+			Server.Login (null, null, (newPlayer) => {
 				if (newPlayer != null)
 					_player = newPlayer;
 				else {
@@ -47,7 +47,7 @@ namespace Fluffimax.Core
 					Bunny startBunny = Bunny.MakeRandomBunny ();
 					_player.GetBunny (startBunny);
 					DateTime theDate = Today;
-					_player.LastAwardDate = theDate;
+					_player.lastAwardDate = theDate;
 					_player.RepeatPlayList = new List<DateTime> ();
 					_player.FromServer = false;
 				}
@@ -72,7 +72,7 @@ namespace Fluffimax.Core
 				string fileText = File.ReadAllText(filePath);
 				_player = fileText.FromJson<Player>();
 				if (_player != null) {
-					Server.LoadPlayer (CurrentPlayer.ID, (serverCopy) => {
+					Server.LoadPlayer (CurrentPlayer.id, (serverCopy) => {
 						if (serverCopy != null) {
 							_player = serverCopy;
 						}
@@ -89,7 +89,7 @@ namespace Fluffimax.Core
 			string rewardStr = null;
 
 			DateTime curDate = Today;
-			if (_player.LastAwardDate < curDate) {
+			if (_player.lastAwardDate < curDate) {
 				int daysPlayed = 0;
 				// player is eligible for an award
 				_player.RepeatPlayList.Add(curDate);
@@ -101,8 +101,8 @@ namespace Fluffimax.Core
 						daysPlayed++;
 				}
 				int totalReward = _player.Bunnies.Count * daysPlayed;
-				_player.CarrotCount += totalReward;
-				_player.LastAwardDate = curDate;
+				_player.carrotCount += totalReward;
+				_player.lastAwardDate = curDate;
 
 				rewardStr = string.Format ("You've played on {0} of the last 10 days.  You've earned {1} carrots - {0} for each bunny!", daysPlayed, totalReward);
 

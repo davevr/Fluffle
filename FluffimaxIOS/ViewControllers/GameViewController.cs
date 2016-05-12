@@ -471,14 +471,14 @@ namespace Fluffimax.iOS
 
 		private void UpdateScore() {
 			InvokeOnMainThread (() => {
-				CarrotCount.Text = Game.CurrentPlayer.CarrotCount.ToString();
+				CarrotCount.Text = Game.CurrentPlayer.carrotCount.ToString();
 
 			});
 		}
 
 		private void MaybeGiveCarrot(Bunny theBuns) {
 			
-			if ((Game.CurrentPlayer.CarrotCount > 0) && !givingCarrot) {
+			if ((Game.CurrentPlayer.carrotCount > 0) && !givingCarrot) {
 				givingCarrot = true;
 				// ok give one
 				InvokeOnMainThread (() => {

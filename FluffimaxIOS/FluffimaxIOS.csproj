@@ -181,6 +181,9 @@
     <Compile Include="ViewControllers\CatchBunnyViewController.designer.cs">
       <DependentUpon>CatchBunnyViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\FluffyCore\TossRecord.cs">
+      <Link>FluffyCore\TossRecord.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

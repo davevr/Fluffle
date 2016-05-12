@@ -54,6 +54,7 @@ namespace Fluffimax.iOS
 			RewardString = null;
 		}
 		private void ResumeGame() {
+			Server.InitServer();
 			Game.InitBunnyStore();
 
 			// load the player
