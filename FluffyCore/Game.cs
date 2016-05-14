@@ -37,7 +37,7 @@ namespace Fluffimax.Core
 				}});
 		}
 
-		public static void InitGameForNewPlayer() {
+		public static void InitGameForNewPlayer(Player_callback callback) {
 			Server.Login (null, null, (newPlayer) => {
 				if (newPlayer != null)
 					_player = newPlayer;
@@ -51,6 +51,7 @@ namespace Fluffimax.Core
 					_player.RepeatPlayList = new List<DateTime> ();
 					_player.FromServer = false;
 				}
+				callback(_player);
 			});
 		}
 
@@ -62,7 +63,7 @@ namespace Fluffimax.Core
 			}
 		}
 
-		public static bool LoadExistingPlayer() {
+		public static void LoadExistingPlayer(Player_callback callback) {
 			bool didIt = false;
 
 			string filePath = Path.Combine (
@@ -75,14 +76,22 @@ namespace Fluffimax.Core
 					Server.LoadPlayer (CurrentPlayer.id, (serverCopy) => {
 						if (serverCopy != null) {
 							_player = serverCopy;
+							_player.FromServer = true;
+							callback(_player);
+						} else {
+							// player on device doesn't exist on server - delete for now
+							// todo:  figure out correct action
+							_player = null;
+							callback(_player);
 						}
 					});
-
-					didIt = true;
+				} else {
+					// just return local player
+					_player.FromServer = false;
+					callback(_player);
 				}
 			}
 
-			return didIt;
 		}
 
 		public static string MaybeRewardPlayer() {
@@ -126,7 +135,23 @@ namespace Fluffimax.Core
 			return atLeastOne;
 		}
 
-		public static bool SavePlayer() {
+		public static void SavePlayer(bool localOnly = false) {
+
+			if (!localOnly) {
+				// save to server
+				Server.SavePlayer (CurrentPlayer, (SavePlayer) => {
+					SavePlayerLocally();
+
+				});
+			} else {
+				SavePlayerLocally ();
+			}
+
+			// save locally
+
+		}
+
+		private static bool SavePlayerLocally() {
 			bool didIt = false;
 			string jsonString = CurrentPlayer.ToJson ();
 			// save it
@@ -134,9 +159,6 @@ namespace Fluffimax.Core
 				Environment.GetFolderPath (Environment.SpecialFolder.Personal), "BunnyPlayer.json");
 			System.IO.File.WriteAllText (filePath, jsonString);
 
-			Server.SavePlayer(CurrentPlayer, (savedPlayer) => {
-				//todo: save player
-			});
 
 			return true;
 		}

@@ -53,22 +53,26 @@ namespace Fluffimax.iOS
 
 			RewardString = null;
 		}
+
 		private void ResumeGame() {
 			Server.InitServer();
 			Game.InitBunnyStore();
 
 			// load the player
-			if (Game.LoadExistingPlayer ()) {
-				StartBtn.SetTitle ("Resume", UIControlState.Normal);
-				RewardString =  Game.MaybeRewardPlayer ();
-				bool hungryBuns = Game.MaybeStarveBunnies ();
-			} else {
-				// if no player, create one
-				Game.InitGameForNewPlayer ();
-				Console.WriteLine ("player has {0} bunnies", Game.CurrentPlayer.Bunnies.Count);
-				Game.SavePlayer ();
-				StartBtn.SetTitle ("Start", UIControlState.Normal);
-			}
+			Game.LoadExistingPlayer ((curPlayer) => {
+				if (curPlayer != null) {
+					StartBtn.SetTitle ("Resume", UIControlState.Normal);
+					RewardString = Game.MaybeRewardPlayer ();
+				} else {
+					// if no player, create one
+					Game.InitGameForNewPlayer ((newPlayer) => {
+						Game.SavePlayer (true);
+						InvokeOnMainThread (() => {
+							StartBtn.SetTitle ("Start", UIControlState.Normal);
+						});
+					});
+				}
+			});
 		}
 
 		public override void DidReceiveMemoryWarning ()

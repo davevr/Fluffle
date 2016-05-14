@@ -6,14 +6,19 @@ using System.Net;
 
 namespace Fluffimax.Core
 {
+	public delegate void Player_callback(Player theResult);
+	public delegate void BunnyList_callback(List<Bunny> theResult);
+	public delegate void string_callback(string theResult);
+	public delegate void bool_callback(bool theResult);
+	public delegate void Bunny_callback(Bunny theResult);
+	public delegate void TossRecord_callback(TossRecord theResult);
+
 	public class Server
 	{
-		public delegate void Player_callback(Player theResult);
-		public delegate void BunnyList_callback(List<Bunny> theResult);
-		public delegate void string_callback(string theResult);
-		public delegate void bool_callback(bool theResult);
-		public delegate void Bunny_callback(Bunny theResult);
-		public delegate void TossRecord_callback(TossRecord theResult);
+		class TestDate {
+			public DateTime  testDate;
+
+		}
 
 		private static RestClient apiClient;
 		private static string localHostStr = "http://localhost:8080/api/v1";
@@ -25,6 +30,13 @@ namespace Fluffimax.Core
 		private static string _userImageURL;
 
 		public static void InitServer () {
+			JsConfig.DateHandler = JsonDateHandler.ISO8601; 
+			String dateString = "2016-05-13T16:02:47.480-07:00";
+			DateTime theDate = dateString.FromJson<DateTime> ();
+
+			String testStr = "{\"testDate\":\"2016-05-13T16:02:51.923-07:00\"}";
+			TestDate tester = testStr.FromJson<TestDate> ();
+
 			if (apiPath == localHostStr)
 				System.Console.WriteLine("Using Local Server");
 			else if (apiPath == productionHostStr)
