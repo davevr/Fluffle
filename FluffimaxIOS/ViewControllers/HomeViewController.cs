@@ -57,12 +57,15 @@ namespace Fluffimax.iOS
 		private void ResumeGame() {
 			Server.InitServer();
 			Game.InitBunnyStore();
+			Game.InitGrowthChart ();
 
 			// load the player
 			Game.LoadExistingPlayer ((curPlayer) => {
 				if (curPlayer != null) {
+					InvokeOnMainThread (() => {
 					StartBtn.SetTitle ("Resume", UIControlState.Normal);
 					RewardString = Game.MaybeRewardPlayer ();
+					});
 				} else {
 					// if no player, create one
 					Game.InitGameForNewPlayer ((newPlayer) => {

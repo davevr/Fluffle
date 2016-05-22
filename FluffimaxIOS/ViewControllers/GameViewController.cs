@@ -217,7 +217,7 @@ namespace Fluffimax.iOS
 		}
 
 		public double BunnySizeForLevel(int level) {
-			return _bunSizePerLevel * level;
+			return _bunSizePerLevel * (level+1);
 		}
 
 		public override void DidReceiveMemoryWarning ()
@@ -294,10 +294,10 @@ namespace Fluffimax.iOS
 			if (_currentBuns != null) {
 				InvokeOnMainThread (() => {
 					BunnyNameLabel.Text = _currentBuns.BunnyName;
-					BunnyBreedLabel.Text = _currentBuns.BunnyBreed;
-					BunnyGenderLabel.Text = _currentBuns.Gender;
-					FurColorLabel.Text = _currentBuns.FurColor;
-					EyeColorLabel.Text = _currentBuns.EyeColor;
+					BunnyBreedLabel.Text = _currentBuns.BreedName;
+					BunnyGenderLabel.Text = _currentBuns.Female ? "female" : "male";
+					FurColorLabel.Text = _currentBuns.FurColorName;
+					EyeColorLabel.Text = _currentBuns.EyeColorName;
 					SizeCount.Text = _currentBuns.BunnySize.ToString();
 					ProgressCount.Text = String.Format("{0}/{1}", _currentBuns.FeedState,_currentBuns.CarrotsForNextSize(_currentBuns.BunnySize));
 				});
@@ -437,12 +437,15 @@ namespace Fluffimax.iOS
 						BunnyGraphic secondBuns = _bunnyGraphicList [j];
 
 						if (firstBuns.Button.Frame.IntersectsWith (secondBuns.Button.Frame)) {
+							// todo:  breed bunnies on server
+							/*
 							Bunny newBuns = Bunny.BreedBunnies (firstBuns.LinkedBuns, secondBuns.LinkedBuns);
 							if (newBuns != null) {
 								Game.CurrentPlayer.GetBunny (newBuns);
 								AddBunnyToScreen (newBuns);
 								return;
 							}
+							*/
 						}
 					}
 				}

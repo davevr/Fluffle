@@ -12,6 +12,7 @@ namespace Fluffimax.Core
 	public delegate void bool_callback(bool theResult);
 	public delegate void Bunny_callback(Bunny theResult);
 	public delegate void TossRecord_callback(TossRecord theResult);
+	public delegate void intList_callback(List<int> theResult);
 
 	public class Server
 	{
@@ -58,6 +59,16 @@ namespace Fluffimax.Core
 				request.AddParameter ("username", username);
 			if (!String.IsNullOrEmpty(pwd))
 				request.AddParameter ("pwd", pwd);
+
+			string bunnyStr = "{\"id\":6122080743456768}";
+			Bunny bunTest = new Bunny ();
+			bunTest.id = 234234234;
+			bunTest.BreedName = "Holland Lop";
+			string testStr = bunTest.ToJson ();
+			Bunny theBuns = bunnyStr.FromJson<Bunny> ();
+			Bunny testBackBun = testStr.FromJson<Bunny> ();
+			string bunnyListStr = "[" + bunnyStr + "]";
+			List<Bunny> bunList = bunnyListStr.FromJson<List<Bunny>> ();
 
 			apiClient.ExecuteAsync<Player>(request, (response) =>
 				{
@@ -147,13 +158,65 @@ namespace Fluffimax.Core
 				});
 		}
 
+		public static void RecordPlayerAction(string actionName, object valueObj)
+		{
+			string fullURL = "player";
+
+			RestRequest request = new RestRequest(fullURL, Method.PUT);
+			request.AddParameter (actionName, valueObj);
+
+			apiClient.ExecuteAsync(request, (response) =>
+				{
+					// todo:  check for error?
+				});
+		}
+
+		public static void RecordFeedBunny(Bunny theBuns)
+		{
+			RecordPlayerAction ("feed", theBuns.id);
+		}
+
+		public static void RecordGiveCarrots(int numCarrots)
+		{
+			RecordPlayerAction ("givecarrots", numCarrots);
+		}
+
+		public static void RecordBuyBunny(Bunny theBuns)
+		{
+			RecordPlayerAction ("buybunny", theBuns.id);
+		}
+
+		public static void RecordSellBunny(Bunny theBuns)
+		{
+			RecordPlayerAction ("sellbunny", theBuns.id);
+		}
+
+		public static void FetchGrowthChart(intList_callback callback)
+		{
+			string fullURL = "game";
+
+			RestRequest request = new RestRequest(fullURL, Method.GET);
+			request.AddParameter ("growthchart", true);
+
+			apiClient.ExecuteAsync<List<int>>(request, (response) =>
+				{
+					List<int> sizeChart = response.Data;
+					if (sizeChart!= null)
+					{
+						callback(sizeChart);
+					}
+					else
+						callback(null);
+				});
+		}
+
 		public static void StartToss(long bunnyId, int price, TossRecord_callback callback)
 		{
 			string fullURL = "toss";
 
 			RestRequest request = new RestRequest(fullURL, Method.POST);
 			request.AddParameter("bunny", bunnyId);
-			request.AddParameter("price", price);
+			request.AddParameter("price", 0);
 
 			apiClient.ExecuteAsync<TossRecord>(request, (response) =>
 				{

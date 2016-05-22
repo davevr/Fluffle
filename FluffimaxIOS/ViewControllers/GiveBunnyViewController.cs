@@ -32,7 +32,7 @@ namespace Fluffimax.iOS
 		{
 			base.ViewWillAppear (animated);
 			NavController.NavigationBarHidden = false;
-			Server.StartToss (Game.CurrentPlayer.BunnyBeingSold.ID, Game.CurrentPlayer.BunnyBeingSold.Price, (theToss) => {
+			Server.StartToss (Game.CurrentPlayer.BunnyBeingSold.id, Game.CurrentPlayer.BunnyBeingSold.Price, (theToss) => {
 				var writer = new BarcodeWriter {
 					Format = ZXing.BarcodeFormat.AZTEC,
 					Options = new ZXing.Common.EncodingOptions {

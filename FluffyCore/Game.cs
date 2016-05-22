@@ -28,13 +28,14 @@ namespace Fluffimax.Core
 
 		public static void InitBunnyStore() {
 			Server.FetchStore((storeList) => {
-				if (storeList != null) {
-					BunnyStore = storeList;
-				} else {
-					for (int i = 0; i < 20; i++) {
-						BunnyStore.Add (Bunny.MakeRandomBunny ());
-					}
-				}});
+				BunnyStore = storeList;
+				});
+		}
+
+		public static void InitGrowthChart() {
+			Server.FetchGrowthChart((growthChart) => {
+				Bunny._growthStages = growthChart;
+			});
 		}
 
 		public static void InitGameForNewPlayer(Player_callback callback) {
@@ -43,13 +44,7 @@ namespace Fluffimax.Core
 					_player = newPlayer;
 				else {
 					// cannot load it - create a local one
-					_player = new Player ();
-					Bunny startBunny = Bunny.MakeRandomBunny ();
-					_player.GetBunny (startBunny);
-					DateTime theDate = Today;
-					_player.lastAwardDate = theDate;
-					_player.RepeatPlayList = new List<DateTime> ();
-					_player.FromServer = false;
+					// todo:  handle lack of server case
 				}
 				callback(_player);
 			});
@@ -73,7 +68,10 @@ namespace Fluffimax.Core
 				string fileText = File.ReadAllText(filePath);
 				_player = fileText.FromJson<Player>();
 				if (_player != null) {
-					Server.LoadPlayer (CurrentPlayer.id, (serverCopy) => {
+					string pwd = _player.pwd;
+					if (string.IsNullOrEmpty(pwd))
+						pwd = _player.username;
+					Server.Login (_player.username, pwd, (serverCopy) => {
 						if (serverCopy != null) {
 							_player = serverCopy;
 							_player.FromServer = true;

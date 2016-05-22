@@ -32,10 +32,10 @@ namespace Fluffimax.iOS
 		public void ConformToRecord(Bunny theBuns, BunnyShopTableSource theSource) {
 			dataSource = theSource;
 			//this.BunnyImage = //todo: get image for this bunny;
-			this.BreedLabel.Text = theBuns.BunnyBreed;
-			this.GenderLabel.Text = theBuns.Gender;
-			this.FurColorLabel.Text = "fur: " + theBuns.FurColor;
-			this.EyeColorLabel.Text = "eyes: " + theBuns.EyeColor;
+			this.BreedLabel.Text = theBuns.BreedName;
+			this.GenderLabel.Text = theBuns.Female ? "female" : "male";
+			this.FurColorLabel.Text = "fur: " + theBuns.FurColorName;
+			this.EyeColorLabel.Text = "eyes: " + theBuns.EyeColorName;
 			this.PriceLabel.Text = theBuns.Price.ToString ();
 			this.LinkedBunny = theBuns;
 			this.BuyBtn.TouchUpInside -= HandleBuyBtnClick;
