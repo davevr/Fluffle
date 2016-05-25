@@ -28,7 +28,7 @@ namespace Fluffimax.iOS
 		private class BunnyGraphic
 		{
 			public Bunny LinkedBuns { get; set;}
-			public UIButton Button { get; set;}
+			public UIImageView Button { get; set;}
 			public NSLayoutConstraint Width { get; set;}
 			public NSLayoutConstraint Height {get; set;}
 			public NSLayoutConstraint Horizontal {get; set;}
@@ -138,12 +138,14 @@ namespace Fluffimax.iOS
 
 
 
-		private UIButton AddBunnyToScreen(Bunny thebuns) {
-			UIButton bunsBtn = UIButton.FromType (UIButtonType.Custom);
+		private UIImageView AddBunnyToScreen(Bunny thebuns) {
+			UIImageView bunsBtn = new UIImageView ();
+
 			View.AddSubview (bunsBtn);
 			bunsBtn.TranslatesAutoresizingMaskIntoConstraints = false;
-			UIImage bunsImage = UIImage.FromBundle ("bunny_front");
-			bunsBtn.SetImage (bunsImage, UIControlState.Normal);
+			UIImage[]	imgList = SpriteManager.GetImageList (thebuns, "idle", "front");
+			bunsBtn.AnimationImages = imgList;
+			bunsBtn.AnimationDuration = 1;
 			//CGRect bunsRect = new CGRect (200, 200, 64, 64);
 			//bunsBtn.Bounds = bunsRect;
 			//bunsBtn.Frame = bunsRect;
@@ -181,11 +183,12 @@ namespace Fluffimax.iOS
 			_bunnyGraphicList.Add (graphic);
 
 
-			bunsBtn.TouchUpInside += HandleBunnyClick;
+			// todo:  add a gesture recognizer  
+			//bunsBtn.TouchUpInside += HandleBunnyClick;
 			View.UpdateConstraints ();
 			UpdateBunsSizeAndLocation (thebuns);
 			View.BringSubviewToFront (bunsBtn);
-
+			bunsBtn.StartAnimating ();
 			return bunsBtn;
 		}
 
@@ -210,7 +213,7 @@ namespace Fluffimax.iOS
 		}
 
 		private void HandleBunnyClick (object sender, EventArgs e) {
-			UIButton bunsBtn = sender as UIButton;
+			UIImageView bunsBtn = sender as UIImageView;
 			Bunny	theBuns = _bunnyGraphicList.Find (i => i.Button == bunsBtn).LinkedBuns;
 
 			SetCurrentBunny(theBuns);
@@ -258,12 +261,14 @@ namespace Fluffimax.iOS
 
 		private void SelectBunny(Bunny theBuns) {
 			InvokeOnMainThread (() => {
-				string idleImageName = "bunny_front";
-				UIButton bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
+				UIImage[]	imgList = SpriteManager.GetImageList(theBuns, "idle", "front");
+				UIImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
 
 				if (bunBtn != null) {
 					View.BringSubviewToFront(bunBtn);
-					bunBtn.SetImage(UIImage.FromBundle(idleImageName), UIControlState.Normal);
+					bunBtn.AnimationImages = imgList;
+					bunBtn.AnimationDuration = 1;
+					bunBtn.StartAnimating ();
 				}
 			});
 		}
@@ -348,49 +353,59 @@ namespace Fluffimax.iOS
 			int xDif = 0, yDif = 0;
 			int verticalHop = Game.Rnd.Next (kVerticalHopMin, kVerticalHopMax);
 			int horizontalHop = Game.Rnd.Next (kHorizontalHopMin, kHorizontalHopMax);
-			string bunnyJumpImagename = "bunny_front";
-			string bunnyStopImagename = "bunny_front";
+			UIImage[]  bunnyJumpImageFrames = null;
+			UIImage[] bunnyIdleImageFrames = null;
 			switch (dir) {
 			case 0://up
 				yDif = -verticalHop;
-				bunnyJumpImagename = "bunny_up";
-				bunnyStopImagename = "bunny_back";
+				bunnyJumpImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "hop", "back");
+				bunnyIdleImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "idle", "back");
 				break;
 			case 1: //upright
 				yDif = -verticalHop;
 				xDif = horizontalHop;
-				bunnyJumpImagename = "bunny_upright";
-				bunnyStopImagename = "bunny_back";
+				bunnyJumpImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "hop", "rightback");
+				bunnyIdleImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "idle", "rightback");
 				break;
 			case 2: // right
 				xDif = horizontalHop;
-				bunnyJumpImagename = "bunny_right";
+				bunnyJumpImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "hop", "right");
+				bunnyIdleImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "idle", "right");
 				break;
 			case 3: // downright
 				yDif = verticalHop;
 				xDif = horizontalHop;
-				bunnyJumpImagename = "bunny_downright";
+				bunnyJumpImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "hop", "rightfront");
+				bunnyIdleImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "idle", "rightfront");
 				break;
 			case 4: // down
 				yDif = verticalHop;
-				bunnyJumpImagename = "bunny_down";
+				bunnyJumpImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "hop", "front");
+				bunnyIdleImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "idle", "front");
 				break;
 			case 5: // downleft
 				yDif = verticalHop;
 				xDif = -horizontalHop;
-				bunnyJumpImagename = "bunny_downleft";
+				bunnyJumpImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "hop", "rightfront");
+				bunnyIdleImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "idle", "rightfront");
 				break;
 			case 6:// left
 				xDif = -horizontalHop;
-				bunnyJumpImagename = "bunny_left";
+				bunnyJumpImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "hop", "right");
+				bunnyIdleImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "idle", "right");
 				break;
 			case 7: // upleft
 				yDif = -verticalHop;
 				xDif = -horizontalHop;
-				bunnyJumpImagename = "bunny_upleft";
-				bunnyStopImagename = "bunny_back";
+				bunnyJumpImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "hop", "rightback");
+				bunnyIdleImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "idle", "rightback");
 				break;
 			}
+
+			if (bunnyJumpImageFrames == null || bunnyIdleImageFrames == null) {
+
+			}
+
 
 			InvokeOnMainThread (() => {
 				int newX = (int)buns.Horizontal.Constant + xDif;
@@ -406,13 +421,15 @@ namespace Fluffimax.iOS
 				else if (newY > kMaxHeight)
 					newY = kMaxHeight;
 
-				BunnyHopToNewLoc (buns, dir, newX, newY, bunnyJumpImagename, bunnyStopImagename);
+				BunnyHopToNewLoc (buns, dir, newX, newY, bunnyJumpImageFrames, bunnyIdleImageFrames);
 			});
 		}
 
-		private void BunnyHopToNewLoc(BunnyGraphic buns, int dir, int newX, int newY, string startImage, string endImage) {
+		private void BunnyHopToNewLoc(BunnyGraphic buns, int dir, int newX, int newY, UIImage[] jumpFrames, UIImage[] idleFrames) {
 			InvokeOnMainThread (() => {
-				buns.Button.SetImage(UIImage.FromBundle(startImage), UIControlState.Normal);
+				buns.Button.AnimationImages = jumpFrames;
+				buns.Button.AnimationDuration = .1;
+				buns.Button.StartAnimating ();
 			});
 			UIView.Animate (.5, () => {
 				buns.Horizontal.Constant = newX;
@@ -421,7 +438,9 @@ namespace Fluffimax.iOS
 			}, () => {
 				//SetBunnyIdleGraphic (buns);
 				InvokeOnMainThread (() => {
-					buns.Button.SetImage(UIImage.FromBundle(endImage) , UIControlState.Normal);
+					buns.Button.AnimationImages = idleFrames;
+					buns.Button.AnimationDuration = 1;
+					buns.Button.StartAnimating ();
 				});
 				buns.LinkedBuns.UpdateLocation(newX, newY);
 				_idleTimer.Start();
@@ -488,12 +507,14 @@ namespace Fluffimax.iOS
 					FeedBunnyBtn.Enabled = false;
 					CarrotImg.Hidden = false;
 					UpdateScore();
-					string idleImageName = "bunny_front";
-					UIButton bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
+					UIImage[] imageList = SpriteManager.GetImageList(theBuns, "idle", "front");
+					UIImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
 
 					if (bunBtn != null) {
 						View.BringSubviewToFront(bunBtn);
-						bunBtn.SetImage(UIImage.FromBundle(idleImageName), UIControlState.Normal);
+						bunBtn.AnimationImages = imageList;
+						bunBtn.AnimationDuration = 1;
+						bunBtn.StartAnimating ();
 					}
 				});
 

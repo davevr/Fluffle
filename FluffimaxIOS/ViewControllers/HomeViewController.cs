@@ -55,6 +55,7 @@ namespace Fluffimax.iOS
 		}
 
 		private void ResumeGame() {
+			SpriteManager.Initialize();
 			Server.InitServer();
 			Game.InitBunnyStore();
 			Game.InitGrowthChart ();
