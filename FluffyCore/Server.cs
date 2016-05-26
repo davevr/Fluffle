@@ -22,10 +22,16 @@ namespace Fluffimax.Core
 		}
 
 		private static RestClient apiClient;
-		private static string localHostStr = "http://localhost:8080/api/v1";
-		private static string networkHostStr = "http://192.168.0.4:8080/api/v1";
-		private static string productionHostStr = "http://fluffle-1045.appspot.com/api/v1";
-		private static string apiPath =   localHostStr;
+		private static string apiBase = "/api/v1";
+		private static string spriteFolderBase = "/images/sprites/";
+		private static string profileFolderBase = "/images/profiles/";
+		private static string localHostStr = "http://localhost:8080";
+		private static string networkHostStr = "http://192.168.0.4:8080";
+		private static string productionHostStr = "https://fluffle-1306.appspot.com";
+		private static string serverBase =   localHostStr;
+		private static string apiPath;
+		public static string SpriteImagePath;
+		public static string ProfileImagePath;
 		private static string _uploadURL;
 		private static string _catchURL;
 		private static string _userImageURL;
@@ -38,12 +44,16 @@ namespace Fluffimax.Core
 			String testStr = "{\"testDate\":\"2016-05-13T16:02:51.923-07:00\"}";
 			TestDate tester = testStr.FromJson<TestDate> ();
 
-			if (apiPath == localHostStr)
+			if (serverBase == localHostStr)
 				System.Console.WriteLine("Using Local Server");
-			else if (apiPath == productionHostStr)
+			else if (serverBase == productionHostStr)
 				System.Console.WriteLine("Using Production Server");
-			else if (apiPath == networkHostStr)
+			else if (serverBase == networkHostStr)
 				System.Console.WriteLine("Using LAN Server");
+
+			apiPath = serverBase + apiBase;
+			SpriteImagePath = serverBase + spriteFolderBase;
+			ProfileImagePath = serverBase + profileFolderBase;
 			
 			apiClient = new RestClient(apiPath);
 			apiClient.CookieContainer = new CookieContainer();
@@ -216,7 +226,7 @@ namespace Fluffimax.Core
 
 			RestRequest request = new RestRequest(fullURL, Method.POST);
 			request.AddParameter("bunny", bunnyId);
-			request.AddParameter("price", 0);
+			request.AddParameter("price", price);
 
 			apiClient.ExecuteAsync<TossRecord>(request, (response) =>
 				{
@@ -238,10 +248,10 @@ namespace Fluffimax.Core
 
 		public static void GetTossStatus(long tossId, TossRecord_callback callback)
 		{
-			string fullURL = "toss/status";
+			string fullURL = "toss";
 
 			RestRequest request = new RestRequest(fullURL, Method.GET);
-			request.AddParameter("toss", tossId);
+			request.AddParameter("tossid", tossId);
 
 			apiClient.ExecuteAsync<TossRecord>(request, (response) =>
 				{

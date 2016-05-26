@@ -18,7 +18,7 @@ namespace Fluffimax.iOS
 		private static int kVerticalHopMax = 32;
 		private static int kHorizontalHopMax = 64;
 		private static int kMinWidth = -150;
-		private static int kMinHeight = -100;
+		private static int kMinHeight = -150;
 		private static int kMaxWidth = 150;
 		private static int kMaxHeight = 200;
 		private Bunny _currentBuns = null;
@@ -45,11 +45,19 @@ namespace Fluffimax.iOS
 			base.ViewDidLoad ();
 			// Perform any additional setup after loading the view, typically from a nib
 
-			UITapGestureRecognizer tapGesture = new UITapGestureRecognizer (() => {
+			UITapGestureRecognizer tapGrassGesture = new UITapGestureRecognizer (() => {
 				SetCurrentBunny(null);
 			});
-			tapGesture.NumberOfTapsRequired = 1;
-			GrassField.AddGestureRecognizer (tapGesture);
+			tapGrassGesture.NumberOfTapsRequired = 1;
+			//GrassField.AddGestureRecognizer (tapGrassGesture);
+
+			UITapGestureRecognizer tapBunnyRecognizer = new UITapGestureRecognizer ();
+			tapBunnyRecognizer.NumberOfTapsRequired = 1;
+			tapBunnyRecognizer.AddTarget(() => {
+				HandleBunnyTap(tapBunnyRecognizer);
+			});
+			View.AddGestureRecognizer (tapBunnyRecognizer);
+
 			BunnyDetailView.Hidden = true;
 
 			FeedBunnyBtn.TouchUpInside += (object sender, EventArgs e) => {
@@ -77,12 +85,88 @@ namespace Fluffimax.iOS
 			BunnyNameLabel.AddGestureRecognizer (renameTap);
 
 			GiveBtn.TouchUpInside += (object sender, EventArgs e) => {
+				Game.BunnyBeingSold = _currentBuns;
+				Game.BunnySellPrice = 0;
 				NavigationController.PushViewController (new GiveBunnyViewController (), true);
 			};
 
 			CatchBtn.TouchUpInside += (object sender, EventArgs e) => {
-				NavigationController.PushViewController (new CatchBunnyViewController (), true);
+				DoCatchBunny();
+
 			};
+
+		}
+
+		private async void DoCatchBunny()
+		{
+			var scanner = new ZXing.Mobile.MobileBarcodeScanner();
+			var options = new ZXing.Mobile.MobileBarcodeScanningOptions();
+			options.PossibleFormats = new List<ZXing.BarcodeFormat>() { 
+				ZXing.BarcodeFormat.AZTEC 
+			};
+			options.CameraResolutionSelector = (resList) => {
+				CameraResolution finalRes = null;
+
+				foreach( CameraResolution curRes in resList) {
+					if (((curRes.Height == 640) || (curRes.Width == 640)) && finalRes == null)
+						finalRes = curRes;
+					else if ((curRes.Height == 720) || (curRes.Width == 720))
+						finalRes = curRes;
+
+				}
+
+				return finalRes;
+			};
+
+			var result = await scanner.Scan(options, false);
+
+			if (result != null) {
+				FinalizeCatch (result.Text);
+			}
+		}
+
+		private void FinalizeCatch(string catchResult) {
+			long tossId = long.Parse (catchResult);
+
+			Server.GetTossStatus (tossId, (theToss) => {
+				if (!theToss.isValid) {
+					// sorry toss has expired
+				} else if (theToss.price > Game.CurrentPlayer.carrotCount) {
+					// sorry you can't afford it
+				} else {
+					// ask the user if they want to buy it
+					if (true) {
+						Server.CatchToss(tossId, (theBuns) => {
+
+							if (theBuns != null) {
+								// happy user
+							} else {
+								// something went wrong
+							}
+						});
+					}
+
+				}
+
+			});
+		}
+
+
+		private void HandleBunnyTap(UITapGestureRecognizer recognizer) {
+			CGPoint theLoc = recognizer.LocationInView (View);
+			UIView tappedView = View.HitTest (theLoc, null);
+
+			if (tappedView == GrassField) {
+				SetCurrentBunny (null);
+			} else {
+				UIImageView bunsView = tappedView as UIImageView;
+
+				if (bunsView != null) {
+					Bunny	theBuns = _bunnyGraphicList.Find (i => i.Button == bunsView).LinkedBuns;
+
+					SetCurrentBunny (theBuns);
+				}
+			}
 
 		}
 
@@ -120,13 +204,14 @@ namespace Fluffimax.iOS
 		}
 
 		private void CheckForNewBunnies() {
-			if (Game.CurrentPlayer.RecentlyPurchased) {
+			if (Game.RecentlyPurchased) {
 				// more bunnies have been bought - add them if needed
 				foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies) {
 					if (_bunnyGraphicList.Find (b => b.LinkedBuns == curBunny) == null) {
 						AddBunnyToScreen (curBunny);
 					}
 				}
+				Game.RecentlyPurchased = false;
 			}
 		}
 
@@ -146,9 +231,7 @@ namespace Fluffimax.iOS
 			UIImage[]	imgList = SpriteManager.GetImageList (thebuns, "idle", "front");
 			bunsBtn.AnimationImages = imgList;
 			bunsBtn.AnimationDuration = 1;
-			//CGRect bunsRect = new CGRect (200, 200, 64, 64);
-			//bunsBtn.Bounds = bunsRect;
-			//bunsBtn.Frame = bunsRect;
+			bunsBtn.UserInteractionEnabled = true;
 
 			NSLayoutConstraint csWidth = NSLayoutConstraint.Create (bunsBtn, NSLayoutAttribute.Width, NSLayoutRelation.Equal,
 				                            null, NSLayoutAttribute.NoAttribute, 1, 32);
@@ -212,12 +295,7 @@ namespace Fluffimax.iOS
 			}
 		}
 
-		private void HandleBunnyClick (object sender, EventArgs e) {
-			UIImageView bunsBtn = sender as UIImageView;
-			Bunny	theBuns = _bunnyGraphicList.Find (i => i.Button == bunsBtn).LinkedBuns;
 
-			SetCurrentBunny(theBuns);
-		}
 
 		public double BunnySizeForLevel(int level) {
 			return _bunSizePerLevel * (level+1);
@@ -355,6 +433,8 @@ namespace Fluffimax.iOS
 			int horizontalHop = Game.Rnd.Next (kHorizontalHopMin, kHorizontalHopMax);
 			UIImage[]  bunnyJumpImageFrames = null;
 			UIImage[] bunnyIdleImageFrames = null;
+			bool flip = false;
+
 			switch (dir) {
 			case 0://up
 				yDif = -verticalHop;
@@ -388,17 +468,20 @@ namespace Fluffimax.iOS
 				xDif = -horizontalHop;
 				bunnyJumpImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "hop", "rightfront");
 				bunnyIdleImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "idle", "rightfront");
+				flip = true;
 				break;
 			case 6:// left
 				xDif = -horizontalHop;
 				bunnyJumpImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "hop", "right");
 				bunnyIdleImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "idle", "right");
+				flip = true;
 				break;
 			case 7: // upleft
 				yDif = -verticalHop;
 				xDif = -horizontalHop;
 				bunnyJumpImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "hop", "rightback");
 				bunnyIdleImageFrames = SpriteManager.GetImageList (buns.LinkedBuns, "idle", "rightback");
+				flip = true;
 				break;
 			}
 
@@ -421,6 +504,18 @@ namespace Fluffimax.iOS
 				else if (newY > kMaxHeight)
 					newY = kMaxHeight;
 
+				nfloat scale = 1;
+				if (newY < 0) {
+					scale -= (nfloat)(((double)Math.Abs(newY) / Math.Abs(kMinHeight)) * .6);
+				} else {
+					scale += (nfloat)(((double)newY / kMaxHeight) * .3);
+				}
+
+				if (flip)
+					buns.Button.Transform = CGAffineTransform.MakeScale(-scale,scale);
+				else
+					buns.Button.Transform = CGAffineTransform.MakeScale(scale, scale);
+				
 				BunnyHopToNewLoc (buns, dir, newX, newY, bunnyJumpImageFrames, bunnyIdleImageFrames);
 			});
 		}
@@ -428,7 +523,7 @@ namespace Fluffimax.iOS
 		private void BunnyHopToNewLoc(BunnyGraphic buns, int dir, int newX, int newY, UIImage[] jumpFrames, UIImage[] idleFrames) {
 			InvokeOnMainThread (() => {
 				buns.Button.AnimationImages = jumpFrames;
-				buns.Button.AnimationDuration = .1;
+				buns.Button.AnimationDuration = .15;
 				buns.Button.StartAnimating ();
 			});
 			UIView.Animate (.5, () => {
@@ -436,11 +531,11 @@ namespace Fluffimax.iOS
 				buns.Vertical.Constant = newY;
 				View.LayoutIfNeeded();
 			}, () => {
-				//SetBunnyIdleGraphic (buns);
 				InvokeOnMainThread (() => {
 					buns.Button.AnimationImages = idleFrames;
-					buns.Button.AnimationDuration = 1;
+					buns.Button.AnimationDuration = 1 + Game.Rnd.NextDouble();
 					buns.Button.StartAnimating ();
+					buns.Button.Layer.ZPosition = 200 + newY;
 				});
 				buns.LinkedBuns.UpdateLocation(newX, newY);
 				_idleTimer.Start();

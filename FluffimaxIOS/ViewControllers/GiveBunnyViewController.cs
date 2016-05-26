@@ -20,6 +20,10 @@ namespace Fluffimax.iOS
 		{
 			base.ViewDidLoad ();
 			// Perform any additional setup after loading the view, typically from a nib.
+		
+			DoneBtn.TouchUpInside += (object sender, EventArgs e) => {
+				EndToss();
+			};
 		}
 
 		public override void DidReceiveMemoryWarning ()
@@ -32,7 +36,7 @@ namespace Fluffimax.iOS
 		{
 			base.ViewWillAppear (animated);
 			NavController.NavigationBarHidden = false;
-			Server.StartToss (Game.CurrentPlayer.BunnyBeingSold.id, Game.CurrentPlayer.BunnyBeingSold.Price, (theToss) => {
+			Server.StartToss (Game.BunnyBeingSold.id, Game.BunnySellPrice, (theToss) => {
 				var writer = new BarcodeWriter {
 					Format = ZXing.BarcodeFormat.AZTEC,
 					Options = new ZXing.Common.EncodingOptions {
@@ -72,7 +76,7 @@ namespace Fluffimax.iOS
 			} else {
 				Server.GetTossStatus(Game.CurrentTossId, (tossRec) => {
 					InvokeOnMainThread (() => {
-						if (tossRec.ownerId != 0)
+						if (tossRec.catcherId != 0)
 							EndToss();
 						else 
 							DoneBtn.SetTitle(String.Format ("Done (ending in {0} seconds)", secondsLeft), UIControlState.Normal);
@@ -85,9 +89,11 @@ namespace Fluffimax.iOS
 
 		private void EndToss()
 		{
-			StopTossTimer ();
-			DismissViewController(true, () => {
-				// do nothing for now
+			InvokeOnMainThread (() => {
+				StopTossTimer ();
+				DismissViewController (true, () => {
+					// do nothing for now
+				});
 			});
 		}
 

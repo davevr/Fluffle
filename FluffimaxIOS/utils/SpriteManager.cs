@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UIKit;
 using CoreGraphics;
 using Fluffimax.Core;
+using Foundation;
 
 
 namespace Fluffimax.iOS
@@ -44,9 +45,7 @@ namespace Fluffimax.iOS
 	public class BunnyMasterSprite
 	{
 		public static int kSpriteSize = 128;
-		public string eyeColor;
-		public string furColor;
-		public string breed;
+		public string spriteKey;
 
 		UIImage masterImage;
 
@@ -55,9 +54,12 @@ namespace Fluffimax.iOS
 		public BunnyStateSprite eatState;
 
 		public void Inflate() {
-			string spriteKey = breed.ToLower () + "_" + furColor.ToLower () + "_" + eyeColor.ToLower ();
-
-			masterImage = UIImage.FromBundle (spriteKey);	// to do - load from a URL?
+			string urlStr = Server.SpriteImagePath + spriteKey + ".png";
+			using (NSUrl url = new NSUrl (urlStr)) {
+				using (var data = NSData.FromUrl (url)) {
+					masterImage = UIImage.LoadFromData (data);
+				}
+			}
 
 			idleState = new BunnyStateSprite ();
 
@@ -65,6 +67,8 @@ namespace Fluffimax.iOS
 			idleState = InflateState(0, 2); // idle has two frames
 			hopState = InflateState(2, 3); // hop has three frames
 			eatState = InflateState(5, 3);	// eat has three frames
+			masterImage.Dispose();
+			masterImage = null;
 		}
 
 		public BunnyStateSprite InflateState(int offset, int numFrames) {
@@ -114,14 +118,10 @@ namespace Fluffimax.iOS
 		public static void Initialize() {
 			// load in the base sprite
 			spriteMap = new Dictionary<string, BunnyMasterSprite> ();
-			LoadSprite("minilop", "white", "blue");
 		}
 
-		public static BunnyMasterSprite LoadSprite(string breedStr, string furStr, string eyeStr) {
-			string spriteKey = breedStr.ToLower () + "_" + furStr.ToLower () + "_" + eyeStr.ToLower ();
-
-			// force it
-			spriteKey = "minilop_white_blue";
+		public static BunnyMasterSprite LoadSprite(Bunny theBuns) {
+			string spriteKey = theBuns.GetImageID ();
 
 			BunnyMasterSprite sprite;
 
@@ -129,9 +129,7 @@ namespace Fluffimax.iOS
 				sprite = spriteMap [spriteKey];
 			else {
 				sprite = new BunnyMasterSprite ();
-				sprite.breed = breedStr;
-				sprite.eyeColor = eyeStr;
-				sprite.furColor = furStr;
+				sprite.spriteKey = spriteKey;
 				sprite.Inflate ();
 				spriteMap.Add (spriteKey, sprite);
 			}
@@ -140,13 +138,7 @@ namespace Fluffimax.iOS
 		}
 
 		public static UIImage[] GetImageList(Bunny theBuns, string stateStr, string dir) {
-			// to do:  use the actual breed, once we have them.  return GetImageList (theBuns.BreedName, theBuns.FurColorName, theBuns.EyeColorName, stateStr, dir);
-			return GetImageList ("minilop", theBuns.FurColorName, theBuns.EyeColorName, stateStr, dir);
-		}
-
-
-		public static UIImage[] GetImageList(string breedStr, string furStr, string eyeStr, string stateStr, string dir) {
-			BunnyMasterSprite theSprite = LoadSprite (breedStr, furStr, eyeStr);
+			BunnyMasterSprite theSprite = LoadSprite (theBuns);
 			BunnyStateSprite theStateSprite = null;
 			UIImage[] theImageList = null;
 

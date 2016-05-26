@@ -43,5 +43,12 @@
 	<true/>
 	<key>CFBundleName</key>
 	<string>Fluffle</string>
+	<key>Custom Property</key>
+	<string></string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

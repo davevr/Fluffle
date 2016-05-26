@@ -125,6 +125,16 @@ namespace Fluffimax.Core
 			else
 				return false;
 		}
+
+		public string GetImageID() {
+			return "minilop" + "_" + FurColorName.ToLower() + "_" + EyeColorName.ToLower();
+		}
+
+		public string GetProfileImage() {
+			string imageName = Server.ProfileImagePath + GetImageID () + ".png";
+
+			return imageName;
+		}
 	}
 }
 

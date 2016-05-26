@@ -16,6 +16,10 @@ namespace Fluffimax.Core
 		public static Boolean IsNewGame { get; set; }
 		public static long CurrentTossId { get; set; }
 
+		public static bool RecentlyPurchased { get; set; }
+		public static Bunny BunnyBeingSold { get; set; }
+		public static int BunnySellPrice { get; set; }
+
 
 		public static List<Bunny> BunnyStore {
 			get { return _bunnyStore; }
@@ -64,30 +68,32 @@ namespace Fluffimax.Core
 			string filePath = Path.Combine (
 				Environment.GetFolderPath (Environment.SpecialFolder.Personal), "BunnyPlayer.json");
 
-			if (File.Exists(filePath)) {
-				string fileText = File.ReadAllText(filePath);
-				_player = fileText.FromJson<Player>();
+			if (File.Exists (filePath)) {
+				string fileText = File.ReadAllText (filePath);
+				_player = fileText.FromJson<Player> ();
 				if (_player != null) {
 					string pwd = _player.pwd;
-					if (string.IsNullOrEmpty(pwd))
+					if (string.IsNullOrEmpty (pwd))
 						pwd = _player.username;
 					Server.Login (_player.username, pwd, (serverCopy) => {
 						if (serverCopy != null) {
 							_player = serverCopy;
 							_player.FromServer = true;
-							callback(_player);
+							callback (_player);
 						} else {
 							// player on device doesn't exist on server - delete for now
 							// todo:  figure out correct action
 							_player = null;
-							callback(_player);
+							callback (_player);
 						}
 					});
 				} else {
 					// just return local player
-					_player.FromServer = false;
-					callback(_player);
+					callback (_player);
 				}
+			} else {
+				// file does not exist
+				callback(null);
 			}
 
 		}

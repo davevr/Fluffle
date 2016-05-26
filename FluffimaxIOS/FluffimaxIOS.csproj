@@ -100,6 +100,9 @@
     <Reference Include="ZXingNetMobile">
       <HintPath>..\packages\ZXing.Net.Mobile.2.0.4.46\lib\Xamarin.iOS10\ZXingNetMobile.dll</HintPath>
     </Reference>
+    <Reference Include="SDWebImage">
+      <HintPath>..\packages\Xamarin.SDWebImage.3.7.5\lib\Xamarin.iOS\SDWebImage.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -197,31 +200,6 @@
     <BundleResource Include="Resources\carrot.png" />
     <BundleResource Include="Resources\bunny.png" />
     <BundleResource Include="Resources\grass.png" />
-    <BundleResource Include="Resources\minilop_white_blue.png" />
-    <BundleResource Include="Resources\minilop_black_black.png" />
-    <BundleResource Include="Resources\minilop_black_blue.png" />
-    <BundleResource Include="Resources\minilop_black_brown.png" />
-    <BundleResource Include="Resources\minilop_black_green.png" />
-    <BundleResource Include="Resources\minilop_black_red.png" />
-    <BundleResource Include="Resources\minilop_bown_brown.png" />
-    <BundleResource Include="Resources\minilop_brown_black.png" />
-    <BundleResource Include="Resources\minilop_brown_blue.png" />
-    <BundleResource Include="Resources\minilop_brown_green.png" />
-    <BundleResource Include="Resources\minilop_brown_red.png" />
-    <BundleResource Include="Resources\minilop_gray_black.png" />
-    <BundleResource Include="Resources\minilop_gray_blue.png" />
-    <BundleResource Include="Resources\minilop_gray_brown.png" />
-    <BundleResource Include="Resources\minilop_gray_green.png" />
-    <BundleResource Include="Resources\minilop_gray_red.png" />
-    <BundleResource Include="Resources\minilop_tan_black.png" />
-    <BundleResource Include="Resources\minilop_tan_blue.png" />
-    <BundleResource Include="Resources\minilop_tan_brown.png" />
-    <BundleResource Include="Resources\minilop_tan_green.png" />
-    <BundleResource Include="Resources\minilop_tan_red.png" />
-    <BundleResource Include="Resources\minilop_white_black.png" />
-    <BundleResource Include="Resources\minilop_white_brown.png" />
-    <BundleResource Include="Resources\minilop_white_green.png" />
-    <BundleResource Include="Resources\minilop_white_red.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="servicestacktext">
@@ -238,6 +216,10 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="zxing.net.mobile">
       <Version>2.0.4.17</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="sdwebimage">
+      <Version>3.7.5</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

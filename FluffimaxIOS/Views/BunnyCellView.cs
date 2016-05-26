@@ -3,7 +3,7 @@
 using Foundation;
 using UIKit;
 using Fluffimax.Core;
-
+using SDWebImage;
 
 namespace Fluffimax.iOS
 {
@@ -40,6 +40,11 @@ namespace Fluffimax.iOS
 			this.LinkedBunny = theBuns;
 			this.BuyBtn.TouchUpInside -= HandleBuyBtnClick;
 			this.BuyBtn.TouchUpInside += HandleBuyBtnClick;
+			string bunnyURL = theBuns.GetProfileImage ();
+			BunnyImage.SetImage (
+				url: new NSUrl (bunnyURL), 
+				placeholder: UIImage.FromBundle ("bunny.png")
+			);
 		}
 
 

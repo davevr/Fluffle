@@ -22,8 +22,6 @@ namespace Fluffimax.Core
 		public int carrotCount { get; set; }
 		public bool FromServer { get; set; }
 		public List<Bunny> Bunnies { get; set; }
-		public bool RecentlyPurchased { get; set; }
-		public Bunny BunnyBeingSold { get; set; }
 
 		public Player() {
 			carrotCount = Game.kInitialCarrots;
@@ -55,7 +53,7 @@ namespace Fluffimax.Core
 				carrotCount -= theBuns.Price;
 				Bunnies.Add (theBuns);
 				totalBunnies++;
-				RecentlyPurchased = true;
+				Game.RecentlyPurchased = true;
 				UpdateBunnyOwnership (theBuns);
 				Server.RecordBuyBunny (theBuns);
 				return true;
