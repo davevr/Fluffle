@@ -38,6 +38,7 @@ namespace Fluffimax.Core
 		public void UpdateLocation(int xLoc, int yLoc) {
 			HorizontalLoc = xLoc;
 			VerticalLoc = yLoc;
+			Server.RecordBunnyLoc (this);
 		}
 			
 		public double Progress {

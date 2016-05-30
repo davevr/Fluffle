@@ -13,6 +13,7 @@ namespace Fluffimax.Core
 	public delegate void Bunny_callback(Bunny theResult);
 	public delegate void TossRecord_callback(TossRecord theResult);
 	public delegate void intList_callback(List<int> theResult);
+	public delegate void int_callback(int theResult);
 
 	public class Server
 	{
@@ -26,9 +27,9 @@ namespace Fluffimax.Core
 		private static string spriteFolderBase = "/images/sprites/";
 		private static string profileFolderBase = "/images/profiles/";
 		private static string localHostStr = "http://localhost:8080";
-		private static string networkHostStr = "http://192.168.0.4:8080";
+		private static string networkHostStr = "http://192.168.0.6:8080";
 		private static string productionHostStr = "https://fluffle-1306.appspot.com";
-		private static string serverBase =   localHostStr;
+		private static string serverBase =   productionHostStr;
 		private static string apiPath;
 		public static string SpriteImagePath;
 		public static string ProfileImagePath;
@@ -38,11 +39,6 @@ namespace Fluffimax.Core
 
 		public static void InitServer () {
 			JsConfig.DateHandler = JsonDateHandler.ISO8601; 
-			String dateString = "2016-05-13T16:02:47.480-07:00";
-			DateTime theDate = dateString.FromJson<DateTime> ();
-
-			String testStr = "{\"testDate\":\"2016-05-13T16:02:51.923-07:00\"}";
-			TestDate tester = testStr.FromJson<TestDate> ();
 
 			if (serverBase == localHostStr)
 				System.Console.WriteLine("Using Local Server");
@@ -90,6 +86,41 @@ namespace Fluffimax.Core
 					else
 						callback(null);
 				});
+		}
+
+		public static void RecordPurchase(string productStr, string store, string receipt, bool_callback callback) {
+			string fullURL = "store";
+			RestRequest request = new RestRequest(fullURL, Method.POST);
+		
+			request.AddParameter ("receipt-data", receipt);
+			request.AddParameter ("store", store);
+			request.AddParameter ("product", productStr);
+
+
+			apiClient.ExecuteAsync<bool>(request, (response) => 
+				{
+					bool result = response.Data;
+					callback(result);
+
+				});
+		}
+
+		public static void GetCarrotCount(int_callback callback) {
+			string fullURL = "player";
+
+			RestRequest request = new RestRequest(fullURL, Method.GET);
+			request.AddParameter ("carrotcount", true);
+
+			apiClient.ExecuteAsync<int>(request, (response) =>
+				{
+					int carrotCount = response.Data;
+					Game.CurrentPlayer.carrotCount = carrotCount;
+
+					callback( carrotCount);
+				});
+
+
+		
 		}
 
 		public static void CreatePlayer(Player_callback callback)
@@ -201,6 +232,29 @@ namespace Fluffimax.Core
 			RecordPlayerAction ("sellbunny", theBuns.id);
 		}
 
+		public static void RecordRenameBunny(Bunny theBuns)
+		{
+			string fullURL = "bunny";
+
+			RestRequest request = new RestRequest(fullURL, Method.PUT);
+			request.AddParameter ("renamebunny", theBuns.id);
+			request.AddParameter ("name", theBuns.BunnyName);
+
+			apiClient.ExecuteAsync (request, null);
+		}
+
+		public static void RecordBunnyLoc(Bunny theBuns)
+		{
+			string fullURL = "bunny";
+
+			RestRequest request = new RestRequest(fullURL, Method.PUT);
+			request.AddParameter ("move", theBuns.id);
+			request.AddParameter ("xloc", theBuns.HorizontalLoc);
+			request.AddParameter ("yloc", theBuns.VerticalLoc);
+
+			apiClient.ExecuteAsync (request, null);
+		}
+
 		public static void FetchGrowthChart(intList_callback callback)
 		{
 			string fullURL = "game";
@@ -236,7 +290,7 @@ namespace Fluffimax.Core
 
 		public static void CatchToss(long tossid, Bunny_callback callback)
 		{
-			var request = new RestRequest("", Method.POST);
+			var request = new RestRequest("catch", Method.POST);
 			request.AddParameter("toss", tossid);
 
 

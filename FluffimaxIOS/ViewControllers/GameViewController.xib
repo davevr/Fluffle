@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -19,6 +19,7 @@
                 <outlet property="CSCarrotY" destination="7bs-Hr-7IP" id="name-outlet-7bs-Hr-7IP"/>
                 <outlet property="CarrotCount" destination="6" id="name-outlet-6"/>
                 <outlet property="CarrotImg" destination="19" id="name-outlet-19"/>
+                <outlet property="CatchBtn" destination="6Kg-Nb-l7j" id="name-outlet-6Kg-Nb-l7j"/>
                 <outlet property="EyeColorLabel" destination="XHU-MN-INH" id="name-outlet-XHU-MN-INH"/>
                 <outlet property="FeedBunnyBtn" destination="5dR-ro-bTG" id="name-outlet-5dR-ro-bTG"/>
                 <outlet property="FurColorLabel" destination="gn6-fo-9Ts" id="name-outlet-gn6-fo-9Ts"/>
@@ -28,12 +29,11 @@
                 <outlet property="SellBunnyBtn" destination="Gjt-vS-zmG" id="name-outlet-Gjt-vS-zmG"/>
                 <outlet property="SizeCount" destination="8" id="name-outlet-8"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
-                <outlet property="CatchBtn" destination="6Kg-Nb-l7j" id="name-outlet-6Kg-Nb-l7j"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="2">
-            <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="grass.png" translatesAutoresizingMaskIntoConstraints="NO" id="28">
                     <rect key="frame" x="20" y="314" width="160" height="240"/>
@@ -56,7 +56,6 @@
                                 <mask key="constraints">
                                     <include reference="MYp-ZU-h4y"/>
                                 </mask>
-                                <rect key="frame" x="136" y="9" width="128" height="30"/>
                             </variation>
                         </button>
                     </subviews>
@@ -76,7 +75,7 @@
                             <exclude reference="kWK-qb-prY"/>
                         </mask>
                     </variation>
-                    <variation key="widthClass=compact" misplaced="YES">
+                    <variation key="widthClass=compact">
                         <mask key="subviews">
                             <include reference="6Kg-Nb-l7j"/>
                         </mask>
@@ -85,7 +84,6 @@
                             <include reference="18Z-Ul-y6z"/>
                             <include reference="kWK-qb-prY"/>
                         </mask>
-                        <rect key="frame" x="-42" y="43" width="240" height="240"/>
                     </variation>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I5H-eR-AK8">
@@ -109,12 +107,11 @@
                                     <exclude reference="eoK-k2-mfb"/>
                                 </mask>
                             </variation>
-                            <variation key="widthClass=compact" misplaced="YES">
+                            <variation key="widthClass=compact">
                                 <mask key="constraints">
                                     <exclude reference="80r-aJ-8mY"/>
                                     <include reference="eoK-k2-mfb"/>
                                 </mask>
-                                <rect key="frame" x="215" y="64" width="42" height="21"/>
                             </variation>
                         </label>
                         <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jn1-Ej-4mX">
@@ -146,13 +143,12 @@
                                             <exclude reference="rCP-ET-mxJ"/>
                                         </mask>
                                     </variation>
-                                    <variation key="widthClass=compact" misplaced="YES">
+                                    <variation key="widthClass=compact">
                                         <mask key="constraints">
                                             <include reference="Omo-r7-loB"/>
                                             <exclude reference="bIz-q1-aie"/>
                                             <exclude reference="rCP-ET-mxJ"/>
                                         </mask>
-                                        <rect key="frame" x="81" y="32" width="42" height="21"/>
                                     </variation>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8">
@@ -175,13 +171,12 @@
                                             <exclude reference="edB-Cm-Zz0"/>
                                         </mask>
                                     </variation>
-                                    <variation key="widthClass=compact" misplaced="YES">
+                                    <variation key="widthClass=compact">
                                         <mask key="constraints">
                                             <include reference="Fs4-F2-G1c"/>
                                             <exclude reference="Tv0-v4-rfk"/>
                                             <exclude reference="edB-Cm-Zz0"/>
                                         </mask>
-                                        <rect key="frame" x="215" y="64" width="42" height="21"/>
                                     </variation>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Progress:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="9">
@@ -202,13 +197,12 @@
                                             <exclude reference="aX1-iL-lFV"/>
                                         </mask>
                                     </variation>
-                                    <variation key="widthClass=compact" misplaced="YES">
+                                    <variation key="widthClass=compact">
                                         <mask key="constraints">
                                             <exclude reference="4jl-bJ-c79"/>
                                             <exclude reference="LUS-te-TAS"/>
                                             <include reference="aX1-iL-lFV"/>
                                         </mask>
-                                        <rect key="frame" x="81" y="32" width="42" height="21"/>
                                     </variation>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BunnyBreed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMe-Bx-7sb">
@@ -224,11 +218,10 @@
                                             <exclude reference="s2V-VQ-UjK"/>
                                         </mask>
                                     </variation>
-                                    <variation key="widthClass=compact" misplaced="YES">
+                                    <variation key="widthClass=compact">
                                         <mask key="constraints">
                                             <include reference="s2V-VQ-UjK"/>
                                         </mask>
-                                        <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                     </variation>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="female" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hxu-mx-0fU">
@@ -244,11 +237,10 @@
                                             <exclude reference="az7-Ze-KVo"/>
                                         </mask>
                                     </variation>
-                                    <variation key="widthClass=compact" misplaced="YES">
+                                    <variation key="widthClass=compact">
                                         <mask key="constraints">
                                             <include reference="az7-Ze-KVo"/>
                                         </mask>
-                                        <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                     </variation>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EyeColor" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHU-MN-INH">
@@ -264,11 +256,10 @@
                                             <exclude reference="slt-Ic-WAA"/>
                                         </mask>
                                     </variation>
-                                    <variation key="widthClass=compact" misplaced="YES">
+                                    <variation key="widthClass=compact">
                                         <mask key="constraints">
                                             <include reference="slt-Ic-WAA"/>
                                         </mask>
-                                        <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                     </variation>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FurColor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gn6-fo-9Ts">
@@ -284,11 +275,10 @@
                                             <exclude reference="cvU-wH-mh1"/>
                                         </mask>
                                     </variation>
-                                    <variation key="widthClass=compact" misplaced="YES">
+                                    <variation key="widthClass=compact">
                                         <mask key="constraints">
                                             <include reference="cvU-wH-mh1"/>
                                         </mask>
-                                        <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                     </variation>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dR-ro-bTG">
@@ -304,11 +294,10 @@
                                             <exclude reference="v9M-wE-R9w"/>
                                         </mask>
                                     </variation>
-                                    <variation key="widthClass=compact" misplaced="YES">
+                                    <variation key="widthClass=compact">
                                         <mask key="constraints">
                                             <include reference="v9M-wE-R9w"/>
                                         </mask>
-                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                     </variation>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gjt-vS-zmG">
@@ -324,11 +313,10 @@
                                             <exclude reference="WSs-JV-JXf"/>
                                         </mask>
                                     </variation>
-                                    <variation key="widthClass=compact" misplaced="YES">
+                                    <variation key="widthClass=compact">
                                         <mask key="constraints">
                                             <include reference="WSs-JV-JXf"/>
                                         </mask>
-                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                     </variation>
                                 </button>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="10">
@@ -347,12 +335,11 @@
                                             <exclude reference="oxb-dr-Xd5"/>
                                         </mask>
                                     </variation>
-                                    <variation key="widthClass=compact" misplaced="YES">
+                                    <variation key="widthClass=compact">
                                         <mask key="constraints">
                                             <exclude reference="YUW-La-JB4"/>
                                             <exclude reference="oxb-dr-Xd5"/>
                                         </mask>
-                                        <rect key="frame" x="215" y="64" width="42" height="21"/>
                                     </variation>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xWp-D1-oMo">
@@ -366,11 +353,10 @@
                                             <exclude reference="nod-oV-dlN"/>
                                         </mask>
                                     </variation>
-                                    <variation key="widthClass=compact" misplaced="YES">
+                                    <variation key="widthClass=compact">
                                         <mask key="constraints">
                                             <include reference="nod-oV-dlN"/>
                                         </mask>
-                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                     </variation>
                                 </button>
                             </subviews>
@@ -467,7 +453,7 @@
                                     <exclude reference="bsc-do-s07"/>
                                 </mask>
                             </variation>
-                            <variation key="widthClass=compact" misplaced="YES">
+                            <variation key="widthClass=compact">
                                 <mask key="subviews">
                                     <include reference="aW6-0X-FUd"/>
                                     <include reference="7"/>
@@ -514,7 +500,6 @@
                                     <include reference="B9w-4O-QlL"/>
                                     <include reference="bsc-do-s07"/>
                                 </mask>
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </variation>
                         </view>
                     </subviews>
@@ -545,7 +530,7 @@
                             <exclude reference="es6-yO-JN7"/>
                         </mask>
                     </variation>
-                    <variation key="widthClass=compact" misplaced="YES">
+                    <variation key="widthClass=compact">
                         <mask key="subviews">
                             <include reference="6"/>
                             <include reference="Jn1-Ej-4mX"/>
@@ -559,7 +544,6 @@
                             <include reference="L6K-er-tcs"/>
                             <include reference="es6-yO-JN7"/>
                         </mask>
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     </variation>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13">
@@ -577,12 +561,11 @@
                             <exclude reference="Fli-gI-Wvs"/>
                         </mask>
                     </variation>
-                    <variation key="widthClass=compact" misplaced="YES">
+                    <variation key="widthClass=compact">
                         <mask key="constraints">
                             <include reference="FWW-sM-p2b"/>
                             <include reference="Fli-gI-Wvs"/>
                         </mask>
-                        <rect key="frame" x="334" y="0.0" width="46" height="30"/>
                     </variation>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carrot.png" translatesAutoresizingMaskIntoConstraints="NO" id="l3s-w0-HAJ">
@@ -597,12 +580,11 @@
                             <exclude reference="zGZ-mS-M7W"/>
                         </mask>
                     </variation>
-                    <variation key="widthClass=compact" misplaced="YES">
+                    <variation key="widthClass=compact">
                         <mask key="constraints">
                             <include reference="UwB-4p-h8G"/>
                             <include reference="zGZ-mS-M7W"/>
                         </mask>
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     </variation>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14">
@@ -620,12 +602,11 @@
                             <exclude reference="cBL-mH-z4H"/>
                         </mask>
                     </variation>
-                    <variation key="widthClass=compact" misplaced="YES">
+                    <variation key="widthClass=compact">
                         <mask key="constraints">
                             <include reference="6nl-Fb-3pD"/>
                             <include reference="cBL-mH-z4H"/>
                         </mask>
-                        <rect key="frame" x="334" y="0.0" width="46" height="30"/>
                     </variation>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="carrot.png" translatesAutoresizingMaskIntoConstraints="NO" id="19">
@@ -644,12 +625,11 @@
                             <exclude reference="uWj-a0-5Tl"/>
                         </mask>
                     </variation>
-                    <variation key="widthClass=compact" misplaced="YES">
+                    <variation key="widthClass=compact">
                         <mask key="constraints">
                             <include reference="Yow-6r-rlS"/>
                             <include reference="uWj-a0-5Tl"/>
                         </mask>
-                        <rect key="frame" x="141" y="196" width="160" height="240"/>
                     </variation>
                 </imageView>
             </subviews>
@@ -758,16 +738,5 @@
     <resources>
         <image name="carrot.png" width="512" height="512"/>
         <image name="grass.png" width="1024" height="1024"/>
-        <image name="bunny_downleft.png" width="1024" height="1024"/>
-        <image name="bunny_down.png" width="1024" height="1024"/>
-        <image name="bunny_downright.png" width="1024" height="1024"/>
-        <image name="bunny_right.png" width="1024" height="1024"/>
-        <image name="bunny_upright.png" width="1024" height="1024"/>
-        <image name="bunny_up.png" width="1024" height="1024"/>
-        <image name="bunny_upleft.png" width="1024" height="1024"/>
-        <image name="bunny_left.png" width="1024" height="1024"/>
-        <image name="bunny_back.png" width="1024" height="1024"/>
-        <image name="bunny_front.png" width="1024" height="1024"/>
-        <image name="bunny.png" width="512" height="512"/>
     </resources>
 </document>

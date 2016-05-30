@@ -4,6 +4,7 @@ using UIKit;
 using CoreGraphics;
 using Fluffimax.Core;
 using System.Timers;
+using ZXing.Mobile;
 
 namespace Fluffimax.iOS
 {
@@ -129,25 +130,67 @@ namespace Fluffimax.iOS
 			long tossId = long.Parse (catchResult);
 
 			Server.GetTossStatus (tossId, (theToss) => {
-				if (!theToss.isValid) {
-					// sorry toss has expired
-				} else if (theToss.price > Game.CurrentPlayer.carrotCount) {
-					// sorry you can't afford it
-				} else {
-					// ask the user if they want to buy it
-					if (true) {
-						Server.CatchToss(tossId, (theBuns) => {
+				InvokeOnMainThread (() => {
+					if (!theToss.isValid) {
+						ShowMessageBox("Catch Failed!", "Sorry, the bunny is no longer there." , "sad face");
+					} else if (theToss.price > Game.CurrentPlayer.carrotCount) {
+						ShowMessageBox("Catch Failed!", "You don't have enough carrots to buy that bunny", "oh well");
+					} else {
+						UIAlertView alert = new UIAlertView();
+						alert.Title = "Catching a Bunny!";
 
-							if (theBuns != null) {
-								// happy user
-							} else {
-								// something went wrong
+						if (theToss.price > 0) {
+							alert.Message = "Catch this bunny for " + theToss.price + " carrots?";
+							alert.AddButton("Spend those carrots!");
+							alert.AddButton("nevermind");
+						} else {
+							alert.Message = "Catch this cute bunny?";
+							alert.AddButton("Catch it!");
+						}
+						alert.AlertViewStyle = UIAlertViewStyle.Default;
+						alert.Clicked += (object s, UIButtonEventArgs ev) =>
+						{
+							if (ev.ButtonIndex == 0) {
+								// buy that bunny!
+								Server.CatchToss(tossId, (theBuns) => {
+									InvokeOnMainThread(() => {
+									if (theBuns != null) {
+										ShowMessageBox("Success", "Enjoy your new bunny!", "will do");
+										Game.RecentlyPurchased = true;
+										Game.CurrentPlayer.Bunnies.Add(theBuns);
+										CheckForNewBunnies();
+									} else {
+										// something went wrong
+										ShowMessageBox("Catch Failed", "Something went wrong.  Maybe try again?", "will do");
+									}
+									});
+								});
+
 							}
-						});
+						};
+
+						alert.Show ();
 					}
 
-				}
 
+					});
+
+			});
+		}
+
+		private void ShowMessageBox(string titleStr, string msgStr, string btnMsg) {
+			UIAlertView alert = new UIAlertView();
+			alert.Title = titleStr;
+			alert.AddButton(btnMsg);
+			alert.Message = msgStr;
+			alert.AlertViewStyle = UIAlertViewStyle.Default;
+			alert.Clicked += (object s, UIButtonEventArgs ev) =>
+			{
+				
+			};
+
+			InvokeOnMainThread (() => {
+				alert.Show ();
 			});
 		}
 
@@ -171,22 +214,25 @@ namespace Fluffimax.iOS
 		}
 
 		public void ShowRenameBunny() {
-			UIAlertView alert = new UIAlertView();
-			alert.Title = "Rename Bunny";
-			alert.AddButton("OK");
-			alert.AddButton("Cancel");
-			alert.Message = "What do you want to name this cute bunny?";
-			alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
-			alert.Clicked += (object s, UIButtonEventArgs ev) =>
-			{
-				if(ev.ButtonIndex ==0)
-				{
-					string input = alert.GetTextField(0).Text;
-					_currentBuns.BunnyName = input;
-					UpdateBunnyPanel();
-				}
-			};
-			alert.Show();
+			if (_currentBuns.OriginalOwner == Game.CurrentPlayer.id) {
+				UIAlertView alert = new UIAlertView ();
+				alert.Title = "Rename Bunny";
+				alert.AddButton ("OK");
+				alert.AddButton ("Cancel");
+				alert.Message = "What do you want to name this cute bunny?";
+				alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
+				alert.Clicked += (object s, UIButtonEventArgs ev) => {
+					if (ev.ButtonIndex == 0) {
+						string input = alert.GetTextField (0).Text;
+						_currentBuns.BunnyName = input;
+						Server.RecordRenameBunny(_currentBuns);
+						UpdateBunnyPanel ();
+					}
+				};
+				alert.Show ();
+			} else {
+				ShowMessageBox ("Rename Bunny", "Sorry, only the original owner can name a bunny!", "bummer");
+			}
 
 		}
 
@@ -201,6 +247,7 @@ namespace Fluffimax.iOS
 			UpdateScore ();
 
 			CheckForNewBunnies ();
+			CheckForRecentPurchase ();
 		}
 
 		private void CheckForNewBunnies() {
@@ -213,6 +260,21 @@ namespace Fluffimax.iOS
 				}
 				Game.RecentlyPurchased = false;
 			}
+		}
+
+		private void CheckForRecentPurchase() {
+			if (Game.BunnyBeingSold != null) {
+				SetCurrentBunny (null);
+				RemoveBunnyFromPlayer (Game.BunnyBeingSold);
+				Game.BunnyBeingSold = null;
+			}
+		}
+
+		private void RemoveBunnyFromPlayer(Bunny theBuns) {
+			Game.CurrentPlayer.Bunnies.Remove (theBuns);
+			BunnyGraphic theGraphic = _bunnyGraphicList.Find (b => b.LinkedBuns == theBuns);
+			theGraphic.Button.RemoveFromSuperview ();
+			_bunnyGraphicList.Remove (theGraphic);
 		}
 
 		protected UINavigationController NavController { 
@@ -376,7 +438,10 @@ namespace Fluffimax.iOS
 		private void UpdateBunnyPanel() {
 			if (_currentBuns != null) {
 				InvokeOnMainThread (() => {
-					BunnyNameLabel.Text = _currentBuns.BunnyName;
+					string nameStr = _currentBuns.BunnyName;
+					if (string.IsNullOrEmpty(nameStr))
+						nameStr = "unnamed bunny";
+					BunnyNameLabel.Text = nameStr;
 					BunnyBreedLabel.Text = _currentBuns.BreedName;
 					BunnyGenderLabel.Text = _currentBuns.Female ? "female" : "male";
 					FurColorLabel.Text = _currentBuns.FurColorName;
@@ -601,6 +666,7 @@ namespace Fluffimax.iOS
 				InvokeOnMainThread (() => {
 					FeedBunnyBtn.Enabled = false;
 					CarrotImg.Hidden = false;
+					CarrotImg.Layer.ZPosition = 10000;
 					UpdateScore();
 					UIImage[] imageList = SpriteManager.GetImageList(theBuns, "idle", "front");
 					UIImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;

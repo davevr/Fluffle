@@ -35,7 +35,7 @@ namespace Fluffimax.iOS
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
-			NavController.NavigationBarHidden = false;
+			NavController.NavigationBarHidden = true;
 			Server.StartToss (Game.BunnyBeingSold.id, Game.BunnySellPrice, (theToss) => {
 				var writer = new BarcodeWriter {
 					Format = ZXing.BarcodeFormat.AZTEC,
@@ -89,10 +89,12 @@ namespace Fluffimax.iOS
 
 		private void EndToss()
 		{
-			InvokeOnMainThread (() => {
-				StopTossTimer ();
-				DismissViewController (true, () => {
-					// do nothing for now
+			StopTossTimer ();
+			Server.GetTossStatus(Game.CurrentTossId, (tossRec) => {
+				InvokeOnMainThread(() => {
+					if (tossRec.catcherId == 0)
+						Game.BunnyBeingSold = null;
+					NavController.PopViewController(true);
 				});
 			});
 		}
