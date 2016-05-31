@@ -107,6 +107,15 @@
     <Reference Include="SDWebImage">
       <HintPath>..\packages\Xamarin.SDWebImage.3.7.5\lib\Xamarin.iOS\SDWebImage.dll</HintPath>
     </Reference>
+    <Reference Include="JVMenuPopover">
+      <HintPath>..\Components\jvmenupopover-1.6\lib\ios-unified\JVMenuPopover.dll</HintPath>
+    </Reference>
+    <Reference Include="Flurry.Analytics.iOS">
+      <HintPath>..\packages\Flurry.Analytics.2.0.0\lib\Xamarin.iOS10\Flurry.Analytics.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Flurry.Ads.iOS">
+      <HintPath>..\packages\Flurry.Ads.2.0.0\lib\Xamarin.iOS10\Flurry.Ads.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -207,6 +216,7 @@
     <BundleResource Include="Resources\carrot.png" />
     <BundleResource Include="Resources\bunny.png" />
     <BundleResource Include="Resources\grass.png" />
+    <BundleResource Include="Resources\baseicon.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="servicestacktext">
@@ -227,6 +237,14 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="sdwebimage">
       <Version>3.7.5</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="jvmenupopover">
+      <Version>1.6</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="Flurry.Ads">
+      <Version>2.0.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

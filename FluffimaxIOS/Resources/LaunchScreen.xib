@@ -13,26 +13,26 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by Juju, Sacks, and the Dad" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by Juju, Sacks, and the Dad" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye" misplaced="YES">
                     <rect key="frame" x="20" y="439" width="441" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fluffle!" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fluffle!" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX" misplaced="YES">
                     <rect key="frame" x="20" y="64" width="441" height="43"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bunny_front.png" translatesAutoresizingMaskIntoConstraints="NO" id="2">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="baseicon.png" translatesAutoresizingMaskIntoConstraints="NO" id="2">
                     <rect key="frame" x="8" y="8" width="464" height="464"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="2" secondAttribute="height" multiplier="1:1" id="z5E-k6-OdW"/>
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" customColorSpace="calibratedWhite" colorSpace="calibratedRGB" red="0" green="1" blue="0" alpha="1"/>
             <constraints>
                 <constraint firstItem="2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="25" id="3"/>
                 <constraint firstItem="2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="4"/>
@@ -65,5 +65,10 @@
     </objects>
     <resources>
         <image name="bunny_front.png" width="1024" height="1024"/>
+        <image name="carrot.png" width="512" height="512"/>
+        <image name="bunny.png" width="512" height="512"/>
+        <image name="grass.png" width="1024" height="1024"/>
+        <image name="icon.png" width="375" height="375"/>
+        <image name="baseicon.png" width="375" height="375"/>
     </resources>
 </document>

@@ -29,7 +29,7 @@ namespace Fluffimax.Core
 		private static string localHostStr = "http://localhost:8080";
 		private static string networkHostStr = "http://192.168.0.6:8080";
 		private static string productionHostStr = "https://fluffle-1306.appspot.com";
-		private static string serverBase =   productionHostStr;
+		private static string serverBase =   localHostStr;
 		private static string apiPath;
 		public static string SpriteImagePath;
 		public static string ProfileImagePath;
@@ -118,10 +118,36 @@ namespace Fluffimax.Core
 
 					callback( carrotCount);
 				});
-
-
-		
 		}
+
+		public static void GetMarketPrice(long bunnyId, int_callback callback) {
+			string fullURL = "store";
+
+			RestRequest request = new RestRequest(fullURL, Method.GET);
+			request.AddParameter ("bunnyid", bunnyId);
+
+			apiClient.ExecuteAsync<int>(request, (response) =>
+				{
+					int thePrice = response.Data;
+
+					callback( thePrice);
+				});
+		}
+
+		public static void SellBunny(long bunnyId, int_callback callback) {
+			string fullURL = "store";
+
+			RestRequest request = new RestRequest(fullURL, Method.POST);
+			request.AddParameter ("bunnyid", bunnyId);
+
+			apiClient.ExecuteAsync<int>(request, (response) =>
+				{
+					int soldPrice = response.Data;
+
+					callback( soldPrice);
+				});
+		}
+
 
 		public static void CreatePlayer(Player_callback callback)
 		{

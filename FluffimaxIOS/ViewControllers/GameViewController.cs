@@ -67,7 +67,7 @@ namespace Fluffimax.iOS
 			};
 
 			SellBunnyBtn.TouchUpInside += (object sender, EventArgs e) => {
-				// todo
+				MaybeSellBunny();
 			};
 
 			BuyBunnyBtn.TouchUpInside += (object sender, EventArgs e) => {
@@ -95,6 +95,41 @@ namespace Fluffimax.iOS
 				DoCatchBunny();
 
 			};
+
+		}
+
+		private void MaybeSellBunny() {
+			Server.GetMarketPrice (_currentBuns.id, (thePrice) => {
+				InvokeOnMainThread (() => {
+					UIAlertView alert = new UIAlertView ();
+					alert.Title = "Sell Bunny";
+					alert.AddButton ("Sell");
+					alert.AddButton ("Nevermind");
+					alert.Message = string.Format ("Sell {0} for {1} carrots?", _currentBuns.BunnyName, thePrice);
+					alert.AlertViewStyle = UIAlertViewStyle.Default;
+					alert.Clicked += (object s, UIButtonEventArgs ev) => {
+						if (ev.ButtonIndex == 0) {
+							Server.SellBunny (_currentBuns.id, (salePrice) => {
+								if (salePrice > 0) {
+									InvokeOnMainThread (() => {
+										Bunny soldBuns = _currentBuns;
+										Game.CurrentPlayer.carrotCount += salePrice;
+										SetCurrentBunny (null);
+										RemoveBunnyFromPlayer (soldBuns);
+										UpdateScore();
+
+									});
+								} else {
+									// sell failed for some reason
+									ShowMessageBox("Bunny Sale", "Bunny Sale Failed.  Try again later", "well, ok");
+								}
+							});
+						}
+					};
+
+					alert.Show ();
+				});
+			});
 
 		}
 
@@ -179,17 +214,17 @@ namespace Fluffimax.iOS
 		}
 
 		private void ShowMessageBox(string titleStr, string msgStr, string btnMsg) {
-			UIAlertView alert = new UIAlertView();
-			alert.Title = titleStr;
-			alert.AddButton(btnMsg);
-			alert.Message = msgStr;
-			alert.AlertViewStyle = UIAlertViewStyle.Default;
-			alert.Clicked += (object s, UIButtonEventArgs ev) =>
-			{
-				
-			};
-
 			InvokeOnMainThread (() => {
+				UIAlertView alert = new UIAlertView();
+				alert.Title = titleStr;
+				alert.AddButton(btnMsg);
+				alert.Message = msgStr;
+				alert.AlertViewStyle = UIAlertViewStyle.Default;
+				alert.Clicked += (object s, UIButtonEventArgs ev) =>
+				{
+					
+				};
+
 				alert.Show ();
 			});
 		}

@@ -1,6 +1,7 @@
 ﻿using Foundation;
 using UIKit;
 using HockeyApp;
+using Flurry.Analytics;
 
 namespace Fluffimax.iOS
 {
@@ -24,6 +25,8 @@ namespace Fluffimax.iOS
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
+			FlurryAgent.StartSession("B9MSG4BV56C6NG3YGRKW");
+
 			var manager = BITHockeyManager.SharedHockeyManager;
 			manager.Configure("ab076f11566a4a6c94f870ca7f143ef5");
 			manager.StartManager();
@@ -38,6 +41,16 @@ namespace Fluffimax.iOS
 			Window.RootViewController = NavController;
 
 			Window.MakeKeyAndVisible ();
+
+			/*
+
+			if (Flurry.Ads.FlurryAds.IsAdReady ("Fluffle Test Ad")) {
+				Flurry.Ads.FlurryAds.DisplayAd ("Fluffle Test Ad", UITableViewHeaderFooterView, theViewController);
+
+			} else {
+				Flurry.Ads.FlurryAds.FetchAndDisplayAd ("space", UITableViewHeaderFooterView, theViewController, Flurry.Ads.AdSize.Fullscreen);
+			}
+			*/
 			return true;
 
 		}
