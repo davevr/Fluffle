@@ -2,6 +2,8 @@
 using UIKit;
 using HockeyApp;
 using Flurry.Analytics;
+using System.Collections.Generic;
+using SidebarNavigation;
 
 namespace Fluffimax.iOS
 {
@@ -22,25 +24,36 @@ namespace Fluffimax.iOS
 			set;
 		}
 
+		public HomeViewController RootController {
+			get;
+			set;
+		}
+
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
 			FlurryAgent.StartSession("B9MSG4BV56C6NG3YGRKW");
+			FlurryAgent.SetEventLoggingEnabled (true);
 
 			var manager = BITHockeyManager.SharedHockeyManager;
 			manager.Configure("ab076f11566a4a6c94f870ca7f143ef5");
+			manager.DisableUpdateManager = false;
+			manager.EnableStoreUpdateManager = true;
 			manager.StartManager();
 
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
+			/*
 			// If you have defined a root view controller, set it here:
 			NavController = new UINavigationController(new HomeViewController());
-			NavController.NavigationBarHidden = true;
-			Window.RootViewController = NavController;
+			*/
 
-			Window.MakeKeyAndVisible ();
+			RootController = new HomeViewController();
+			Window.RootViewController = RootController ;
+
+			Window.MakeKeyAndVisible();
 
 			/*
 

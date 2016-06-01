@@ -28,9 +28,22 @@ namespace Fluffimax.iOS
 			NavController.NavigationBarHidden = false;
 		}
 
-		protected UINavigationController NavController { 
+		protected HomeViewController RootController { 
 			get {
-				return (UIApplication.SharedApplication.Delegate as AppDelegate).NavController;
+				return (UIApplication.SharedApplication.Delegate as AppDelegate).RootController;
+			} 
+		}
+
+		protected SidebarNavigation.SidebarController SidebarController { 
+			get {
+				return (UIApplication.SharedApplication.Delegate as AppDelegate).RootController.SidebarController;
+			} 
+		}
+
+		// provide access to the sidebar controller to all inheriting controllers
+		protected NavController NavController { 
+			get {
+				return (UIApplication.SharedApplication.Delegate as AppDelegate).RootController.NavController;
 			} 
 		}
 	}

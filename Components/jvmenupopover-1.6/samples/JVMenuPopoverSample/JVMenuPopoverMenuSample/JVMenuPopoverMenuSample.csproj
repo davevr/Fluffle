@@ -59,7 +59,8 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <IpaPackageName></IpaPackageName>
+    <IpaPackageName>
+    </IpaPackageName>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -67,7 +68,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
     <Reference Include="JVMenuPopover">
-      <HintPath>../../../lib\/ios-unified/JVMenuPopover.dll</HintPath>
+      <HintPath>..\..\..\lib\ios-unified\JVMenuPopover.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -90,17 +91,11 @@
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <ItemGroup></ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\about-48%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
     <BundleResource Include="Resources\app_bg1%402x.jpg" />
     <BundleResource Include="Resources\app_bg2%402x.jpg" />
-    <BundleResource Include="Resources\ask_question-48%402x.png" />
-    <BundleResource Include="Resources\business_contact-48%402x.png" />
-    <BundleResource Include="Resources\cancel-48%402x.png" />
-    <BundleResource Include="Resources\delete_sign-48%402x.png" />
-    <BundleResource Include="Resources\home-48%402x.png" />
-    <BundleResource Include="Resources\menu-48%402x.png" />
     <BundleResource Include="Resources\settings-48%402x.png" />
   </ItemGroup>
 </Project>

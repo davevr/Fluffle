@@ -107,14 +107,14 @@
     <Reference Include="SDWebImage">
       <HintPath>..\packages\Xamarin.SDWebImage.3.7.5\lib\Xamarin.iOS\SDWebImage.dll</HintPath>
     </Reference>
-    <Reference Include="JVMenuPopover">
-      <HintPath>..\Components\jvmenupopover-1.6\lib\ios-unified\JVMenuPopover.dll</HintPath>
-    </Reference>
     <Reference Include="Flurry.Analytics.iOS">
       <HintPath>..\packages\Flurry.Analytics.2.0.0\lib\Xamarin.iOS10\Flurry.Analytics.iOS.dll</HintPath>
     </Reference>
     <Reference Include="Flurry.Ads.iOS">
       <HintPath>..\packages\Flurry.Ads.2.0.0\lib\Xamarin.iOS10\Flurry.Ads.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin-Sidebar-Unified">
+      <HintPath>_ext\Xamarin-Sidebar-Unified.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -126,7 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
-    <InterfaceDefinition Include="ViewControllers\HomeViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\GameViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\BunnyShopViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\CarrotShopViewController.xib" />
@@ -135,11 +134,16 @@
     <InterfaceDefinition Include="Views\BunnyCellView.xib" />
     <InterfaceDefinition Include="ViewControllers\GiveBunnyViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\CatchBunnyViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\ProfileViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\LeaderboardViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\BunnyDetailViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\SideMenuController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <None Include="_ext\Xamarin-Sidebar-Unified.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -147,10 +151,6 @@
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ViewControllers\HomeViewController.cs" />
-    <Compile Include="ViewControllers\HomeViewController.designer.cs">
-      <DependentUpon>HomeViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\GameViewController.cs" />
     <Compile Include="ViewControllers\GameViewController.designer.cs">
@@ -204,6 +204,24 @@
     <Compile Include="utils\InAppPurchaseManager.cs" />
     <Compile Include="utils\CustomPaymentObserver.cs" />
     <Compile Include="utils\SKProductExtension.cs" />
+    <Compile Include="ViewControllers\ProfileViewController.cs" />
+    <Compile Include="ViewControllers\ProfileViewController.designer.cs">
+      <DependentUpon>ProfileViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\LeaderboardViewController.cs" />
+    <Compile Include="ViewControllers\LeaderboardViewController.designer.cs">
+      <DependentUpon>LeaderboardViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\BunnyDetailViewController.cs" />
+    <Compile Include="ViewControllers\BunnyDetailViewController.designer.cs">
+      <DependentUpon>BunnyDetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="utils\NavController.cs" />
+    <Compile Include="ViewControllers\SideMenuController.cs" />
+    <Compile Include="ViewControllers\SideMenuController.designer.cs">
+      <DependentUpon>SideMenuController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\HomeViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -211,12 +229,20 @@
     <Folder Include="Views\" />
     <Folder Include="Collections\" />
     <Folder Include="utils\" />
+    <Folder Include="_ext\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\carrot.png" />
     <BundleResource Include="Resources\bunny.png" />
     <BundleResource Include="Resources\grass.png" />
     <BundleResource Include="Resources\baseicon.png" />
+    <BundleResource Include="Resources\menu-48%402x.png" />
+    <BundleResource Include="Resources\about-48%402x.png" />
+    <BundleResource Include="Resources\ask_question-48%402x.png" />
+    <BundleResource Include="Resources\business_contact-48%402x.png" />
+    <BundleResource Include="Resources\cancel-48%402x.png" />
+    <BundleResource Include="Resources\delete_sign-48%402x.png" />
+    <BundleResource Include="Resources\home-48%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="servicestacktext">
@@ -237,10 +263,6 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="sdwebimage">
       <Version>3.7.5</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
-    <XamarinComponentReference Include="jvmenupopover">
-      <Version>1.6</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="Flurry.Ads">

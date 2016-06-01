@@ -112,6 +112,17 @@ namespace Fluffimax.iOS {
 		}
 		public void FinishTransaction(SKPaymentTransaction transaction, bool wasSuccessful)
 		{
+			if (wasSuccessful) {
+				if (transaction == null) {
+					NSDictionary theDict = NSDictionary.FromObjectAndKey (new NSString ("admin"), new NSString ("SKU"));
+
+					Flurry.Analytics.FlurryAgent.LogEvent ("buy_carrots", theDict);
+				} else {
+					NSDictionary theDict = NSDictionary.FromObjectAndKey (new NSString (transaction.Payment.ProductIdentifier), new NSString ("SKU"));
+
+					Flurry.Analytics.FlurryAgent.LogEvent ("buy_carrots", theDict);
+				}
+			}
 			Console.WriteLine("FinishTransaction " + wasSuccessful);
 			// remove the transaction from the payment queue.
 			if (transaction != null)

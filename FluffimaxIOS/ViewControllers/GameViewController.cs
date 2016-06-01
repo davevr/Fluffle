@@ -312,11 +312,7 @@ namespace Fluffimax.iOS
 			_bunnyGraphicList.Remove (theGraphic);
 		}
 
-		protected UINavigationController NavController { 
-			get {
-				return (UIApplication.SharedApplication.Delegate as AppDelegate).NavController;
-			} 
-		}
+
 
 
 
@@ -763,6 +759,25 @@ namespace Fluffimax.iOS
 
 
 			}
+		}
+
+		protected HomeViewController RootController { 
+			get {
+				return (UIApplication.SharedApplication.Delegate as AppDelegate).RootController;
+			} 
+		}
+
+		protected SidebarNavigation.SidebarController SidebarController { 
+			get {
+				return (UIApplication.SharedApplication.Delegate as AppDelegate).RootController.SidebarController;
+			} 
+		}
+
+		// provide access to the sidebar controller to all inheriting controllers
+		protected NavController NavController { 
+			get {
+				return (UIApplication.SharedApplication.Delegate as AppDelegate).RootController.NavController;
+			} 
 		}
 
 	}

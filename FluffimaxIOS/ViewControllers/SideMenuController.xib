@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SideMenuController">
+            <connections>
+                <outlet property="MenuImage" destination="6" id="rsN-aT-5PF"/>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+                <outlet property="GameBtn" destination="9" id="name-outlet-9"/>
+                <outlet property="ShopBtn" destination="10" id="name-outlet-10"/>
+                <outlet property="ProfileBtn" destination="11" id="name-outlet-11"/>
+                <outlet property="BoardsBtn" destination="12" id="name-outlet-12"/>
+                <outlet property="CamBtn" destination="15" id="name-outlet-15"/>
+                <outlet property="AboutBtn" destination="16" id="name-outlet-16"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="baseicon.png" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                    <rect key="frame" x="120" y="125" width="160" height="240"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="LKB-Av-jn8"/>
+                        <constraint firstAttribute="height" constant="200" id="agW-31-heA"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="LKB-Av-jn8"/>
+                            <exclude reference="agW-31-heA"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="LKB-Av-jn8"/>
+                            <include reference="agW-31-heA"/>
+                        </mask>
+                        <rect key="frame" x="5" y="5" width="200" height="200"/>
+                    </variation>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9">
+                    <rect key="frame" x="82" y="231" width="46" height="30"/>
+                    <state key="normal" title="Bunny Garden">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10">
+                    <rect key="frame" x="82" y="293" width="46" height="30"/>
+                    <state key="normal" title="Carrot Shop">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12">
+                    <rect key="frame" x="90" y="407" width="46" height="30"/>
+                    <state key="normal" title="Leaderboards">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11">
+                    <rect key="frame" x="82" y="348" width="46" height="30"/>
+                    <state key="normal" title="Profile">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15">
+                    <rect key="frame" x="82" y="408" width="46" height="30"/>
+                    <state key="normal" title="Live Bunny Cam!">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                    <rect key="frame" x="82" y="471" width="46" height="30"/>
+                    <state key="normal" title="About Fluffle">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="15" firstAttribute="top" secondItem="12" secondAttribute="bottom" constant="19" id="17">
+                    <variation key="widthClass=compact" constant="16"/>
+                </constraint>
+                <constraint firstItem="15" firstAttribute="centerX" secondItem="6" secondAttribute="centerX" id="18"/>
+                <constraint firstItem="16" firstAttribute="top" secondItem="15" secondAttribute="bottom" constant="33" id="19">
+                    <variation key="widthClass=compact" constant="16"/>
+                </constraint>
+                <constraint firstItem="16" firstAttribute="centerX" secondItem="6" secondAttribute="centerX" id="20"/>
+                <constraint firstItem="10" firstAttribute="top" secondItem="9" secondAttribute="bottom" constant="16" id="8fZ-xz-Ysr"/>
+                <constraint firstItem="9" firstAttribute="centerX" secondItem="6" secondAttribute="centerX" id="9Gj-Dg-f59"/>
+                <constraint firstItem="9" firstAttribute="top" secondItem="6" secondAttribute="bottom" constant="16" id="CgC-r8-Vxg"/>
+                <constraint firstItem="11" firstAttribute="centerX" secondItem="6" secondAttribute="centerX" id="Cqd-PL-D17"/>
+                <constraint firstItem="10" firstAttribute="centerX" secondItem="6" secondAttribute="centerX" id="X7s-th-kNQ"/>
+                <constraint firstItem="6" firstAttribute="top" secondItem="2" secondAttribute="top" constant="5" id="YSb-LA-QSL"/>
+                <constraint firstItem="6" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="5" id="ZLK-Bp-xb0"/>
+                <constraint firstItem="12" firstAttribute="top" secondItem="11" secondAttribute="bottom" constant="16" id="clC-K9-TV3"/>
+                <constraint firstItem="12" firstAttribute="centerX" secondItem="6" secondAttribute="centerX" id="ikf-u3-N0S"/>
+                <constraint firstItem="11" firstAttribute="top" secondItem="10" secondAttribute="bottom" constant="16" id="pTM-ie-8s9"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="6"/>
+                    <exclude reference="9"/>
+                    <exclude reference="10"/>
+                    <exclude reference="12"/>
+                    <exclude reference="11"/>
+                    <exclude reference="15"/>
+                    <exclude reference="16"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="9Gj-Dg-f59"/>
+                    <exclude reference="CgC-r8-Vxg"/>
+                    <exclude reference="8fZ-xz-Ysr"/>
+                    <exclude reference="X7s-th-kNQ"/>
+                    <exclude reference="YSb-LA-QSL"/>
+                    <exclude reference="ZLK-Bp-xb0"/>
+                    <exclude reference="Cqd-PL-D17"/>
+                    <exclude reference="pTM-ie-8s9"/>
+                    <exclude reference="17"/>
+                    <exclude reference="18"/>
+                    <exclude reference="clC-K9-TV3"/>
+                    <exclude reference="ikf-u3-N0S"/>
+                    <exclude reference="19"/>
+                    <exclude reference="20"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="subviews">
+                    <include reference="6"/>
+                    <include reference="9"/>
+                    <include reference="10"/>
+                    <include reference="12"/>
+                    <include reference="11"/>
+                    <include reference="15"/>
+                    <include reference="16"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="9Gj-Dg-f59"/>
+                    <include reference="CgC-r8-Vxg"/>
+                    <include reference="8fZ-xz-Ysr"/>
+                    <include reference="X7s-th-kNQ"/>
+                    <include reference="YSb-LA-QSL"/>
+                    <include reference="ZLK-Bp-xb0"/>
+                    <include reference="Cqd-PL-D17"/>
+                    <include reference="pTM-ie-8s9"/>
+                    <include reference="17"/>
+                    <include reference="18"/>
+                    <include reference="clC-K9-TV3"/>
+                    <include reference="ikf-u3-N0S"/>
+                    <include reference="19"/>
+                    <include reference="20"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+    <resources>
+        <image name="baseicon.png" width="375" height="375"/>
+        <image name="carrot.png" width="512" height="512"/>
+        <image name="bunny.png" width="512" height="512"/>
+        <image name="grass.png" width="1024" height="1024"/>
+        <image name="menu-48.png" width="24" height="24"/>
+        <image name="about-48.png" width="24" height="24"/>
+        <image name="ask_question-48.png" width="24" height="24"/>
+        <image name="business_contact-48.png" width="24" height="24"/>
+        <image name="cancel-48.png" width="24" height="24"/>
+        <image name="delete_sign-48.png" width="24" height="24"/>
+        <image name="home-48.png" width="24" height="24"/>
+    </resources>
+</document>
