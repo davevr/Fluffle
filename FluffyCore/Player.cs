@@ -21,6 +21,7 @@ namespace Fluffimax.Core
 		public List<DateTime> RepeatPlayList { get; set; }
 		public int carrotCount { get; set; }
 		public bool FromServer { get; set; }
+		public int totalShares {get; set;}
 		public List<Bunny> Bunnies { get; set; }
 
 		public Player() {

@@ -25,7 +25,7 @@ namespace Fluffimax.Core
 		public string BunnyName { get; set; }
 		public bool Female { get; set; }
 		public long id { get; set; }
-
+		public int TotalShares {get; set;}
 		public static List<int> _growthStages = null;
 
 

@@ -121,7 +121,7 @@ namespace Fluffimax.iOS
 									});
 								} else {
 									// sell failed for some reason
-									ShowMessageBox("Bunny Sale", "Bunny Sale Failed.  Try again later", "well, ok");
+									HomeViewController.ShowMessageBox("Bunny Sale", "Bunny Sale Failed.  Try again later", "well, ok");
 								}
 							});
 						}
@@ -167,9 +167,9 @@ namespace Fluffimax.iOS
 			Server.GetTossStatus (tossId, (theToss) => {
 				InvokeOnMainThread (() => {
 					if (!theToss.isValid) {
-						ShowMessageBox("Catch Failed!", "Sorry, the bunny is no longer there." , "sad face");
+						HomeViewController.ShowMessageBox("Catch Failed!", "Sorry, the bunny is no longer there." , "sad face");
 					} else if (theToss.price > Game.CurrentPlayer.carrotCount) {
-						ShowMessageBox("Catch Failed!", "You don't have enough carrots to buy that bunny", "oh well");
+						HomeViewController.ShowMessageBox("Catch Failed!", "You don't have enough carrots to buy that bunny", "oh well");
 					} else {
 						UIAlertView alert = new UIAlertView();
 						alert.Title = "Catching a Bunny!";
@@ -190,13 +190,13 @@ namespace Fluffimax.iOS
 								Server.CatchToss(tossId, (theBuns) => {
 									InvokeOnMainThread(() => {
 									if (theBuns != null) {
-										ShowMessageBox("Success", "Enjoy your new bunny!", "will do");
+											HomeViewController.ShowMessageBox("Success", "Enjoy your new bunny!", "will do");
 										Game.RecentlyPurchased = true;
 										Game.CurrentPlayer.Bunnies.Add(theBuns);
 										CheckForNewBunnies();
 									} else {
 										// something went wrong
-										ShowMessageBox("Catch Failed", "Something went wrong.  Maybe try again?", "will do");
+										HomeViewController.ShowMessageBox("Catch Failed", "Something went wrong.  Maybe try again?", "will do");
 									}
 									});
 								});
@@ -213,21 +213,6 @@ namespace Fluffimax.iOS
 			});
 		}
 
-		private void ShowMessageBox(string titleStr, string msgStr, string btnMsg) {
-			InvokeOnMainThread (() => {
-				UIAlertView alert = new UIAlertView();
-				alert.Title = titleStr;
-				alert.AddButton(btnMsg);
-				alert.Message = msgStr;
-				alert.AlertViewStyle = UIAlertViewStyle.Default;
-				alert.Clicked += (object s, UIButtonEventArgs ev) =>
-				{
-					
-				};
-
-				alert.Show ();
-			});
-		}
 
 
 		private void HandleBunnyTap(UITapGestureRecognizer recognizer) {
@@ -266,7 +251,7 @@ namespace Fluffimax.iOS
 				};
 				alert.Show ();
 			} else {
-				ShowMessageBox ("Rename Bunny", "Sorry, only the original owner can name a bunny!", "bummer");
+				HomeViewController.ShowMessageBox ("Rename Bunny", "Sorry, only the original owner can name a bunny!", "bummer");
 			}
 
 		}
@@ -336,7 +321,7 @@ namespace Fluffimax.iOS
 			NSLayoutConstraint csHorizontal = NSLayoutConstraint.Create (bunsBtn, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal,
 				View, NSLayoutAttribute.CenterX, 1, 0);
 			csHorizontal.Active = true;
-			NSLayoutConstraint csVertical = NSLayoutConstraint.Create (bunsBtn, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal,
+			NSLayoutConstraint csVertical = NSLayoutConstraint.Create (bunsBtn, NSLayoutAttribute.Bottom, NSLayoutRelation.Equal,
 				View, NSLayoutAttribute.CenterY, 1, 0);
 			csVertical.Active = true;
 

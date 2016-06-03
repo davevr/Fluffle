@@ -34,6 +34,7 @@ namespace Fluffimax.iOS
 		{
 			FlurryAgent.StartSession("B9MSG4BV56C6NG3YGRKW");
 			FlurryAgent.SetEventLoggingEnabled (true);
+			FlurryAgent.SetDebugLogEnabled (true);
 
 			var manager = BITHockeyManager.SharedHockeyManager;
 			manager.Configure("ab076f11566a4a6c94f870ca7f143ef5");

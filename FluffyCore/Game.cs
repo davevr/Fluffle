@@ -77,6 +77,7 @@ namespace Fluffimax.Core
 						pwd = _player.username;
 					Server.Login (_player.username, pwd, (serverCopy) => {
 						if (serverCopy != null) {
+							serverCopy.pwd = pwd;
 							_player = serverCopy;
 							_player.FromServer = true;
 							callback (_player);

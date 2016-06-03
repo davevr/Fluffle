@@ -12,12 +12,6 @@ namespace Fluffimax.iOS
 		private string RewardString = null;
 		public SidebarNavigation.SidebarController SidebarController { get; private set; }
 
-		private GameViewController _gameVC = null;
-		private BunnyCamViewController _bunnyVC = null;
-		private CarrotShopViewController _carrotVC = null;
-		private AboutViewController _aboutVC = null;
-		private ProfileViewController _profileVC = null;
-		private LeaderboardViewController _boardsVC = null;
 
 		public HomeViewController () : base (null, null)
 		{
@@ -35,11 +29,8 @@ namespace Fluffimax.iOS
 
 
 
+			View.BackgroundColor = UIColor.Green;
 
-			SidebarController = new SidebarNavigation.SidebarController(this, NavController, new SideMenuController());
-			SidebarController.MenuWidth = 220;
-			SidebarController.ReopenOnRotate = false;
-			SidebarController.MenuLocation = SidebarNavigation.SidebarController.MenuLocations.Left;
 
 			//NavController.PushViewController (new InitialLoadViewController (), false);
 			ResumeGame ();
@@ -47,6 +38,10 @@ namespace Fluffimax.iOS
 
 		private void FinishLoad() {
 			InvokeOnMainThread (() => {
+				SidebarController = new SidebarNavigation.SidebarController(this, NavController, new SideMenuController());
+				SidebarController.MenuWidth = 220;
+				SidebarController.ReopenOnRotate = false;
+				SidebarController.MenuLocation = SidebarNavigation.SidebarController.MenuLocations.Left;
 				NavController.PushViewController (new GameViewController() , true);
 			});
 		}
@@ -70,37 +65,76 @@ namespace Fluffimax.iOS
 			RewardString = null;
 		}
 
-		private void ResumeGame() {
-			SpriteManager.Initialize();
-			Server.InitServer();
-			Game.InitBunnyStore();
-			Game.InitGrowthChart ();
+		private void HandleNetworkChange(object sender, EventArgs args) {
+			if (Reachability.IsNetworkAvailable ()) {
+				Console.WriteLine ("network is now available");
+			} else {
+				Console.WriteLine ("lost network connection");
+			}
+		}
 
-			// load the player
-			Game.LoadExistingPlayer ((curPlayer) => {
-				if (curPlayer != null) {
-					InvokeOnMainThread (() => {
-						//StartBtn.SetTitle ("Resume", UIControlState.Normal);
-						RewardString = Game.MaybeRewardPlayer ();
-						FinishLoad();
-					});
-				} else {
-					// if no player, create one
-					Game.InitGameForNewPlayer ((newPlayer) => {
-						Game.SavePlayer (true);
-						InvokeOnMainThread (() => {
-							//StartBtn.SetTitle ("Start", UIControlState.Normal);
-							FinishLoad();
+		private void ResumeGame() {
+			Reachability.ReachabilityChanged += HandleNetworkChange;
+			Server.InitServer ();
+			if (Reachability.IsNetworkAvailable () || Server.IsLocal) {
+				Server.IsAlive ((isAlive) => {
+					if (isAlive) {
+						Server.IsOnline = true;
+						SpriteManager.Initialize ();
+						Game.InitBunnyStore ();
+						Game.InitGrowthChart ();
+
+						// load the player
+						Game.LoadExistingPlayer ((curPlayer) => {
+							if (curPlayer != null) {
+								InvokeOnMainThread (() => {
+									//StartBtn.SetTitle ("Resume", UIControlState.Normal);
+									RewardString = Game.MaybeRewardPlayer ();
+									FinishLoad ();
+								});
+							} else {
+								// if no player, create one
+								Game.InitGameForNewPlayer ((newPlayer) => {
+									Game.SavePlayer (true);
+									InvokeOnMainThread (() => {
+										//StartBtn.SetTitle ("Start", UIControlState.Normal);
+										FinishLoad ();
+									});
+								});
+							}
 						});
-					});
-				}
-			});
+					} else {
+						Server.IsOnline = false;
+						ShowMessageBox ("Error", "Cannot connect to Fluffle Cloud", "Dang");
+					}
+				});
+			} else {
+				Server.IsOnline = false;
+				ShowMessageBox ("Error", "No network connection detected", "Dang");
+
+			}
 		}
 
 		public override void DidReceiveMemoryWarning ()
 		{
 			base.DidReceiveMemoryWarning ();
 			// Release any cached data, images, etc that aren't in use.
+		}
+
+		public static void ShowMessageBox(string titleStr, string msgStr, string btnMsg) {
+			(UIApplication.SharedApplication.Delegate as AppDelegate).RootController.InvokeOnMainThread (() => {
+				UIAlertView alert = new UIAlertView();
+				alert.Title = titleStr;
+				alert.AddButton(btnMsg);
+				alert.Message = msgStr;
+				alert.AlertViewStyle = UIAlertViewStyle.Default;
+				alert.Clicked += (object s, UIButtonEventArgs ev) =>
+				{
+
+				};
+
+				alert.Show ();
+			});
 		}
 
 

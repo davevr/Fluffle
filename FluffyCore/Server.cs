@@ -37,6 +37,14 @@ namespace Fluffimax.Core
 		private static string _catchURL;
 		private static string _userImageURL;
 
+		public static bool IsOnline{ get; set; }
+
+		public static bool IsLocal {
+			get {
+				return serverBase == localHostStr;
+			}
+		}
+
 		public static void InitServer () {
 			JsConfig.DateHandler = JsonDateHandler.ISO8601; 
 
@@ -57,6 +65,21 @@ namespace Fluffimax.Core
 			// todo:  other init, if any
 		}
 
+		public static void IsAlive(bool_callback callback) {
+			string fullURL = "admin/status";
+
+			RestRequest request = new RestRequest(fullURL, Method.GET);
+			apiClient.ExecuteAsync(request, (response) =>
+				{
+					if (response.StatusCode == HttpStatusCode.OK) {
+						bool alive = response.Content.FromJson<bool>();
+						callback(alive);
+					}
+					else
+						callback(false);
+				});
+		}
+
 		public static void Login(string username, string pwd, Player_callback callback) {
 			string fullURL = "login";
 
@@ -65,16 +88,6 @@ namespace Fluffimax.Core
 				request.AddParameter ("username", username);
 			if (!String.IsNullOrEmpty(pwd))
 				request.AddParameter ("pwd", pwd);
-
-			string bunnyStr = "{\"id\":6122080743456768}";
-			Bunny bunTest = new Bunny ();
-			bunTest.id = 234234234;
-			bunTest.BreedName = "Holland Lop";
-			string testStr = bunTest.ToJson ();
-			Bunny theBuns = bunnyStr.FromJson<Bunny> ();
-			Bunny testBackBun = testStr.FromJson<Bunny> ();
-			string bunnyListStr = "[" + bunnyStr + "]";
-			List<Bunny> bunList = bunnyListStr.FromJson<List<Bunny>> ();
 
 			apiClient.ExecuteAsync<Player>(request, (response) =>
 				{
@@ -101,6 +114,54 @@ namespace Fluffimax.Core
 				{
 					bool result = response.Data;
 					callback(result);
+
+				});
+		}
+
+		public static void UpdateUsername(string newName, string_callback callback) {
+			string fullURL = "login";
+			RestRequest request = new RestRequest(fullURL, Method.PUT);
+
+			request.AddParameter ("username", newName);
+
+			apiClient.ExecuteAsync(request, (response) => 
+				{
+					if (response.StatusCode == HttpStatusCode.OK)
+						callback(null);
+					else
+						callback(response.Content);
+
+				});
+		}
+
+		public static void UpdatePassword(string newPwd, string_callback callback) {
+			string fullURL = "login";
+			RestRequest request = new RestRequest(fullURL, Method.PUT);
+
+			request.AddParameter ("pwd", newPwd);
+
+			apiClient.ExecuteAsync(request, (response) => 
+				{
+					if (response.StatusCode == HttpStatusCode.OK)
+						callback(null);
+					else
+						callback(response.Content);
+
+				});
+		}
+
+		public static void UpdateNickname(string newName, string_callback callback) {
+			string fullURL = "player";
+			RestRequest request = new RestRequest(fullURL, Method.PUT);
+
+			request.AddParameter ("nickname", newName);
+
+			apiClient.ExecuteAsync(request, (response) => 
+				{
+					if (response.StatusCode == HttpStatusCode.OK)
+						callback(null);
+					else
+						callback(response.Content);
 
 				});
 		}
