@@ -30,7 +30,14 @@ namespace Fluffimax.iOS
 				MaybeChangePassword ();
 			};
 
+			this.Title = "Fluffle Leaderboards";
+			UIBarButtonItem menuBtn = new UIBarButtonItem (UIImage.FromBundle ("menu-48"), UIBarButtonItemStyle.Plain, null);
+			this.NavigationItem.SetLeftBarButtonItem (menuBtn, false);
 
+			menuBtn.Clicked += (object sender, EventArgs e) => 
+			{
+				SidebarController.ToggleMenu();
+			};
 
 
 		}
@@ -126,6 +133,8 @@ namespace Fluffimax.iOS
 				}
 			};
 			alert.Show ();
+
+
 		}
 
 
@@ -134,6 +143,7 @@ namespace Fluffimax.iOS
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
+			NavController.NavigationBarHidden = false;
 			UpdateUIForUser ();
 		}
 

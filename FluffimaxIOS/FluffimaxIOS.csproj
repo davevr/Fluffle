@@ -145,6 +145,14 @@
     <InterfaceDefinition Include="ViewControllers\LeaderboardViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\BunnyDetailViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\SideMenuController.xib" />
+    <InterfaceDefinition Include="ViewControllers\LBPlayerBunnyCountVC.xib" />
+    <InterfaceDefinition Include="ViewControllers\LBPlayerShareVC.xib" />
+    <InterfaceDefinition Include="ViewControllers\LBBunnySizeVC.xib" />
+    <InterfaceDefinition Include="ViewControllers\LBBunnySpreadVC.xib" />
+    <InterfaceDefinition Include="Views\BunnySizeCellView.xib" />
+    <InterfaceDefinition Include="Views\BunnySpreadCellView.xib" />
+    <InterfaceDefinition Include="Views\PlayerCountCellView.xib" />
+    <InterfaceDefinition Include="Views\PlayerShareCellView.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -230,6 +238,42 @@
     </Compile>
     <Compile Include="ViewControllers\HomeViewController.cs" />
     <Compile Include="utils\Reachability.cs" />
+    <Compile Include="ViewControllers\LBPlayerBunnyCountVC.cs" />
+    <Compile Include="ViewControllers\LBPlayerBunnyCountVC.designer.cs">
+      <DependentUpon>LBPlayerBunnyCountVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\LBPlayerShareVC.cs" />
+    <Compile Include="ViewControllers\LBPlayerShareVC.designer.cs">
+      <DependentUpon>LBPlayerShareVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\LBBunnySizeVC.cs" />
+    <Compile Include="ViewControllers\LBBunnySizeVC.designer.cs">
+      <DependentUpon>LBBunnySizeVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\LBBunnySpreadVC.cs" />
+    <Compile Include="ViewControllers\LBBunnySpreadVC.designer.cs">
+      <DependentUpon>LBBunnySpreadVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collections\BunnySizeTableSource.cs" />
+    <Compile Include="Collections\PlayerShareTableSource.cs" />
+    <Compile Include="Collections\BunnySpreadTableSource.cs" />
+    <Compile Include="Collections\PlayerCountTableSource.cs" />
+    <Compile Include="Views\BunnySizeCellView.cs" />
+    <Compile Include="Views\BunnySizeCellView.designer.cs">
+      <DependentUpon>BunnySizeCellView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BunnySpreadCellView.cs" />
+    <Compile Include="Views\BunnySpreadCellView.designer.cs">
+      <DependentUpon>BunnySpreadCellView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlayerCountCellView.cs" />
+    <Compile Include="Views\PlayerCountCellView.designer.cs">
+      <DependentUpon>PlayerCountCellView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlayerShareCellView.cs" />
+    <Compile Include="Views\PlayerShareCellView.designer.cs">
+      <DependentUpon>PlayerShareCellView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

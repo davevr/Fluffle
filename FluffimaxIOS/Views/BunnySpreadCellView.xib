@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="96" id="cxk-wN-pdQ" customClass="BunnySpreadCellView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cxk-wN-pdQ" id="YTl-1W-gDM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="95.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2">
+                        <rect key="frame" x="4" y="4" width="64" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="64" id="FMt-6s-but"/>
+                            <constraint firstAttribute="height" constant="64" id="eZ9-uF-4t1"/>
+                        </constraints>
+                        <variation key="widthClass=compact" fixedFrame="YES">
+                            <rect key="frame" x="4" y="4" width="64" height="64"/>
+                        </variation>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="BunnyName" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                        <rect key="frame" x="76" y="4" width="140" height="29"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact" fixedFrame="YES">
+                            <rect key="frame" x="85" y="8" width="157" height="28"/>
+                        </variation>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                        <rect key="frame" x="76" y="37" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="32" id="Cmg-F3-ueD"/>
+                            <constraint firstAttribute="height" constant="32" id="D1N-J7-KfT"/>
+                        </constraints>
+                        <variation key="widthClass=compact" fixedFrame="YES">
+                            <rect key="frame" x="76" y="38" width="32" height="32"/>
+                        </variation>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="owner" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                        <rect key="frame" x="116" y="43" width="47.5" height="21"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact" fixedFrame="YES">
+                            <rect key="frame" x="116" y="44" width="126" height="21"/>
+                        </variation>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="shares" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                        <rect key="frame" x="286.5" y="46.5" width="29.5" height="11"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact" fixedFrame="YES">
+                            <rect key="frame" x="258" y="44" width="42" height="21"/>
+                        </variation>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1346" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                        <rect key="frame" x="242.5" y="4" width="73.5" height="38.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact" fixedFrame="YES">
+                            <rect key="frame" x="269" y="4" width="51" height="35"/>
+                        </variation>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="5" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="4" id="3JV-3R-fcI"/>
+                    <constraint firstItem="2" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="4" id="4gi-tI-vfn"/>
+                    <constraint firstItem="7" firstAttribute="leading" secondItem="2" secondAttribute="trailing" constant="8" id="68B-WM-yWq"/>
+                    <constraint firstItem="6" firstAttribute="leading" secondItem="7" secondAttribute="trailing" constant="8" id="6Ez-0N-fXA"/>
+                    <constraint firstItem="6" firstAttribute="top" secondItem="3" secondAttribute="bottom" constant="9" id="CVC-Ls-FL5"/>
+                    <constraint firstItem="4" firstAttribute="top" secondItem="3" secondAttribute="bottom" constant="4" id="FdH-sW-WTc"/>
+                    <constraint firstItem="3" firstAttribute="top" secondItem="YTl-1W-gDM" secondAttribute="top" constant="4" id="O4a-XW-LGX"/>
+                    <constraint firstItem="6" firstAttribute="top" secondItem="5" secondAttribute="bottom" constant="10" id="bIA-Kh-sO4"/>
+                    <constraint firstItem="5" firstAttribute="leading" secondItem="2" secondAttribute="trailing" constant="8" id="eH0-Zg-dEy"/>
+                    <constraint firstItem="7" firstAttribute="top" secondItem="5" secondAttribute="bottom" constant="4" id="fIN-hJ-ykh"/>
+                    <constraint firstAttribute="trailing" secondItem="3" secondAttribute="trailing" constant="4" id="fbg-Td-gPk"/>
+                    <constraint firstItem="2" firstAttribute="leading" secondItem="YTl-1W-gDM" secondAttribute="leading" constant="4" id="mWv-Rk-5xb"/>
+                    <constraint firstAttribute="trailing" secondItem="4" secondAttribute="trailing" constant="4" id="nuv-Xw-GGx"/>
+                    <constraint firstItem="5" firstAttribute="leading" secondItem="3" secondAttribute="trailing" constant="4" id="tEJ-fF-ZXu"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="tEJ-fF-ZXu"/>
+                        <exclude reference="CVC-Ls-FL5"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="BunnyImg" destination="2" id="name-outlet-2"/>
+                <outlet property="BunnyName" destination="5" id="name-outlet-5"/>
+                <outlet property="PlayerImg" destination="7" id="name-outlet-7"/>
+                <outlet property="PlayerName" destination="6" id="name-outlet-6"/>
+                <outlet property="SpreadLabel" destination="3" id="name-outlet-3"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

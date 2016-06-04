@@ -26,6 +26,8 @@ namespace Fluffimax.Core
 		public bool Female { get; set; }
 		public long id { get; set; }
 		public int TotalShares {get; set;}
+		public string CurrentOwnerName { get; set; }
+		public string CurrentOwnerImg { get; set; }
 		public static List<int> _growthStages = null;
 
 

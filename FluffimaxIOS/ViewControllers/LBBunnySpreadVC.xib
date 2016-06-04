@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LBBunnySpreadVC">
+            <connections>
+                <outlet property="DataTable" destination="hti-7k-JrK" id="name-outlet-hti-7k-JrK"/>
+                <outlet property="TopConstraint" destination="O7s-TE-fc7" id="name-outlet-O7s-TE-fc7"/>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bunny Spread Leaderboard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0q-S7-vdP">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Every time you give a bunny to a friend, it spreads a little further.  WHere are the bunnies that have been spread the most!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ui9-Pd-saI">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hti-7k-JrK">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="W0q-S7-vdP" secondAttribute="trailing" constant="16" id="1mW-ym-Kwl"/>
+                <constraint firstItem="ui9-Pd-saI" firstAttribute="top" secondItem="W0q-S7-vdP" secondAttribute="bottom" constant="8" id="29D-ks-MYt"/>
+                <constraint firstItem="ui9-Pd-saI" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="16" id="Ael-KY-YPq"/>
+                <constraint firstAttribute="bottom" secondItem="hti-7k-JrK" secondAttribute="bottom" id="BCK-sb-RRu"/>
+                <constraint firstAttribute="trailing" secondItem="ui9-Pd-saI" secondAttribute="trailing" constant="16" id="BJH-G6-JpP"/>
+                <constraint firstItem="W0q-S7-vdP" firstAttribute="top" secondItem="2" secondAttribute="top" constant="8" id="O7s-TE-fc7"/>
+                <constraint firstItem="hti-7k-JrK" firstAttribute="top" secondItem="ui9-Pd-saI" secondAttribute="bottom" constant="8" id="dNe-a3-OIB"/>
+                <constraint firstItem="hti-7k-JrK" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="8" id="sEb-2y-1A9"/>
+                <constraint firstItem="W0q-S7-vdP" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="16" id="xGF-Jn-NdJ"/>
+                <constraint firstAttribute="trailing" secondItem="hti-7k-JrK" secondAttribute="trailing" constant="8" id="z8k-B5-sKQ"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="W0q-S7-vdP"/>
+                    <exclude reference="ui9-Pd-saI"/>
+                    <exclude reference="hti-7k-JrK"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="1mW-ym-Kwl"/>
+                    <exclude reference="O7s-TE-fc7"/>
+                    <exclude reference="xGF-Jn-NdJ"/>
+                    <exclude reference="29D-ks-MYt"/>
+                    <exclude reference="Ael-KY-YPq"/>
+                    <exclude reference="BJH-G6-JpP"/>
+                    <exclude reference="BCK-sb-RRu"/>
+                    <exclude reference="dNe-a3-OIB"/>
+                    <exclude reference="sEb-2y-1A9"/>
+                    <exclude reference="z8k-B5-sKQ"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="subviews">
+                    <include reference="W0q-S7-vdP"/>
+                    <include reference="ui9-Pd-saI"/>
+                    <include reference="hti-7k-JrK"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="1mW-ym-Kwl"/>
+                    <include reference="O7s-TE-fc7"/>
+                    <include reference="xGF-Jn-NdJ"/>
+                    <include reference="29D-ks-MYt"/>
+                    <include reference="Ael-KY-YPq"/>
+                    <include reference="BJH-G6-JpP"/>
+                    <include reference="BCK-sb-RRu"/>
+                    <include reference="dNe-a3-OIB"/>
+                    <include reference="sEb-2y-1A9"/>
+                    <include reference="z8k-B5-sKQ"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>

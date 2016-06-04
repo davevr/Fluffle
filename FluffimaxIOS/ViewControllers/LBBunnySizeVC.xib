@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LBBunnySizeVC">
+            <connections>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+                <outlet property="TopConstraint" destination="V1n-NW-NCZ" id="name-outlet-V1n-NW-NCZ"/>
+                <outlet property="DataTable" destination="hmO-I3-P2x" id="name-outlet-hmO-I3-P2x"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Biggest Bunnies" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9M-Fi-BLh">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hmO-I3-P2x">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <variation key="widthClass=compact">
+                        <rect key="frame" x="8" y="78" width="384" height="522"/>
+                    </variation>
+                </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The top 100 bunnies, ranked by size.  Bunnies of the same size are ranked by progress to their next size." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVi-6y-Rqh">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="hmO-I3-P2x" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="8" id="0Qj-z2-NSC"/>
+                <constraint firstItem="hmO-I3-P2x" firstAttribute="top" secondItem="CVi-6y-Rqh" secondAttribute="bottom" constant="8" id="Fwa-Jn-bnA"/>
+                <constraint firstItem="CVi-6y-Rqh" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="16" id="HOE-hK-V7t"/>
+                <constraint firstAttribute="bottom" secondItem="hmO-I3-P2x" secondAttribute="bottom" id="Rem-Eh-mqC"/>
+                <constraint firstAttribute="trailing" secondItem="CVi-6y-Rqh" secondAttribute="trailing" constant="16" id="UOF-yx-42g"/>
+                <constraint firstItem="A9M-Fi-BLh" firstAttribute="top" secondItem="2" secondAttribute="top" constant="8" id="V1n-NW-NCZ"/>
+                <constraint firstItem="CVi-6y-Rqh" firstAttribute="top" secondItem="A9M-Fi-BLh" secondAttribute="bottom" constant="8" id="eO5-TF-Hdt"/>
+                <constraint firstAttribute="trailing" secondItem="A9M-Fi-BLh" secondAttribute="trailing" constant="16" id="eV8-je-ywv"/>
+                <constraint firstAttribute="trailing" secondItem="hmO-I3-P2x" secondAttribute="trailing" constant="8" id="lsg-Ok-zXs"/>
+                <constraint firstItem="A9M-Fi-BLh" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="16" id="vqj-t5-sCO"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="A9M-Fi-BLh"/>
+                    <exclude reference="hmO-I3-P2x"/>
+                    <exclude reference="CVi-6y-Rqh"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="V1n-NW-NCZ"/>
+                    <exclude reference="eV8-je-ywv"/>
+                    <exclude reference="vqj-t5-sCO"/>
+                    <exclude reference="HOE-hK-V7t"/>
+                    <exclude reference="UOF-yx-42g"/>
+                    <exclude reference="eO5-TF-Hdt"/>
+                    <exclude reference="0Qj-z2-NSC"/>
+                    <exclude reference="Fwa-Jn-bnA"/>
+                    <exclude reference="Rem-Eh-mqC"/>
+                    <exclude reference="lsg-Ok-zXs"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="subviews">
+                    <include reference="A9M-Fi-BLh"/>
+                    <include reference="hmO-I3-P2x"/>
+                    <include reference="CVi-6y-Rqh"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="V1n-NW-NCZ"/>
+                    <include reference="eV8-je-ywv"/>
+                    <include reference="vqj-t5-sCO"/>
+                    <include reference="HOE-hK-V7t"/>
+                    <include reference="UOF-yx-42g"/>
+                    <include reference="eO5-TF-Hdt"/>
+                    <include reference="0Qj-z2-NSC"/>
+                    <include reference="Fwa-Jn-bnA"/>
+                    <include reference="Rem-Eh-mqC"/>
+                    <include reference="lsg-Ok-zXs"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+    <resources>
+        <image name="carrot.png" width="512" height="512"/>
+        <image name="bunny.png" width="512" height="512"/>
+        <image name="grass.png" width="1024" height="1024"/>
+        <image name="baseicon.png" width="375" height="375"/>
+        <image name="menu-48.png" width="24" height="24"/>
+        <image name="about-48.png" width="24" height="24"/>
+        <image name="ask_question-48.png" width="24" height="24"/>
+        <image name="business_contact-48.png" width="24" height="24"/>
+        <image name="cancel-48.png" width="24" height="24"/>
+        <image name="delete_sign-48.png" width="24" height="24"/>
+        <image name="home-48.png" width="24" height="24"/>
+        <image name="unknown_user.png" width="512" height="512"/>
+    </resources>
+</document>

@@ -8,6 +8,7 @@ namespace Fluffimax.Core
 {
 	public delegate void Player_callback(Player theResult);
 	public delegate void BunnyList_callback(List<Bunny> theResult);
+	public delegate void PlayerList_callback(List<Player> theResult);
 	public delegate void string_callback(string theResult);
 	public delegate void bool_callback(bool theResult);
 	public delegate void Bunny_callback(Bunny theResult);
@@ -399,6 +400,58 @@ namespace Fluffimax.Core
 					callback(response.Data);
 				});
 
+		}
+
+		public static void GetBunnySizeLB(BunnyList_callback callback)
+		{
+			string fullURL = "leaderboards";
+
+			RestRequest request = new RestRequest(fullURL, Method.GET);
+			request.AddParameter("bysize", true);
+
+			apiClient.ExecuteAsync<List<Bunny>>(request, (response) =>
+				{
+					callback(response.Data);
+				});
+		}
+
+		public static void GetBunnySpreadLB(BunnyList_callback callback)
+		{
+			string fullURL = "leaderboards";
+
+			RestRequest request = new RestRequest(fullURL, Method.GET);
+			request.AddParameter("byspread", true);
+
+			apiClient.ExecuteAsync<List<Bunny>>(request, (response) =>
+				{
+					callback(response.Data);
+				});
+		}
+
+		public static void GetPlayerCountLB(PlayerList_callback callback)
+		{
+			string fullURL = "leaderboards";
+
+			RestRequest request = new RestRequest(fullURL, Method.GET);
+			request.AddParameter("bycount", true);
+
+			apiClient.ExecuteAsync<List<Player>>(request, (response) =>
+				{
+					callback(response.Data);
+				});
+		}
+
+		public static void GetPlayerShareLB(PlayerList_callback callback)
+		{
+			string fullURL = "leaderboards";
+
+			RestRequest request = new RestRequest(fullURL, Method.GET);
+			request.AddParameter("byshares", true);
+
+			apiClient.ExecuteAsync<List<Player>>(request, (response) =>
+				{
+					callback(response.Data);
+				});
 		}
 
 
