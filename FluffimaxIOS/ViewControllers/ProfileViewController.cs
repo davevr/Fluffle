@@ -30,14 +30,16 @@ namespace Fluffimax.iOS
 				MaybeChangePassword ();
 			};
 
-			this.Title = "Fluffle Leaderboards";
-			UIBarButtonItem menuBtn = new UIBarButtonItem (UIImage.FromBundle ("menu-48"), UIBarButtonItemStyle.Plain, null);
+			this.Title = "Your Profile";
+			/*
+			 UIBarButtonItem menuBtn = new UIBarButtonItem (UIImage.FromBundle ("menu-48"), UIBarButtonItemStyle.Plain, null);
 			this.NavigationItem.SetLeftBarButtonItem (menuBtn, false);
 
 			menuBtn.Clicked += (object sender, EventArgs e) => 
 			{
 				SidebarController.ToggleMenu();
 			};
+			*/
 
 
 		}

@@ -11,46 +11,54 @@ using UIKit;
 
 namespace Fluffimax.iOS
 {
-	[Register ("GiveBunnyViewController")]
-	partial class GiveBunnyViewController
-	{
-		[Outlet]
-		UILabel BunnyInfoLabel { get; set; }
+    [Register ("GiveBunnyViewController")]
+    partial class GiveBunnyViewController
+    {
+        [Outlet]
+        UILabel BunnyInfoLabel { get; set; }
 
-		[Outlet]
-		UILabel BunnyNameLabel { get; set; }
 
-		[Outlet]
-		UIButton DoneBtn { get; set; }
+        [Outlet]
+        UILabel BunnyNameLabel { get; set; }
 
-		[Outlet]
-		UILabel TitleLabel { get; set; }
 
-		[Outlet]
-		UIImageView TossImageView { get; set; }
+        [Outlet]
+        UIButton DoneBtn { get; set; }
 
-		void ReleaseDesignerOutlets ()
-		{
-			if (BunnyInfoLabel != null) {
-				BunnyInfoLabel.Dispose ();
-				BunnyInfoLabel = null;
-			}
-			if (BunnyNameLabel != null) {
-				BunnyNameLabel.Dispose ();
-				BunnyNameLabel = null;
-			}
-			if (DoneBtn != null) {
-				DoneBtn.Dispose ();
-				DoneBtn = null;
-			}
-			if (TitleLabel != null) {
-				TitleLabel.Dispose ();
-				TitleLabel = null;
-			}
-			if (TossImageView != null) {
-				TossImageView.Dispose ();
-				TossImageView = null;
-			}
-		}
-	}
+
+        [Outlet]
+        UILabel TitleLabel { get; set; }
+
+
+        [Outlet]
+        UIImageView TossImageView { get; set; }
+
+        void ReleaseDesignerOutlets ()
+        {
+            if (BunnyInfoLabel != null) {
+                BunnyInfoLabel.Dispose ();
+                BunnyInfoLabel = null;
+            }
+
+            if (BunnyNameLabel != null) {
+                BunnyNameLabel.Dispose ();
+                BunnyNameLabel = null;
+            }
+
+            if (DoneBtn != null) {
+                DoneBtn.Dispose ();
+                DoneBtn = null;
+            }
+
+            if (TitleLabel != null) {
+                TitleLabel.Dispose ();
+                TitleLabel = null;
+            }
+
+            if (TossImageView != null) {
+                TossImageView.Dispose ();
+                TossImageView = null;
+            }
+        }
+    }
 }

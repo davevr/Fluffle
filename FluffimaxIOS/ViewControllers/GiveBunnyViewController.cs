@@ -101,13 +101,14 @@ namespace Fluffimax.iOS
 
 		private void StopTossTimer()
 		{
-			tossTimer.Stop ();
+			if (tossTimer != null)
+				tossTimer.Stop ();
 
 		}
 
 		protected UINavigationController NavController { 
 			get {
-				return (UIApplication.SharedApplication.Delegate as AppDelegate).NavController;
+				return (UIApplication.SharedApplication.Delegate as AppDelegate).RootController.NavController;
 			} 
 		}	
 	}

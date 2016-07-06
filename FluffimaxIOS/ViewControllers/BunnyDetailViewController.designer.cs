@@ -11,11 +11,11 @@ using UIKit;
 
 namespace Fluffimax.iOS
 {
-	[Register ("BunnyDetailViewController")]
-	partial class BunnyDetailViewController
-	{
-		void ReleaseDesignerOutlets ()
-		{
-		}
-	}
+    [Register ("BunnyDetailViewController")]
+    partial class BunnyDetailViewController
+    {
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }

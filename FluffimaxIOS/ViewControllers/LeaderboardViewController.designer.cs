@@ -11,11 +11,11 @@ using UIKit;
 
 namespace Fluffimax.iOS
 {
-	[Register ("LeaderboardViewController")]
-	partial class LeaderboardViewController
-	{
-		void ReleaseDesignerOutlets ()
-		{
-		}
-	}
+    [Register ("LeaderboardViewController")]
+    partial class LeaderboardViewController
+    {
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }

@@ -11,11 +11,11 @@ using UIKit;
 
 namespace Fluffimax.iOS
 {
-	[Register ("CatchBunnyViewController")]
-	partial class CatchBunnyViewController
-	{
-		void ReleaseDesignerOutlets ()
-		{
-		}
-	}
+    [Register ("CatchBunnyViewController")]
+    partial class CatchBunnyViewController
+    {
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }

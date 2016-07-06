@@ -11,66 +11,72 @@ using UIKit;
 
 namespace Fluffimax.iOS
 {
-	[Register ("SideMenuController")]
-	partial class SideMenuController
-	{
-		[Outlet]
-		UIKit.UIImageView MenuImage { get; set; }
+    [Register ("SideMenuController")]
+    partial class SideMenuController
+    {
+        [Outlet]
+        UIKit.UIImageView MenuImage { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIButton AboutBtn { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton AboutBtn { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIButton BoardsBtn { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton BoardsBtn { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIButton CamBtn { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton CamBtn { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIButton GameBtn { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton GameBtn { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIButton ProfileBtn { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton ProfileBtn { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIButton ShopBtn { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton ShopBtn { get; set; }
 
-		void ReleaseDesignerOutlets ()
-		{
-			if (AboutBtn != null) {
-				AboutBtn.Dispose ();
-				AboutBtn = null;
-			}
-			if (BoardsBtn != null) {
-				BoardsBtn.Dispose ();
-				BoardsBtn = null;
-			}
-			if (CamBtn != null) {
-				CamBtn.Dispose ();
-				CamBtn = null;
-			}
-			if (GameBtn != null) {
-				GameBtn.Dispose ();
-				GameBtn = null;
-			}
-			if (MenuImage != null) {
-				MenuImage.Dispose ();
-				MenuImage = null;
-			}
-			if (ProfileBtn != null) {
-				ProfileBtn.Dispose ();
-				ProfileBtn = null;
-			}
-			if (ShopBtn != null) {
-				ShopBtn.Dispose ();
-				ShopBtn = null;
-			}
-		}
-	}
+        void ReleaseDesignerOutlets ()
+        {
+            if (AboutBtn != null) {
+                AboutBtn.Dispose ();
+                AboutBtn = null;
+            }
+
+            if (BoardsBtn != null) {
+                BoardsBtn.Dispose ();
+                BoardsBtn = null;
+            }
+
+            if (CamBtn != null) {
+                CamBtn.Dispose ();
+                CamBtn = null;
+            }
+
+            if (GameBtn != null) {
+                GameBtn.Dispose ();
+                GameBtn = null;
+            }
+
+            if (MenuImage != null) {
+                MenuImage.Dispose ();
+                MenuImage = null;
+            }
+
+            if (ProfileBtn != null) {
+                ProfileBtn.Dispose ();
+                ProfileBtn = null;
+            }
+
+            if (ShopBtn != null) {
+                ShopBtn.Dispose ();
+                ShopBtn = null;
+            }
+        }
+    }
 }

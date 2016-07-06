@@ -31,11 +31,12 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="64" id="IXR-5N-PbE"/>
                         </constraints>
+                        <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                         <state key="normal" title="Buy"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt1-B1-ZAC" misplaced="YES">
                         <rect key="frame" x="279" y="12" width="33" height="20"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -63,7 +64,7 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbO-TJ-R3A" misplaced="YES">
                         <rect key="frame" x="80" y="12" width="50.5" height="21"/>
-                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -118,7 +119,6 @@
     <resources>
         <image name="bunny.png" width="512" height="512"/>
         <image name="carrot.png" width="512" height="512"/>
-        <image name="bunny_downleft.png" width="1024" height="1024"/>
         <image name="bunny_down.png" width="1024" height="1024"/>
         <image name="bunny_downright.png" width="1024" height="1024"/>
         <image name="bunny_right.png" width="1024" height="1024"/>
@@ -128,5 +128,15 @@
         <image name="bunny_left.png" width="1024" height="1024"/>
         <image name="bunny_back.png" width="1024" height="1024"/>
         <image name="bunny_front.png" width="1024" height="1024"/>
+        <image name="grass.png" width="1024" height="1024"/>
+        <image name="baseicon.png" width="375" height="375"/>
+        <image name="menu-48.png" width="24" height="24"/>
+        <image name="about-48.png" width="24" height="24"/>
+        <image name="ask_question-48.png" width="24" height="24"/>
+        <image name="business_contact-48.png" width="24" height="24"/>
+        <image name="cancel-48.png" width="24" height="24"/>
+        <image name="delete_sign-48.png" width="24" height="24"/>
+        <image name="home-48.png" width="24" height="24"/>
+        <image name="unknown_user.png" width="512" height="512"/>
     </resources>
 </document>

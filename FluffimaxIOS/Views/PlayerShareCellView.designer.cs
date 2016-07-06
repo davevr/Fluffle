@@ -11,43 +11,46 @@ using UIKit;
 
 namespace Fluffimax.iOS
 {
-	[Register ("PlayerShareCellView")]
-	partial class PlayerShareCellView
-	{
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel JoinDateLabel { get; set; }
+    [Register ("PlayerShareCellView")]
+    partial class PlayerShareCellView
+    {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel JoinDateLabel { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIImageView PlayerImg { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView PlayerImg { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel PlayerName { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel PlayerName { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel ShareCount { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel ShareCount { get; set; }
 
-		void ReleaseDesignerOutlets ()
-		{
-			if (JoinDateLabel != null) {
-				JoinDateLabel.Dispose ();
-				JoinDateLabel = null;
-			}
-			if (PlayerImg != null) {
-				PlayerImg.Dispose ();
-				PlayerImg = null;
-			}
-			if (PlayerName != null) {
-				PlayerName.Dispose ();
-				PlayerName = null;
-			}
-			if (ShareCount != null) {
-				ShareCount.Dispose ();
-				ShareCount = null;
-			}
-		}
-	}
+        void ReleaseDesignerOutlets ()
+        {
+            if (JoinDateLabel != null) {
+                JoinDateLabel.Dispose ();
+                JoinDateLabel = null;
+            }
+
+            if (PlayerImg != null) {
+                PlayerImg.Dispose ();
+                PlayerImg = null;
+            }
+
+            if (PlayerName != null) {
+                PlayerName.Dispose ();
+                PlayerName = null;
+            }
+
+            if (ShareCount != null) {
+                ShareCount.Dispose ();
+                ShareCount = null;
+            }
+        }
+    }
 }

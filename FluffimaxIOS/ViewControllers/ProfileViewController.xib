@@ -25,7 +25,7 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2F-bK-fO3">
                             <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                            <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="24"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -41,23 +41,23 @@
                                     <exclude reference="VZJ-4y-R1i"/>
                                 </mask>
                             </variation>
-                            <variation key="widthClass=compact" misplaced="YES">
+                            <variation key="widthClass=compact">
                                 <mask key="constraints">
                                     <include reference="P4m-HF-2As"/>
                                     <include reference="VZJ-4y-R1i"/>
                                 </mask>
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <rect key="frame" x="80" y="59.5" width="240" height="240"/>
                             </variation>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQw-s4-WQj">
                             <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="13"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a41-DB-HHH">
                             <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="13"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -66,6 +66,7 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="160" id="gwG-tq-Nzl"/>
                             </constraints>
+                            <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="Save Changes"/>
                             <variation key="default">
                                 <mask key="constraints">
@@ -76,7 +77,7 @@
                                 <mask key="constraints">
                                     <include reference="gwG-tq-Nzl"/>
                                 </mask>
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <rect key="frame" x="120" y="500.5" width="160" height="30"/>
                             </variation>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PdI-nQ-0aH">
@@ -84,6 +85,7 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="160" id="SFQ-3R-LCa"/>
                             </constraints>
+                            <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="change password"/>
                             <variation key="default">
                                 <mask key="constraints">
@@ -94,7 +96,7 @@
                                 <mask key="constraints">
                                     <include reference="SFQ-3R-LCa"/>
                                 </mask>
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <rect key="frame" x="120" y="546.5" width="160" height="30"/>
                             </variation>
                         </button>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WUe-gN-YCW">
@@ -118,6 +120,7 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="160" id="ckP-jA-reA"/>
                             </constraints>
+                            <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="set profile image"/>
                             <variation key="default">
                                 <mask key="constraints">
@@ -128,7 +131,7 @@
                                 <mask key="constraints">
                                     <include reference="ckP-jA-reA"/>
                                 </mask>
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <rect key="frame" x="120" y="307.5" width="160" height="30"/>
                             </variation>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(private - we recommend using your email address)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0S-C3-azF">
@@ -206,8 +209,8 @@
                             <exclude reference="fJS-6P-OlJ"/>
                         </mask>
                     </variation>
-                    <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <variation key="widthClass=compact" ambiguous="YES">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
                         <mask key="subviews">
                             <include reference="u2F-bK-fO3"/>
                             <include reference="UbN-d0-fMG"/>

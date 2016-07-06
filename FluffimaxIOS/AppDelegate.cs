@@ -4,6 +4,7 @@ using HockeyApp;
 using Flurry.Analytics;
 using System.Collections.Generic;
 using SidebarNavigation;
+using System;
 
 namespace Fluffimax.iOS
 {
@@ -18,12 +19,7 @@ namespace Fluffimax.iOS
 			get;
 			set;
 		}
-
-		public UINavigationController NavController {
-			get;
-			set;
-		}
-
+			
 		public HomeViewController RootController {
 			get;
 			set;
@@ -32,9 +28,17 @@ namespace Fluffimax.iOS
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
+			foreach (string family in UIFont.FamilyNames)
+			{
+				Console.Write(" - Family: ");
+  				foreach (string name in UIFont.FontNamesForFamilyName(family))
+				{
+					Console.Write(name + ", ");
+				}
+			}
+
 			FlurryAgent.StartSession("B9MSG4BV56C6NG3YGRKW");
 			FlurryAgent.SetEventLoggingEnabled (true);
-			FlurryAgent.SetDebugLogEnabled (true);
 
 			var manager = BITHockeyManager.SharedHockeyManager;
 			manager.Configure("ab076f11566a4a6c94f870ca7f143ef5");

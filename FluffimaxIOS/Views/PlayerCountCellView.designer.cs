@@ -11,43 +11,46 @@ using UIKit;
 
 namespace Fluffimax.iOS
 {
-	[Register ("PlayerCountCellView")]
-	partial class PlayerCountCellView
-	{
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel BunnyCount { get; set; }
+    [Register ("PlayerCountCellView")]
+    partial class PlayerCountCellView
+    {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel BunnyCount { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel JoinedDateLabel { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel JoinedDateLabel { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIImageView PlayerImg { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView PlayerImg { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel PlayerName { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel PlayerName { get; set; }
 
-		void ReleaseDesignerOutlets ()
-		{
-			if (BunnyCount != null) {
-				BunnyCount.Dispose ();
-				BunnyCount = null;
-			}
-			if (JoinedDateLabel != null) {
-				JoinedDateLabel.Dispose ();
-				JoinedDateLabel = null;
-			}
-			if (PlayerImg != null) {
-				PlayerImg.Dispose ();
-				PlayerImg = null;
-			}
-			if (PlayerName != null) {
-				PlayerName.Dispose ();
-				PlayerName = null;
-			}
-		}
-	}
+        void ReleaseDesignerOutlets ()
+        {
+            if (BunnyCount != null) {
+                BunnyCount.Dispose ();
+                BunnyCount = null;
+            }
+
+            if (JoinedDateLabel != null) {
+                JoinedDateLabel.Dispose ();
+                JoinedDateLabel = null;
+            }
+
+            if (PlayerImg != null) {
+                PlayerImg.Dispose ();
+                PlayerImg = null;
+            }
+
+            if (PlayerName != null) {
+                PlayerName.Dispose ();
+                PlayerName = null;
+            }
+        }
+    }
 }

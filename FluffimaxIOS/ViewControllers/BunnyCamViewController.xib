@@ -12,7 +12,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="2">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                     <rect key="frame" x="183" y="52" width="160" height="240"/>
@@ -34,6 +34,7 @@
                             <exclude reference="9"/>
                             <include reference="mHv-rg-btu"/>
                         </mask>
+                        <rect key="frame" x="8" y="8" width="384" height="384"/>
                     </variation>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Live Bunny Cam" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="10">
@@ -43,7 +44,7 @@
                         <constraint firstAttribute="width" constant="245" id="13"/>
                         <constraint firstAttribute="height" constant="21" id="14"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="24"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                     <variation key="default">
@@ -52,11 +53,22 @@
                             <exclude reference="14"/>
                         </mask>
                     </variation>
-                    <variation key="widthClass=compact">
+                    <variation key="widthClass=compact" misplaced="YES">
                         <mask key="constraints">
                             <exclude reference="13"/>
                             <exclude reference="14"/>
                         </mask>
+                        <rect key="frame" x="8" y="408" width="384" height="21"/>
+                    </variation>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="This is my bunny.  Her name is Flopsy.  She is a female mini-lop.  She loves to hop around and eat watermelon and carrots." lineBreakMode="tailTruncation" minimumFontSize="10" id="17" translatesAutoresizingMaskIntoConstraints="NO" numberOfLines="0">
+                    <rect key="frame" x="8" y="452" width="42" height="21"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="widthClass=compact" misplaced="YES">
+                        <rect key="frame" x="8" y="452" width="384" height="21"/>
                     </variation>
                 </label>
             </subviews>
@@ -72,11 +84,24 @@
                 <constraint firstItem="10" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="8" id="qJy-0T-BwZ"/>
                 <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" constant="8" id="umR-gK-Txa"/>
                 <constraint firstItem="10" firstAttribute="top" secondItem="5" secondAttribute="bottom" constant="16" id="y1o-7m-8vh"/>
+                <constraint id="18" firstItem="17" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="50">
+                    <variation key="widthClass=compact" constant="8"/>
+                </constraint>
+                <constraint id="19" firstItem="17" firstAttribute="top" secondItem="10" secondAttribute="bottom" constant="33">
+                    <variation key="widthClass=compact" constant="8"/>
+                </constraint>
+                <constraint id="20" firstItem="2" firstAttribute="trailing" secondItem="17" secondAttribute="trailing" constant="44">
+                    <variation key="widthClass=compact" constant="8"/>
+                </constraint>
+                <constraint id="21" firstItem="2" firstAttribute="bottom" secondItem="17" secondAttribute="bottom" constant="37">
+                    <variation key="widthClass=compact" constant="8"/>
+                </constraint>
             </constraints>
             <variation key="default">
                 <mask key="subviews">
                     <exclude reference="5"/>
                     <exclude reference="10"/>
+                    <exclude reference="17"/>
                 </mask>
                 <mask key="constraints">
                     <exclude reference="6"/>
@@ -89,12 +114,17 @@
                     <exclude reference="B7q-ik-JCF"/>
                     <exclude reference="qJy-0T-BwZ"/>
                     <exclude reference="y1o-7m-8vh"/>
+                    <exclude reference="18"/>
+                    <exclude reference="19"/>
+                    <exclude reference="20"/>
+                    <exclude reference="21"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
                 <mask key="subviews">
                     <include reference="5"/>
                     <include reference="10"/>
+                    <include reference="17"/>
                 </mask>
                 <mask key="constraints">
                     <exclude reference="6"/>
@@ -107,8 +137,26 @@
                     <include reference="B7q-ik-JCF"/>
                     <include reference="qJy-0T-BwZ"/>
                     <include reference="y1o-7m-8vh"/>
+                    <include reference="18"/>
+                    <include reference="19"/>
+                    <include reference="20"/>
+                    <include reference="21"/>
                 </mask>
             </variation>
         </view>
     </objects>
+    <resources>
+        <image name="carrot.png" width="512" height="512"/>
+        <image name="bunny.png" width="512" height="512"/>
+        <image name="grass.png" width="1024" height="1024"/>
+        <image name="baseicon.png" width="375" height="375"/>
+        <image name="menu-48.png" width="24" height="24"/>
+        <image name="about-48.png" width="24" height="24"/>
+        <image name="ask_question-48.png" width="24" height="24"/>
+        <image name="business_contact-48.png" width="24" height="24"/>
+        <image name="cancel-48.png" width="24" height="24"/>
+        <image name="delete_sign-48.png" width="24" height="24"/>
+        <image name="home-48.png" width="24" height="24"/>
+        <image name="unknown_user.png" width="512" height="512"/>
+    </resources>
 </document>

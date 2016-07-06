@@ -29,6 +29,7 @@ namespace Fluffimax.Core
 		public string CurrentOwnerName { get; set; }
 		public string CurrentOwnerImg { get; set; }
 		public static List<int> _growthStages = null;
+		public int Happiness { get; set;}
 
 
 		public Bunny() {
@@ -49,7 +50,18 @@ namespace Fluffimax.Core
 			}
 		}
 
+		public bool IncrementHappiness()
+		{
+			bool isNewlyHappy = false;
 
+			if (Happiness < 100)
+			{
+				Happiness++;
+				isNewlyHappy = Happiness == 100;
+			}
+
+			return isNewlyHappy;
+		}
 
 		public int CarrotsForNextSize(int curSize) {
 			if (_growthStages != null)

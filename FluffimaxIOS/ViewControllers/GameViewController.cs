@@ -29,7 +29,7 @@ namespace Fluffimax.iOS
 		private class BunnyGraphic
 		{
 			public Bunny LinkedBuns { get; set;}
-			public UIImageView Button { get; set;}
+			public ShapedImageView Button { get; set;}
 			public NSLayoutConstraint Width { get; set;}
 			public NSLayoutConstraint Height {get; set;}
 			public NSLayoutConstraint Horizontal {get; set;}
@@ -96,6 +96,12 @@ namespace Fluffimax.iOS
 
 			};
 
+			UITapGestureRecognizer menuTap = new UITapGestureRecognizer(() =>
+			{
+				SidebarController.ToggleMenu();
+			});
+			menuTap.NumberOfTapsRequired = 1;
+			MenuBtn.AddGestureRecognizer(menuTap);
 		}
 
 		private void MaybeSellBunny() {
@@ -222,14 +228,47 @@ namespace Fluffimax.iOS
 			if (tappedView == GrassField) {
 				SetCurrentBunny (null);
 			} else {
-				UIImageView bunsView = tappedView as UIImageView;
+				ShapedImageView bunsView = tappedView as ShapedImageView;
 
 				if (bunsView != null) {
 					Bunny	theBuns = _bunnyGraphicList.Find (i => i.Button == bunsView).LinkedBuns;
 
+					if (theBuns == this._currentBuns)
+						DoPetBunny();
 					SetCurrentBunny (theBuns);
 				}
 			}
+
+		}
+
+		public void DoPetBunny()
+		{
+			bool superHappy = this._currentBuns.IncrementHappiness();
+			Server.RecordPetBunny(this._currentBuns);
+
+			BunnyGraphic theGraphic = _bunnyGraphicList.Find(b => b.LinkedBuns == this._currentBuns);
+			nfloat baseX = theGraphic.Button.Frame.GetMidX();
+			nfloat baseY = theGraphic.Button.Frame.GetMidY();
+			HeartXLoc.Constant = baseX;
+			HeartYLoc.Constant = baseY;
+			View.LayoutIfNeeded();
+			HeartImg.Hidden = false;
+			HeartImg.Layer.ZPosition = 10000;
+
+			UIView.Animate(1, () =>
+			{
+				HeartYLoc.Constant = baseY - 64;
+				HeartImg.Layer.Opacity = 0;
+				View.LayoutIfNeeded();
+			}, () =>
+			{
+				InvokeOnMainThread(() =>
+				{
+					HeartImg.Hidden = true;
+					HeartImg.Layer.Opacity = 1;
+				});
+			});
+
 
 		}
 
@@ -301,8 +340,8 @@ namespace Fluffimax.iOS
 
 
 
-		private UIImageView AddBunnyToScreen(Bunny thebuns) {
-			UIImageView bunsBtn = new UIImageView ();
+		private ShapedImageView AddBunnyToScreen(Bunny thebuns) {
+			ShapedImageView bunsBtn = new ShapedImageView ();
 
 			View.AddSubview (bunsBtn);
 			bunsBtn.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -418,7 +457,7 @@ namespace Fluffimax.iOS
 		private void SelectBunny(Bunny theBuns) {
 			InvokeOnMainThread (() => {
 				UIImage[]	imgList = SpriteManager.GetImageList(theBuns, "idle", "front");
-				UIImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
+				ShapedImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
 
 				if (bunBtn != null) {
 					View.BringSubviewToFront(bunBtn);
@@ -460,8 +499,8 @@ namespace Fluffimax.iOS
 					BunnyNameLabel.Text = nameStr;
 					BunnyBreedLabel.Text = _currentBuns.BreedName;
 					BunnyGenderLabel.Text = _currentBuns.Female ? "female" : "male";
-					FurColorLabel.Text = _currentBuns.FurColorName;
-					EyeColorLabel.Text = _currentBuns.EyeColorName;
+					FurColorLabel.Text = _currentBuns.FurColorName + " fur";
+					EyeColorLabel.Text = _currentBuns.EyeColorName + " eyes";
 					SizeCount.Text = _currentBuns.BunnySize.ToString();
 					ProgressCount.Text = String.Format("{0}/{1}", _currentBuns.FeedState,_currentBuns.CarrotsForNextSize(_currentBuns.BunnySize));
 				});
@@ -685,7 +724,7 @@ namespace Fluffimax.iOS
 					CarrotImg.Layer.ZPosition = 10000;
 					UpdateScore();
 					UIImage[] imageList = SpriteManager.GetImageList(theBuns, "idle", "front");
-					UIImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
+					ShapedImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
 
 					if (bunBtn != null) {
 						View.BringSubviewToFront(bunBtn);

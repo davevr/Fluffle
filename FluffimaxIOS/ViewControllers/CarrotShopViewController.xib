@@ -24,7 +24,7 @@
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Carrot Shop" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                     <rect key="frame" x="114" y="48" width="42" height="21"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                    <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="36"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -33,6 +33,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="mU7-Ko-t4P"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                     <state key="normal" title="Buy 100 Carrots ($0.99)">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -45,7 +46,7 @@
                         <mask key="constraints">
                             <include reference="mU7-Ko-t4P"/>
                         </mask>
-                        <rect key="frame" x="158" y="158" width="46" height="30"/>
+                        <rect key="frame" x="64" y="208" width="272" height="30"/>
                     </variation>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7">
@@ -53,6 +54,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="LgC-MT-YDl"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                     <state key="normal" title="Buy 750 Carrots ($4.99)">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -65,7 +67,7 @@
                         <mask key="constraints">
                             <include reference="LgC-MT-YDl"/>
                         </mask>
-                        <rect key="frame" x="158" y="158" width="46" height="30"/>
+                        <rect key="frame" x="64" y="257" width="272" height="30"/>
                     </variation>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8">
@@ -73,6 +75,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="gxO-YJ-bN6"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                     <state key="normal" title="Buy 2000 Carrots ($9.99)">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -85,7 +88,7 @@
                         <mask key="constraints">
                             <include reference="gxO-YJ-bN6"/>
                         </mask>
-                        <rect key="frame" x="158" y="158" width="46" height="30"/>
+                        <rect key="frame" x="64" y="307" width="272" height="30"/>
                     </variation>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9">
@@ -93,6 +96,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="Ydr-Vx-hX2"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                     <state key="normal" title="Buy 20,000 Carrots ($19.99)">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -105,7 +109,7 @@
                         <mask key="constraints">
                             <include reference="Ydr-Vx-hX2"/>
                         </mask>
-                        <rect key="frame" x="158" y="158" width="46" height="30"/>
+                        <rect key="frame" x="64" y="357" width="272" height="30"/>
                     </variation>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10">
@@ -113,6 +117,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="nkg-Ad-nbg"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                     <state key="normal" title="Buy 100,000 Carrots ($49.99)">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -125,7 +130,7 @@
                         <mask key="constraints">
                             <include reference="nkg-Ad-nbg"/>
                         </mask>
-                        <rect key="frame" x="158" y="158" width="46" height="30"/>
+                        <rect key="frame" x="64" y="407" width="272" height="30"/>
                     </variation>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12">
@@ -133,6 +138,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="vlL-Rf-mNw"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                     <state key="normal" title="Get 10 Free carrots (watch ad)">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -145,7 +151,7 @@
                         <mask key="constraints">
                             <include reference="vlL-Rf-mNw"/>
                         </mask>
-                        <rect key="frame" x="158" y="158" width="46" height="30"/>
+                        <rect key="frame" x="64" y="477" width="272" height="30"/>
                     </variation>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carrot.png" translatesAutoresizingMaskIntoConstraints="NO" id="ASH-uz-PGv">
@@ -165,12 +171,12 @@
                             <include reference="MbK-dH-WZJ"/>
                             <include reference="mI0-g4-A1C"/>
                         </mask>
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <rect key="frame" x="64" y="127" width="64" height="64"/>
                     </variation>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X carrots" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5x-Fc-TXU">
                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -295,5 +301,15 @@
     <resources>
         <image name="carrot.png" width="512" height="512"/>
         <image name="bunny.png" width="512" height="512"/>
+        <image name="grass.png" width="1024" height="1024"/>
+        <image name="baseicon.png" width="375" height="375"/>
+        <image name="menu-48.png" width="24" height="24"/>
+        <image name="about-48.png" width="24" height="24"/>
+        <image name="ask_question-48.png" width="24" height="24"/>
+        <image name="business_contact-48.png" width="24" height="24"/>
+        <image name="cancel-48.png" width="24" height="24"/>
+        <image name="delete_sign-48.png" width="24" height="24"/>
+        <image name="home-48.png" width="24" height="24"/>
+        <image name="unknown_user.png" width="512" height="512"/>
     </resources>
 </document>

@@ -11,27 +11,28 @@ using UIKit;
 
 namespace Fluffimax.iOS
 {
-	[Register ("LBBunnySpreadVC")]
-	partial class LBBunnySpreadVC
-	{
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UITableView DataTable { get; set; }
+    [Register ("LBBunnySpreadVC")]
+    partial class LBBunnySpreadVC
+    {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITableView DataTable { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		NSLayoutConstraint TopConstraint { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.NSLayoutConstraint TopConstraint { get; set; }
 
-		void ReleaseDesignerOutlets ()
-		{
-			if (DataTable != null) {
-				DataTable.Dispose ();
-				DataTable = null;
-			}
-			if (TopConstraint != null) {
-				TopConstraint.Dispose ();
-				TopConstraint = null;
-			}
-		}
-	}
+        void ReleaseDesignerOutlets ()
+        {
+            if (DataTable != null) {
+                DataTable.Dispose ();
+                DataTable = null;
+            }
+
+            if (TopConstraint != null) {
+                TopConstraint.Dispose ();
+                TopConstraint = null;
+            }
+        }
+    }
 }

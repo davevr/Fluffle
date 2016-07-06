@@ -11,59 +11,64 @@ using UIKit;
 
 namespace Fluffimax.iOS
 {
-	[Register ("BunnySizeCellView")]
-	partial class BunnySizeCellView
-	{
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIImageView BunnyImg { get; set; }
+    [Register ("BunnySizeCellView")]
+    partial class BunnySizeCellView
+    {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView BunnyImg { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel BunnyName { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel BunnyName { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIImageView PlayerImg { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView PlayerImg { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel PlayerName { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel PlayerName { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel ProgressLabel { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel ProgressLabel { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel SizeLabel { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel SizeLabel { get; set; }
 
-		void ReleaseDesignerOutlets ()
-		{
-			if (BunnyImg != null) {
-				BunnyImg.Dispose ();
-				BunnyImg = null;
-			}
-			if (BunnyName != null) {
-				BunnyName.Dispose ();
-				BunnyName = null;
-			}
-			if (PlayerImg != null) {
-				PlayerImg.Dispose ();
-				PlayerImg = null;
-			}
-			if (PlayerName != null) {
-				PlayerName.Dispose ();
-				PlayerName = null;
-			}
-			if (ProgressLabel != null) {
-				ProgressLabel.Dispose ();
-				ProgressLabel = null;
-			}
-			if (SizeLabel != null) {
-				SizeLabel.Dispose ();
-				SizeLabel = null;
-			}
-		}
-	}
+        void ReleaseDesignerOutlets ()
+        {
+            if (BunnyImg != null) {
+                BunnyImg.Dispose ();
+                BunnyImg = null;
+            }
+
+            if (BunnyName != null) {
+                BunnyName.Dispose ();
+                BunnyName = null;
+            }
+
+            if (PlayerImg != null) {
+                PlayerImg.Dispose ();
+                PlayerImg = null;
+            }
+
+            if (PlayerName != null) {
+                PlayerName.Dispose ();
+                PlayerName = null;
+            }
+
+            if (ProgressLabel != null) {
+                ProgressLabel.Dispose ();
+                ProgressLabel = null;
+            }
+
+            if (SizeLabel != null) {
+                SizeLabel.Dispose ();
+                SizeLabel = null;
+            }
+        }
+    }
 }

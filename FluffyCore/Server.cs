@@ -42,7 +42,7 @@ namespace Fluffimax.Core
 
 		public static bool IsLocal {
 			get {
-				return serverBase == localHostStr;
+				return serverBase == localHostStr || serverBase == networkHostStr;
 			}
 		}
 
@@ -304,6 +304,12 @@ namespace Fluffimax.Core
 		{
 			RecordPlayerAction ("feed", theBuns.id);
 		}
+
+		public static void RecordPetBunny(Bunny theBuns)
+		{
+			RecordPlayerAction("pet", theBuns.id);
+		}
+
 
 		public static void RecordGiveCarrots(int numCarrots)
 		{

@@ -274,6 +274,7 @@
     <Compile Include="Views\PlayerShareCellView.designer.cs">
       <DependentUpon>PlayerShareCellView.cs</DependentUpon>
     </Compile>
+    <Compile Include="utils\ShapedImageView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -282,6 +283,7 @@
     <Folder Include="Collections\" />
     <Folder Include="utils\" />
     <Folder Include="_ext\" />
+    <Folder Include="Resources\fonts\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\carrot.png" />
@@ -296,6 +298,8 @@
     <BundleResource Include="Resources\delete_sign-48%402x.png" />
     <BundleResource Include="Resources\home-48%402x.png" />
     <BundleResource Include="Resources\unknown_user.png" />
+    <BundleResource Include="Resources\fonts\FingerPaint-Regular.ttf" />
+    <BundleResource Include="Resources\heart.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="servicestacktext">

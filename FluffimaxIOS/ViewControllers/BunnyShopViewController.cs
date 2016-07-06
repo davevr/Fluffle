@@ -78,7 +78,8 @@ namespace Fluffimax.iOS
 					UpdateCarrotCount ();
 					UIAlertView goodNews = new UIAlertView ("Purchase Accepted", "Enjoy your new cute bunny!", null, "Happiness!");
 					goodNews.Show ();
-					BunnySaleList.ReloadData ();
+					//BunnySaleList.ReloadData ();
+					NavController.PopViewController(true);
 				} else {
 					UIAlertView denyView = new UIAlertView ("Purchase Declined", "Sorry, the purchase did not go through", null, "Oh well");
 					denyView.Show ();

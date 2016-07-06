@@ -11,11 +11,11 @@ using UIKit;
 
 namespace Fluffimax.iOS
 {
-	[Register ("AboutViewController")]
-	partial class AboutViewController
-	{
-		void ReleaseDesignerOutlets ()
-		{
-		}
-	}
+    [Register ("AboutViewController")]
+    partial class AboutViewController
+    {
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }

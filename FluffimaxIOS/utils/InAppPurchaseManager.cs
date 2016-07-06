@@ -70,13 +70,13 @@ namespace Fluffimax.iOS {
 
 		public void PurchaseProduct(string appStoreProductId)
 		{
-			if (Game.CurrentPlayer.isAdmin) {
+			if (Game.CurrentPlayer.isAdmin || Server.IsLocal) {
 				Server.RecordPurchase (appStoreProductId, "", "", (theResult) => {
 					// true if it did it
 					FinishTransaction (null, true);
 				});
 			} else {
-				SKPayment payment = SKPayment.PaymentWithProduct (appStoreProductId);
+				SKPayment payment = SKPayment.CreateFrom(appStoreProductId);// SKPayment.PaymentWithProduct (appStoreProductId);
 				SKPaymentQueue.DefaultQueue.AddPayment (payment);
 			}
 		}

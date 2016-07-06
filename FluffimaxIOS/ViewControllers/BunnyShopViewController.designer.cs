@@ -11,27 +11,28 @@ using UIKit;
 
 namespace Fluffimax.iOS
 {
-	[Register ("BunnyShopViewController")]
-	partial class BunnyShopViewController
-	{
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UITableView BunnySaleList { get; set; }
+    [Register ("BunnyShopViewController")]
+    partial class BunnyShopViewController
+    {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITableView BunnySaleList { get; set; }
 
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UILabel CarrotCountLabel { get; set; }
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel CarrotCountLabel { get; set; }
 
-		void ReleaseDesignerOutlets ()
-		{
-			if (BunnySaleList != null) {
-				BunnySaleList.Dispose ();
-				BunnySaleList = null;
-			}
-			if (CarrotCountLabel != null) {
-				CarrotCountLabel.Dispose ();
-				CarrotCountLabel = null;
-			}
-		}
-	}
+        void ReleaseDesignerOutlets ()
+        {
+            if (BunnySaleList != null) {
+                BunnySaleList.Dispose ();
+                BunnySaleList = null;
+            }
+
+            if (CarrotCountLabel != null) {
+                CarrotCountLabel.Dispose ();
+                CarrotCountLabel = null;
+            }
+        }
+    }
 }

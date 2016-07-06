@@ -30,7 +30,7 @@ namespace Fluffimax.iOS
 
 		protected UINavigationController NavController { 
 			get {
-				return (UIApplication.SharedApplication.Delegate as AppDelegate).NavController;
+				return (UIApplication.SharedApplication.Delegate as AppDelegate).RootController.NavController;
 			} 
 		}	
 	}

@@ -11,7 +11,6 @@
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
-		<integer>2</integer>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -20,10 +19,6 @@
 		<string>armv7</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
@@ -43,8 +38,12 @@
 		<true/>
 	</dict>
 	<key>CFBundleShortVersionString</key>
-	<string>1.11</string>
+	<string>1.15</string>
 	<key>CFBundleVersion</key>
-	<string>111</string>
+	<string>115</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>fonts/FingerPaint-Regular.ttf</string>
+	</array>
 </dict>
 </plist>
