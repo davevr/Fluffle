@@ -20,12 +20,15 @@
                     <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
+                    <variation key="widthClass=compact">
+                        <rect key="frame" x="16" y="8" width="368" height="25.5"/>
+                    </variation>
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hmO-I3-P2x">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="8" y="78" width="384" height="522"/>
+                    <variation key="widthClass=compact">
+                        <rect key="frame" x="8" y="111.5" width="384" height="488.5"/>
                     </variation>
                 </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The top 100 bunnies, ranked by size.  Bunnies of the same size are ranked by progress to their next size." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVi-6y-Rqh">
@@ -101,5 +104,6 @@
         <image name="delete_sign-48.png" width="24" height="24"/>
         <image name="home-48.png" width="24" height="24"/>
         <image name="unknown_user.png" width="512" height="512"/>
+        <image name="heart.png" width="128" height="128"/>
     </resources>
 </document>

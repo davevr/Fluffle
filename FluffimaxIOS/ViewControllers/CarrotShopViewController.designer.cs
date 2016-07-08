@@ -40,6 +40,46 @@ namespace Fluffimax.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel Item1Detail { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel Item1Title { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel Item2Detail { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel Item2Title { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel Item3Detail { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel Item3Title { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel Item4Detail { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel Item4Title { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel Item5Detail { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel Item5Title { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton WatchAdBtn { get; set; }
 
         void ReleaseDesignerOutlets ()
@@ -72,6 +112,56 @@ namespace Fluffimax.iOS
             if (CurrentCarrotLabel != null) {
                 CurrentCarrotLabel.Dispose ();
                 CurrentCarrotLabel = null;
+            }
+
+            if (Item1Detail != null) {
+                Item1Detail.Dispose ();
+                Item1Detail = null;
+            }
+
+            if (Item1Title != null) {
+                Item1Title.Dispose ();
+                Item1Title = null;
+            }
+
+            if (Item2Detail != null) {
+                Item2Detail.Dispose ();
+                Item2Detail = null;
+            }
+
+            if (Item2Title != null) {
+                Item2Title.Dispose ();
+                Item2Title = null;
+            }
+
+            if (Item3Detail != null) {
+                Item3Detail.Dispose ();
+                Item3Detail = null;
+            }
+
+            if (Item3Title != null) {
+                Item3Title.Dispose ();
+                Item3Title = null;
+            }
+
+            if (Item4Detail != null) {
+                Item4Detail.Dispose ();
+                Item4Detail = null;
+            }
+
+            if (Item4Title != null) {
+                Item4Title.Dispose ();
+                Item4Title = null;
+            }
+
+            if (Item5Detail != null) {
+                Item5Detail.Dispose ();
+                Item5Detail = null;
+            }
+
+            if (Item5Title != null) {
+                Item5Title.Dispose ();
+                Item5Title = null;
             }
 
             if (WatchAdBtn != null) {

@@ -14,6 +14,7 @@ namespace Fluffimax.iOS
 		{
 			base.ViewDidLoad ();
 			// Perform any additional setup after loading the view, typically from a nib.
+			this.Title = "The Bunny Cam";
 		}
 
 		public override void DidReceiveMemoryWarning ()

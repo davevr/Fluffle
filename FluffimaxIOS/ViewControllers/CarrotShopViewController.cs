@@ -57,6 +57,22 @@ namespace Fluffimax.iOS
 				HandleAdView();
 			};
 
+			this.Title = "Carrot Shop";
+			WatchAdBtn.Hidden = true;
+
+			if (AppDelegate.IsMini)
+			{
+				// make things smaller
+				UIFont smallFont = UIFont.FromName(Item1Title.Font.Name, 13);
+				Item1Title.Font = smallFont;
+				Item2Title.Font = smallFont;
+				Item3Title.Font = smallFont;
+				Item4Title.Font = smallFont;
+				Item5Title.Font = smallFont;
+				WatchAdBtn.Font = smallFont;
+				View.LayoutIfNeeded();
+			}
+
 		}
 			
 
@@ -103,14 +119,9 @@ namespace Fluffimax.iOS
 
 						var product = (SKProduct) info.ObjectForKey(NSBuyProduct01Id);
 
-						Console.WriteLine("Product id: " + product.ProductIdentifier);
-						Console.WriteLine("Product title: " + product.LocalizedTitle);
-						Console.WriteLine("Product description: " + product.LocalizedDescription);
-						Console.WriteLine("Product price: " + product.Price);
-						Console.WriteLine("Product l10n price: " + product.LocalizedPrice());	
-
 						BuyItem1Btn.Enabled = true;
-						BuyItem1Btn.SetTitle(product.LocalizedTitle + " - " + product.LocalizedDescription + " - " + product.LocalizedPrice(), UIControlState.Normal);
+						Item1Title.Text = product.LocalizedTitle + " - " + product.LocalizedPrice();
+						Item1Detail.Text = product.LocalizedDescription;
 
 					}
 					if (info.ContainsKey(NSBuyProduct02Id)) {
@@ -119,7 +130,8 @@ namespace Fluffimax.iOS
 						var product = (SKProduct) info.ObjectForKey(NSBuyProduct02Id);
 
 						BuyItem2Btn.Enabled = true;
-						BuyItem2Btn.SetTitle(product.LocalizedTitle + " - " + product.LocalizedDescription + " - " + product.LocalizedPrice(), UIControlState.Normal);
+						Item2Title.Text = product.LocalizedTitle + " - " + product.LocalizedPrice();
+						Item2Detail.Text = product.LocalizedDescription;
 					}
 
 					if (info.ContainsKey(NSBuyProduct03Id)) {
@@ -128,7 +140,8 @@ namespace Fluffimax.iOS
 						var product = (SKProduct) info.ObjectForKey(NSBuyProduct03Id);
 
 						BuyItem3Btn.Enabled = true;
-						BuyItem3Btn.SetTitle(product.LocalizedTitle + " - " + product.LocalizedDescription + " - " + product.LocalizedPrice(), UIControlState.Normal);
+						Item3Title.Text = product.LocalizedTitle + " - " + product.LocalizedPrice();
+						Item3Detail.Text = product.LocalizedDescription;
 					}
 
 					if (info.ContainsKey(NSBuyProduct04Id)) {
@@ -137,7 +150,8 @@ namespace Fluffimax.iOS
 						var product = (SKProduct) info.ObjectForKey(NSBuyProduct04Id);
 
 						BuyItem4Btn.Enabled = true;
-						BuyItem4Btn.SetTitle(product.LocalizedTitle + " - " + product.LocalizedDescription + " - " + product.LocalizedPrice(), UIControlState.Normal);
+						Item4Title.Text = product.LocalizedTitle + " - " + product.LocalizedPrice();
+						Item4Detail.Text = product.LocalizedDescription;
 					}
 
 					if (info.ContainsKey(NSBuyProduct05Id)) {
@@ -146,7 +160,8 @@ namespace Fluffimax.iOS
 						var product = (SKProduct) info.ObjectForKey(NSBuyProduct05Id);
 
 						BuyItem5Btn.Enabled = true;
-						BuyItem5Btn.SetTitle(product.LocalizedTitle + " - " + product.LocalizedDescription + " - " + product.LocalizedPrice(), UIControlState.Normal);
+						Item5Title.Text = product.LocalizedTitle + " - " + product.LocalizedPrice();
+						Item5Detail.Text = product.LocalizedDescription;
 					}
 
 				});

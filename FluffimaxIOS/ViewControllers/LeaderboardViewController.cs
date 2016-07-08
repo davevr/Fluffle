@@ -10,16 +10,16 @@ namespace Fluffimax.iOS
 		public LeaderboardViewController () : base (null, null)
 		{
 			bunnyCountVC = new LBPlayerBunnyCountVC();
-			bunnyCountVC.TabBarItem = new UITabBarItem ("most bunnies", UIImage.FromBundle ("about-48"), 0);
+			bunnyCountVC.TabBarItem = new UITabBarItem ("most bunnies", UIImage.FromBundle ("mostBunnie_48"), 0);
 
 			playerShareVC = new LBPlayerShareVC();
-			playerShareVC.TabBarItem = new UITabBarItem ("most shares", UIImage.FromBundle ("about-48"), 1);
+			playerShareVC.TabBarItem = new UITabBarItem ("most shares", UIImage.FromBundle ("shareBunnies_48"), 1);
 
 			bunnySizeVC = new LBBunnySizeVC();
-			bunnySizeVC.TabBarItem = new UITabBarItem ("biggest buns", UIImage.FromBundle ("about-48"), 2);
+			bunnySizeVC.TabBarItem = new UITabBarItem ("biggest buns", UIImage.FromBundle ("biggestBunnies_48"), 2);
 
 			bunnySpreadVC = new LBBunnySpreadVC();
-			bunnySpreadVC.TabBarItem = new UITabBarItem ("spread", UIImage.FromBundle ("about-48"), 3);
+			bunnySpreadVC.TabBarItem = new UITabBarItem ("spread", UIImage.FromBundle ("spreadBunnies_48"), 3);
 
 
 			var tabs = new UIViewController[] {

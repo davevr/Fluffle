@@ -102,6 +102,17 @@ namespace Fluffimax.iOS
 			});
 			menuTap.NumberOfTapsRequired = 1;
 			MenuBtn.AddGestureRecognizer(menuTap);
+
+			// maybe make things smaller
+			if (AppDelegate.IsMini)
+			{
+				// make things smaller
+				UIFont smallFont = UIFont.FromName(BuyBunnyBtn.Font.Name, 10);
+				BuyBunnyBtn.Font = smallFont;
+				BuyCarrotsBtn.Font = smallFont;
+				CatchBtn.Font = smallFont;
+				View.LayoutIfNeeded();
+			}
 		}
 
 		private void MaybeSellBunny() {

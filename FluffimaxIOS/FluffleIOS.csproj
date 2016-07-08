@@ -42,7 +42,7 @@
     <MtouchUseSGen>true</MtouchUseSGen>
     <CodesignKey>iPhone Distribution: eweware, inc. (E3T6HDCQT8)</CodesignKey>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
-    <CodesignProvision>616f9263-90dc-4b27-ad7b-74705f337154</CodesignProvision>
+    <CodesignProvision>df04a490-338f-4420-85de-05d176570dde</CodesignProvision>
     <IpaPackageName>
     </IpaPackageName>
   </PropertyGroup>
@@ -115,6 +115,9 @@
     </Reference>
     <Reference Include="Xamarin-Sidebar-Unified">
       <HintPath>_ext\Xamarin-Sidebar-Unified.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook">
+      <HintPath>..\packages\Xamarin.Facebook.iOS.4.12.0\lib\Xamarin.iOS10\Facebook.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +303,17 @@
     <BundleResource Include="Resources\unknown_user.png" />
     <BundleResource Include="Resources\fonts\FingerPaint-Regular.ttf" />
     <BundleResource Include="Resources\heart.png" />
+    <BundleResource Include="Resources\carrot_bag.png" />
+    <BundleResource Include="Resources\carrot_crate.png" />
+    <BundleResource Include="Resources\carrot_sack.png" />
+    <BundleResource Include="Resources\carrot_truck.png" />
+    <BundleResource Include="Resources\carrot_wheelbarrow.png" />
+    <BundleResource Include="Resources\flopsy.jpg" />
+    <BundleResource Include="Resources\juju.jpg" />
+    <BundleResource Include="Resources\mostBunnie_48.png" />
+    <BundleResource Include="Resources\shareBunnies_48.png" />
+    <BundleResource Include="Resources\spreadBunnies_48.png" />
+    <BundleResource Include="Resources\biggestBunnies_48.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="servicestacktext">

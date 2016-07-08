@@ -38,7 +38,9 @@ namespace Fluffimax.iOS
 			BunnySaleList.DataSource = dataSource;
 			BunnySaleList.RowHeight = 96;
 			dataSource.ShopView = this;
+			this.Title = "Bunny Shop";
 			UpdateCarrotCount ();
+			View.LayoutIfNeeded();
 		}
 
 		private void UpdateCarrotCount() {

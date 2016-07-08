@@ -16,6 +16,10 @@ namespace Fluffimax.iOS
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.NSLayoutConstraint BunnyTop { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton ChangePasswordBtn { get; set; }
 
         [Outlet]
@@ -24,11 +28,15 @@ namespace Fluffimax.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel HeaderLabel { get; set; }
+        UIKit.UITextField NicknameField { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField NicknameField { get; set; }
+        UIKit.NSLayoutConstraint ProfileImageHeight { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.NSLayoutConstraint ProfileImageWidth { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -49,6 +57,11 @@ namespace Fluffimax.iOS
 
         void ReleaseDesignerOutlets ()
         {
+            if (BunnyTop != null) {
+                BunnyTop.Dispose ();
+                BunnyTop = null;
+            }
+
             if (ChangePasswordBtn != null) {
                 ChangePasswordBtn.Dispose ();
                 ChangePasswordBtn = null;
@@ -59,14 +72,19 @@ namespace Fluffimax.iOS
                 ChangeUsernameBtn = null;
             }
 
-            if (HeaderLabel != null) {
-                HeaderLabel.Dispose ();
-                HeaderLabel = null;
-            }
-
             if (NicknameField != null) {
                 NicknameField.Dispose ();
                 NicknameField = null;
+            }
+
+            if (ProfileImageHeight != null) {
+                ProfileImageHeight.Dispose ();
+                ProfileImageHeight = null;
+            }
+
+            if (ProfileImageWidth != null) {
+                ProfileImageWidth.Dispose ();
+                ProfileImageWidth = null;
             }
 
             if (SetImageBtn != null) {

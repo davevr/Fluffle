@@ -31,6 +31,14 @@ namespace Fluffimax.iOS
 			};
 
 			this.Title = "Your Profile";
+
+			if (AppDelegate.IsMini)
+			{
+				ProfileImageWidth.Constant = 160;
+				ProfileImageHeight.Constant = 160;
+				BunnyTop.Constant = 24;
+				View.LayoutIfNeeded();
+			}
 			/*
 			 UIBarButtonItem menuBtn = new UIBarButtonItem (UIImage.FromBundle ("menu-48"), UIBarButtonItemStyle.Plain, null);
 			this.NavigationItem.SetLeftBarButtonItem (menuBtn, false);
@@ -157,7 +165,7 @@ namespace Fluffimax.iOS
 			} else {
 				titleStr = Game.CurrentPlayer.nickname + "'s Profile";
 			}
-			HeaderLabel.Text = titleStr;
+			this.Title = titleStr;
 
 			// profile image
 			if (string.IsNullOrEmpty (Game.CurrentPlayer.userimage)) {
