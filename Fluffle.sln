@@ -1,16 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluffleIOS", "FluffimaxIOS\FluffleIOS.csproj", "{5241C2E3-F467-467D-845A-C9BA26768A4F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluffleAndroid", "FluffleAndroid\FluffleAndroid.csproj", "{A60E66FC-9A70-4664-8E82-EC078F5CB461}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhone = Debug|iPhone
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
 		Release|iPhone = Release|iPhone
 		Release|iPhoneSimulator = Release|iPhoneSimulator
-		Debug|iPhone = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5241C2E3-F467-467D-845A-C9BA26768A4F}.Debug|iPhone.ActiveCfg = Debug|iPhone
@@ -21,14 +23,18 @@ Global
 		{5241C2E3-F467-467D-845A-C9BA26768A4F}.Release|iPhone.Build.0 = Release|iPhone
 		{5241C2E3-F467-467D-845A-C9BA26768A4F}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{5241C2E3-F467-467D-845A-C9BA26768A4F}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{A60E66FC-9A70-4664-8E82-EC078F5CB461}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{A60E66FC-9A70-4664-8E82-EC078F5CB461}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{A60E66FC-9A70-4664-8E82-EC078F5CB461}.Debug|iPhone.Deploy.0 = Debug|Any CPU
 		{A60E66FC-9A70-4664-8E82-EC078F5CB461}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{A60E66FC-9A70-4664-8E82-EC078F5CB461}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
 		{A60E66FC-9A70-4664-8E82-EC078F5CB461}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{A60E66FC-9A70-4664-8E82-EC078F5CB461}.Release|iPhone.Build.0 = Release|Any CPU
 		{A60E66FC-9A70-4664-8E82-EC078F5CB461}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{A60E66FC-9A70-4664-8E82-EC078F5CB461}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{A60E66FC-9A70-4664-8E82-EC078F5CB461}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{A60E66FC-9A70-4664-8E82-EC078F5CB461}.Debug|iPhone.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		version = 0.2
