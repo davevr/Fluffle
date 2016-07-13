@@ -99,6 +99,14 @@ namespace Fluffimax.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.NSLayoutConstraint CSHeartHeight { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.NSLayoutConstraint CSHeartWidth { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView HeartImg { get; set; }
 
         [Outlet]
@@ -111,7 +119,7 @@ namespace Fluffimax.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView MenuBtn { get; set; }
+        UIKit.UIView PlayfieldView { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
@@ -145,11 +153,6 @@ namespace Fluffimax.iOS
                 BuyCarrotsBtn = null;
             }
 
-            if (CarrotCount != null) {
-                CarrotCount.Dispose ();
-                CarrotCount = null;
-            }
-
             if (CarrotImg != null) {
                 CarrotImg.Dispose ();
                 CarrotImg = null;
@@ -178,6 +181,16 @@ namespace Fluffimax.iOS
             if (CSCarrotY != null) {
                 CSCarrotY.Dispose ();
                 CSCarrotY = null;
+            }
+
+            if (CSHeartHeight != null) {
+                CSHeartHeight.Dispose ();
+                CSHeartHeight = null;
+            }
+
+            if (CSHeartWidth != null) {
+                CSHeartWidth.Dispose ();
+                CSHeartWidth = null;
             }
 
             if (EyeColorLabel != null) {
@@ -220,9 +233,9 @@ namespace Fluffimax.iOS
                 HeartYLoc = null;
             }
 
-            if (MenuBtn != null) {
-                MenuBtn.Dispose ();
-                MenuBtn = null;
+            if (PlayfieldView != null) {
+                PlayfieldView.Dispose ();
+                PlayfieldView = null;
             }
 
             if (ProgressCount != null) {

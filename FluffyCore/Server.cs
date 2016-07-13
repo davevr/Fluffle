@@ -30,7 +30,7 @@ namespace Fluffimax.Core
 		private static string localHostStr = "http://localhost:8080";
 		private static string networkHostStr = "http://192.168.0.6:8080";
 		private static string productionHostStr = "https://fluffle-1306.appspot.com";
-		private static string serverBase =   productionHostStr;
+		private static string serverBase =   localHostStr;
 		private static string apiPath;
 		public static string SpriteImagePath;
 		public static string ProfileImagePath;
