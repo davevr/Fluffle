@@ -18,10 +18,12 @@ namespace Fluffimax.iOS
 		private static int kHorizontalHopMin = 16;
 		private static int kVerticalHopMax = 32;
 		private static int kHorizontalHopMax = 64;
-		private static int kMinWidth = -150;
-		private static int kMinHeight = -150;
-		private static int kMaxWidth = 150;
-		private static int kMaxHeight = 200;
+		private static nfloat kMinWidth = -100;
+		private static nfloat kMinHeight = -100;
+		private static nfloat kMaxWidth = 100;
+		private static nfloat kMaxHeight = 100;
+		private static nfloat xScale = 1;
+		private static nfloat yScale = 1;
 		private Bunny _currentBuns = null;
 		private bool inited = false;
 		private Timer _idleTimer = new Timer ();
@@ -292,7 +294,7 @@ namespace Fluffimax.iOS
 		}
 
 		public void ShowRenameBunny() {
-			if (_currentBuns.OriginalOwner == Game.CurrentPlayer.id) {
+			if (string.IsNullOrEmpty(_currentBuns.BunnyName) || _currentBuns.OriginalOwner == Game.CurrentPlayer.id) {
 				UIAlertView alert = new UIAlertView ();
 				alert.Title = "Rename Bunny";
 				alert.AddButton ("OK");
@@ -317,9 +319,20 @@ namespace Fluffimax.iOS
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
+
+			this.NavigationController.NavigationBar.TitleTextAttributes = new UIStringAttributes()
+			{
+				Font = UIFont.FromName("FingerPaint-Regular", 20),
+				ForegroundColor = UIColor.FromRGB(0, 200, 0)
+			};
+
 			BunnyNameLabel.UserInteractionEnabled = true;
 			GrassField.UserInteractionEnabled = true;
 			NavController.NavigationBarHidden = false;
+			CGRect bounds = PlayfieldView.Frame;
+			xScale = bounds.Width / 200;
+			yScale = bounds.Height / 200;
+
 			InitGame();
 
 			UpdateScore ();
@@ -421,8 +434,8 @@ namespace Fluffimax.iOS
 					nfloat deltaSize = (nfloat)((nextLevelSize - bunsSizeBase) * thebuns.Progress);
 					theGraphic.Height.Constant = bunsSizeBase;
 					theGraphic.Width.Constant = bunsSizeBase + deltaSize;
-					theGraphic.Horizontal.Constant = thebuns.HorizontalLoc;
-					theGraphic.Vertical.Constant = thebuns.VerticalLoc;
+					theGraphic.Horizontal.Constant = thebuns.HorizontalLoc * xScale;
+					theGraphic.Vertical.Constant = thebuns.VerticalLoc * yScale;
 					PlayfieldView.SetNeedsLayout ();
 					PlayfieldView.SetNeedsUpdateConstraints();
 					PlayfieldView.LayoutIfNeeded();
@@ -630,8 +643,8 @@ namespace Fluffimax.iOS
 
 
 			InvokeOnMainThread (() => {
-				int newX = (int)buns.Horizontal.Constant + xDif;
-				int newY = (int)buns.Vertical.Constant + yDif;
+				nfloat newX = buns.Horizontal.Constant + xDif;
+				nfloat newY = buns.Vertical.Constant + yDif;
 
 				if (newX < kMinWidth)
 					newX = kMinWidth;
@@ -659,7 +672,7 @@ namespace Fluffimax.iOS
 			});
 		}
 
-		private void BunnyHopToNewLoc(BunnyGraphic buns, int dir, int newX, int newY, UIImage[] jumpFrames, UIImage[] idleFrames) {
+		private void BunnyHopToNewLoc(BunnyGraphic buns, int dir, nfloat newX, nfloat newY, UIImage[] jumpFrames, UIImage[] idleFrames) {
 			InvokeOnMainThread (() => {
 				buns.Button.AnimationImages = jumpFrames;
 				buns.Button.AnimationDuration = .15;
@@ -676,7 +689,7 @@ namespace Fluffimax.iOS
 					buns.Button.StartAnimating ();
 					buns.Button.Layer.ZPosition = 200 + newY;
 				});
-				buns.LinkedBuns.UpdateLocation(newX, newY);
+				buns.LinkedBuns.UpdateLocation((int)(newX / xScale), (int)(newY / yScale));
 				_idleTimer.Start();
 				CheckBunnyBreeding();
 			});

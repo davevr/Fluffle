@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using RestSharp;
 using ServiceStack.Text;
 using System.Net;
+using System.IO;
 
 namespace Fluffimax.Core
 {
@@ -29,7 +30,7 @@ namespace Fluffimax.Core
 		private static string profileFolderBase = "/images/profiles/";
 		private static string localHostStr = "http://localhost:8080";
 		private static string networkHostStr = "http://192.168.0.6:8080";
-		private static string productionHostStr = "https://fluffle-1306.appspot.com";
+		private static string productionHostStr = "http://fluffle.it";
 		private static string serverBase =   localHostStr;
 		private static string apiPath;
 		public static string SpriteImagePath;
@@ -310,6 +311,11 @@ namespace Fluffimax.Core
 			RecordPlayerAction("pet", theBuns.id);
 		}
 
+		public static void RecordUserImage(string theImageURL)
+		{
+			RecordPlayerAction("image", theImageURL);
+		}
+
 
 		public static void RecordGiveCarrots(int numCarrots)
 		{
@@ -458,6 +464,85 @@ namespace Fluffimax.Core
 				{
 					callback(response.Data);
 				});
+		}
+
+		public static void UploadImage(Stream photoStream, string fileName, string_callback callback)
+		{
+			string uploadURL = GetImageUploadURL();
+			int pathSplit = uploadURL.IndexOf("/", 10);
+			string appPath = uploadURL.Substring(0, pathSplit);
+			string requestPath = uploadURL.Substring(pathSplit);
+			RestClient onetimeClient = new RestClient(appPath);
+			//onetimeClient.CookieContainer = apiClient.CookieContainer;
+			var request = new RestRequest(requestPath, Method.POST);
+			request.AddHeader("Accept", "*/*");
+			request.AddFile("file", ReadToEnd(photoStream), fileName, "image/jpeg");
+
+			onetimeClient.ExecuteAsync(request, (response) =>
+				{
+					if (response.StatusCode == HttpStatusCode.OK)
+					{
+						callback(response.Content);
+					}
+					else
+					{
+						//error ocured during upload
+						callback(null);
+					}
+				});
+		}
+
+		public static string GetImageUploadURL()
+		{
+			RestRequest request = new RestRequest("uploadImage", Method.GET);
+			IRestResponse response = apiClient.Execute(request);
+			return response.Content;
+		}
+
+
+		//method for converting stream to byte[]
+		public static byte[] ReadToEnd(System.IO.Stream stream)
+		{
+			long originalPosition = stream.Position;
+			stream.Position = 0;
+
+			try
+			{
+				byte[] readBuffer = new byte[4096];
+
+				int totalBytesRead = 0;
+				int bytesRead;
+
+				while ((bytesRead = stream.Read(readBuffer, totalBytesRead, readBuffer.Length - totalBytesRead)) > 0)
+				{
+					totalBytesRead += bytesRead;
+
+					if (totalBytesRead == readBuffer.Length)
+					{
+						int nextByte = stream.ReadByte();
+						if (nextByte != -1)
+						{
+							byte[] temp = new byte[readBuffer.Length * 2];
+							Buffer.BlockCopy(readBuffer, 0, temp, 0, readBuffer.Length);
+							Buffer.SetByte(temp, totalBytesRead, (byte)nextByte);
+							readBuffer = temp;
+							totalBytesRead++;
+						}
+					}
+				}
+
+				byte[] buffer = readBuffer;
+				if (readBuffer.Length != totalBytesRead)
+				{
+					buffer = new byte[totalBytesRead];
+					Buffer.BlockCopy(readBuffer, 0, buffer, 0, totalBytesRead);
+				}
+				return buffer;
+			}
+			finally
+			{
+				stream.Position = originalPosition;
+			}
 		}
 
 

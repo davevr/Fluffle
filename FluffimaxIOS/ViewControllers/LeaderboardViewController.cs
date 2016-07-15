@@ -27,8 +27,8 @@ namespace Fluffimax.iOS
 			};
 
 			ViewControllers = tabs;
-			this.Title = "Fluffle Leaderboards";
-			/*
+			this.Title = "Leaderboards";
+
 			UIBarButtonItem menuBtn = new UIBarButtonItem (UIImage.FromBundle ("menu-48"), UIBarButtonItemStyle.Plain, null);
 			this.NavigationItem.SetLeftBarButtonItem (menuBtn, false);
 
@@ -36,7 +36,7 @@ namespace Fluffimax.iOS
 			{
 				SidebarController.ToggleMenu();
 			};
-			*/
+
 
 		}
 

@@ -13,7 +13,6 @@
                 <outlet property="GameBtn" destination="9" id="name-outlet-9"/>
                 <outlet property="MenuImage" destination="6" id="rsN-aT-5PF"/>
                 <outlet property="ProfileBtn" destination="11" id="name-outlet-11"/>
-                <outlet property="ShopBtn" destination="10" id="name-outlet-10"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
             </connections>
         </placeholder>
@@ -21,11 +20,11 @@
         <view contentMode="scaleToFill" id="2">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEL-pu-LdR">
-                    <rect key="frame" x="-15" y="-15" width="240" height="528"/>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEL-pu-LdR" fixedFrame="YES">
+                    <rect key="frame" x="-15" y="-15" width="950" height="375"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="baseicon.png" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                            <rect key="frame" x="20" y="20" width="200" height="200"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="200" id="LKB-Av-jn8"/>
                                 <constraint firstAttribute="height" constant="200" id="agW-31-heA"/>
@@ -44,8 +43,8 @@
                                 </mask>
                             </variation>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9">
-                            <rect key="frame" x="65" y="236" width="110" height="32"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9" fixedFrame="YES">
+                            <rect key="frame" x="375" y="0.0" width="124" height="375"/>
                             <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="Bunny Garden">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -54,18 +53,8 @@
                                 <rect key="frame" x="45" y="200" width="110" height="32"/>
                             </variation>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10">
-                            <rect key="frame" x="74" y="284" width="93" height="32"/>
-                            <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
-                            <state key="normal" title="Carrot Shop">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <variation key="widthClass=compact" ambiguous="YES">
-                                <rect key="frame" x="54" y="232" width="93" height="32"/>
-                            </variation>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11">
-                            <rect key="frame" x="96" y="332" width="48" height="32"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11" fixedFrame="YES">
+                            <rect key="frame" x="499" y="0.0" width="61" height="375"/>
                             <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="Profile">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -74,8 +63,8 @@
                                 <rect key="frame" x="76" y="264" width="48" height="32"/>
                             </variation>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12">
-                            <rect key="frame" x="67" y="380" width="106" height="32"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12" fixedFrame="YES">
+                            <rect key="frame" x="560" y="0.0" width="123" height="375"/>
                             <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="Leaderboards">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -84,8 +73,8 @@
                                 <rect key="frame" x="47" y="296" width="106" height="32"/>
                             </variation>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15">
-                            <rect key="frame" x="55" y="428" width="130" height="32"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15" fixedFrame="YES">
+                            <rect key="frame" x="683" y="0.0" width="147" height="375"/>
                             <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="Live Bunny Cam!">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -94,8 +83,8 @@
                                 <rect key="frame" x="35" y="328" width="130" height="32"/>
                             </variation>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16">
-                            <rect key="frame" x="72" y="476" width="97" height="32"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16" fixedFrame="YES">
+                            <rect key="frame" x="830" y="0.0" width="120" height="375"/>
                             <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="About Fluffle">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -115,5 +104,28 @@
     </objects>
     <resources>
         <image name="baseicon.png" width="375" height="375"/>
+        <image name="carrot.png" width="512" height="512"/>
+        <image name="bunny.png" width="512" height="512"/>
+        <image name="grass.png" width="1024" height="1024"/>
+        <image name="menu-48.png" width="24" height="24"/>
+        <image name="about-48.png" width="24" height="24"/>
+        <image name="ask_question-48.png" width="24" height="24"/>
+        <image name="business_contact-48.png" width="24" height="24"/>
+        <image name="cancel-48.png" width="24" height="24"/>
+        <image name="delete_sign-48.png" width="24" height="24"/>
+        <image name="home-48.png" width="24" height="24"/>
+        <image name="unknown_user.png" width="512" height="512"/>
+        <image name="heart.png" width="128" height="128"/>
+        <image name="carrot_bag.png" width="512" height="512"/>
+        <image name="carrot_crate.png" width="512" height="512"/>
+        <image name="carrot_sack.png" width="512" height="512"/>
+        <image name="carrot_truck.png" width="512" height="512"/>
+        <image name="carrot_wheelbarrow.png" width="512" height="512"/>
+        <image name="flopsy.jpg" width="565" height="565"/>
+        <image name="juju.jpg" width="471" height="471"/>
+        <image name="mostBunnie_48.png" width="48" height="48"/>
+        <image name="shareBunnies_48.png" width="48" height="48"/>
+        <image name="spreadBunnies_48.png" width="48" height="48"/>
+        <image name="biggestBunnies_48.png" width="48" height="48"/>
     </resources>
 </document>

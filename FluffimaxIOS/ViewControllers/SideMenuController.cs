@@ -20,10 +20,6 @@ namespace Fluffimax.iOS
 				SidebarController.CloseMenu();
 			};
 
-			ShopBtn.TouchUpInside += (sender, e) => {
-				NavController.PushViewController(new CarrotShopViewController(), false);
-				SidebarController.CloseMenu();
-			};
 
 			ProfileBtn.TouchUpInside += (sender, e) => {
 				NavController.PushViewController(new ProfileViewController(), false);

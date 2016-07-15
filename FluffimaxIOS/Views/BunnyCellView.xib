@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -14,19 +15,19 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="95"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qu4-nQ-ysD" misplaced="YES">
-                        <rect key="frame" x="142.5" y="12" width="54.5" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="gender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qu4-nQ-ysD">
+                        <rect key="frame" x="143" y="12" width="54" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fur color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbh-xL-uwB" misplaced="YES">
-                        <rect key="frame" x="80" y="49" width="48" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="fur color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbh-xL-uwB">
+                        <rect key="frame" x="80" y="49" width="48" height="15"/>
                         <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B9y-zB-F47" misplaced="YES">
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B9y-zB-F47">
                         <rect key="frame" x="252" y="53" width="64" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="64" id="IXR-5N-PbE"/>
@@ -34,13 +35,13 @@
                         <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                         <state key="normal" title="Buy"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt1-B1-ZAC" misplaced="YES">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt1-B1-ZAC">
                         <rect key="frame" x="279" y="12" width="33" height="20"/>
                         <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bunny.png" translatesAutoresizingMaskIntoConstraints="NO" id="gkx-Xr-uMw" misplaced="YES">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bunny.png" translatesAutoresizingMaskIntoConstraints="NO" id="gkx-Xr-uMw">
                         <rect key="frame" x="12" y="12" width="64" height="64"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="64" id="2Oa-5Z-Z11"/>
@@ -55,21 +56,21 @@
                             </mask>
                         </variation>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carrot.png" translatesAutoresizingMaskIntoConstraints="NO" id="YGA-Wt-Wh7" misplaced="YES">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carrot.png" translatesAutoresizingMaskIntoConstraints="NO" id="YGA-Wt-Wh7">
                         <rect key="frame" x="243" y="12" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="Pj3-uy-1sa"/>
                             <constraint firstAttribute="width" constant="32" id="xX5-v7-nXb"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbO-TJ-R3A" misplaced="YES">
-                        <rect key="frame" x="80" y="12" width="50.5" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Breed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbO-TJ-R3A">
+                        <rect key="frame" x="80" y="12" width="51" height="21"/>
                         <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="eye color" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oc1-BH-9Kp" misplaced="YES">
-                        <rect key="frame" x="135.5" y="49" width="52" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="eye color" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oc1-BH-9Kp">
+                        <rect key="frame" x="136" y="49" width="52" height="15"/>
                         <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -119,24 +120,5 @@
     <resources>
         <image name="bunny.png" width="512" height="512"/>
         <image name="carrot.png" width="512" height="512"/>
-        <image name="bunny_down.png" width="1024" height="1024"/>
-        <image name="bunny_downright.png" width="1024" height="1024"/>
-        <image name="bunny_right.png" width="1024" height="1024"/>
-        <image name="bunny_upright.png" width="1024" height="1024"/>
-        <image name="bunny_up.png" width="1024" height="1024"/>
-        <image name="bunny_upleft.png" width="1024" height="1024"/>
-        <image name="bunny_left.png" width="1024" height="1024"/>
-        <image name="bunny_back.png" width="1024" height="1024"/>
-        <image name="bunny_front.png" width="1024" height="1024"/>
-        <image name="grass.png" width="1024" height="1024"/>
-        <image name="baseicon.png" width="375" height="375"/>
-        <image name="menu-48.png" width="24" height="24"/>
-        <image name="about-48.png" width="24" height="24"/>
-        <image name="ask_question-48.png" width="24" height="24"/>
-        <image name="business_contact-48.png" width="24" height="24"/>
-        <image name="cancel-48.png" width="24" height="24"/>
-        <image name="delete_sign-48.png" width="24" height="24"/>
-        <image name="home-48.png" width="24" height="24"/>
-        <image name="unknown_user.png" width="512" height="512"/>
     </resources>
 </document>

@@ -73,6 +73,12 @@ namespace Fluffimax.iOS
 				View.LayoutIfNeeded();
 			}
 
+
+
+			var menuBtn = new UIBarButtonItem("back", UIBarButtonItemStyle.Bordered, null);
+			this.NavigationItem.BackBarButtonItem = menuBtn;
+
+
 		}
 			
 
