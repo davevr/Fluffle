@@ -302,6 +302,7 @@
       <DependentUpon>PlayerShareCellView.cs</DependentUpon>
     </Compile>
     <Compile Include="utils\ShapedImageView.cs" />
+    <Compile Include="utils\UIImageHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

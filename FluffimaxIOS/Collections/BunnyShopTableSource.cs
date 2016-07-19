@@ -6,7 +6,7 @@ using Fluffimax.Core;
 
 namespace Fluffimax.iOS
 {
-	public class BunnyShopTableSource : UITableViewDataSource
+	public class BunnyShopTableSource : UITableViewSource
 	{
 		private UITableView myTable;
 		public BunnyShopViewController ShopView { get; set;}
@@ -34,13 +34,14 @@ namespace Fluffimax.iOS
 
 		public override nint NumberOfSections (UITableView tableView)
 		{
-			return 1;
+			return 2;
 		}
 
 		public override string TitleForHeader (UITableView tableView, nint section)
 		{
-			return "Bunnies for sale";
+			return "Size " + section;
 		}
+
 
 
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
@@ -52,6 +53,36 @@ namespace Fluffimax.iOS
 
 			return cell;
 		}
+	}
+
+	public class BunnyShopTableDelegate : UITableViewDelegate
+	{
+		public override nfloat GetHeightForHeader(UITableView tableView, nint section)
+		{
+			if (section == 0)
+				return 20;
+			else
+				return 20;
+		}
+
+		public override nfloat GetHeightForFooter(UITableView tableView, nint section)
+		{
+			return 0;
+		}
+
+		public override nfloat EstimatedHeightForHeader(UITableView tableView, nint section)
+		{
+			if (section == 0)
+				return 20;
+			else
+				return 20;
+		}
+
+		public override nfloat EstimatedHeightForFooter(UITableView tableView, nint section)
+		{
+			return 0;
+		}
+
 	}
 }
 

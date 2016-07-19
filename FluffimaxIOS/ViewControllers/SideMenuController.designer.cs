@@ -37,10 +37,6 @@ namespace Fluffimax.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton ProfileBtn { get; set; }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton ShopBtn { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
             if (AboutBtn != null) {
@@ -71,11 +67,6 @@ namespace Fluffimax.iOS
             if (ProfileBtn != null) {
                 ProfileBtn.Dispose ();
                 ProfileBtn = null;
-            }
-
-            if (ShopBtn != null) {
-                ShopBtn.Dispose ();
-                ShopBtn = null;
             }
         }
     }

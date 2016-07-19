@@ -18,10 +18,12 @@ namespace Fluffimax.iOS
 		private static int kHorizontalHopMin = 16;
 		private static int kVerticalHopMax = 32;
 		private static int kHorizontalHopMax = 64;
-		private static int kMinWidth = -150;
-		private static int kMinHeight = -150;
-		private static int kMaxWidth = 150;
-		private static int kMaxHeight = 200;
+		private static nfloat kMinWidth = -100;
+		private static nfloat kMinHeight = -100;
+		private static nfloat kMaxWidth = 100;
+		private static nfloat kMaxHeight = 100;
+		private static nfloat xScale = 1;
+		private static nfloat yScale = 1;
 		private Bunny _currentBuns = null;
 		private bool inited = false;
 		private Timer _idleTimer = new Timer ();
@@ -46,18 +48,12 @@ namespace Fluffimax.iOS
 			base.ViewDidLoad ();
 			// Perform any additional setup after loading the view, typically from a nib
 
-			UITapGestureRecognizer tapGrassGesture = new UITapGestureRecognizer (() => {
-				SetCurrentBunny(null);
-			});
-			tapGrassGesture.NumberOfTapsRequired = 1;
-			//GrassField.AddGestureRecognizer (tapGrassGesture);
-
 			UITapGestureRecognizer tapBunnyRecognizer = new UITapGestureRecognizer ();
 			tapBunnyRecognizer.NumberOfTapsRequired = 1;
 			tapBunnyRecognizer.AddTarget(() => {
 				HandleBunnyTap(tapBunnyRecognizer);
 			});
-			View.AddGestureRecognizer (tapBunnyRecognizer);
+			PlayfieldView.AddGestureRecognizer (tapBunnyRecognizer);
 
 			BunnyDetailView.Hidden = true;
 
@@ -96,12 +92,15 @@ namespace Fluffimax.iOS
 
 			};
 
-			UITapGestureRecognizer menuTap = new UITapGestureRecognizer(() =>
+
+			// add the menu controller
+			UIBarButtonItem menuBtn = new UIBarButtonItem(UIImage.FromBundle("menu-48"), UIBarButtonItemStyle.Plain, null);
+			this.NavigationItem.SetLeftBarButtonItem(menuBtn, false);
+
+			menuBtn.Clicked += (object sender, EventArgs e) =>
 			{
 				SidebarController.ToggleMenu();
-			});
-			menuTap.NumberOfTapsRequired = 1;
-			MenuBtn.AddGestureRecognizer(menuTap);
+			};
 
 			// maybe make things smaller
 			if (AppDelegate.IsMini)
@@ -233,23 +232,30 @@ namespace Fluffimax.iOS
 
 
 		private void HandleBunnyTap(UITapGestureRecognizer recognizer) {
-			CGPoint theLoc = recognizer.LocationInView (View);
-			UIView tappedView = View.HitTest (theLoc, null);
+			CGPoint theLoc = recognizer.LocationInView (PlayfieldView);
+			Bunny theBuns = null;
+			ShapedImageView bunsView = null;
 
-			if (tappedView == GrassField) {
-				SetCurrentBunny (null);
-			} else {
-				ShapedImageView bunsView = tappedView as ShapedImageView;
-
-				if (bunsView != null) {
-					Bunny	theBuns = _bunnyGraphicList.Find (i => i.Button == bunsView).LinkedBuns;
-
-					if (theBuns == this._currentBuns)
-						DoPetBunny();
-					SetCurrentBunny (theBuns);
+			foreach (BunnyGraphic curGraphic in _bunnyGraphicList)
+			{
+				if (curGraphic.Button.Frame.Contains(theLoc))
+				{
+					theBuns = curGraphic.LinkedBuns;
+					bunsView = curGraphic.Button;
+					break;
 				}
 			}
 
+			if (theBuns == null) {
+				SetCurrentBunny (null);
+			} 
+			else 
+			{
+				if (theBuns == this._currentBuns)	
+					DoPetBunny();
+				
+				SetCurrentBunny (theBuns);
+			}
 		}
 
 		public void DoPetBunny()
@@ -258,11 +264,13 @@ namespace Fluffimax.iOS
 			Server.RecordPetBunny(this._currentBuns);
 
 			BunnyGraphic theGraphic = _bunnyGraphicList.Find(b => b.LinkedBuns == this._currentBuns);
-			nfloat baseX = theGraphic.Button.Frame.GetMidX();
-			nfloat baseY = theGraphic.Button.Frame.GetMidY();
+			nfloat baseX = theGraphic.Horizontal.Constant;
+			nfloat baseY = theGraphic.Vertical.Constant;
 			HeartXLoc.Constant = baseX;
 			HeartYLoc.Constant = baseY;
-			View.LayoutIfNeeded();
+			CSHeartWidth.Constant = 24;
+			CSHeartHeight.Constant = 24;
+			PlayfieldView.LayoutIfNeeded();
 			HeartImg.Hidden = false;
 			HeartImg.Layer.ZPosition = 10000;
 
@@ -270,7 +278,9 @@ namespace Fluffimax.iOS
 			{
 				HeartYLoc.Constant = baseY - 64;
 				HeartImg.Layer.Opacity = 0;
-				View.LayoutIfNeeded();
+				CSHeartWidth.Constant = 128;
+				CSHeartHeight.Constant = 128;
+				PlayfieldView.LayoutIfNeeded();
 			}, () =>
 			{
 				InvokeOnMainThread(() =>
@@ -284,7 +294,7 @@ namespace Fluffimax.iOS
 		}
 
 		public void ShowRenameBunny() {
-			if (_currentBuns.OriginalOwner == Game.CurrentPlayer.id) {
+			if (string.IsNullOrEmpty(_currentBuns.BunnyName) || _currentBuns.OriginalOwner == Game.CurrentPlayer.id) {
 				UIAlertView alert = new UIAlertView ();
 				alert.Title = "Rename Bunny";
 				alert.AddButton ("OK");
@@ -309,9 +319,20 @@ namespace Fluffimax.iOS
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
+
+			this.NavigationController.NavigationBar.TitleTextAttributes = new UIStringAttributes()
+			{
+				Font = UIFont.FromName("FingerPaint-Regular", 20),
+				ForegroundColor = UIColor.FromRGB(0, 200, 0)
+			};
+
 			BunnyNameLabel.UserInteractionEnabled = true;
 			GrassField.UserInteractionEnabled = true;
-			NavController.NavigationBarHidden = true;
+			NavController.NavigationBarHidden = false;
+			CGRect bounds = PlayfieldView.Frame;
+			xScale = bounds.Width / 200;
+			yScale = bounds.Height / 200;
+
 			InitGame();
 
 			UpdateScore ();
@@ -354,7 +375,7 @@ namespace Fluffimax.iOS
 		private ShapedImageView AddBunnyToScreen(Bunny thebuns) {
 			ShapedImageView bunsBtn = new ShapedImageView ();
 
-			View.AddSubview (bunsBtn);
+			PlayfieldView.AddSubview (bunsBtn);
 			bunsBtn.TranslatesAutoresizingMaskIntoConstraints = false;
 			UIImage[]	imgList = SpriteManager.GetImageList (thebuns, "idle", "front");
 			bunsBtn.AnimationImages = imgList;
@@ -369,14 +390,14 @@ namespace Fluffimax.iOS
 				null, NSLayoutAttribute.NoAttribute, 1, 32);
 			csHeight.Active = true;
 			NSLayoutConstraint csHorizontal = NSLayoutConstraint.Create (bunsBtn, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal,
-				View, NSLayoutAttribute.CenterX, 1, 0);
+				PlayfieldView, NSLayoutAttribute.CenterX, 1, 0);
 			csHorizontal.Active = true;
 			NSLayoutConstraint csVertical = NSLayoutConstraint.Create (bunsBtn, NSLayoutAttribute.Bottom, NSLayoutRelation.Equal,
-				View, NSLayoutAttribute.CenterY, 1, 0);
+				PlayfieldView, NSLayoutAttribute.CenterY, 1, 0);
 			csVertical.Active = true;
 
-			View.AddConstraint (csHorizontal);
-			View.AddConstraint (csVertical);
+			PlayfieldView.AddConstraint (csHorizontal);
+			PlayfieldView.AddConstraint (csVertical);
 
 			bunsBtn.AddConstraint (csWidth);
 			bunsBtn.AddConstraint (csHeight);
@@ -413,12 +434,12 @@ namespace Fluffimax.iOS
 					nfloat deltaSize = (nfloat)((nextLevelSize - bunsSizeBase) * thebuns.Progress);
 					theGraphic.Height.Constant = bunsSizeBase;
 					theGraphic.Width.Constant = bunsSizeBase + deltaSize;
-					theGraphic.Horizontal.Constant = thebuns.HorizontalLoc;
-					theGraphic.Vertical.Constant = thebuns.VerticalLoc;
-					View.SetNeedsLayout ();
-					View.SetNeedsUpdateConstraints();
-					View.LayoutIfNeeded();
-					View.UpdateConstraints();
+					theGraphic.Horizontal.Constant = thebuns.HorizontalLoc * xScale;
+					theGraphic.Vertical.Constant = thebuns.VerticalLoc * yScale;
+					PlayfieldView.SetNeedsLayout ();
+					PlayfieldView.SetNeedsUpdateConstraints();
+					PlayfieldView.LayoutIfNeeded();
+					PlayfieldView.UpdateConstraints();
 				});
 			}
 		}
@@ -622,8 +643,8 @@ namespace Fluffimax.iOS
 
 
 			InvokeOnMainThread (() => {
-				int newX = (int)buns.Horizontal.Constant + xDif;
-				int newY = (int)buns.Vertical.Constant + yDif;
+				nfloat newX = buns.Horizontal.Constant + xDif;
+				nfloat newY = buns.Vertical.Constant + yDif;
 
 				if (newX < kMinWidth)
 					newX = kMinWidth;
@@ -651,7 +672,7 @@ namespace Fluffimax.iOS
 			});
 		}
 
-		private void BunnyHopToNewLoc(BunnyGraphic buns, int dir, int newX, int newY, UIImage[] jumpFrames, UIImage[] idleFrames) {
+		private void BunnyHopToNewLoc(BunnyGraphic buns, int dir, nfloat newX, nfloat newY, UIImage[] jumpFrames, UIImage[] idleFrames) {
 			InvokeOnMainThread (() => {
 				buns.Button.AnimationImages = jumpFrames;
 				buns.Button.AnimationDuration = .15;
@@ -660,7 +681,7 @@ namespace Fluffimax.iOS
 			UIView.Animate (.5, () => {
 				buns.Horizontal.Constant = newX;
 				buns.Vertical.Constant = newY;
-				View.LayoutIfNeeded();
+				PlayfieldView.LayoutIfNeeded();
 			}, () => {
 				InvokeOnMainThread (() => {
 					buns.Button.AnimationImages = idleFrames;
@@ -668,7 +689,7 @@ namespace Fluffimax.iOS
 					buns.Button.StartAnimating ();
 					buns.Button.Layer.ZPosition = 200 + newY;
 				});
-				buns.LinkedBuns.UpdateLocation(newX, newY);
+				buns.LinkedBuns.UpdateLocation((int)(newX / xScale), (int)(newY / yScale));
 				_idleTimer.Start();
 				CheckBunnyBreeding();
 			});
@@ -719,8 +740,8 @@ namespace Fluffimax.iOS
 
 		private void UpdateScore() {
 			InvokeOnMainThread (() => {
-				CarrotCount.Text = Game.CurrentPlayer.carrotCount.ToString();
-
+				//CarrotCount.Text = Game.CurrentPlayer.carrotCount.ToString();
+				this.Title = Game.CurrentPlayer.carrotCount.ToString() + " carrots";
 			});
 		}
 
@@ -759,27 +780,34 @@ namespace Fluffimax.iOS
 				nfloat bunsSizeBase = (nfloat)BunnySizeForLevel (thebuns.BunnySize);
 				double nextLevelSize = BunnySizeForLevel (thebuns.BunnySize + 1);
 				nfloat deltaSize = (nfloat)((nextLevelSize - bunsSizeBase) * thebuns.Progress);
-				nfloat oldX = CSCarrotX.Constant;
-				nfloat oldY = CSCarrotY.Constant;
-				double duration = .5;
+				CSCarrotX.Constant = theGraphic.Horizontal.Constant;
+				CSCarrotY.Constant = theGraphic.Vertical.Constant - 32;
+				CSCarrotWidth.Constant = 96;
+				CSCarrotHeight.Constant = 96;
+
+				CarrotImg.Layer.Opacity = 1;
+				double duration = 0;
 				if (grew)
 					duration = 4;
+				PlayfieldView.LayoutIfNeeded();
 				
 				UIView.Animate (1, () => {
-					CSCarrotX.Constant = theGraphic.Horizontal.Constant;
-					CSCarrotY.Constant = theGraphic.Vertical.Constant;
-					View.LayoutIfNeeded();
+					CSCarrotWidth.Constant = 0;
+					CSCarrotHeight.Constant = 0;
+					CarrotImg.Layer.Opacity = 0;
+					PlayfieldView.LayoutIfNeeded();
 				}, () => {
 					InvokeOnMainThread(() => {
-						CSCarrotX.Constant = oldX;
-						CSCarrotY.Constant = oldY;
+						CSCarrotWidth.Constant = 96;
+						CSCarrotHeight.Constant = 96;
+						CarrotImg.Layer.Opacity = 1;
 						CarrotImg.Hidden = true;
-						View.LayoutIfNeeded();
+						PlayfieldView.LayoutIfNeeded();
 
 						UIView.Animate (duration, () => {
 							theGraphic.Height.Constant = bunsSizeBase;
 							theGraphic.Width.Constant = bunsSizeBase + deltaSize;
-							View.LayoutIfNeeded();
+							PlayfieldView.LayoutIfNeeded();
 						}, () => {
 							InvokeOnMainThread(() => {
 								UpdateBunsSizeAndLocation(thebuns);

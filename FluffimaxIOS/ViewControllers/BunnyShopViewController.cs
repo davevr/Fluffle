@@ -19,6 +19,7 @@ namespace Fluffimax.iOS
 	public partial class BunnyShopViewController : UIViewController
 	{
 		private BunnyShopTableSource dataSource;
+		private BunnyShopTableDelegate theDelegate;
 		private Bunny pendingBunny = null;
 		private BuyDelegate buyDelegate;
 
@@ -32,11 +33,18 @@ namespace Fluffimax.iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+			UIBarButtonItem menuBtn = new UIBarButtonItem("back", UIBarButtonItemStyle.Bordered, null);
+			this.NavigationItem.BackBarButtonItem = menuBtn;
+
 			// Perform any additional setup after loading the view, typically from a nib.
 			BunnySaleList.RegisterNibForCellReuse (UINib.FromName (BunnyCellView.Key, NSBundle.MainBundle), BunnyCellView.Key);
+			this.AutomaticallyAdjustsScrollViewInsets = false;
 			dataSource = new BunnyShopTableSource ();
-			BunnySaleList.DataSource = dataSource;
+			theDelegate = new BunnyShopTableDelegate();
+
+			BunnySaleList.Source = dataSource;
 			BunnySaleList.RowHeight = 96;
+			BunnySaleList.Delegate = theDelegate; 
 			dataSource.ShopView = this;
 			this.Title = "Bunny Shop";
 			UpdateCarrotCount ();
@@ -59,6 +67,11 @@ namespace Fluffimax.iOS
 		{
 			base.ViewWillAppear (animated);
 			NavController.NavigationBarHidden = false;
+
+			UIBarButtonItem menuBtn = new UIBarButtonItem("back", UIBarButtonItemStyle.Bordered, null);
+			this.NavigationItem.BackBarButtonItem = menuBtn;
+
+
 		}
 
 		public void MaybeBuyBunny(Bunny theBuns) {

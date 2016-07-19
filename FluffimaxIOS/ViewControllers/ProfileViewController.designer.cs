@@ -28,6 +28,10 @@ namespace Fluffimax.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIScrollView MainScroll { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField NicknameField { get; set; }
 
         [Outlet]
@@ -37,6 +41,10 @@ namespace Fluffimax.iOS
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.NSLayoutConstraint ProfileImageWidth { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.NSLayoutConstraint ScrollViewBtm { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -72,6 +80,11 @@ namespace Fluffimax.iOS
                 ChangeUsernameBtn = null;
             }
 
+            if (MainScroll != null) {
+                MainScroll.Dispose ();
+                MainScroll = null;
+            }
+
             if (NicknameField != null) {
                 NicknameField.Dispose ();
                 NicknameField = null;
@@ -85,6 +98,11 @@ namespace Fluffimax.iOS
             if (ProfileImageWidth != null) {
                 ProfileImageWidth.Dispose ();
                 ProfileImageWidth = null;
+            }
+
+            if (ScrollViewBtm != null) {
+                ScrollViewBtm.Dispose ();
+                ScrollViewBtm = null;
             }
 
             if (SetImageBtn != null) {

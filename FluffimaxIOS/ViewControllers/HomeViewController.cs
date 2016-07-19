@@ -52,8 +52,10 @@ namespace Fluffimax.iOS
 		{
 			base.ViewWillAppear (animated);
 			NavController.NavigationBarHidden = false;
+			/*
 			if (!string.IsNullOrEmpty(RewardString))
 				ShowReward();
+*/
 
 		}
 

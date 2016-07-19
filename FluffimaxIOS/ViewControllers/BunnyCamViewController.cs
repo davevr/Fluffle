@@ -15,6 +15,13 @@ namespace Fluffimax.iOS
 			base.ViewDidLoad ();
 			// Perform any additional setup after loading the view, typically from a nib.
 			this.Title = "The Bunny Cam";
+			UIBarButtonItem menuBtn = new UIBarButtonItem(UIImage.FromBundle("menu-48"), UIBarButtonItemStyle.Plain, null);
+			this.NavigationItem.SetLeftBarButtonItem(menuBtn, false);
+
+			menuBtn.Clicked += (object sender, EventArgs e) =>
+			{
+				SidebarController.ToggleMenu();
+			};
 		}
 
 		public override void DidReceiveMemoryWarning ()
