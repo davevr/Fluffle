@@ -33,8 +33,17 @@ namespace Fluffimax.iOS
         [Outlet]
         UIImageView TossImageView { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView BunnyImage { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
+            if (BunnyImage != null) {
+                BunnyImage.Dispose ();
+                BunnyImage = null;
+            }
+
             if (BunnyInfoLabel != null) {
                 BunnyInfoLabel.Dispose ();
                 BunnyInfoLabel = null;

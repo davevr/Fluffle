@@ -68,10 +68,21 @@ namespace Fluffimax.iOS
 			base.ViewWillAppear (animated);
 			NavController.NavigationBarHidden = false;
 
-			UIBarButtonItem menuBtn = new UIBarButtonItem("back", UIBarButtonItemStyle.Bordered, null);
-			this.NavigationItem.BackBarButtonItem = menuBtn;
+			UpdateStore();
 
 
+		}
+
+		private void UpdateStore()
+		{
+			Server.FetchStore((theList) =>
+			{
+				InvokeOnMainThread(() =>
+				{
+					dataSource.SetStoreList(theList);
+					BunnySaleList.ReloadData();
+				});
+			});
 		}
 
 		public void MaybeBuyBunny(Bunny theBuns) {

@@ -67,7 +67,11 @@ namespace Fluffimax.iOS
 			};
 
 			BuyBunnyBtn.TouchUpInside += (object sender, EventArgs e) => {
-				NavController.PushViewController(new BunnyShopViewController(), true);
+				if (Game.CurrentPlayer.Bunnies.Count < 50)
+					NavController.PushViewController(new BunnyShopViewController(), true);
+				else {
+					HomeViewController.ShowMessageBox("Bunny Store", "You have too many bunnies in this field.  No more will fit!  Hint:  you can sell bunnies for carrots or trade them with friends.", "makes sense");
+				}
 			};
 
 			BuyCarrotsBtn.TouchUpInside += (object sender, EventArgs e) => {
@@ -258,12 +262,18 @@ namespace Fluffimax.iOS
 			}
 		}
 
+
 		public void DoPetBunny()
 		{
-			bool superHappy = this._currentBuns.IncrementHappiness();
-			Server.RecordPetBunny(this._currentBuns);
+			HappyBuns(this._currentBuns);
+		}
 
-			BunnyGraphic theGraphic = _bunnyGraphicList.Find(b => b.LinkedBuns == this._currentBuns);
+		public void HappyBuns(Bunny whichBuns)
+		{
+			bool superHappy = whichBuns.IncrementHappiness();
+			Server.RecordPetBunny(whichBuns);
+
+			BunnyGraphic theGraphic = _bunnyGraphicList.Find(b => b.LinkedBuns == whichBuns);
 			nfloat baseX = theGraphic.Horizontal.Constant;
 			nfloat baseY = theGraphic.Vertical.Constant;
 			HeartXLoc.Constant = baseX;
@@ -326,6 +336,9 @@ namespace Fluffimax.iOS
 				ForegroundColor = UIColor.FromRGB(0, 200, 0)
 			};
 
+			UIBarButtonItem menuBtn = new UIBarButtonItem("back", UIBarButtonItemStyle.Bordered, null);
+			this.NavigationItem.BackBarButtonItem = menuBtn;
+
 			BunnyNameLabel.UserInteractionEnabled = true;
 			GrassField.UserInteractionEnabled = true;
 			NavController.NavigationBarHidden = false;
@@ -339,6 +352,7 @@ namespace Fluffimax.iOS
 
 			CheckForNewBunnies ();
 			CheckForRecentPurchase ();
+
 		}
 
 		private void CheckForNewBunnies() {
@@ -643,8 +657,8 @@ namespace Fluffimax.iOS
 
 
 			InvokeOnMainThread (() => {
-				nfloat newX = buns.Horizontal.Constant + xDif;
-				nfloat newY = buns.Vertical.Constant + yDif;
+				nfloat newX = buns.LinkedBuns.HorizontalLoc + xDif;
+				nfloat newY = buns.LinkedBuns.VerticalLoc + yDif;
 
 				if (newX < kMinWidth)
 					newX = kMinWidth;
@@ -679,8 +693,8 @@ namespace Fluffimax.iOS
 				buns.Button.StartAnimating ();
 			});
 			UIView.Animate (.5, () => {
-				buns.Horizontal.Constant = newX;
-				buns.Vertical.Constant = newY;
+				buns.Horizontal.Constant = newX * xScale;
+				buns.Vertical.Constant = newY * yScale;
 				PlayfieldView.LayoutIfNeeded();
 			}, () => {
 				InvokeOnMainThread (() => {
@@ -689,7 +703,7 @@ namespace Fluffimax.iOS
 					buns.Button.StartAnimating ();
 					buns.Button.Layer.ZPosition = 200 + newY;
 				});
-				buns.LinkedBuns.UpdateLocation((int)(newX / xScale), (int)(newY / yScale));
+				buns.LinkedBuns.UpdateLocation((int)newX, (int)newY);
 				_idleTimer.Start();
 				CheckBunnyBreeding();
 			});
@@ -703,15 +717,8 @@ namespace Fluffimax.iOS
 						BunnyGraphic secondBuns = _bunnyGraphicList [j];
 
 						if (firstBuns.Button.Frame.IntersectsWith (secondBuns.Button.Frame)) {
-							// todo:  breed bunnies on server
-							/*
-							Bunny newBuns = Bunny.BreedBunnies (firstBuns.LinkedBuns, secondBuns.LinkedBuns);
-							if (newBuns != null) {
-								Game.CurrentPlayer.GetBunny (newBuns);
-								AddBunnyToScreen (newBuns);
-								return;
-							}
-							*/
+							if (Bunny.BunniesCanBreed(secondBuns.LinkedBuns, firstBuns.LinkedBuns))
+								HappyBuns(firstBuns.LinkedBuns);
 						}
 					}
 				}

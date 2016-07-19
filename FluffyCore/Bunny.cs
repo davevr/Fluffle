@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Fluffimax.Core
 {
-	public class Bunny {
+	public class Bunny : IComparable<Bunny> {
 		public List<long>	Children { get; set; }
 		public int HorizontalLoc { get; set; }
 		public int VerticalLoc { get; set; }
@@ -37,6 +37,61 @@ namespace Fluffimax.Core
 
 			Children = new List<long> ();
 		}
+
+		public static string SizeString(int size)
+		{
+			string sizeStr = "unknown size";
+
+			switch (size)
+			{
+				case 1:
+					sizeStr = "baby";
+					break;
+				case 2:
+					sizeStr = "tiny";
+					break;
+				case 3:
+					sizeStr = "small";
+					break;
+				case 4:
+					sizeStr = "medium";
+					break;
+				case 5:
+					sizeStr = "large";
+					break;
+				case 6:
+					sizeStr = "very large";
+					break;
+				case 7:
+					sizeStr = "giant";
+					break;
+				case 8:
+					sizeStr = "humungous";
+					break;
+				case 9:
+					sizeStr = "gianormous";
+					break;
+				case 10:
+					sizeStr = "maximum";
+					break;
+			}
+
+			return sizeStr;
+		}
+
+		public int CompareTo(Bunny otherBuns)
+		{
+			// A null value means that this object is greater.
+			if (otherBuns == null)
+				return 1;
+
+			int breed = this.BreedName.CompareTo(otherBuns.BreedName);
+			if (breed == 0)
+				return this.Female.CompareTo(otherBuns.Female);
+			else
+				return breed;
+		}
+
 
 		public void UpdateLocation(int xLoc, int yLoc) {
 			HorizontalLoc = xLoc;
@@ -149,6 +204,18 @@ namespace Fluffimax.Core
 			string imageName = Server.ProfileImagePath + GetImageID () + ".png";
 
 			return imageName;
+		}
+
+		public string Description
+		{
+			get
+			{
+				string theDesc = string.Format("a {0} {1} {2} with {3} eyes and {4} fur",
+							   Bunny.SizeString(BunnySize),
+							   BreedName, Female ? "female" : "male",
+							   EyeColorName, FurColorName);
+				return theDesc;
+			}
 		}
 	}
 }
