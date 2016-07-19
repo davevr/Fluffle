@@ -10,6 +10,7 @@ namespace Fluffimax.iOS
 	{
 		private UITableView myTable;
 		public BunnyShopViewController ShopView { get; set;}
+		public Dictionary<int, List<Bunny>> bunMap = null;
 
 		public BunnyShopTableSource ()
 		{
@@ -18,14 +19,41 @@ namespace Fluffimax.iOS
 		public UITableView TableView {
 			get { return myTable; }
 		}
-			
 
+		public void SetStoreList(List<Bunny> bunList)
+		{
+			bunMap = new Dictionary<int, List<Bunny>>();
+
+			foreach (Bunny curBuns in bunList)
+			{
+				int curSize = curBuns.BunnySize;
+
+				if (!bunMap.ContainsKey(curSize))
+				{
+					List<Bunny> newList = new List<Bunny>();
+					bunMap[curSize] = newList;
+				}
+
+				bunMap[curSize].Add(curBuns);
+			}
+
+			// now sort them by breed
+			for (int i = 1; i <= 10; i++)
+			{
+				if (bunMap.ContainsKey(i))
+				{
+					bunMap[i].Sort();
+				}
+			}
+
+		}
 
 		public override nint RowsInSection (UITableView tableview, nint section)
 		{
-			nint numBuns = 1;
+			nint numBuns = 0;
 
-			numBuns = Game.BunnyStore.Count;
+			if (bunMap.ContainsKey((int)section + 1))
+				numBuns = bunMap[(int)section + 1].Count;
 
 			return numBuns;
 		}
@@ -34,12 +62,15 @@ namespace Fluffimax.iOS
 
 		public override nint NumberOfSections (UITableView tableView)
 		{
-			return 2;
+			if (bunMap != null)
+				return 10;
+			else
+				return 0;
 		}
 
 		public override string TitleForHeader (UITableView tableView, nint section)
 		{
-			return "Size " + section;
+			return Bunny.SizeString((int)section + 1) + " bunnies";
 		}
 
 
@@ -47,9 +78,11 @@ namespace Fluffimax.iOS
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
 			BunnyCellView cell = tableView.DequeueReusableCell(BunnyCellView.Key, indexPath) as BunnyCellView;
+			int size = indexPath.Section + 1;
+			int item = indexPath.Row;
 
-			cell.ConformToRecord(Game.BunnyStore[indexPath.Row], this);
-
+			if (bunMap.ContainsKey(size)) 
+				cell.ConformToRecord(bunMap[size][item], this);
 
 			return cell;
 		}

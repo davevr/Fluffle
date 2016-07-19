@@ -3,7 +3,8 @@ using UIKit;
 using Fluffimax.Core;
 using ZXing.Mobile;
 using System.Timers;
-using System.Collections.Generic;
+using SDWebImage;
+using Foundation;
 
 namespace Fluffimax.iOS
 {
@@ -35,6 +36,14 @@ namespace Fluffimax.iOS
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
+			string bunsName = Game.BunnyBeingSold.BunnyName;
+			if (string.IsNullOrEmpty(bunsName))
+				bunsName = "unnamed bunny";
+
+			BunnyNameLabel.Text = bunsName;
+			BunnyImage.SetImage(new NSUrl(Game.BunnyBeingSold.GetProfileImage()));
+			BunnyInfoLabel.Text = Game.BunnyBeingSold.Description;
+
 			NavController.NavigationBarHidden = true;
 			Server.StartToss (Game.BunnyBeingSold.id, Game.BunnySellPrice, (theToss) => {
 				var writer = new BarcodeWriter {
