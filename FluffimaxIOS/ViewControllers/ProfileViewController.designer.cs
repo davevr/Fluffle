@@ -58,10 +58,9 @@ namespace Fluffimax.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView UserProfileImage { get; set; }
 
-
         [Action ("nicknameChanged:")]
         [GeneratedCode ("iOS Designer", "1.0")]
-        partial void nicknameChanged (UITextField sender);
+        partial void nicknameChanged (UIKit.UITextField sender);
 
         void ReleaseDesignerOutlets ()
         {

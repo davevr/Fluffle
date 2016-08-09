@@ -99,27 +99,23 @@ namespace Fluffimax.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.NSLayoutConstraint CSHeartHeight { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.NSLayoutConstraint CSHeartWidth { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView HeartImg { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.NSLayoutConstraint HeartXLoc { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.NSLayoutConstraint HeartYLoc { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIView PlayfieldView { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField SizeField { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton TestBtn { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField xLocField { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField yLocField { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
@@ -183,16 +179,6 @@ namespace Fluffimax.iOS
                 CSCarrotY = null;
             }
 
-            if (CSHeartHeight != null) {
-                CSHeartHeight.Dispose ();
-                CSHeartHeight = null;
-            }
-
-            if (CSHeartWidth != null) {
-                CSHeartWidth.Dispose ();
-                CSHeartWidth = null;
-            }
-
             if (EyeColorLabel != null) {
                 EyeColorLabel.Dispose ();
                 EyeColorLabel = null;
@@ -218,21 +204,6 @@ namespace Fluffimax.iOS
                 GrassField = null;
             }
 
-            if (HeartImg != null) {
-                HeartImg.Dispose ();
-                HeartImg = null;
-            }
-
-            if (HeartXLoc != null) {
-                HeartXLoc.Dispose ();
-                HeartXLoc = null;
-            }
-
-            if (HeartYLoc != null) {
-                HeartYLoc.Dispose ();
-                HeartYLoc = null;
-            }
-
             if (PlayfieldView != null) {
                 PlayfieldView.Dispose ();
                 PlayfieldView = null;
@@ -251,6 +222,26 @@ namespace Fluffimax.iOS
             if (SizeCount != null) {
                 SizeCount.Dispose ();
                 SizeCount = null;
+            }
+
+            if (SizeField != null) {
+                SizeField.Dispose ();
+                SizeField = null;
+            }
+
+            if (TestBtn != null) {
+                TestBtn.Dispose ();
+                TestBtn = null;
+            }
+
+            if (xLocField != null) {
+                xLocField.Dispose ();
+                xLocField = null;
+            }
+
+            if (yLocField != null) {
+                yLocField.Dispose ();
+                yLocField = null;
             }
         }
     }

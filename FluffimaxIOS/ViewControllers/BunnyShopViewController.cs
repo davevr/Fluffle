@@ -46,7 +46,7 @@ namespace Fluffimax.iOS
 			BunnySaleList.RowHeight = 96;
 			BunnySaleList.Delegate = theDelegate; 
 			dataSource.ShopView = this;
-			this.Title = "Bunny Shop";
+			this.Title = "Adoption Agency";
 			UpdateCarrotCount ();
 			View.LayoutIfNeeded();
 		}
@@ -88,11 +88,11 @@ namespace Fluffimax.iOS
 		public void MaybeBuyBunny(Bunny theBuns) {
 			if (Game.CurrentPlayer.carrotCount >= theBuns.Price) {
 				pendingBunny = theBuns;
-				UIAlertView confirmView = new UIAlertView ("Confirm Purchase", String.Format ("Are you sure you want to buy this bunny for {0} carrots?", theBuns.Price),
-					                          buyDelegate, "never mind", new string[] {"Buy!"});
+				UIAlertView confirmView = new UIAlertView ("Confirm Adoption", String.Format ("Are you sure you want to adopt this bunny for {0} carrots?", theBuns.Price),
+					                          buyDelegate, "never mind", new string[] {"Adopt!"});
 				confirmView.Show ();
 			} else {
-				UIAlertView denyView = new UIAlertView ("Purchase Declined", "Sorry, you do not have enough carrots to buy this bunny", null, "Oh well");
+				UIAlertView denyView = new UIAlertView ("Adoption Declined", "Sorry, you do not have enough carrots to adopt this bunny", null, "Oh well");
 				denyView.Show ();
 			}
 		}
@@ -102,12 +102,12 @@ namespace Fluffimax.iOS
 				if (Game.CurrentPlayer.BuyBunny (pendingBunny)) {
 					Game.BunnyStore.Remove (pendingBunny);
 					UpdateCarrotCount ();
-					UIAlertView goodNews = new UIAlertView ("Purchase Accepted", "Enjoy your new cute bunny!", null, "Happiness!");
+					UIAlertView goodNews = new UIAlertView ("Adoption Accepted", "Enjoy your new cute bunny!", null, "Happiness!");
 					goodNews.Show ();
 					//BunnySaleList.ReloadData ();
 					NavController.PopViewController(true);
 				} else {
-					UIAlertView denyView = new UIAlertView ("Purchase Declined", "Sorry, the purchase did not go through", null, "Oh well");
+					UIAlertView denyView = new UIAlertView ("Adoption Declined", "Sorry, the adoption did not go through", null, "Oh well");
 					denyView.Show ();
 				}
 			}

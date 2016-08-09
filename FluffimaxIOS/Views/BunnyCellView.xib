@@ -33,15 +33,15 @@
                             <constraint firstAttribute="width" constant="64" id="IXR-5N-PbE"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
-                        <state key="normal" title="Buy"/>
+                        <state key="normal" title="adopt"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt1-B1-ZAC">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt1-B1-ZAC" misplaced="YES">
                         <rect key="frame" x="279" y="12" width="33" height="20"/>
                         <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bunny.png" translatesAutoresizingMaskIntoConstraints="NO" id="gkx-Xr-uMw">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bunny.png" translatesAutoresizingMaskIntoConstraints="NO" id="gkx-Xr-uMw" misplaced="YES">
                         <rect key="frame" x="12" y="12" width="64" height="64"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="64" id="2Oa-5Z-Z11"/>
@@ -56,7 +56,7 @@
                             </mask>
                         </variation>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carrot.png" translatesAutoresizingMaskIntoConstraints="NO" id="YGA-Wt-Wh7">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carrot.png" translatesAutoresizingMaskIntoConstraints="NO" id="YGA-Wt-Wh7" misplaced="YES">
                         <rect key="frame" x="243" y="12" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="Pj3-uy-1sa"/>
@@ -69,7 +69,7 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="eye color" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oc1-BH-9Kp">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="eye color" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oc1-BH-9Kp" misplaced="YES">
                         <rect key="frame" x="136" y="49" width="52" height="15"/>
                         <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -120,5 +120,27 @@
     <resources>
         <image name="bunny.png" width="512" height="512"/>
         <image name="carrot.png" width="512" height="512"/>
+        <image name="grass.png" width="1024" height="1024"/>
+        <image name="baseicon.png" width="375" height="375"/>
+        <image name="menu-48.png" width="24" height="24"/>
+        <image name="about-48.png" width="24" height="24"/>
+        <image name="ask_question-48.png" width="24" height="24"/>
+        <image name="business_contact-48.png" width="24" height="24"/>
+        <image name="cancel-48.png" width="24" height="24"/>
+        <image name="delete_sign-48.png" width="24" height="24"/>
+        <image name="home-48.png" width="24" height="24"/>
+        <image name="unknown_user.png" width="512" height="512"/>
+        <image name="heart.png" width="128" height="128"/>
+        <image name="carrot_bag.png" width="512" height="512"/>
+        <image name="carrot_crate.png" width="512" height="512"/>
+        <image name="carrot_sack.png" width="512" height="512"/>
+        <image name="carrot_truck.png" width="512" height="512"/>
+        <image name="carrot_wheelbarrow.png" width="512" height="512"/>
+        <image name="flopsy.jpg" width="565" height="565"/>
+        <image name="juju.jpg" width="471" height="471"/>
+        <image name="mostBunnie_48.png" width="48" height="48"/>
+        <image name="shareBunnies_48.png" width="48" height="48"/>
+        <image name="spreadBunnies_48.png" width="48" height="48"/>
+        <image name="biggestBunnies_48.png" width="48" height="48"/>
     </resources>
 </document>
