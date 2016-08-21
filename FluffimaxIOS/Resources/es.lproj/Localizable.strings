@@ -1,0 +1,44 @@
+﻿// Menu
+"Home_Menu" = "Home (es)";
+"Profile_Menu" = "Profile (es)";
+"Settings_Menu" = "Settings (es)";
+"About_Menu" = "About (es)";
+
+// Dates Screen Tabs
+"CurrentDates_Tab" = "Current (es)";
+"MatchingDates_Tab" = "Matching (es)";
+"InterestedPeople_Tab" = "Interested (es)";
+"PostedDates_Tab" = "Posted (es)";
+
+// CurrentDatesViewController
+"LookingForDates_String" = "Looking for booked dates... (es)";
+"FoundBookedDates_String" = "{0} booked dates (es)";
+"NoBookedDates_String" = "No Dates (es)";
+"NoBookedDatesCell_String" = "No Dates booked - get out there! (es)";
+"DateListToday_String" = "Today's Dates (es)";
+"DateListTomorrow_String" = "Tomorrow's Dates (es)";
+"DateListFuture_String" = "Upcoming Dates (es)";
+
+"LookingForMatchingDates_String" = "Looking for matching dates... (es)";
+"FoundMatchingDates_String" = "{0} matching dates (es)";
+"MatchingDateListApplied_String" = "Dates you are interested in (es)";
+"MatchingDateListPinned_String" = "Dates you have pinned (es)";
+"MatchingDateListOther_String" = "Dates matching you (es)";
+"NoMatchingDatesCell_String" = "No Matching Dates found - is your profile OK? (es)";
+"NoPinnedDatesCell_String" = "No pinned dates.  Pin a date to make it easy to find later! (es)";
+"NoAppliedDatesCell_String" = "You have not expressed interest in a date.  Check out a few now! (es)";
+"ProposedBy_String" = "(es)proposed by {0}";
+"DatePayment_0_String" = "(es){0}'s treat";
+"DatePayment_1_String" = "(es){0} is open to going Dutch";
+"DatePayment_2_String" = "(es)Let's go Dutch ";
+
+// user profile
+"AgeRaceGender_String" = "(es) A {0} year old {1} {2}";
+"CityState_String" = "(es) from {0}, {1}";
+
+// ethnicities
+"White / Caucasian_Ethnicity" = "(es)White";
+
+// genders
+"Male_Gender" = "(es)Male";
+"Female_Gender" = "(es)Female";

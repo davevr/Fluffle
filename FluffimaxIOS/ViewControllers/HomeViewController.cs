@@ -61,7 +61,7 @@ namespace Fluffimax.iOS
 
 		private void ShowReward() {
 
-			UIAlertView alert = new UIAlertView ("Welcome Back", RewardString, null, "Great!");
+			UIAlertView alert = new UIAlertView ("Welcome_Back_Msg".Localize(), RewardString, null, "Welcome_Back_Ok_Btn".Localize());
 			alert.Show ();
 
 			RewardString = null;
@@ -107,12 +107,12 @@ namespace Fluffimax.iOS
 						});
 					} else {
 						Server.IsOnline = false;
-						ShowMessageBox ("Error", "Cannot connect to Fluffle Cloud", "Dang");
+						ShowMessageBox ("Error_Title".Localize(), "No_Fluffle_Cloud_Msg".Localize(), "Connection_Err_Btn".Localize());
 					}
 				});
 			} else {
 				Server.IsOnline = false;
-				ShowMessageBox ("Error", "No network connection detected", "Dang");
+				ShowMessageBox ("Error_Title".Localize(), "No_Network_Msg".Localize(), "Connection_Err_Btn".Localize());
 
 			}
 		}

@@ -157,26 +157,26 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
-    <InterfaceDefinition Include="ViewControllers\GameViewController.xib" />
-    <InterfaceDefinition Include="ViewControllers\BunnyShopViewController.xib" />
-    <InterfaceDefinition Include="ViewControllers\CarrotShopViewController.xib" />
-    <InterfaceDefinition Include="ViewControllers\AboutViewController.xib" />
-    <InterfaceDefinition Include="ViewControllers\BunnyCamViewController.xib" />
     <InterfaceDefinition Include="Views\BunnyCellView.xib" />
-    <InterfaceDefinition Include="ViewControllers\GiveBunnyViewController.xib" />
-    <InterfaceDefinition Include="ViewControllers\CatchBunnyViewController.xib" />
-    <InterfaceDefinition Include="ViewControllers\ProfileViewController.xib" />
-    <InterfaceDefinition Include="ViewControllers\LeaderboardViewController.xib" />
-    <InterfaceDefinition Include="ViewControllers\BunnyDetailViewController.xib" />
-    <InterfaceDefinition Include="ViewControllers\SideMenuController.xib" />
-    <InterfaceDefinition Include="ViewControllers\LBPlayerBunnyCountVC.xib" />
-    <InterfaceDefinition Include="ViewControllers\LBPlayerShareVC.xib" />
-    <InterfaceDefinition Include="ViewControllers\LBBunnySizeVC.xib" />
-    <InterfaceDefinition Include="ViewControllers\LBBunnySpreadVC.xib" />
     <InterfaceDefinition Include="Views\BunnySizeCellView.xib" />
     <InterfaceDefinition Include="Views\BunnySpreadCellView.xib" />
     <InterfaceDefinition Include="Views\PlayerCountCellView.xib" />
     <InterfaceDefinition Include="Views\PlayerShareCellView.xib" />
+    <InterfaceDefinition Include="Base.lproj\BunnyCamViewController.xib" />
+    <InterfaceDefinition Include="Base.lproj\BunnyDetailViewController.xib" />
+    <InterfaceDefinition Include="Base.lproj\BunnyShopViewController.xib" />
+    <InterfaceDefinition Include="Base.lproj\CarrotShopViewController.xib" />
+    <InterfaceDefinition Include="Base.lproj\CatchBunnyViewController.xib" />
+    <InterfaceDefinition Include="Base.lproj\GameViewController.xib" />
+    <InterfaceDefinition Include="Base.lproj\GiveBunnyViewController.xib" />
+    <InterfaceDefinition Include="Base.lproj\LBBunnySizeVC.xib" />
+    <InterfaceDefinition Include="Base.lproj\LBBunnySpreadVC.xib" />
+    <InterfaceDefinition Include="Base.lproj\LBPlayerBunnyCountVC.xib" />
+    <InterfaceDefinition Include="Base.lproj\LBPlayerShareVC.xib" />
+    <InterfaceDefinition Include="Base.lproj\LeaderboardViewController.xib" />
+    <InterfaceDefinition Include="Base.lproj\ProfileViewController.xib" />
+    <InterfaceDefinition Include="Base.lproj\SideMenuController.xib" />
+    <InterfaceDefinition Include="Base.lproj\AboutViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -300,6 +300,7 @@
     </Compile>
     <Compile Include="utils\ShapedImageView.cs" />
     <Compile Include="utils\UIImageHelper.cs" />
+    <Compile Include="utils\UIResources.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -336,6 +337,11 @@
     <BundleResource Include="Resources\shareBunnies_48.png" />
     <BundleResource Include="Resources\spreadBunnies_48.png" />
     <BundleResource Include="Resources\biggestBunnies_48.png" />
+    <BundleResource Include="Resources\en.lproj\GameViewController.strings" />
+    <BundleResource Include="Resources\en.lproj\Localizable.strings" />
+    <BundleResource Include="Resources\en.lproj\Localizable.stringsdict" />
+    <BundleResource Include="Resources\es.lproj\Localizable.strings" />
+    <BundleResource Include="Resources\zh-Hans.lproj\Localizable.strings" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="servicestacktext">

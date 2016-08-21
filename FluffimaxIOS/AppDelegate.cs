@@ -36,15 +36,6 @@ namespace Fluffimax.iOS
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
-			foreach (string family in UIFont.FamilyNames)
-			{
-				Console.Write(" - Family: ");
-  				foreach (string name in UIFont.FontNamesForFamilyName(family))
-				{
-					Console.Write(name + ", ");
-				}
-			}
-
 			FlurryAgent.StartSession("B9MSG4BV56C6NG3YGRKW");
 			FlurryAgent.SetEventLoggingEnabled (true);
 

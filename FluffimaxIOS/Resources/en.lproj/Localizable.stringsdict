@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>CurrentDatesCount_String</key>
+        <dict>
+            <key>NSStringLocalizedFormatKey</key>
+            <string>%#@dates@</string>
+            <key>dates</key>
+            <dict>
+                <key>NSStringFormatSpecTypeKey</key>
+                <string>NSStringPluralRuleType</string>
+                <key>NSStringFormatValueTypeKey</key>
+                <string>d</string>
+                <key>zero</key>
+                <string>No matching dates</string>
+                <key>one</key>
+                <string>One matching date</string>
+                <key>two</key>
+                <string>Two matching dates</string>
+                <key>other</key>
+                <string>%d matching dates</string>
+            </dict>
+        </dict>
+    </dict>
+</plist>

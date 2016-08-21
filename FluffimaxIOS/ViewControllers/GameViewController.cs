@@ -77,7 +77,7 @@ namespace Fluffimax.iOS
 				if (Game.CurrentPlayer.Bunnies.Count < 50)
 					NavController.PushViewController(new BunnyShopViewController(), true);
 				else {
-					HomeViewController.ShowMessageBox("Adoption Center", "You have too many bunnies in this field.  No more will fit!  Hint:  you can sell bunnies for carrots or trade them with friends.", "makes sense");
+					HomeViewController.ShowMessageBox("Adoption_Agency".Localize(), "Too_Many_Bunnies".Localize(), "Too_Many_Bunnies_Btn".Localize());
 				}
 			};
 
@@ -129,10 +129,10 @@ namespace Fluffimax.iOS
 			Server.GetMarketPrice (_currentBuns.id, (thePrice) => {
 				InvokeOnMainThread (() => {
 					UIAlertView alert = new UIAlertView ();
-					alert.Title = "Sell Bunny";
-					alert.AddButton ("Sell");
-					alert.AddButton ("Nevermind");
-					alert.Message = string.Format ("You can sell your bunny to the adoption center.  Then other people can adopt it!  Do you want to sell {0} for {1} carrots?", _currentBuns.BunnyName, thePrice);
+					alert.Title = "Sell_Bunny_Title".Localize();
+					alert.AddButton ("Sell_Bunny_Btn".Localize());
+					alert.AddButton ("Sell_Bunny_Cancel".Localize());
+					alert.Message = string.Format ("Sell_Bunny_Msg".Localize(), _currentBuns.BunnyName, thePrice);
 					alert.AlertViewStyle = UIAlertViewStyle.Default;
 					alert.Clicked += (object s, UIButtonEventArgs ev) => {
 						if (ev.ButtonIndex == 0) {
@@ -148,7 +148,7 @@ namespace Fluffimax.iOS
 									});
 								} else {
 									// sell failed for some reason
-									HomeViewController.ShowMessageBox("Bunny Sale", "Bunny Sale Failed.  Try again later", "well, ok");
+									HomeViewController.ShowMessageBox("Bunny_Sale_Failed_Title".Localize(), "Bunny_Sale_Failed_Msg".Localize(), "Bunny_Sale_Failed_Btn".Localize());
 								}
 							});
 						}
@@ -194,20 +194,20 @@ namespace Fluffimax.iOS
 			Server.GetTossStatus (tossId, (theToss) => {
 				InvokeOnMainThread (() => {
 					if (!theToss.isValid) {
-						HomeViewController.ShowMessageBox("Catch Failed!", "Sorry, the bunny is no longer there." , "sad face");
+						HomeViewController.ShowMessageBox("Catch_Failed_Title".Localize(), "Catch_Failed_Gone_Msg".Localize() , "Catch_Failed_Gone_Btn".Localize());
 					} else if (theToss.price > Game.CurrentPlayer.carrotCount) {
-						HomeViewController.ShowMessageBox("Catch Failed!", "You don't have enough carrots to buy that bunny", "oh well");
+						HomeViewController.ShowMessageBox("Catch_Failed_Title".Localize(), "Catch_Failed_Funds_Msg", "Catch_Failed_Funds_Btn");
 					} else {
 						UIAlertView alert = new UIAlertView();
-						alert.Title = "Catching a Bunny!";
+						alert.Title = "Catch_Title".Localize();
 
 						if (theToss.price > 0) {
-							alert.Message = "Catch this bunny for " + theToss.price + " carrots?";
-							alert.AddButton("Spend those carrots!");
-							alert.AddButton("nevermind");
+							alert.Message = string.Format("Catch_Paid_Msg".Localize() , theToss.price);
+							alert.AddButton("Catch_Paid_OK_Btn".Localize());
+							alert.AddButton("Catch_Cancel_Btn".Localize());
 						} else {
-							alert.Message = "Catch this cute bunny?";
-							alert.AddButton("Catch it!");
+							alert.Message = "Catch_Free_Msg".Localize();
+							alert.AddButton("Catch_Free_OK_Btn".Localize());
 						}
 						alert.AlertViewStyle = UIAlertViewStyle.Default;
 						alert.Clicked += (object s, UIButtonEventArgs ev) =>
@@ -217,13 +217,13 @@ namespace Fluffimax.iOS
 								Server.CatchToss(tossId, (theBuns) => {
 									InvokeOnMainThread(() => {
 									if (theBuns != null) {
-											HomeViewController.ShowMessageBox("Success", "Enjoy your new bunny!", "will do");
+											HomeViewController.ShowMessageBox("Catch_Success_Title".Localize(), "Catch_Success_Msg".Localize(), "Catch_Success_Btn".Localize());
 										Game.RecentlyPurchased = true;
 										Game.CurrentPlayer.Bunnies.Add(theBuns);
 										CheckForNewBunnies();
 									} else {
 										// something went wrong
-										HomeViewController.ShowMessageBox("Catch Failed", "Something went wrong.  Maybe try again?", "will do");
+										HomeViewController.ShowMessageBox("Catch_Failed_Title".Localize(), "Catch_Failed_Unknown_Msg", "Catch_Failed_Unknown_Btn");
 									}
 									});
 								});
@@ -361,10 +361,10 @@ namespace Fluffimax.iOS
 		public void ShowRenameBunny() {
 			if (string.IsNullOrEmpty(_currentBuns.BunnyName) || _currentBuns.OriginalOwner == Game.CurrentPlayer.id) {
 				UIAlertView alert = new UIAlertView ();
-				alert.Title = "Rename Bunny";
-				alert.AddButton ("OK");
-				alert.AddButton ("Cancel");
-				alert.Message = "What do you want to name this cute bunny?";
+				alert.Title = "Rename_Title".Localize();
+				alert.AddButton ("ok_btn".Localize());
+				alert.AddButton ("cancel_btn".Localize());
+				alert.Message = "Rename_Msg".Localize();
 				alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
 				alert.Clicked += (object s, UIButtonEventArgs ev) => {
 					if (ev.ButtonIndex == 0) {
@@ -376,7 +376,7 @@ namespace Fluffimax.iOS
 				};
 				alert.Show ();
 			} else {
-				HomeViewController.ShowMessageBox ("Rename Bunny", "Sorry, only the original owner can name a bunny!", "bummer");
+				HomeViewController.ShowMessageBox ("Rename_Title".Localize(), "Rename_Err_Msg".Localize(), "Rename_Err_Btn".Localize());
 			}
 
 		}
@@ -391,7 +391,7 @@ namespace Fluffimax.iOS
 				ForegroundColor = UIColor.FromRGB(0, 200, 0)
 			};
 
-			UIBarButtonItem menuBtn = new UIBarButtonItem("back", UIBarButtonItemStyle.Bordered, null);
+			UIBarButtonItem menuBtn = new UIBarButtonItem("back".Localize(), UIBarButtonItemStyle.Bordered, null);
 			this.NavigationItem.BackBarButtonItem = menuBtn;
 
 			BunnyNameLabel.UserInteractionEnabled = true;
@@ -536,7 +536,9 @@ namespace Fluffimax.iOS
 			PlayfieldView.UpdateConstraints ();
 			UpdateBunsSizeAndLocation (thebuns);
 			PlayfieldView.BringSubviewToFront (bunsBtn);
-			bunsBtn.StartAnimating ();
+			bunsBtn.StartAnimating();
+			PlayfieldView.LayoutIfNeeded();
+			DoBunnyHop(graphic);
 			return bunsBtn;
 		}
 
@@ -548,22 +550,25 @@ namespace Fluffimax.iOS
 					CGRect bounds = PlayfieldView.Frame;
 					nfloat xScale = bounds.Width / 200;
 					nfloat yScale = bounds.Height / 200;
-
+					nfloat newY = (thebuns.VerticalLoc + 100) * yScale;
 					nfloat bunsSizeBase = (nfloat)BunnySizeForLevel (thebuns.BunnySize);
 					double nextLevelSize = BunnySizeForLevel (thebuns.BunnySize + 1);
 					nfloat deltaSize = (nfloat)((nextLevelSize - bunsSizeBase) * thebuns.Progress);
-					theGraphic.Height.Constant = bunsSizeBase;
-					theGraphic.Width.Constant = bunsSizeBase + deltaSize;
-					theGraphic.Horizontal.Constant = (thebuns.HorizontalLoc + 100) * xScale;
-					theGraphic.Vertical.Constant = (thebuns.VerticalLoc + 100) * yScale;
-
+					theGraphic.Button.Layer.ZPosition = 200 + newY;
 					nfloat scale = 0.5f + 0.4f * (((float)thebuns.VerticalLoc + 100) / (float)200);
 
 					theGraphic.Button.Transform = CGAffineTransform.MakeScale(scale, scale);
-					PlayfieldView.SetNeedsLayout ();
-					PlayfieldView.SetNeedsUpdateConstraints();
-					PlayfieldView.LayoutIfNeeded();
-					PlayfieldView.UpdateConstraints();
+					UIView.Animate(.1, () =>
+					{
+						theGraphic.Height.Constant = bunsSizeBase;
+						theGraphic.Width.Constant = bunsSizeBase + deltaSize;
+						theGraphic.Horizontal.Constant = (thebuns.HorizontalLoc + 100) * xScale;
+						theGraphic.Vertical.Constant =  newY;
+
+
+						PlayfieldView.LayoutIfNeeded();
+					}, null);
+
 				});
 			}
 		}
@@ -651,12 +656,12 @@ namespace Fluffimax.iOS
 				InvokeOnMainThread (() => {
 					string nameStr = _currentBuns.BunnyName;
 					if (string.IsNullOrEmpty(nameStr))
-						nameStr = "unnamed bunny";
+						nameStr = "Unamed_Bunny".Localize();
 					BunnyNameLabel.Text = nameStr;
 					BunnyBreedLabel.Text = _currentBuns.BreedName;
-					BunnyGenderLabel.Text = _currentBuns.Female ? "female" : "male";
-					FurColorLabel.Text = _currentBuns.FurColorName + " fur";
-					EyeColorLabel.Text = _currentBuns.EyeColorName + " eyes";
+					BunnyGenderLabel.Text = _currentBuns.Female ? "Female_Str".Localize() : "Male_Str".Localize();
+					FurColorLabel.Text = string.Format("EyeColor_Prompt".Localize(), _currentBuns.FurColorName);
+					EyeColorLabel.Text = string.Format("FurColor_Prompt".Localize(), _currentBuns.EyeColorName);
 					SizeCount.Text = _currentBuns.BunnySize.ToString();
 					ProgressCount.Text = String.Format("{0}/{1}", _currentBuns.FeedState,_currentBuns.CarrotsForNextSize(_currentBuns.BunnySize));
 				});

@@ -57,7 +57,7 @@ namespace Fluffimax.iOS
 				HandleAdView();
 			};
 
-			this.Title = "Carrot Shop";
+			this.Title = "Carrot_Shop".Localize();
 			WatchAdBtn.Hidden = true;
 
 			if (AppDelegate.IsMini)
@@ -75,7 +75,7 @@ namespace Fluffimax.iOS
 
 
 
-			var menuBtn = new UIBarButtonItem("back", UIBarButtonItemStyle.Bordered, null);
+			var menuBtn = new UIBarButtonItem("back_btn".Localize(), UIBarButtonItemStyle.Bordered, null);
 			this.NavigationItem.BackBarButtonItem = menuBtn;
 
 
@@ -93,7 +93,7 @@ namespace Fluffimax.iOS
 
 		private void UpdateTextLabels() {
 			InvokeOnMainThread (() => {
-				CurrentCarrotLabel.Text = String.Format("you have {0} carrots", Game.CurrentPlayer.carrotCount);
+				CurrentCarrotLabel.Text = String.Format("carrot_count".Localize(), Game.CurrentPlayer.carrotCount);
 			});
 		}
 
@@ -179,18 +179,16 @@ namespace Fluffimax.iOS
 					iap.RequestProductData(products); // async request via StoreKit -> App Store
 			} else {
 				// can't make payments (purchases turned off in Settings?)
-				BuyItem1Btn.SetTitle ("AppStore disabled", UIControlState.Disabled);
-				BuyItem2Btn.SetTitle ("AppStore disabled", UIControlState.Disabled);
-				BuyItem3Btn.SetTitle ("AppStore disabled", UIControlState.Disabled);
-				BuyItem4Btn.SetTitle ("AppStore disabled", UIControlState.Disabled);
-				BuyItem5Btn.SetTitle ("AppStore disabled", UIControlState.Disabled);
+				BuyItem1Btn.SetTitle ("AppStore_Disabed".Localize(), UIControlState.Disabled);
+				BuyItem2Btn.SetTitle ("AppStore_Disabed".Localize(), UIControlState.Disabled);
+				BuyItem3Btn.SetTitle ("AppStore_Disabed".Localize(), UIControlState.Disabled);
+				BuyItem4Btn.SetTitle ("AppStore_Disabed".Localize(), UIControlState.Disabled);
+				BuyItem5Btn.SetTitle ("AppStore_Disabed".Localize(), UIControlState.Disabled);
 			}
 				
 
 			succeededObserver = NSNotificationCenter.DefaultCenter.AddObserver (InAppPurchaseManager.InAppPurchaseManagerTransactionSucceededNotification, 
 				(notification) => {
-					Console.WriteLine("Purchase Worked!");
-					//todo: update thing
 					Server.GetCarrotCount((newCount)=> {
 						UpdateTextLabels();
 					});
@@ -205,11 +203,11 @@ namespace Fluffimax.iOS
 				(notification) => {
 					// TODO: 
 					Console.WriteLine ("Request Failed");
-					BuyItem1Btn.SetTitle ("Network down?", UIControlState.Disabled);
-					BuyItem2Btn.SetTitle ("Network down?", UIControlState.Disabled);
-					BuyItem3Btn.SetTitle ("Network down?", UIControlState.Disabled);
-					BuyItem4Btn.SetTitle ("Network down?", UIControlState.Disabled);
-					BuyItem5Btn.SetTitle ("Network down?", UIControlState.Disabled);
+					BuyItem1Btn.SetTitle ("Request_Failed".Localize(), UIControlState.Disabled);
+					BuyItem2Btn.SetTitle ("Request_Failed".Localize(), UIControlState.Disabled);
+					BuyItem3Btn.SetTitle ("Request_Failed".Localize(), UIControlState.Disabled);
+					BuyItem4Btn.SetTitle ("Request_Failed".Localize(), UIControlState.Disabled);
+					BuyItem5Btn.SetTitle ("Request_Failed".Localize(), UIControlState.Disabled);
 				});
 		}
 

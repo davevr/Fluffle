@@ -13,7 +13,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="2">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="flopsy.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                     <rect key="frame" x="183" y="52" width="160" height="240"/>
@@ -29,15 +29,16 @@
                             <exclude reference="mHv-rg-btu"/>
                         </mask>
                     </variation>
-                    <variation key="widthClass=compact">
+                    <variation key="widthClass=compact" misplaced="YES">
                         <mask key="constraints">
                             <exclude reference="8"/>
                             <exclude reference="9"/>
                             <include reference="mHv-rg-btu"/>
                         </mask>
+                        <rect key="frame" x="183" y="52" width="160" height="240"/>
                     </variation>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="This is my bunny.  Her name is Flopsy.  She is a female mini-lop.  She loves to hop around and eat watermelon and carrots." lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="17">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="This is my bunny.  Her name is Floppsy.  She is a female mini-lop.  She loves to hop around and eat watermelon and carrots." lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="17">
                     <rect key="frame" x="8" y="452" width="42" height="21"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
@@ -101,5 +102,28 @@
     </objects>
     <resources>
         <image name="flopsy.jpg" width="565" height="565"/>
+        <image name="carrot.png" width="512" height="512"/>
+        <image name="bunny.png" width="512" height="512"/>
+        <image name="grass.png" width="1024" height="1024"/>
+        <image name="baseicon.png" width="375" height="375"/>
+        <image name="menu-48.png" width="24" height="24"/>
+        <image name="about-48.png" width="24" height="24"/>
+        <image name="ask_question-48.png" width="24" height="24"/>
+        <image name="business_contact-48.png" width="24" height="24"/>
+        <image name="cancel-48.png" width="24" height="24"/>
+        <image name="delete_sign-48.png" width="24" height="24"/>
+        <image name="home-48.png" width="24" height="24"/>
+        <image name="unknown_user.png" width="512" height="512"/>
+        <image name="heart.png" width="128" height="128"/>
+        <image name="carrot_bag.png" width="512" height="512"/>
+        <image name="carrot_crate.png" width="512" height="512"/>
+        <image name="carrot_sack.png" width="512" height="512"/>
+        <image name="carrot_truck.png" width="512" height="512"/>
+        <image name="carrot_wheelbarrow.png" width="512" height="512"/>
+        <image name="juju.jpg" width="471" height="471"/>
+        <image name="mostBunnie_48.png" width="48" height="48"/>
+        <image name="shareBunnies_48.png" width="48" height="48"/>
+        <image name="spreadBunnies_48.png" width="48" height="48"/>
+        <image name="biggestBunnies_48.png" width="48" height="48"/>
     </resources>
 </document>

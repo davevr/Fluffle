@@ -14,7 +14,7 @@ namespace Fluffimax.iOS
 		{
 			base.ViewDidLoad ();
 			// Perform any additional setup after loading the view, typically from a nib.
-			this.Title = "The Bunny Cam";
+			this.Title = "Bunny_Cam".Localize();
 			UIBarButtonItem menuBtn = new UIBarButtonItem(UIImage.FromBundle("menu-48"), UIBarButtonItemStyle.Plain, null);
 			this.NavigationItem.SetLeftBarButtonItem(menuBtn, false);
 

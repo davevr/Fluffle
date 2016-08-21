@@ -60,5 +60,13 @@
 	<string>1796627987237586</string>
 	<key>FacebookDisplayName</key>
 	<string>fluffle</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>es</string>
+		<string>zh-Hans</string>
+	</array>
 </dict>
 </plist>

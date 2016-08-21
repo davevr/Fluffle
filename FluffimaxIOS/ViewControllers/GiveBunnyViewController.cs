@@ -38,7 +38,7 @@ namespace Fluffimax.iOS
 			base.ViewWillAppear (animated);
 			string bunsName = Game.BunnyBeingSold.BunnyName;
 			if (string.IsNullOrEmpty(bunsName))
-				bunsName = "unnamed bunny";
+				bunsName = "Unamed_Bunny".Localize();
 
 			BunnyNameLabel.Text = bunsName;
 			BunnyImage.SetImage(new NSUrl(Game.BunnyBeingSold.GetProfileImage()));
@@ -88,7 +88,7 @@ namespace Fluffimax.iOS
 						if (tossRec.catcherId != 0)
 							EndToss();
 						else 
-							DoneBtn.SetTitle(String.Format ("Done (ending in {0} seconds)", secondsLeft), UIControlState.Normal);
+							DoneBtn.SetTitle(String.Format ("Timeout_Msg".Localize(), secondsLeft), UIControlState.Normal);
 					});
 				});
 			}

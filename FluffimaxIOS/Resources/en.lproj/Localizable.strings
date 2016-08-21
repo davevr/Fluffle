@@ -1,0 +1,142 @@
+﻿// Common
+"back_btn" = "back";
+"carrot_count" = "You have {0} carrots";
+"ok_btn" = "ok";
+"cancel_btn" = "cancel";
+"Male_Str" = "male";
+"Female_Str" = "female";
+"Unamed_Bunny" = "unnamed bunny";
+"EyeColor_Prompt" = "{0} fur";
+"FurColor_Prompt" = "{0} eyes";
+"Error_Title" = "Error";
+
+
+
+// Menu
+"Home_Menu" = "Home";
+"Profile_Menu" = "Profile";
+"Settings_Menu" = "Settings";
+"About_Menu" = "About";
+
+// Game Screen
+"Too_Many_Bunnies" = "You have too many bunnies in this field.  No more will fit!  Hint:  you can sell bunnies for carrots or trade them with friends.";
+"Too_Many_Bunnies_Btn" = "makes sense";
+
+"Sell_Bunny_Title" = "Sell Bunny";
+"Sell_Bunny_Btn" = "Sell";
+"Sell_Bunny_Cancel" = "nevermind";
+"Sell_Bunny_Msg" = "You can sell your bunny to the adoption center.  Then other people can adopt it!  Do you want to sell {0} for {1} carrots?";
+"Bunny_Sale_Failed_Title" = "Bunny Sale";
+"Bunny_Sale_Failed_Msg" = "Bunny Sale Failed.  Try again later";
+"Bunny_Sale_Failed_Btn" = "well, ok";
+
+"Catch_Failed_Title" = "Catch Failed!";
+"Catch_Failed_Gone_Msg" = "Sorry, the bunny is no longer there.";
+"Catch_Failed_Gone_Btn" = "sad face";
+"Catch_Failed_Funds_Msg" = "You don't have enough carrots to trade for that bunny";
+"Catch_Failed_Funds_Btn" = "oh well";
+"Catch_Failed_Unknown_Msg" = "Something went wrong.  Maybe try again?";
+"Catch_Failed_Unknown_Btn" = "will do";
+"Catch_Title" = "Catching a Bunny!";
+"Catch_Free_OK_Btn" = "Catch It!";
+"Catch_Paid_OK_Btn" = "Spend those carrots";
+"Catch_Cancel_Btn" = "nevermind";
+"Catch_Free_Msg" = "Catch this cute bunny?";
+"Catch_Paid_Msg" = "Catch this bunny for {0} carrots?";
+"Catch_Success_Title" = "Success";
+"Catch_Success_Msg" = "Enjoy your new bunny!";
+"Catch_Success_Btn" = "will do";
+
+"Rename_Title" = "Rename Bunny";
+"Rename_Msg" = "What do you want to name this cute bunny?";
+"Rename_Err_Msg" = "Sorry, only the original owner can name a bunny!";
+"Rename_Err_Btn" = "bummer";
+
+
+
+
+// About
+"About_Fluffle" = "About Fluffle";
+
+// Detail View
+
+// Bunny Cam View
+"Bunny_Cam" = "The Bunny Cam";
+
+// Adoption Store View
+"Adoption_Agency" = "Adoption Agency";
+"Confirm_Adoption_Title" = "Confirm Adoption";
+"Confirm_Adoption_Prompt" = "Are you sure you want to adopt this bunny for {0} carrots?";
+"Adoption_Accepted_Title" = "Adoption Accepted";
+"Adoption_Declined_Title" = "Adoption Declined";
+"Adoption_Cancel_Btn" = "nevermind";
+"Adoption_OK_Btn" = "Adopt!";
+"Adoption_Lack_Funds" = "Sorry, you do not have enough carrots to adopt this bunny";
+"Adoption_Lack_Funds_Confirm" = "Oh well";
+"Adoption_Worked" = "Enjoy your new cute bunny!";
+"Adoption_Worked_Btn" = "Happiness!";
+"Adoption_Failed" = "Sorry, the adoption did not go through";
+"Adoption_Failed_Btn" = "Oh well";
+
+
+// Carrot Shop View
+"Carrot_Shop" = "Carrot Shop";
+"AppStore_Disabed" = "AppStore disabled";
+"Request_Failed" = "Network down?";
+
+// Catch Bunny View
+
+// Give Bunny View
+"Timeout_Msg" = "Done (ending in {0} seconds)";
+
+// Home View
+"Welcome_Back_Msg" = "Welcome Back";
+"Welcome_Back_Ok_Btn" = "Great!";
+
+"No_Network_Msg" = "No network connection detected";
+"No_Fluffle_Cloud_Msg" = "Cannot connect to Fluffle Cloud";
+"Connection_Err_Btn" = "Dang";
+
+
+// LB Bunny Size
+
+// LB Bunny Spread
+
+// LB Bunny Count
+
+// LB Bunny Share
+
+// Leaderboard all up
+"LB_Most_Bunnies" = "most bunnies";
+"LB_Most_Shares" = "most shares";
+"LB_Biggest_Buns" = "biggest buns";
+"LB_Spread" = "spread";
+"LB_Title" = "Leaderboards";
+
+
+// Profile
+"New_Image_Msg" = "New Profile Image";
+"From_Camera_Msg" = "From Camera";
+"From_Gallery_Msg" = "From Gallery";
+"Delete_Current_Msg" = "Delete Current Photo";
+"Profile_Title" = "Your Profile";
+"Username_Msg" = "Unable to change username.  Make sure your username is unique.  Try an email address for best results";
+"username_Btn" = "will do";
+"Nickname_Msg" = "Unable to change nickname.  Maybe try again later?";
+"Nickname_Btn" = "umm.. ok...";
+"Must_Change_Pwd_Msg" = "You must change your password when you first change your username.  Enter the new password now:";
+"Change_Pwd_Msg" = "Enter the new password now:";
+"Change_Pwd_Title" = "Change password";
+"Change_Btn_Title" = "Change";
+"Change_Username_Err_Msg" = "Unable to change username.  Make sure your username is unique.  Try an email address for best results";
+"Change_Username_Err_Btn" = "will do";
+"Login_Title" = "Login";
+"Login_Prompt" = "Do you want to sign in to an exissting account?";
+"Login_Username" = "your username";
+"Login_Pwd" = "your password";
+"Login_Btn" = "signin";
+"Profile_Title" = "{0}'s Profile";
+"Profile_Title_Unknown" = "Your Profile";
+
+// Side Menu
+

@@ -10,16 +10,16 @@ namespace Fluffimax.iOS
 		public LeaderboardViewController () : base (null, null)
 		{
 			bunnyCountVC = new LBPlayerBunnyCountVC();
-			bunnyCountVC.TabBarItem = new UITabBarItem ("most bunnies", UIImage.FromBundle ("mostBunnie_48"), 0);
+			bunnyCountVC.TabBarItem = new UITabBarItem ("LB_Most_Bunnies".Localize(), UIImage.FromBundle ("mostBunnie_48"), 0);
 
 			playerShareVC = new LBPlayerShareVC();
-			playerShareVC.TabBarItem = new UITabBarItem ("most shares", UIImage.FromBundle ("shareBunnies_48"), 1);
+			playerShareVC.TabBarItem = new UITabBarItem ("LB_Most_Shares".Localize(), UIImage.FromBundle ("shareBunnies_48"), 1);
 
 			bunnySizeVC = new LBBunnySizeVC();
-			bunnySizeVC.TabBarItem = new UITabBarItem ("biggest buns", UIImage.FromBundle ("biggestBunnies_48"), 2);
+			bunnySizeVC.TabBarItem = new UITabBarItem ("LB_Biggest_Buns".Localize(), UIImage.FromBundle ("biggestBunnies_48"), 2);
 
 			bunnySpreadVC = new LBBunnySpreadVC();
-			bunnySpreadVC.TabBarItem = new UITabBarItem ("spread", UIImage.FromBundle ("spreadBunnies_48"), 3);
+			bunnySpreadVC.TabBarItem = new UITabBarItem ("LB_Spread".Localize(), UIImage.FromBundle ("spreadBunnies_48"), 3);
 
 
 			var tabs = new UIViewController[] {
@@ -27,7 +27,7 @@ namespace Fluffimax.iOS
 			};
 
 			ViewControllers = tabs;
-			this.Title = "Leaderboards";
+			this.Title = "LB_Title".Localize();
 
 			UIBarButtonItem menuBtn = new UIBarButtonItem (UIImage.FromBundle ("menu-48"), UIBarButtonItemStyle.Plain, null);
 			this.NavigationItem.SetLeftBarButtonItem (menuBtn, false);

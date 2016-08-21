@@ -107,6 +107,18 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Activities\GameFragment.cs" />
+    <Compile Include="Activities\AboutFragment.cs" />
+    <Compile Include="Activities\ProfileFragment.cs" />
+    <Compile Include="Activities\LeaderboardFragment.cs" />
+    <Compile Include="Activities\LiveCamFragment.cs" />
+    <Compile Include="Activities\LBMostBunniesFragment.cs" />
+    <Compile Include="Activities\LBLargestBunnyFragment.cs" />
+    <Compile Include="Activities\LBMostSpreadFragment.cs" />
+    <Compile Include="Activities\LBMostSharesFragment.cs" />
+    <Compile Include="Activities\CarrotStoreActivity.cs" />
+    <Compile Include="Activities\AdoptionCenterActivity.cs" />
+    <Compile Include="Activities\TossBunnyActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -122,9 +134,32 @@
     <AndroidResource Include="Resources\mipmap-xhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
+    <AndroidResource Include="Resources\layout\AboutLayout.axml" />
+    <AndroidResource Include="Resources\layout\AdoptionCenterLayout.axml" />
+    <AndroidResource Include="Resources\layout\CarrotStoreLayout.axml" />
+    <AndroidResource Include="Resources\layout\GameLayout.axml" />
+    <AndroidResource Include="Resources\layout\LBLargestBunnyLayout.axml" />
+    <AndroidResource Include="Resources\layout\LBMostBunniesLayout.axml" />
+    <AndroidResource Include="Resources\layout\LBMostSharesLayout.axml" />
+    <AndroidResource Include="Resources\layout\LBMostSpreadLayout.axml" />
+    <AndroidResource Include="Resources\layout\LeaderboardLayout.axml" />
+    <AndroidResource Include="Resources\layout\LiveCamLayout.axml" />
+    <AndroidResource Include="Resources\layout\ProfileLayout.axml" />
+    <AndroidResource Include="Resources\layout\TossBunnyLayout.axml" />
+    <AndroidResource Include="Resources\drawable\carrot_bag.png" />
+    <AndroidResource Include="Resources\drawable\carrot_crate.png" />
+    <AndroidResource Include="Resources\drawable\carrot_sack.png" />
+    <AndroidResource Include="Resources\drawable\carrot_truck.png" />
+    <AndroidResource Include="Resources\drawable\carrot_wheelbarrow.png" />
+    <AndroidResource Include="Resources\drawable\carrot.png" />
+    <AndroidResource Include="Resources\drawable\flopsy.jpg" />
+    <AndroidResource Include="Resources\drawable\grass.png" />
+    <AndroidResource Include="Resources\drawable\heart.png" />
+    <AndroidResource Include="Resources\drawable\juju.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
+    <Folder Include="Activities\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="Flurry.Ads">

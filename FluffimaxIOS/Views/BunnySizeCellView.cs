@@ -28,7 +28,7 @@ namespace Fluffimax.iOS
 			BunnyName.Text = string.IsNullOrEmpty (theBuns.BunnyName) ? "Unnamed bunny" : theBuns.BunnyName;
 
 			SizeLabel.Text = theBuns.BunnySize.ToString ();
-			ProgressLabel.Text = string.Format ("{0}/{1}", theBuns.Progress, theBuns.CarrotsForNextSize (theBuns.BunnySize));
+			ProgressLabel.Text = string.Format ("{0}/{1}", theBuns.FeedState, theBuns.CarrotsForNextSize (theBuns.BunnySize));
 
 			BunnyImg.SetImage (
 				url: new NSUrl (bunnyURL), 

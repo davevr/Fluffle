@@ -2,7 +2,7 @@
 using Android.Widget;
 using Android.OS;
 
-namespace FluffleAndroid
+namespace Fluffle.Android
 {
 	[Activity(Label = "Fluffle", MainLauncher = true, Icon = "@mipmap/icon")]
 	public class MainActivity : Activity
@@ -11,6 +11,7 @@ namespace FluffleAndroid
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
+			
 			base.OnCreate(savedInstanceState);
 
 			// Set our view from the "main" layout resource
