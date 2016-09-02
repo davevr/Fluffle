@@ -12,24 +12,25 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 
-namespace Fluffle.Android
-{
-	public class AboutFragment : Fragment
-	{
-		public override void OnCreate(Bundle savedInstanceState)
-		{
-			base.OnCreate(savedInstanceState);
+using Android.Support.V4.App;
 
-			// Create your fragment here
-		}
+namespace Fluffle.AndroidApp
+{
+	public class AboutFragment : Android.Support.V4.App.Fragment
+	{
+		public MainActivity MainPage { get; set;}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			// Use this to return your custom view for this Fragment
 			// return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
-			return base.OnCreateView(inflater, container, savedInstanceState);
+			var view = inflater.Inflate(Resource.Layout.AboutLayout, container, false);
+
+			return view;
 		}
+
+
 	}
 }
 

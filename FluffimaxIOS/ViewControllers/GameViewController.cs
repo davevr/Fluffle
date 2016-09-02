@@ -586,18 +586,43 @@ namespace Fluffimax.iOS
 		}
 
 		private void InitGame() {
-			if (!inited) {
-				InvokeOnMainThread (() => {
+			if (!inited)
+			{
+				Game.NewPlayerLoaded = false;
+				InvokeOnMainThread(() =>
+				{
 					CarrotImg.Hidden = true;
 					// ad bunnies
-					foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies) {
-						AddBunnyToScreen (curBunny);
+					foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies)
+					{
+						AddBunnyToScreen(curBunny);
 					}
-					HideBunnyPanel ();
-					UpdateScore ();
-					StartTimers ();
+					HideBunnyPanel();
+					UpdateScore();
+					StartTimers();
 					inited = true;
 				});
+			}
+			else if (Game.NewPlayerLoaded) {
+				// a new player was loaded - get rid of existing bunnies and add new ones.
+				Game.NewPlayerLoaded = false;
+				InvokeOnMainThread(() =>
+				{
+					CarrotImg.Hidden = true;
+					HideBunnyPanel();
+					UpdateScore();
+					foreach (BunnyGraphic oldBuns in _bunnyGraphicList)
+					{
+						oldBuns.Button.RemoveFromSuperview();
+					}
+					_bunnyGraphicList.Clear();
+					foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies)
+					{
+						AddBunnyToScreen(curBunny);
+					}
+
+				});
+
 			}
 		}
 

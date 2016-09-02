@@ -12,23 +12,22 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 
-namespace Fluffle.Android
+namespace Fluffle.AndroidApp
 {
-	public class GameFragment : Fragment
+	public class GameFragment : Android.Support.V4.App.Fragment
 	{
-		public override void OnCreate(Bundle savedInstanceState)
-		{
-			base.OnCreate(savedInstanceState);
-
-			// Create your fragment here
-		}
+		public MainActivity MainPage { get; set;}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			// Use this to return your custom view for this Fragment
 			// return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
-			return base.OnCreateView(inflater, container, savedInstanceState);
+			base.OnCreateView(inflater, container, savedInstanceState);
+
+			var view = inflater.Inflate(Resource.Layout.GameLayout, container, false);
+
+			return view;
 		}
 	}
 }

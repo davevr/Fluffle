@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="Fluffle_white">#FFFFFF</color>
+	<color name="Fluffle_black">#000000</color>
+	<color name="Fluffle_green">#00A000</color>
+	<color name="Fluffle_blue">#0000FF</color>
+</resources>

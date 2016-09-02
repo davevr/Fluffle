@@ -19,7 +19,7 @@ namespace Fluffimax.Core
 		public static bool RecentlyPurchased { get; set; }
 		public static Bunny BunnyBeingSold { get; set; }
 		public static int BunnySellPrice { get; set; }
-
+		public static bool NewPlayerLoaded { get; set;}
 
 		public static List<Bunny> BunnyStore {
 			get { return _bunnyStore; }
@@ -28,6 +28,10 @@ namespace Fluffimax.Core
 
 		public static Player CurrentPlayer {
 			get { return _player; }
+			set
+			{
+				_player = value;
+			}
 		}
 
 		public static void InitBunnyStore() {
@@ -50,6 +54,7 @@ namespace Fluffimax.Core
 					// cannot load it - create a local one
 					// todo:  handle lack of server case
 				}
+				NewPlayerLoaded = true;
 				callback(_player);
 			});
 		}
@@ -80,6 +85,7 @@ namespace Fluffimax.Core
 							serverCopy.pwd = pwd;
 							_player = serverCopy;
 							_player.FromServer = true;
+							NewPlayerLoaded = true;
 							callback (_player);
 						} else {
 							// player on device doesn't exist on server - delete for now

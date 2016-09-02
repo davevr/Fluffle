@@ -11,16 +11,25 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Fluffle.Android
+namespace Fluffle.AndroidApp
 {
 	[Activity(Label = "ProfileFragment")]
-	public class ProfileFragment : Activity
+	public class ProfileFragment : Android.Support.V4.App.Fragment
 	{
-		protected override void OnCreate(Bundle savedInstanceState)
-		{
-			base.OnCreate(savedInstanceState);
+		public MainActivity MainPage { get; set; }
 
-			// Create your application here
+		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+		{
+			// Use this to return your custom view for this Fragment
+			// return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+
+			base.OnCreateView(inflater, container, savedInstanceState);
+
+			var view = inflater.Inflate(Resource.Layout.ProfileLayout, container, false);
+
+			var profileImageView = view.FindViewById<ImageView>(Resource.Id.userImage);
+
+			return view;
 		}
 	}
 }

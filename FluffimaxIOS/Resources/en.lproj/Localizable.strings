@@ -131,12 +131,13 @@
 "Change_Username_Err_Msg" = "Unable to change username.  Make sure your username is unique.  Try an email address for best results";
 "Change_Username_Err_Btn" = "will do";
 "Login_Title" = "Login";
-"Login_Prompt" = "Do you want to sign in to an exissting account?";
-"Login_Username" = "your username";
-"Login_Pwd" = "your password";
+"Login_Prompt" = "Do you want to sign in to an existing account?";
 "Login_Btn" = "signin";
 "Profile_Title" = "{0}'s Profile";
 "Profile_Title_Unknown" = "Your Profile";
+"Login_Failure_Title" = "Sign in Failed";
+"Login_Failure_msg" = "Unable to sign in.  Check username and password.";
+"Login_Failure_btn" = "alright";
 
 // Side Menu
 

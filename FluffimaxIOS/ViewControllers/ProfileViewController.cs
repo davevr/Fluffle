@@ -17,7 +17,6 @@ namespace Fluffimax.iOS
 		string fromGalleryText = "From_Gallery_Msg".Localize();
 		string deleteCurrentPhotoText = "Delete_Current_Msg".Localize();
 		private UIActivityIndicatorView progressIndicator;
-		private static bool firstRun = true;
 
 		public ProfileViewController () : base ("ProfileViewController", null)
 		{
@@ -115,6 +114,11 @@ namespace Fluffimax.iOS
 
 			ChangePasswordBtn.TouchUpInside += (object sender, EventArgs e) => {
 				MaybeChangePassword ();
+			};
+
+			LoginBtn.TouchUpInside += (sender, e) =>
+			{
+				MaybeLogin();
 			};
 
 			this.Title = "Profile_Title".Localize();
@@ -339,7 +343,7 @@ namespace Fluffimax.iOS
 			alert.Title = "Change_Pwd_Title".Localize();
 			alert.AddButton ("Change_Btn_Title".Localize());
 			if (!forced)
-				alert.AddButton ("Cancel_Btn".Localize());
+				alert.AddButton ("cancel_btn".Localize());
 			alert.Message = titleStr;
 			alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
 			alert.Clicked += (object s, UIButtonEventArgs ev) => {
@@ -374,39 +378,7 @@ namespace Fluffimax.iOS
 			base.ViewWillAppear (animated);
 			NavController.NavigationBarHidden = false;
 			UpdateUIForUser ();
-			if (firstRun)
-			{
-				firstRun = false;
-				UITextField userNameFld = null;
-				UITextField passWordFld = null;
-				UIAlertController loginPrompt = UIAlertController.Create("Login_Title".Localize(), "Login_Prompt".Localize(), UIAlertControllerStyle.Alert);
 
-				loginPrompt.AddTextField(theField =>
-				{
-					theField.Text = "Login_Username".Localize();
-					userNameFld = theField;
-				});
-
-				loginPrompt.AddTextField(theField =>
-				{
-					theField.Text = "Login_Pwd".Localize();
-					passWordFld = theField;
-					theField.SecureTextEntry = true;
-				});
-
-				loginPrompt.AddAction(UIAlertAction.Create("Cancel_Btn".Localize(), UIAlertActionStyle.Cancel, null));
-				loginPrompt.AddAction(UIAlertAction.Create("Login_Btn".Localize(), UIAlertActionStyle.Destructive, (obj) =>
-				{
-					// to do - handle signin.
-					string username = userNameFld.Text;
-					string pwd = passWordFld.Text;
-				}));
-
-				PresentViewController(loginPrompt, true, () =>
-				{
-
-				});
-			}
 		}
 
 		private void UpdateUIForUser() {
@@ -442,6 +414,57 @@ namespace Fluffimax.iOS
 			}
 
 			UpdateButtonStates ();
+		}
+
+		private void MaybeLogin()
+		{
+			UITextField userNameFld = null;
+			UITextField passWordFld = null;
+			UIAlertController loginPrompt = UIAlertController.Create("Login_Title".Localize(), "Login_Prompt".Localize(), UIAlertControllerStyle.Alert);
+
+			loginPrompt.AddTextField(theField =>
+			{
+				userNameFld = theField;
+			});
+
+			loginPrompt.AddTextField(theField =>
+			{
+				passWordFld = theField;
+				theField.SecureTextEntry = true;
+			});
+
+			loginPrompt.AddAction(UIAlertAction.Create("cancel_btn".Localize(), UIAlertActionStyle.Cancel, null));
+			loginPrompt.AddAction(UIAlertAction.Create("Login_Btn".Localize(), UIAlertActionStyle.Destructive, (obj) =>
+			{
+					// to do - handle signin.
+				string username = userNameFld.Text;
+				string pwd = passWordFld.Text;
+
+				Server.Login(username, pwd, (thePlayer) =>
+				{
+					if (thePlayer != null)
+					{
+						// log in with the new player
+						Game.CurrentPlayer = thePlayer;
+						Game.SavePlayer(true);
+						Game.NewPlayerLoaded = true;
+						InvokeOnMainThread(() =>
+						{
+							UpdateUIForUser();
+						});
+					}
+					else {
+						// error - probably bad password
+						HomeViewController.ShowMessageBox("Login_Failure_Title".Localize(), "Login_Failure_msg".Localize(), "Login_Failure_btn".Localize());
+					}
+				});
+
+			}));
+
+			PresentViewController(loginPrompt, true, () =>
+			{
+
+			});
 		}
 
 		private void UpdateButtonStates() {

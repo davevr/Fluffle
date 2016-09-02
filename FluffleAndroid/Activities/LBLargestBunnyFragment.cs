@@ -12,23 +12,89 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 
-namespace Fluffle.Android
-{
-	public class LBLargestBunnyFragment : Fragment
-	{
-		public override void OnCreate(Bundle savedInstanceState)
-		{
-			base.OnCreate(savedInstanceState);
+using Fluffimax.Core;
 
-			// Create your fragment here
-		}
+namespace Fluffle.AndroidApp
+{
+	public class LBLargestBunnyFragment : Android.Support.V4.App.Fragment
+	{
+		private ListView leaderList;
+		private LargeBunnyAdapter adapter;
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			// Use this to return your custom view for this Fragment
-			// return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+			View theView = inflater.Inflate(Resource.Layout.LBLargestBunnyLayout, container, false);
 
-			return base.OnCreateView(inflater, container, savedInstanceState);
+			var headList = theView.FindViewById<TextView>(Resource.Id.title);
+			headList.SetTypeface(MainActivity.bodyFace, Android.Graphics.TypefaceStyle.Bold);
+
+			var subtitle = theView.FindViewById<TextView>(Resource.Id.subtitle);
+			subtitle.SetTypeface(MainActivity.bodyFace, Android.Graphics.TypefaceStyle.Normal);
+
+			leaderList = theView.FindViewById<ListView>(Resource.Id.theListView);
+
+			adapter = new LargeBunnyAdapter(this.Activity);
+
+			RefreshListView();
+
+			return theView;
+		}
+
+		public void Update()
+		{
+
+		}
+
+		private void RefreshListView()
+		{
+			if (this.View != null)
+			{
+				Activity.RunOnUiThread(() =>
+				{
+					adapter.NotifyDataSetChanged();
+					leaderList.InvalidateViews();
+				});
+			}
+		}
+
+
+
+	}
+
+	public class LargeBunnyAdapter : BaseAdapter<Bunny>
+	{
+		public List<Bunny> itemList;
+		Activity context;
+
+		public LargeBunnyAdapter(Activity context) : base()
+		{
+			this.context = context;
+			itemList = new List<Bunny>();
+		}
+		public override long GetItemId(int position)
+		{
+			return position;
+		}
+		public override Bunny this[int position]
+		{
+			get { return itemList[position]; }
+		}
+		public override int Count
+		{
+			get { return itemList.Count; }
+		}
+
+		public override View GetView(int position, View convertView, ViewGroup parent)
+		{
+			View view = convertView; // re-use an existing view, if one is available
+			if (view == null)
+			{
+				view = context.LayoutInflater.Inflate(Resource.Layout.LBCellLargestBunny, null);
+			}
+
+
+
+			return view;
 		}
 	}
 }
