@@ -12,18 +12,17 @@ namespace Fluffimax.iOS
 	{
 		private bool givingCarrot = false;
 		private List<BunnyGraphic> _bunnyGraphicList = new List<BunnyGraphic> ();
-		private static int _bunSizePerLevel = 32;
+		private static int _bunBaseSize = 48;
+		private static int _bunSizePerLevel = 8;
 		private static int kBunnyHopChance = 100;
-		private static int kVerticalHopMin = 8;
-		private static int kHorizontalHopMin = 16;
-		private static int kVerticalHopMax = 32;
-		private static int kHorizontalHopMax = 64;
+		private static int kVerticalHopMin = 4;
+		private static int kHorizontalHopMin = 8;
+		private static int kVerticalHopMax = 16;
+		private static int kHorizontalHopMax = 32;
 		private static nfloat kMinWidth = -100;
 		private static nfloat kMinHeight = -100;
 		private static nfloat kMaxWidth = 100;
 		private static nfloat kMaxHeight = 100;
-		private static nfloat xScale = 1;
-		private static nfloat yScale = 1;
 		private Bunny _currentBuns = null;
 		private bool inited = false;
 		private Timer _idleTimer = new Timer ();
@@ -55,6 +54,14 @@ namespace Fluffimax.iOS
 			});
 			PlayfieldView.AddGestureRecognizer (tapBunnyRecognizer);
 
+			UISwipeGestureRecognizer swipeRecognizer = new UISwipeGestureRecognizer();
+			swipeRecognizer.Direction = UISwipeGestureRecognizerDirection.Down;
+			swipeRecognizer.AddTarget(() =>
+			{
+				HandleBunnySwipe(swipeRecognizer);
+			});
+			PlayfieldView.AddGestureRecognizer(swipeRecognizer);
+
 			BunnyDetailView.Hidden = true;
 
 			FeedBunnyBtn.TouchUpInside += (object sender, EventArgs e) => {
@@ -70,7 +77,7 @@ namespace Fluffimax.iOS
 				if (Game.CurrentPlayer.Bunnies.Count < 50)
 					NavController.PushViewController(new BunnyShopViewController(), true);
 				else {
-					HomeViewController.ShowMessageBox("Bunny Store", "You have too many bunnies in this field.  No more will fit!  Hint:  you can sell bunnies for carrots or trade them with friends.", "makes sense");
+					HomeViewController.ShowMessageBox("Adoption_Agency".Localize(), "Too_Many_Bunnies".Localize(), "Too_Many_Bunnies_Btn".Localize());
 				}
 			};
 
@@ -122,10 +129,10 @@ namespace Fluffimax.iOS
 			Server.GetMarketPrice (_currentBuns.id, (thePrice) => {
 				InvokeOnMainThread (() => {
 					UIAlertView alert = new UIAlertView ();
-					alert.Title = "Sell Bunny";
-					alert.AddButton ("Sell");
-					alert.AddButton ("Nevermind");
-					alert.Message = string.Format ("Sell {0} for {1} carrots?", _currentBuns.BunnyName, thePrice);
+					alert.Title = "Sell_Bunny_Title".Localize();
+					alert.AddButton ("Sell_Bunny_Btn".Localize());
+					alert.AddButton ("Sell_Bunny_Cancel".Localize());
+					alert.Message = string.Format ("Sell_Bunny_Msg".Localize(), _currentBuns.BunnyName, thePrice);
 					alert.AlertViewStyle = UIAlertViewStyle.Default;
 					alert.Clicked += (object s, UIButtonEventArgs ev) => {
 						if (ev.ButtonIndex == 0) {
@@ -141,7 +148,7 @@ namespace Fluffimax.iOS
 									});
 								} else {
 									// sell failed for some reason
-									HomeViewController.ShowMessageBox("Bunny Sale", "Bunny Sale Failed.  Try again later", "well, ok");
+									HomeViewController.ShowMessageBox("Bunny_Sale_Failed_Title".Localize(), "Bunny_Sale_Failed_Msg".Localize(), "Bunny_Sale_Failed_Btn".Localize());
 								}
 							});
 						}
@@ -187,20 +194,20 @@ namespace Fluffimax.iOS
 			Server.GetTossStatus (tossId, (theToss) => {
 				InvokeOnMainThread (() => {
 					if (!theToss.isValid) {
-						HomeViewController.ShowMessageBox("Catch Failed!", "Sorry, the bunny is no longer there." , "sad face");
+						HomeViewController.ShowMessageBox("Catch_Failed_Title".Localize(), "Catch_Failed_Gone_Msg".Localize() , "Catch_Failed_Gone_Btn".Localize());
 					} else if (theToss.price > Game.CurrentPlayer.carrotCount) {
-						HomeViewController.ShowMessageBox("Catch Failed!", "You don't have enough carrots to buy that bunny", "oh well");
+						HomeViewController.ShowMessageBox("Catch_Failed_Title".Localize(), "Catch_Failed_Funds_Msg", "Catch_Failed_Funds_Btn");
 					} else {
 						UIAlertView alert = new UIAlertView();
-						alert.Title = "Catching a Bunny!";
+						alert.Title = "Catch_Title".Localize();
 
 						if (theToss.price > 0) {
-							alert.Message = "Catch this bunny for " + theToss.price + " carrots?";
-							alert.AddButton("Spend those carrots!");
-							alert.AddButton("nevermind");
+							alert.Message = string.Format("Catch_Paid_Msg".Localize() , theToss.price);
+							alert.AddButton("Catch_Paid_OK_Btn".Localize());
+							alert.AddButton("Catch_Cancel_Btn".Localize());
 						} else {
-							alert.Message = "Catch this cute bunny?";
-							alert.AddButton("Catch it!");
+							alert.Message = "Catch_Free_Msg".Localize();
+							alert.AddButton("Catch_Free_OK_Btn".Localize());
 						}
 						alert.AlertViewStyle = UIAlertViewStyle.Default;
 						alert.Clicked += (object s, UIButtonEventArgs ev) =>
@@ -210,13 +217,13 @@ namespace Fluffimax.iOS
 								Server.CatchToss(tossId, (theBuns) => {
 									InvokeOnMainThread(() => {
 									if (theBuns != null) {
-											HomeViewController.ShowMessageBox("Success", "Enjoy your new bunny!", "will do");
+											HomeViewController.ShowMessageBox("Catch_Success_Title".Localize(), "Catch_Success_Msg".Localize(), "Catch_Success_Btn".Localize());
 										Game.RecentlyPurchased = true;
 										Game.CurrentPlayer.Bunnies.Add(theBuns);
 										CheckForNewBunnies();
 									} else {
 										// something went wrong
-										HomeViewController.ShowMessageBox("Catch Failed", "Something went wrong.  Maybe try again?", "will do");
+										HomeViewController.ShowMessageBox("Catch_Failed_Title".Localize(), "Catch_Failed_Unknown_Msg", "Catch_Failed_Unknown_Btn");
 									}
 									});
 								});
@@ -262,6 +269,26 @@ namespace Fluffimax.iOS
 			}
 		}
 
+		private void HandleBunnySwipe(UISwipeGestureRecognizer recognizer)
+		{
+			CGPoint theLoc = recognizer.LocationInView(PlayfieldView);
+			Bunny theBuns = null;
+			ShapedImageView bunsView = null;
+
+			foreach (BunnyGraphic curGraphic in _bunnyGraphicList)
+			{
+				if (curGraphic.Button.Frame.Contains(theLoc))
+				{
+					theBuns = curGraphic.LinkedBuns;
+					bunsView = curGraphic.Button;
+					break;
+				}
+			}
+
+			if ((theBuns != null) && (theBuns == this._currentBuns))
+				DoPetBunny();
+		}
+
 
 		public void DoPetBunny()
 		{
@@ -276,27 +303,55 @@ namespace Fluffimax.iOS
 			BunnyGraphic theGraphic = _bunnyGraphicList.Find(b => b.LinkedBuns == whichBuns);
 			nfloat baseX = theGraphic.Horizontal.Constant;
 			nfloat baseY = theGraphic.Vertical.Constant;
-			HeartXLoc.Constant = baseX;
-			HeartYLoc.Constant = baseY;
-			CSHeartWidth.Constant = 24;
-			CSHeartHeight.Constant = 24;
+
+			UIImageView heartImage = new UIImageView(new CGRect(100,100,24,24));
+			heartImage.Image = UIImage.FromBundle("heart");
+			PlayfieldView.AddSubview(heartImage);
+			heartImage.TranslatesAutoresizingMaskIntoConstraints = false;
+			NSLayoutConstraint csWidth = NSLayoutConstraint.Create(heartImage, NSLayoutAttribute.Width, NSLayoutRelation.Equal,
+											null, NSLayoutAttribute.NoAttribute, 1, 24);
+			csWidth.Active = true;
+
+			NSLayoutConstraint csHeight = NSLayoutConstraint.Create(heartImage, NSLayoutAttribute.Height, NSLayoutRelation.Equal,
+				null, NSLayoutAttribute.NoAttribute, 1, 24);
+			csHeight.Active = true;
+			NSLayoutConstraint csHorizontal = NSLayoutConstraint.Create(heartImage, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal,
+				PlayfieldView, NSLayoutAttribute.Left, 1, baseX);
+			csHorizontal.Active = true;
+			NSLayoutConstraint csVertical = NSLayoutConstraint.Create(heartImage, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal,
+				PlayfieldView, NSLayoutAttribute.Top, 1, baseY);
+			csVertical.Active = true;
+			heartImage.AddConstraint(csHeight);
+			heartImage.AddConstraint(csWidth);
+			PlayfieldView.AddConstraint(csHorizontal);
+			PlayfieldView.AddConstraint(csVertical);
+			heartImage.UpdateConstraints();
+			PlayfieldView.UpdateConstraints();
+
+			heartImage.Hidden = false;
+			heartImage.Layer.Opacity = 1;
+			heartImage.Layer.ZPosition = 10000;
 			PlayfieldView.LayoutIfNeeded();
-			HeartImg.Hidden = false;
-			HeartImg.Layer.ZPosition = 10000;
 
 			UIView.Animate(1, () =>
 			{
-				HeartYLoc.Constant = baseY - 64;
-				HeartImg.Layer.Opacity = 0;
-				CSHeartWidth.Constant = 128;
-				CSHeartHeight.Constant = 128;
+				csVertical.Constant = baseY - 128;
+				heartImage.Layer.Opacity = 0;
+				csHeight.Constant = 64;
+				csWidth.Constant = 64;
 				PlayfieldView.LayoutIfNeeded();
 			}, () =>
 			{
 				InvokeOnMainThread(() =>
 				{
-					HeartImg.Hidden = true;
-					HeartImg.Layer.Opacity = 1;
+					heartImage.Hidden = true;
+					heartImage.Layer.Opacity = 1;
+					heartImage.RemoveFromSuperview();
+					PlayfieldView.RemoveConstraint(csHorizontal);
+					PlayfieldView.RemoveConstraint(csVertical);
+					heartImage.RemoveConstraint(csWidth);
+					heartImage.RemoveConstraint(csHeight);
+					heartImage.Dispose();
 				});
 			});
 
@@ -306,10 +361,10 @@ namespace Fluffimax.iOS
 		public void ShowRenameBunny() {
 			if (string.IsNullOrEmpty(_currentBuns.BunnyName) || _currentBuns.OriginalOwner == Game.CurrentPlayer.id) {
 				UIAlertView alert = new UIAlertView ();
-				alert.Title = "Rename Bunny";
-				alert.AddButton ("OK");
-				alert.AddButton ("Cancel");
-				alert.Message = "What do you want to name this cute bunny?";
+				alert.Title = "Rename_Title".Localize();
+				alert.AddButton ("ok_btn".Localize());
+				alert.AddButton ("cancel_btn".Localize());
+				alert.Message = "Rename_Msg".Localize();
 				alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
 				alert.Clicked += (object s, UIButtonEventArgs ev) => {
 					if (ev.ButtonIndex == 0) {
@@ -321,7 +376,7 @@ namespace Fluffimax.iOS
 				};
 				alert.Show ();
 			} else {
-				HomeViewController.ShowMessageBox ("Rename Bunny", "Sorry, only the original owner can name a bunny!", "bummer");
+				HomeViewController.ShowMessageBox ("Rename_Title".Localize(), "Rename_Err_Msg".Localize(), "Rename_Err_Btn".Localize());
 			}
 
 		}
@@ -336,15 +391,12 @@ namespace Fluffimax.iOS
 				ForegroundColor = UIColor.FromRGB(0, 200, 0)
 			};
 
-			UIBarButtonItem menuBtn = new UIBarButtonItem("back", UIBarButtonItemStyle.Bordered, null);
+			UIBarButtonItem menuBtn = new UIBarButtonItem("back".Localize(), UIBarButtonItemStyle.Bordered, null);
 			this.NavigationItem.BackBarButtonItem = menuBtn;
 
 			BunnyNameLabel.UserInteractionEnabled = true;
 			GrassField.UserInteractionEnabled = true;
 			NavController.NavigationBarHidden = false;
-			CGRect bounds = PlayfieldView.Frame;
-			xScale = bounds.Width / 200;
-			yScale = bounds.Height / 200;
 
 			InitGame();
 
@@ -353,6 +405,56 @@ namespace Fluffimax.iOS
 			CheckForNewBunnies ();
 			CheckForRecentPurchase ();
 
+			DoBunnyHop(_bunnyGraphicList[0]);
+			UpdateOverlay();
+
+			TestBtn.TouchUpInside += (sender, e) =>
+			{
+				CGRect bounds = PlayfieldView.Frame;
+				nfloat xScale = bounds.Width / 200;
+				nfloat yScale = bounds.Height / 200;
+
+				BunnyGraphic curBuns = _bunnyGraphicList[0];
+				Bunny curBunny = curBuns.LinkedBuns;
+				curBunny.HorizontalLoc = int.Parse( xLocField.Text);
+				curBunny.VerticalLoc = int.Parse(yLocField.Text);
+				curBunny.BunnySize = int.Parse(SizeField.Text);
+
+				nfloat bunsSizeBase = (nfloat)BunnySizeForLevel(curBunny.BunnySize);
+				double nextLevelSize = BunnySizeForLevel(curBunny.BunnySize + 1);
+				nfloat deltaSize = (nfloat)((nextLevelSize - bunsSizeBase) * curBunny.Progress);
+				curBuns.Height.Constant = bunsSizeBase;
+				curBuns.Width.Constant = bunsSizeBase + deltaSize;
+
+				nfloat scale = 1;
+				if (curBunny.VerticalLoc < 100)
+				{
+					scale = 0.5f + 0.4f * (((float)curBunny.VerticalLoc + 100) / (float)200);
+
+					//scale -= (nfloat)(((double)Math.Abs(curBunny.VerticalLoc) / Math.Abs(kMinHeight)) * .6);
+				}
+
+				curBuns.Button.Transform = CGAffineTransform.MakeScale(scale, scale);
+				nfloat hLoc = (curBunny.HorizontalLoc + 100) * xScale;
+				curBuns.Horizontal.Constant = hLoc;
+				nfloat vLoc = (curBunny.VerticalLoc + 100) * yScale;
+				curBuns.Vertical.Constant = vLoc;
+				PlayfieldView.LayoutIfNeeded();
+				UpdateOverlay();
+			};
+
+		}
+
+
+		private void UpdateOverlay()
+		{
+			InvokeOnMainThread(() =>
+			{
+				BunnyGraphic curBuns = _bunnyGraphicList[0];
+				xLocField.Text = curBuns.LinkedBuns.HorizontalLoc.ToString();
+				yLocField.Text = curBuns.LinkedBuns.VerticalLoc.ToString();
+				SizeField.Text = curBuns.LinkedBuns.BunnySize.ToString();
+			});
 		}
 
 		private void CheckForNewBunnies() {
@@ -404,10 +506,10 @@ namespace Fluffimax.iOS
 				null, NSLayoutAttribute.NoAttribute, 1, 32);
 			csHeight.Active = true;
 			NSLayoutConstraint csHorizontal = NSLayoutConstraint.Create (bunsBtn, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal,
-				PlayfieldView, NSLayoutAttribute.CenterX, 1, 0);
+				PlayfieldView, NSLayoutAttribute.Left, 1, 0);
 			csHorizontal.Active = true;
-			NSLayoutConstraint csVertical = NSLayoutConstraint.Create (bunsBtn, NSLayoutAttribute.Bottom, NSLayoutRelation.Equal,
-				PlayfieldView, NSLayoutAttribute.CenterY, 1, 0);
+			NSLayoutConstraint csVertical = NSLayoutConstraint.Create (bunsBtn, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal,
+				PlayfieldView, NSLayoutAttribute.Top, 1, 0);
 			csVertical.Active = true;
 
 			PlayfieldView.AddConstraint (csHorizontal);
@@ -431,10 +533,12 @@ namespace Fluffimax.iOS
 
 			// todo:  add a gesture recognizer  
 			//bunsBtn.TouchUpInside += HandleBunnyClick;
-			View.UpdateConstraints ();
+			PlayfieldView.UpdateConstraints ();
 			UpdateBunsSizeAndLocation (thebuns);
-			View.BringSubviewToFront (bunsBtn);
-			bunsBtn.StartAnimating ();
+			PlayfieldView.BringSubviewToFront (bunsBtn);
+			bunsBtn.StartAnimating();
+			PlayfieldView.LayoutIfNeeded();
+			DoBunnyHop(graphic);
 			return bunsBtn;
 		}
 
@@ -443,17 +547,28 @@ namespace Fluffimax.iOS
 
 			if (theGraphic != null) {
 				InvokeOnMainThread (() => {
+					CGRect bounds = PlayfieldView.Frame;
+					nfloat xScale = bounds.Width / 200;
+					nfloat yScale = bounds.Height / 200;
+					nfloat newY = (thebuns.VerticalLoc + 100) * yScale;
 					nfloat bunsSizeBase = (nfloat)BunnySizeForLevel (thebuns.BunnySize);
 					double nextLevelSize = BunnySizeForLevel (thebuns.BunnySize + 1);
 					nfloat deltaSize = (nfloat)((nextLevelSize - bunsSizeBase) * thebuns.Progress);
-					theGraphic.Height.Constant = bunsSizeBase;
-					theGraphic.Width.Constant = bunsSizeBase + deltaSize;
-					theGraphic.Horizontal.Constant = thebuns.HorizontalLoc * xScale;
-					theGraphic.Vertical.Constant = thebuns.VerticalLoc * yScale;
-					PlayfieldView.SetNeedsLayout ();
-					PlayfieldView.SetNeedsUpdateConstraints();
-					PlayfieldView.LayoutIfNeeded();
-					PlayfieldView.UpdateConstraints();
+					theGraphic.Button.Layer.ZPosition = 200 + newY;
+					nfloat scale = 0.5f + 0.4f * (((float)thebuns.VerticalLoc + 100) / (float)200);
+
+					theGraphic.Button.Transform = CGAffineTransform.MakeScale(scale, scale);
+					UIView.Animate(.1, () =>
+					{
+						theGraphic.Height.Constant = bunsSizeBase;
+						theGraphic.Width.Constant = bunsSizeBase + deltaSize;
+						theGraphic.Horizontal.Constant = (thebuns.HorizontalLoc + 100) * xScale;
+						theGraphic.Vertical.Constant =  newY;
+
+
+						PlayfieldView.LayoutIfNeeded();
+					}, null);
+
 				});
 			}
 		}
@@ -461,7 +576,7 @@ namespace Fluffimax.iOS
 
 
 		public double BunnySizeForLevel(int level) {
-			return _bunSizePerLevel * (level+1);
+			return _bunBaseSize + (_bunSizePerLevel * level);
 		}
 
 		public override void DidReceiveMemoryWarning ()
@@ -471,18 +586,43 @@ namespace Fluffimax.iOS
 		}
 
 		private void InitGame() {
-			if (!inited) {
-				InvokeOnMainThread (() => {
+			if (!inited)
+			{
+				Game.NewPlayerLoaded = false;
+				InvokeOnMainThread(() =>
+				{
 					CarrotImg.Hidden = true;
 					// ad bunnies
-					foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies) {
-						AddBunnyToScreen (curBunny);
+					foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies)
+					{
+						AddBunnyToScreen(curBunny);
 					}
-					HideBunnyPanel ();
-					UpdateScore ();
-					StartTimers ();
+					HideBunnyPanel();
+					UpdateScore();
+					StartTimers();
 					inited = true;
 				});
+			}
+			else if (Game.NewPlayerLoaded) {
+				// a new player was loaded - get rid of existing bunnies and add new ones.
+				Game.NewPlayerLoaded = false;
+				InvokeOnMainThread(() =>
+				{
+					CarrotImg.Hidden = true;
+					HideBunnyPanel();
+					UpdateScore();
+					foreach (BunnyGraphic oldBuns in _bunnyGraphicList)
+					{
+						oldBuns.Button.RemoveFromSuperview();
+					}
+					_bunnyGraphicList.Clear();
+					foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies)
+					{
+						AddBunnyToScreen(curBunny);
+					}
+
+				});
+
 			}
 		}
 
@@ -541,12 +681,12 @@ namespace Fluffimax.iOS
 				InvokeOnMainThread (() => {
 					string nameStr = _currentBuns.BunnyName;
 					if (string.IsNullOrEmpty(nameStr))
-						nameStr = "unnamed bunny";
+						nameStr = "Unamed_Bunny".Localize();
 					BunnyNameLabel.Text = nameStr;
 					BunnyBreedLabel.Text = _currentBuns.BreedName;
-					BunnyGenderLabel.Text = _currentBuns.Female ? "female" : "male";
-					FurColorLabel.Text = _currentBuns.FurColorName + " fur";
-					EyeColorLabel.Text = _currentBuns.EyeColorName + " eyes";
+					BunnyGenderLabel.Text = _currentBuns.Female ? "Female_Str".Localize() : "Male_Str".Localize();
+					FurColorLabel.Text = string.Format("EyeColor_Prompt".Localize(), _currentBuns.FurColorName);
+					EyeColorLabel.Text = string.Format("FurColor_Prompt".Localize(), _currentBuns.EyeColorName);
 					SizeCount.Text = _currentBuns.BunnySize.ToString();
 					ProgressCount.Text = String.Format("{0}/{1}", _currentBuns.FeedState,_currentBuns.CarrotsForNextSize(_currentBuns.BunnySize));
 				});
@@ -657,6 +797,10 @@ namespace Fluffimax.iOS
 
 
 			InvokeOnMainThread (() => {
+				nfloat scale = 0.5f + (0.5f * (((float)buns.LinkedBuns.VerticalLoc + 100) / 200));
+				xDif = (int)((float)xDif * scale);
+				yDif = (int)((float)yDif * scale);
+
 				nfloat newX = buns.LinkedBuns.HorizontalLoc + xDif;
 				nfloat newY = buns.LinkedBuns.VerticalLoc + yDif;
 
@@ -670,12 +814,7 @@ namespace Fluffimax.iOS
 				else if (newY > kMaxHeight)
 					newY = kMaxHeight;
 
-				nfloat scale = 1;
-				if (newY < 0) {
-					scale -= (nfloat)(((double)Math.Abs(newY) / Math.Abs(kMinHeight)) * .6);
-				} else {
-					scale += (nfloat)(((double)newY / kMaxHeight) * .3);
-				}
+				scale = 0.5f + (0.5f * ((newY + 100) / 200));
 
 				if (flip)
 					buns.Button.Transform = CGAffineTransform.MakeScale(-scale,scale);
@@ -687,14 +826,18 @@ namespace Fluffimax.iOS
 		}
 
 		private void BunnyHopToNewLoc(BunnyGraphic buns, int dir, nfloat newX, nfloat newY, UIImage[] jumpFrames, UIImage[] idleFrames) {
+			CGRect bounds = PlayfieldView.Frame;
+			nfloat xScale = bounds.Width / 200;
+			nfloat yScale = bounds.Height / 200;
+
 			InvokeOnMainThread (() => {
 				buns.Button.AnimationImages = jumpFrames;
 				buns.Button.AnimationDuration = .15;
 				buns.Button.StartAnimating ();
 			});
 			UIView.Animate (.5, () => {
-				buns.Horizontal.Constant = newX * xScale;
-				buns.Vertical.Constant = newY * yScale;
+				buns.Horizontal.Constant = (newX + 100) * xScale;
+				buns.Vertical.Constant = (newY + 100) * yScale;
 				PlayfieldView.LayoutIfNeeded();
 			}, () => {
 				InvokeOnMainThread (() => {
@@ -788,7 +931,7 @@ namespace Fluffimax.iOS
 				double nextLevelSize = BunnySizeForLevel (thebuns.BunnySize + 1);
 				nfloat deltaSize = (nfloat)((nextLevelSize - bunsSizeBase) * thebuns.Progress);
 				CSCarrotX.Constant = theGraphic.Horizontal.Constant;
-				CSCarrotY.Constant = theGraphic.Vertical.Constant - 32;
+				CSCarrotY.Constant = theGraphic.Vertical.Constant;
 				CSCarrotWidth.Constant = 96;
 				CSCarrotHeight.Constant = 96;
 

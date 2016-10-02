@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="150dp"
+    android:layout_height="200dp">
+    <ImageView
+        android:src="@drawable/baseicon"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:id="@+id/imageView1"
+        android:layout_gravity="center_horizontal" />
+    <TextView
+        android:text="Bunny Name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:gravity="center_horizontal" />
+    <TextView
+        android:text="A large male Holland Lop with brown fur and green eyes"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:gravity="center_horizontal" />
+</LinearLayout>

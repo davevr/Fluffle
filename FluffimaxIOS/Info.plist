@@ -38,9 +38,9 @@
 		<true/>
 	</dict>
 	<key>CFBundleShortVersionString</key>
-	<string>1.18</string>
+	<string>1.20</string>
 	<key>CFBundleVersion</key>
-	<string>118</string>
+	<string>120</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>fonts/FingerPaint-Regular.ttf</string>
@@ -60,5 +60,13 @@
 	<string>1796627987237586</string>
 	<key>FacebookDisplayName</key>
 	<string>fluffle</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>es</string>
+		<string>zh-Hans</string>
+	</array>
 </dict>
 </plist>

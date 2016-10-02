@@ -28,6 +28,10 @@ namespace Fluffimax.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton LoginBtn { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIScrollView MainScroll { get; set; }
 
         [Outlet]
@@ -58,10 +62,9 @@ namespace Fluffimax.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView UserProfileImage { get; set; }
 
-
         [Action ("nicknameChanged:")]
         [GeneratedCode ("iOS Designer", "1.0")]
-        partial void nicknameChanged (UITextField sender);
+        partial void nicknameChanged (UIKit.UITextField sender);
 
         void ReleaseDesignerOutlets ()
         {
@@ -78,6 +81,11 @@ namespace Fluffimax.iOS
             if (ChangeUsernameBtn != null) {
                 ChangeUsernameBtn.Dispose ();
                 ChangeUsernameBtn = null;
+            }
+
+            if (LoginBtn != null) {
+                LoginBtn.Dispose ();
+                LoginBtn = null;
             }
 
             if (MainScroll != null) {

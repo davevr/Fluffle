@@ -28,7 +28,7 @@ namespace Fluffimax.iOS
 			base.ViewWillAppear (animated);
 
 			NavController.NavigationBarHidden = false;
-			this.Title = "About Fluffle";
+			this.Title = "About_Fluffle".Localize();
 		}
 
 		protected HomeViewController RootController { 

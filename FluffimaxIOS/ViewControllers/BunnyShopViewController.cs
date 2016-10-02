@@ -33,7 +33,7 @@ namespace Fluffimax.iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			UIBarButtonItem menuBtn = new UIBarButtonItem("back", UIBarButtonItemStyle.Bordered, null);
+			UIBarButtonItem menuBtn = new UIBarButtonItem("back_btn".Localize(), UIBarButtonItemStyle.Bordered, null);
 			this.NavigationItem.BackBarButtonItem = menuBtn;
 
 			// Perform any additional setup after loading the view, typically from a nib.
@@ -46,14 +46,14 @@ namespace Fluffimax.iOS
 			BunnySaleList.RowHeight = 96;
 			BunnySaleList.Delegate = theDelegate; 
 			dataSource.ShopView = this;
-			this.Title = "Bunny Shop";
+			this.Title = "Adoption_Agency".Localize();
 			UpdateCarrotCount ();
 			View.LayoutIfNeeded();
 		}
 
 		private void UpdateCarrotCount() {
 			BeginInvokeOnMainThread(() => {
-				CarrotCountLabel.Text = String.Format("You have {0} carrots", Game.CurrentPlayer.carrotCount);
+				CarrotCountLabel.Text = String.Format("carrot_count".Localize(), Game.CurrentPlayer.carrotCount);
 			});
 		}
 
@@ -88,11 +88,11 @@ namespace Fluffimax.iOS
 		public void MaybeBuyBunny(Bunny theBuns) {
 			if (Game.CurrentPlayer.carrotCount >= theBuns.Price) {
 				pendingBunny = theBuns;
-				UIAlertView confirmView = new UIAlertView ("Confirm Purchase", String.Format ("Are you sure you want to buy this bunny for {0} carrots?", theBuns.Price),
-					                          buyDelegate, "never mind", new string[] {"Buy!"});
+				UIAlertView confirmView = new UIAlertView ("Confirm_Adoption_Title".Localize(), String.Format ("Confirm_Adoption_Prompt".Localize(), theBuns.Price),
+				                                           buyDelegate, "Adoption_Cancel_Btn".Localize(), new string[] {"Adoption_OK_Btn".Localize()});
 				confirmView.Show ();
 			} else {
-				UIAlertView denyView = new UIAlertView ("Purchase Declined", "Sorry, you do not have enough carrots to buy this bunny", null, "Oh well");
+				UIAlertView denyView = new UIAlertView ("Adoption_Declined_Title".Localize(), "Adoption_Lack_Funds".Localize(), null, "Adoption_Lack_Funds_Confirm".Localize());
 				denyView.Show ();
 			}
 		}
@@ -102,12 +102,12 @@ namespace Fluffimax.iOS
 				if (Game.CurrentPlayer.BuyBunny (pendingBunny)) {
 					Game.BunnyStore.Remove (pendingBunny);
 					UpdateCarrotCount ();
-					UIAlertView goodNews = new UIAlertView ("Purchase Accepted", "Enjoy your new cute bunny!", null, "Happiness!");
+					UIAlertView goodNews = new UIAlertView ("Adoption_Accepted_Title".Localize(), "Adoption_Worked".Localize(), null, "Adoption_Worked_Btn".Localize());
 					goodNews.Show ();
 					//BunnySaleList.ReloadData ();
 					NavController.PopViewController(true);
 				} else {
-					UIAlertView denyView = new UIAlertView ("Purchase Declined", "Sorry, the purchase did not go through", null, "Oh well");
+					UIAlertView denyView = new UIAlertView ("Adoption_Declined_Title".Localize(), "Adoption_Failed".Localize(), null, "Adoption_Failed_Btn".Localize());
 					denyView.Show ();
 				}
 			}

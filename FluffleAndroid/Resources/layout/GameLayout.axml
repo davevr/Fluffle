@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffcbe8f7">
+    <ImageView xmlns:tools="http://schemas.android.com/tools"
+        android:src="@drawable/grass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/grassView"
+        android:scaleType="fitXY"
+        tools:visibility="visible"
+        android:layout_marginBottom="0.0dp"
+        android:adjustViewBounds="false"
+        android:layout_marginTop="150dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/detailView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff"
+        android:paddingTop="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp">
+        <TextView
+            android:text="BunnyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bunnyNameLabel"
+            android:textColor="#ff000000"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:gravity="center" />
+        <TextView
+            android:text="A small male Holland Lop with brown fur and blue eyes that will absolutely melt your brain from cuteness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bunnyDescLabel"
+            android:textColor="#ff000000"
+            android:layout_marginTop="8dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+            <TextView
+                android:text="10/23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressLabel"
+                android:textColor="#ff000000"
+                android:layout_marginRight="8dp" />
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:id="@+id/feedProgressBar"
+                android:max="100"
+                android:progress="50"
+                android:layout_weight="1"
+                android:layout_gravity="fill"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/footer"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_gravity="bottom">
+            <Button
+                android:text="Feed"
+                android:id="@+id/FeedBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="left" />
+            <Button
+                android:text="Trade"
+                android:id="@+id/TossBunnyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1" />
+            <Button
+                android:text="Sell"
+                android:id="@+id/SellBunnyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/footer"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_gravity="bottom">
+        <Button
+            android:text="Carrots"
+            android:id="@+id/CarrotShopBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="left" />
+        <Button
+            android:text="Trade"
+            android:id="@+id/CatchBunnyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1" />
+        <Button
+            android:text="Adopt"
+            android:id="@+id/AdoptShopBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1" />
+    </LinearLayout>
+</FrameLayout>

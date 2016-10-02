@@ -11,11 +11,11 @@ namespace Fluffimax.iOS
 	public partial class ProfileViewController : UIViewController
 	{
 
-		const string chooseFromText = "New Profile Image";
-		const string cancelText = "Cancel";
-		const string fromCameraText = "From Camera";
-		const string fromGalleryText = "From Gallery";
-		const string deleteCurrentPhotoText = "Delete Current Photo";
+		string chooseFromText = "New_Image_Msg".Localize();
+		string cancelText = "cancel_btn".Localize();
+		string fromCameraText = "From_Camera_Msg".Localize();
+		string fromGalleryText = "From_Gallery_Msg".Localize();
+		string deleteCurrentPhotoText = "Delete_Current_Msg".Localize();
 		private UIActivityIndicatorView progressIndicator;
 
 		public ProfileViewController () : base ("ProfileViewController", null)
@@ -116,7 +116,12 @@ namespace Fluffimax.iOS
 				MaybeChangePassword ();
 			};
 
-			this.Title = "Your Profile";
+			LoginBtn.TouchUpInside += (sender, e) =>
+			{
+				MaybeLogin();
+			};
+
+			this.Title = "Profile_Title".Localize();
 
 			if (AppDelegate.IsMini)
 			{
@@ -299,7 +304,7 @@ namespace Fluffimax.iOS
 
 					} else {
 						// something went wrong - show the message
-						HomeViewController.ShowMessageBox ("Error", "Unable to change username.  Make sure your username is unique.  Try an email address for best results", "will do");
+						HomeViewController.ShowMessageBox ("Error_Title".Localize(), "Username_Msg".Localize(), "username_Btn".Localize());
 					}
 				});
 			}
@@ -316,7 +321,7 @@ namespace Fluffimax.iOS
 						});
 					} else {
 						// something went wrong - show the message
-						HomeViewController.ShowMessageBox ("Error", "Unable to change nickname.  Maybe try again later?", "umm.. ok...");
+						HomeViewController.ShowMessageBox ("Error_Title".Localize(), "Nickname_Msg".Localize(), "Nickname_Btn".Localize());
 					}
 				});
 
@@ -330,15 +335,15 @@ namespace Fluffimax.iOS
 			string titleStr;
 
 			if (forced)
-				titleStr = "You must change your password when you first change your username.  Enter the new password now:";
+				titleStr = "Must_Change_Pwd_Msg".Localize();
 			else
-				titleStr = "Enter the new password now:";
+				titleStr = "Change_Pwd_Msg".Localize();
 
 			UIAlertView alert = new UIAlertView ();
-			alert.Title = "Change password";
-			alert.AddButton ("Change");
+			alert.Title = "Change_Pwd_Title".Localize();
+			alert.AddButton ("Change_Btn_Title".Localize());
 			if (!forced)
-				alert.AddButton ("Cancel");
+				alert.AddButton ("cancel_btn".Localize());
 			alert.Message = titleStr;
 			alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
 			alert.Clicked += (object s, UIButtonEventArgs ev) => {
@@ -355,7 +360,7 @@ namespace Fluffimax.iOS
 
 						} else {
 							// something went wrong - show the message
-							HomeViewController.ShowMessageBox ("Error", "Unable to change username.  Make sure your username is unique.  Try an email address for best results", "will do");
+							HomeViewController.ShowMessageBox ("Error".Localize(), "Change_Username_Err_Msg".Localize(), "Change_Username_Err_Btn".Localize());
 						}
 					});
 				}
@@ -373,15 +378,16 @@ namespace Fluffimax.iOS
 			base.ViewWillAppear (animated);
 			NavController.NavigationBarHidden = false;
 			UpdateUIForUser ();
+
 		}
 
 		private void UpdateUIForUser() {
 			// title
 			string titleStr = "";
 			if (string.IsNullOrEmpty (Game.CurrentPlayer.nickname)) {
-				titleStr = "Your Profile";
+				titleStr = "Profile_Title_Unknown".Localize();
 			} else {
-				titleStr = Game.CurrentPlayer.nickname + "'s Profile";
+				titleStr = string.Format("Profile_Title".Localize(), Game.CurrentPlayer.nickname);
 			}
 			this.Title = titleStr;
 
@@ -408,6 +414,57 @@ namespace Fluffimax.iOS
 			}
 
 			UpdateButtonStates ();
+		}
+
+		private void MaybeLogin()
+		{
+			UITextField userNameFld = null;
+			UITextField passWordFld = null;
+			UIAlertController loginPrompt = UIAlertController.Create("Login_Title".Localize(), "Login_Prompt".Localize(), UIAlertControllerStyle.Alert);
+
+			loginPrompt.AddTextField(theField =>
+			{
+				userNameFld = theField;
+			});
+
+			loginPrompt.AddTextField(theField =>
+			{
+				passWordFld = theField;
+				theField.SecureTextEntry = true;
+			});
+
+			loginPrompt.AddAction(UIAlertAction.Create("cancel_btn".Localize(), UIAlertActionStyle.Cancel, null));
+			loginPrompt.AddAction(UIAlertAction.Create("Login_Btn".Localize(), UIAlertActionStyle.Destructive, (obj) =>
+			{
+					// to do - handle signin.
+				string username = userNameFld.Text;
+				string pwd = passWordFld.Text;
+
+				Server.Login(username, pwd, (thePlayer) =>
+				{
+					if (thePlayer != null)
+					{
+						// log in with the new player
+						Game.CurrentPlayer = thePlayer;
+						Game.SavePlayer(true);
+						Game.NewPlayerLoaded = true;
+						InvokeOnMainThread(() =>
+						{
+							UpdateUIForUser();
+						});
+					}
+					else {
+						// error - probably bad password
+						HomeViewController.ShowMessageBox("Login_Failure_Title".Localize(), "Login_Failure_msg".Localize(), "Login_Failure_btn".Localize());
+					}
+				});
+
+			}));
+
+			PresentViewController(loginPrompt, true, () =>
+			{
+
+			});
 		}
 
 		private void UpdateButtonStates() {
