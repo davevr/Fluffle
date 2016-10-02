@@ -106,6 +106,7 @@
             android:layout_gravity="center_horizontal"
             android:textColor="@color/Fluffle_blue"
             android:background="@color/Fluffle_white"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
     </LinearLayout>
 </ScrollView>

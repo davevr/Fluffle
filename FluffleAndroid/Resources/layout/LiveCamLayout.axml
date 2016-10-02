@@ -11,12 +11,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:id="@+id/liveCamView" />
+            android:id="@+id/liveCamView"
+            android:layout_margin="8dp" />
         <TextView
             android:text="This is my bunny.  Her name is Floppsy.  She is a female mini-lop.  She loves to hop around and eat watermelon and carrots."
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/camText" />
+            android:id="@+id/camText"
+            android:layout_margin="8dp" />
     </LinearLayout>
 </ScrollView>

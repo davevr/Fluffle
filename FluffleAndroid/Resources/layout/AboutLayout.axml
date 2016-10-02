@@ -11,51 +11,67 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/titleAboutGame" />
+            android:id="@+id/titleAboutGame"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textColor="@color/Fluffle_green" />
         <TextView
             android:text="@string/AboutFluffleText"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="false"
-            android:id="@+id/textView1" />
+            android:layout_margin="8dp" />
         <TextView
             android:text="About Floppsy"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/titleAboutFloppsy" />
+            android:id="@+id/titleAboutFloppsy"
+            android:gravity="center"
+            android:textColor="@color/Fluffle_green"
+            android:textStyle="bold" />
         <ImageView
             android:src="@drawable/flopsy"
             android:layout_width="200dp"
-            android:layout_height="200dp" />
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp" />
         <TextView
             android:text="@string/AboutFloppsyText"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView4" />
+            android:layout_margin="8dp" />
         <TextView
             android:text="About me"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/Fluffle_green"
             android:id="@+id/titleAboutMe" />
         <ImageView
             android:src="@drawable/juju"
             android:layout_width="200dp"
-            android:layout_height="200dp" />
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp" />
         <TextView
             android:text="@string/AboutMeText"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView6" />
+            android:layout_margin="8dp" />
         <TextView
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView7"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/facebookHyperlinkText"
             android:text="https://www.facebook.com/fluffleit" />
     </LinearLayout>
 </ScrollView>

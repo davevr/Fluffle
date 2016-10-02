@@ -178,6 +178,11 @@ namespace Fluffle.AndroidApp
 
 			}
 		}
+
+		public void Update()
+		{
+
+		}
 	}
 }
 

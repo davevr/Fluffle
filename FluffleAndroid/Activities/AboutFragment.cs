@@ -26,6 +26,14 @@ namespace Fluffle.AndroidApp
 			// return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
 			var view = inflater.Inflate(Resource.Layout.AboutLayout, container, false);
+			var title = view.FindViewById<TextView>(Resource.Id.titleAboutGame);
+			title.SetTypeface(MainActivity.bodyFace, Android.Graphics.TypefaceStyle.Bold);
+
+			title = view.FindViewById<TextView>(Resource.Id.titleAboutFloppsy);
+			title.SetTypeface(MainActivity.bodyFace, Android.Graphics.TypefaceStyle.Bold);
+
+			title = view.FindViewById<TextView>(Resource.Id.titleAboutMe);
+			title.SetTypeface(MainActivity.bodyFace, Android.Graphics.TypefaceStyle.Bold);
 
 			return view;
 		}
