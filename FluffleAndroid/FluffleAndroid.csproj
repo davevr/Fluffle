@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Fluffle.AndroidApp</RootNamespace>
     <AssemblyName>FluffleAndroid</AssemblyName>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -74,18 +74,6 @@
     <Reference Include="UrlImageViewHelper">
       <HintPath>..\Components\urlimageviewhelper-1.0.4.1\lib\android\UrlImageViewHelper.dll</HintPath>
     </Reference>
-    <Reference Include="ZXing.Net.Mobile.Core, Version=2.0.4.17, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZXing.Net.Mobile.2.0.4.17\lib\MonoAndroid403\ZXing.Net.Mobile.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="zxing.portable, Version=2.0.4.17, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZXing.Net.Mobile.2.0.4.17\lib\MonoAndroid403\zxing.portable.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ZXingNetMobile, Version=2.0.4.17, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZXing.Net.Mobile.2.0.4.17\lib\MonoAndroid403\ZXingNetMobile.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\packages\Xamarin.Android.Support.v4.23.4.0.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
@@ -104,8 +92,22 @@
     <Reference Include="Xamarin.Android.Support.Design">
       <HintPath>..\packages\Xamarin.Android.Support.Design.23.4.0.1\lib\MonoAndroid43\Xamarin.Android.Support.Design.dll</HintPath>
     </Reference>
+    <Reference Include="ZXing.Net.Mobile.Core, Version=2.1.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.1.12\lib\MonoAndroid403\ZXing.Net.Mobile.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="zxing.portable, Version=2.1.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.1.12\lib\MonoAndroid403\zxing.portable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ZXingNetMobile, Version=2.1.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.1.12\lib\MonoAndroid403\ZXingNetMobile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HelperClasses\ResizeAnimation.cs" />
+    <Compile Include="HelperClasses\UIResources.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -139,9 +141,12 @@
     <Compile Include="HelperClasses\BitmapHelper.cs" />
     <Compile Include="HelperClasses\StreamHelper.cs" />
     <Compile Include="HelperClasses\TypefaceSpan.cs" />
+    <Compile Include="HelperClasses\SpriteManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -189,13 +194,7 @@
     <AndroidResource Include="Resources\color\tabTextColor.xml" />
     <AndroidResource Include="Resources\layout\AdoptionCell.axml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\drawable\" />
-    <Folder Include="Activities\" />
-    <Folder Include="Assets\fonts\" />
-    <Folder Include="HelperClasses\" />
-    <Folder Include="Resources\color\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <XamarinComponentReference Include="Flurry.Ads">
       <Visible>False</Visible>
@@ -203,7 +202,7 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="hockeyappandroid">
       <Visible>False</Visible>
-      <Version>4.1.0.2</Version>
+      <Version>4.1.0.3</Version>
     </XamarinComponentReference>
     <XamarinComponentReference Include="PagerSlidingTabStrip">
       <Visible>False</Visible>
@@ -219,11 +218,7 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="urlimageviewhelper">
       <Visible>False</Visible>
-      <Version>1.0.4.1</Version>
-    </XamarinComponentReference>
-    <XamarinComponentReference Include="zxing.net.mobile">
-      <Visible>False</Visible>
-      <Version>2.0.4.17</Version>
+      <Version>1.0.4.2</Version>
     </XamarinComponentReference>
     <XamarinComponentReference Include="xamandroidsupportdesign">
       <Version>23.4.0.1</Version>
@@ -234,8 +229,12 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="xamandroidsupportv7appcompat">
-      <Version>23.4.0.1</Version>
       <Visible>False</Visible>
+      <Version>23.4.0.1</Version>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="zxing.net.mobile">
+      <Visible>False</Visible>
+      <Version>2.1.12</Version>
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>

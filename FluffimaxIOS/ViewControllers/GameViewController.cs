@@ -157,7 +157,6 @@ namespace Fluffimax.iOS
 					alert.Show ();
 				});
 			});
-
 		}
 
 		private async void DoCatchBunny()

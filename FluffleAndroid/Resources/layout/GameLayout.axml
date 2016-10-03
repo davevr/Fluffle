@@ -3,16 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffcbe8f7">
-    <ImageView xmlns:tools="http://schemas.android.com/tools"
-        android:src="@drawable/grass"
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/grassView"
-        android:scaleType="fitXY"
-        tools:visibility="visible"
-        android:layout_marginBottom="0.0dp"
-        android:adjustViewBounds="false"
-        android:layout_marginTop="150dp" />
+        android:layout_marginTop="150dp"
+        android:background="@drawable/grass">
+        <ImageView
+            android:id="@+id/CarrotImage"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:src="@drawable/carrot" />
+    </FrameLayout>
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/detailView"
