@@ -46,6 +46,8 @@ namespace Fluffle.AndroidApp
 
         private const string flurryId = "3F7MBBRCTW9NBJJB4CGG";
         private const string hockeyId = "366012d76c5f4328951a1c08534c7865";
+		public static int PURCHASE_RESULT = 0x4569;
+		public static int ADOPTION_RESULT = 0x4432;
 
         public static Typeface bodyFace;
         public string RewardString;
@@ -206,6 +208,18 @@ namespace Fluffle.AndroidApp
                 
             });
         }
+
+		protected override void OnActivityResult(int requestCode, Android.App.Result resultCode, Intent data)
+		{
+			if (requestCode == PURCHASE_RESULT && resultCode == Android.App.Result.Ok)
+			{
+				//todo - handle a purchase of carrots
+			}
+			else if (requestCode == ADOPTION_RESULT && resultCode == Android.App.Result.Ok)
+			{
+				//todo - handle an adoption result
+			}
+		}
 
 
         public override bool DispatchTouchEvent(MotionEvent e)

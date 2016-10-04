@@ -117,7 +117,9 @@ namespace Fluffle.AndroidApp
         {
             if (Game.CurrentPlayer.Bunnies.Count < 50)
             {
-                //NavController.PushViewController(new BunnyShopViewController(), true);
+                Intent purchaseIntent = new Intent(this.Activity, typeof(AdoptionCenterActivity));
+
+				StartActivityForResult(purchaseIntent, MainActivity.ADOPTION_RESULT);
             }
             else
             {
@@ -133,7 +135,9 @@ namespace Fluffle.AndroidApp
 
         private void BuyCarrotsBtn_Click(object sender, EventArgs e)
         {
-            //NavController.PushViewController(new CarrotShopViewController(), true);
+			Intent purchaseIntent = new Intent(this.Activity, typeof(CarrotStoreActivity));
+
+			StartActivityForResult(purchaseIntent, MainActivity.PURCHASE_RESULT);
         }
 
         private void SellBtn_Click(object sender, EventArgs e)
