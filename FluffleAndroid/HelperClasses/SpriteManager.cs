@@ -9,6 +9,7 @@ using Android.Support.V4.Widget;
 using Android.Graphics;
 using Android.Media;
 using System.Collections.Generic;
+using Android.Graphics.Drawables;
 
 using Fluffimax.Core;
 
@@ -17,37 +18,57 @@ namespace Fluffle.AndroidApp
 {
 	public class BunnyStateSprite
 	{
-		public Bitmap[]	frontImages;
-		public Bitmap[]	backImages;
-		public Bitmap[]	rightImages;
-		public Bitmap[]	rightFrontImages;
-		public Bitmap[]	rightBackImages;
+		public AnimationDrawable	frontImages;
+		public AnimationDrawable backImages;
+		public AnimationDrawable rightImages;
+		public AnimationDrawable rightFrontImages;
+		public AnimationDrawable rightBackImages;
 
 		public BunnyStateSprite() {
 			
 		}
 
 		public void InitSubState(string state, List<Bitmap> imageList) {
-			switch (state) {
-			case "front":
-				frontImages = imageList.ToArray ();
-				break;
-			case "back":
-				backImages = imageList.ToArray ();
-				break;
-			case "right":
-				rightImages = imageList.ToArray ();
-				break;
-			case "rightfront":
-				rightFrontImages = imageList.ToArray ();
-				break;
-			case "rightback":
-				rightBackImages = imageList.ToArray ();
-				break;
+            var drawable = SpriteHelper.CreateFromBitmapList(imageList, 250);
+			switch (state)
+            {
+			    case "front":
+                    frontImages = drawable;
+                    break;
+			    case "back":
+				    backImages = drawable;
+                    break;
+			    case "right":
+				    rightImages = drawable;
+                    break;
+			    case "rightfront":
+				    rightFrontImages = drawable;
+                    break;
+			    case "rightback":
+				    rightBackImages = drawable;
+                    break;
 
 			}
 		}
 	}
+
+    public class SpriteHelper
+    {
+        public static AnimationDrawable CreateFromBitmapList(List<Bitmap> bmapList, int duration)
+        {
+            AnimationDrawable animation = new AnimationDrawable();
+            animation.OneShot = false;
+
+            foreach (Bitmap curMap in bmapList)
+            {
+                var drawable = new BitmapDrawable(curMap);
+                //drawable = (BitmapDrawable)MainActivity.instance.GetDrawable(Resource.Drawable.baseicon);
+                animation.AddFrame(drawable, duration);
+            }
+
+            return animation;
+        }
+    }
 
 	public class BunnyMasterSprite
 	{
@@ -63,6 +84,7 @@ namespace Fluffle.AndroidApp
 		public void Inflate() {
 			string urlStr = Server.SpriteImagePath + spriteKey + ".png";
             masterImage = BitmapHelper.GetImageBitmapFromUrl(urlStr);
+            
 			
 
 			idleState = new BunnyStateSprite ();
@@ -89,12 +111,13 @@ namespace Fluffle.AndroidApp
 		public List<Bitmap>	MakeImageList (Bitmap stateImageMap, int xOffset, int yOffset, int numFrames) {
 			List<Bitmap>	imageList = new List<Bitmap> ();
 			xOffset *= kSpriteSize;
+            yOffset *= kSpriteSize;
 
 			for (int i = 0; i < numFrames; i++) {
                 Bitmap curFrame = CropImage (stateImageMap, xOffset, yOffset, kSpriteSize, kSpriteSize);
-				imageList.Add(curFrame);
+                imageList.Add(curFrame);
 				yOffset += kSpriteSize;
-			}
+            }
 
 			return imageList;
 		}
@@ -106,7 +129,7 @@ namespace Fluffle.AndroidApp
             Bitmap newBitmap = Bitmap.CreateBitmap(width, height, config);
             Canvas canvas = new Canvas(newBitmap);
             Rect destRect = new Rect(0, 0, width, height);
-            Rect srcRect = new Rect(crop_x, crop_y, width, height);
+            Rect srcRect = new Rect(crop_x, crop_y, crop_x+width, crop_y+height);
             Paint thePaint = new Paint(PaintFlags.AntiAlias);
             canvas.DrawBitmap(sourceImage, srcRect, destRect, thePaint);
             return newBitmap;
@@ -116,10 +139,10 @@ namespace Fluffle.AndroidApp
 
 	public class SpriteManager
 	{
-		public static Dictionary<string, BunnyMasterSprite>	spriteMap;
+        public static Dictionary<string, BunnyMasterSprite>	spriteMap;
 
 		public static void Initialize() {
-			// load in the base sprite
+            // load in the base sprite
 			spriteMap = new Dictionary<string, BunnyMasterSprite> ();
 		}
 
@@ -140,10 +163,10 @@ namespace Fluffle.AndroidApp
 			return sprite;
 		}
 
-		public static Bitmap[] GetImageList(Bunny theBuns, string stateStr, string dir) {
+		public static AnimationDrawable GetImageList(Bunny theBuns, string stateStr, string dir) {
 			BunnyMasterSprite theSprite = LoadSprite (theBuns);
 			BunnyStateSprite theStateSprite = null;
-            Bitmap[] theImageList = null;
+            AnimationDrawable theImageList = null;
 
 			switch (stateStr) {
 			case "idle":

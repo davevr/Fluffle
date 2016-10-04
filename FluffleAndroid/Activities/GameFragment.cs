@@ -16,6 +16,7 @@ using System.Timers;
 using ZXing.Mobile;
 using Android.Graphics;
 using Android.Views.Animations;
+using Android.Graphics.Drawables;
 
 
 namespace Fluffle.AndroidApp
@@ -25,7 +26,7 @@ namespace Fluffle.AndroidApp
 		public MainActivity MainPage { get; set;}
         private bool givingCarrot = false;
         private List<BunnyGraphic> _bunnyGraphicList = new List<BunnyGraphic>();
-        private static int _bunBaseSize = 48;
+        private static int _bunBaseSize = 32;
         private static int _bunSizePerLevel = 8;
         private static int kBunnyHopChance = 100;
         private static int kVerticalHopMin = 4;
@@ -39,12 +40,16 @@ namespace Fluffle.AndroidApp
         private Bunny _currentBuns = null;
         private bool inited = false;
         private Timer _idleTimer = new Timer();
+        private int margin = 200;
+        private float fieldXScale;
+        private float fieldYScale;
 
         private FrameLayout field;
         private LinearLayout detailView;
         private TextView bunnyNameLabel;
         private TextView bunnyDescLabel;
         private ProgressBar progressBar;
+        private TextView progressLabel;
         private Button feedBtn;
         private Button tossBtn;
         private Button sellBtn;
@@ -73,6 +78,7 @@ namespace Fluffle.AndroidApp
             bunnyNameLabel = view.FindViewById<TextView>(Resource.Id.bunnyNameLabel);
             bunnyDescLabel = view.FindViewById<TextView>(Resource.Id.bunnyDescLabel);
             progressBar = view.FindViewById<ProgressBar>(Resource.Id.feedProgressBar);
+            progressLabel = view.FindViewById<TextView>(Resource.Id.progressLabel);
             feedBtn = view.FindViewById<Button>(Resource.Id.FeedBtn);
             tossBtn = view.FindViewById<Button>(Resource.Id.TossBunnyBtn);
             sellBtn = view.FindViewById<Button>(Resource.Id.SellBunnyBtn);
@@ -92,8 +98,15 @@ namespace Fluffle.AndroidApp
             adoptBunnyBtn.Click += AdoptBunnyBtn_Click;
 
             bunnyNameLabel.Click += BunnyNameLabel_Click;
+            field.Click += Field_Click;
+            field.SetBackgroundResource(Resource.Drawable.grass);
             return view;
 		}
+
+        private void Field_Click(object sender, EventArgs e)
+        {
+            SetCurrentBunny(null);
+        }
 
         private void BunnyNameLabel_Click(object sender, EventArgs e)
         {
@@ -144,19 +157,31 @@ namespace Fluffle.AndroidApp
         public override void OnStart()
         {
             base.OnStart();
-            InitFirstGame();
+            View.ViewTreeObserver.GlobalLayout += ViewTreeObserver_GlobalLayout;
+            
         }
+
+        private void ViewTreeObserver_GlobalLayout(object sender, EventArgs e)
+        {
+            View.ViewTreeObserver.GlobalLayout -= ViewTreeObserver_GlobalLayout;
+            View.Post(() =>
+            {
+                InitFirstGame();
+            });
+        }
+
         public void InitFirstGame()
         {
             // todo - populate the bunnies!
+
+            
             InitGame();
 
             UpdateScore();
 
-            CheckForNewBunnies();
+           CheckForNewBunnies();
             CheckForRecentPurchase();
 
-            DoBunnyHop(_bunnyGraphicList[0]);
         }
 
         private void MaybeSellBunny()
@@ -288,78 +313,65 @@ namespace Fluffle.AndroidApp
             });
         }
 
-        private void HandleBunnyTap()
-        {
-            // todo 
-        }
 
         public void DoPetBunny()
         {
             HappyBuns(this._currentBuns);
         }
 
-        public void HappyBuns(Bunny whichBuns)
+        public void HappyBuns(Bunny thebuns)
         {
-            bool superHappy = whichBuns.IncrementHappiness();
-            Server.RecordPetBunny(whichBuns);
+            bool superHappy = thebuns.IncrementHappiness();
+            Server.RecordPetBunny(thebuns);
 
-            BunnyGraphic theGraphic = _bunnyGraphicList.Find(b => b.LinkedBuns == whichBuns);
+            BunnyGraphic theGraphic = _bunnyGraphicList.Find(b => b.LinkedBuns == thebuns);
 
-            /*
-            nfloat baseX = theGraphic.Horizontal.Constant;
-            nfloat baseY = theGraphic.Vertical.Constant;
 
-            UIImageView heartImage = new UIImageView(new CGRect(100, 100, 24, 24));
-            heartImage.Image = UIImage.FromBundle("heart");
-            PlayfieldView.AddSubview(heartImage);
-            heartImage.TranslatesAutoresizingMaskIntoConstraints = false;
-            NSLayoutConstraint csWidth = NSLayoutConstraint.Create(heartImage, NSLayoutAttribute.Width, NSLayoutRelation.Equal,
-                                            null, NSLayoutAttribute.NoAttribute, 1, 24);
-            csWidth.Active = true;
+            float bunsSizeBase = (float)BunnySizeForLevel(thebuns.BunnySize);
+            double nextLevelSize = BunnySizeForLevel(thebuns.BunnySize + 1);
+            float deltaSize = (float)((nextLevelSize - bunsSizeBase) * thebuns.Progress);
+            var heartImage = new ImageView(this.Context);
+            field.AddView(heartImage);
+            heartImage.SetImageResource(Resource.Drawable.heart);
 
-            NSLayoutConstraint csHeight = NSLayoutConstraint.Create(heartImage, NSLayoutAttribute.Height, NSLayoutRelation.Equal,
-                null, NSLayoutAttribute.NoAttribute, 1, 24);
-            csHeight.Active = true;
-            NSLayoutConstraint csHorizontal = NSLayoutConstraint.Create(heartImage, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal,
-                PlayfieldView, NSLayoutAttribute.Left, 1, baseX);
-            csHorizontal.Active = true;
-            NSLayoutConstraint csVertical = NSLayoutConstraint.Create(heartImage, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal,
-                PlayfieldView, NSLayoutAttribute.Top, 1, baseY);
-            csVertical.Active = true;
-            heartImage.AddConstraint(csHeight);
-            heartImage.AddConstraint(csWidth);
-            PlayfieldView.AddConstraint(csHorizontal);
-            PlayfieldView.AddConstraint(csVertical);
-            heartImage.UpdateConstraints();
-            PlayfieldView.UpdateConstraints();
+            FrameLayout.LayoutParams layout = new FrameLayout.LayoutParams(24, 24);
+            float xLoc, yLoc, endX;
 
-            heartImage.Hidden = false;
-            heartImage.Layer.Opacity = 1;
-            heartImage.Layer.ZPosition = 10000;
-            PlayfieldView.LayoutIfNeeded();
+            layout.Width = 24;
+            layout.Height = 24;
+            xLoc = theGraphic.Button.Left + theGraphic.Button.Width / 2 - 12; ;
+            yLoc = theGraphic.Button.Top + theGraphic.Button.Height / 2;
+            layout.LeftMargin = (int)xLoc;
+            layout.TopMargin = (int)yLoc;
 
-            UIView.Animate(1, () =>
+            heartImage.LayoutParameters = layout;
+
+
+            AnimationSet animateHeart = new AnimationSet(true);
+            ScaleAnimation scaleAnimation = new ScaleAnimation(1, 10, 1, 10, 12, 12);
+            scaleAnimation.Duration = 1000;
+            animateHeart.AddAnimation(scaleAnimation);
+            TranslateAnimation transAnimation = new TranslateAnimation(0, 0, 0,  - 400);
+            transAnimation.Duration = 1000;
+            animateHeart.AddAnimation(transAnimation);
+            AlphaAnimation alpha = new AlphaAnimation(1, 0);
+            alpha.Duration = 1000;
+            animateHeart.AddAnimation(alpha);
+            animateHeart.Interpolator = new AccelerateInterpolator(2);
+            animateHeart.FillAfter = false;
+            animateHeart.AnimationEnd += (s, e) =>
             {
-                csVertical.Constant = baseY - 128;
-                heartImage.Layer.Opacity = 0;
-                csHeight.Constant = 64;
-                csWidth.Constant = 64;
-                PlayfieldView.LayoutIfNeeded();
-            }, () =>
-            {
-                InvokeOnMainThread(() =>
+
+                Activity.RunOnUiThread(() =>
                 {
-                    heartImage.Hidden = true;
-                    heartImage.Layer.Opacity = 1;
-                    heartImage.RemoveFromSuperview();
-                    PlayfieldView.RemoveConstraint(csHorizontal);
-                    PlayfieldView.RemoveConstraint(csVertical);
-                    heartImage.RemoveConstraint(csWidth);
-                    heartImage.RemoveConstraint(csHeight);
-                    heartImage.Dispose();
+                    heartImage.Post(() =>
+                    {
+                        field.RemoveView(heartImage);
+                    });
+                    
                 });
-            });
-            */
+            };
+            heartImage.StartAnimation(animateHeart);
         }
 
         public void ShowRenameBunny()
@@ -428,17 +440,12 @@ namespace Fluffle.AndroidApp
         private ImageView AddBunnyToScreen(Bunny thebuns)
         {
             ImageView bunsBtn = new ImageView(this.Context);
-
             field.AddView(bunsBtn);
+            AnimationDrawable imgList = SpriteManager.GetImageList(thebuns, "idle", "front");
+            bunsBtn.SetAdjustViewBounds(false);
             
-            Bitmap[] imgList = SpriteManager.GetImageList(thebuns, "idle", "front");
-            bunsBtn.SetImageBitmap(imgList[0]);
+            bunsBtn.SetImageDrawable(imgList);
             bunsBtn.Click += BunsBtn_Click;
-
-            FrameLayout.LayoutParams newParams = new FrameLayout.LayoutParams(32, 32);
-            newParams.LeftMargin = 0;
-            newParams.TopMargin = 0;
-            bunsBtn.LayoutParameters = newParams;
 
             BunnyGraphic graphic = new BunnyGraphic();
             graphic.BunnyState = 1;
@@ -446,17 +453,26 @@ namespace Fluffle.AndroidApp
             graphic.LinkedBuns = thebuns;
             _bunnyGraphicList.Add(graphic);
 
-
-            // todo:  add click on bunny method  
             UpdateBunsSizeAndLocation(thebuns);
+
             field.BringChildToFront(bunsBtn);
-            DoBunnyHop(graphic);
+            imgList.Start();
+            field.RequestLayout();
             return bunsBtn;
         }
 
         private void BunsBtn_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            ImageView bunsBtn = sender as ImageView;
+            if(bunsBtn != null)
+            {
+                var theBuns = _bunnyGraphicList.Find(b => b.Button == bunsBtn);
+
+                if (_currentBuns != theBuns.LinkedBuns)
+                    SetCurrentBunny(theBuns.LinkedBuns);
+                else
+                    DoPetBunny();
+            }
         }
 
         private void UpdateBunsSizeAndLocation(Bunny thebuns)
@@ -465,33 +481,29 @@ namespace Fluffle.AndroidApp
 
             if (theGraphic != null)
             {
-                Activity.RunOnUiThread(() => {
-                    Rect bounds = new Rect(0, 0, field.Width, field.Height);
-                    float xScale = bounds.Width() / 200;
-                    float yScale = bounds.Height() / 200;
-                    float newY = (thebuns.VerticalLoc + 100) * yScale;
-                    float bunsSizeBase = (float)BunnySizeForLevel(thebuns.BunnySize);
-                    double nextLevelSize = BunnySizeForLevel(thebuns.BunnySize + 1);
-                    float deltaSize = (float)((nextLevelSize - bunsSizeBase) * thebuns.Progress);
-                    // todo:  z-order the views
-                    float scale = 0.5f + 0.4f * (((float)thebuns.VerticalLoc + 100) / (float)200);
+                
+                float bunsSizeBase = (float)BunnySizeForLevel(thebuns.BunnySize);
+                double nextLevelSize = BunnySizeForLevel(thebuns.BunnySize + 1);
+                float deltaSize = (float)((nextLevelSize - bunsSizeBase) * thebuns.Progress);
+                // todo:  z-order the views
+                float scale = 0.5f + 0.4f * (((float)thebuns.VerticalLoc + 100) / (float)200);
+                var theView = theGraphic.Button;
+                float newWidth = (bunsSizeBase + deltaSize) * fieldXScale;
+                float newHeight = bunsSizeBase * fieldXScale;
+                newWidth *= scale;
+                newHeight *= scale;
+                float newX = (thebuns.HorizontalLoc + 100) * fieldXScale + margin - (newWidth / 2);
+                float newY = (thebuns.VerticalLoc + 100) * fieldYScale + margin;
 
-                    // animate to the new location
-                    AnimationSet newAnimation = new AnimationSet(true);
-                    TranslateAnimation a = new TranslateAnimation(Dimension.RelativeToSelf, 0, Dimension.Absolute, (thebuns.HorizontalLoc + 100) * xScale,
-                        Dimension.RelativeToSelf, 0, Dimension.Absolute, newY);
-                    a.Duration = 100;
-                    newAnimation.AddAnimation(a);
-
-                    ScaleAnimation s = new ScaleAnimation(1, 1, scale, scale);
-                    s.Duration = 100;
-                    newAnimation.AddAnimation(s);
-                    newAnimation.FillAfter = true;
-                    theGraphic.Button.StartAnimation(newAnimation);
-
-                    
-
-                });
+                // animate to the new location
+                var layout = new FrameLayout.LayoutParams((int)newWidth, (int)newHeight);
+                layout.Width = (int)newWidth;
+                layout.Height = (int)newHeight;
+                layout.LeftMargin = (int)newX;
+                layout.TopMargin = (int)newY;
+                theView.LayoutParameters = layout;
+                
+                theView.RequestLayout();
             }
         }
 
@@ -510,6 +522,11 @@ namespace Fluffle.AndroidApp
                 Game.NewPlayerLoaded = false;
                 Activity.RunOnUiThread(() =>
                 {
+                    SpriteManager.Initialize();
+                    // init the field
+                    fieldXScale = (float)(field.Width - (margin * 2)) / 200;
+                    fieldYScale = (float)(field.Height - (margin * 3)) / 200;
+                    
                     CarrotImg.Visibility = ViewStates.Gone;
                     // ad bunnies
                     foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies)
@@ -564,13 +581,14 @@ namespace Fluffle.AndroidApp
         {
             Activity.RunOnUiThread(() => 
             {
-                Bitmap[] imgList = SpriteManager.GetImageList(theBuns, "idle", "front");
+                AnimationDrawable imgList = SpriteManager.GetImageList(theBuns, "idle", "front");
                 ImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
 
                 if (bunBtn != null)
                 {
                     field.BringChildToFront(bunBtn);
-                    bunBtn.SetImageBitmap(imgList[0]);
+                    bunBtn.SetImageDrawable(imgList);
+                    imgList.Start();
                 }
             });
         }
@@ -615,8 +633,11 @@ namespace Fluffle.AndroidApp
                         nameStr = Resource.String.Unamed_Bunny.Localize();
                     bunnyNameLabel.Text = nameStr;
                     bunnyDescLabel.Text = _currentBuns.Description;
-                    progressBar.Max = _currentBuns.CarrotsForNextSize(_currentBuns.BunnySize);
-                    progressBar.Progress = _currentBuns.FeedState;
+                    var current = _currentBuns.FeedState;
+                    var max = _currentBuns.CarrotsForNextSize(_currentBuns.BunnySize);
+                    progressBar.Max = max;
+                    progressBar.Progress = current;
+                    progressLabel.Text = string.Format("{0}/{1}", current, max);
                 });
             }
         }
@@ -641,12 +662,17 @@ namespace Fluffle.AndroidApp
 
         private void StartTimers()
         {
-            _idleTimer.Interval = 500;
-            _idleTimer.AutoReset = false;
-            _idleTimer.Elapsed += (object sender, ElapsedEventArgs e) => {
-                MaybeBunniesHop();
-            };
-            _idleTimer.Start();
+            View.Post(() =>
+            {
+                _idleTimer.Interval = 500;
+                _idleTimer.AutoReset = false;
+                _idleTimer.Elapsed += (object sender, ElapsedEventArgs e) =>
+                {
+                    MaybeBunniesHop();
+                };
+                _idleTimer.Start();
+            });
+            
         }
 
         private void MaybeBunniesHop()
@@ -655,7 +681,7 @@ namespace Fluffle.AndroidApp
             {
                 int whichBunny = Game.Rnd.Next(_bunnyGraphicList.Count);
                 BunnyGraphic bunsGraphic = _bunnyGraphicList[whichBunny];
-                if ((bunsGraphic.LinkedBuns == _currentBuns) && givingCarrot)
+                if ((bunsGraphic.LinkedBuns == _currentBuns) )//&& givingCarrot)
                 {
                     // don't jump when eating
                     _idleTimer.Start();
@@ -675,9 +701,9 @@ namespace Fluffle.AndroidApp
             int dir = Game.Rnd.Next(8);
             int xDif = 0, yDif = 0;
             int verticalHop = Game.Rnd.Next(kVerticalHopMin, kVerticalHopMax);
-            int horizontalHop = Game.Rnd.Next(kHorizontalHopMin, kHorizontalHopMax);
-            Bitmap[] bunnyJumpImageFrames = null;
-            Bitmap[] bunnyIdleImageFrames = null;
+            int horizontalHop =  Game.Rnd.Next(kHorizontalHopMin, kHorizontalHopMax);
+            AnimationDrawable bunnyJumpImageFrames = null;
+            AnimationDrawable bunnyIdleImageFrames = null;
             bool flip = false;
 
             switch (dir)
@@ -738,7 +764,7 @@ namespace Fluffle.AndroidApp
 
 
             Activity.RunOnUiThread(() => {
-                float scale = 0.5f + (0.5f * (((float)buns.LinkedBuns.VerticalLoc + 100) / 200));
+                float scale = 1;// 0.5f + (0.5f * (((float)buns.LinkedBuns.VerticalLoc + 100) / 200));
                 xDif = (int)((float)xDif * scale);
                 yDif = (int)((float)yDif * scale);
 
@@ -754,47 +780,58 @@ namespace Fluffle.AndroidApp
                     newY = kMinHeight;
                 else if (newY > kMaxHeight)
                     newY = kMaxHeight;
-
-                scale = 0.5f + (0.5f * ((newY + 100) / 200));
-
+                
                 if (flip)
                     buns.Button.RotationY = 180;
                 else
                     buns.Button.RotationY = 0;
-
+ 
                 BunnyHopToNewLoc(buns, dir, newX, newY, bunnyJumpImageFrames, bunnyIdleImageFrames);
+
             });
         }
 
-        private void BunnyHopToNewLoc(BunnyGraphic buns, int dir, float newX, float newY, Bitmap[] jumpFrames, Bitmap[] idleFrames)
+        private void BunnyHopToNewLoc(BunnyGraphic buns, int dir, float theX, float theY, AnimationDrawable jumpFrames, AnimationDrawable idleFrames)
         {
-            Rect bounds = new Rect(0, 0, field.Width, field.Height);
-            float xScale = bounds.Width() / 200;
-            float yScale = bounds.Height() / 200;
+            
+            buns.Button.SetImageDrawable(jumpFrames);
+            jumpFrames.OneShot = false;
+            jumpFrames.Start();
 
-            Activity.RunOnUiThread(() => {
 
-                buns.Button.SetImageBitmap(jumpFrames[0]);
-                // todo: animate bunny
-            });
-            AnimationSet animation = new AnimationSet(true);
-            TranslateAnimation ta = new TranslateAnimation(Dimension.RelativeToSelf, 0, Dimension.RelativeToSelf, 0,
-                Dimension.Absolute, (newX + 100) * xScale, Dimension.Absolute, (newY + 100) * yScale);
+            float bunsSizeBase = (float)BunnySizeForLevel(buns.LinkedBuns.BunnySize);
+            double nextLevelSize = BunnySizeForLevel(buns.LinkedBuns.BunnySize + 1);
+            float deltaSize = (float)((nextLevelSize - bunsSizeBase) * buns.LinkedBuns.Progress);
+            // todo:  z-order the views
+            float scale = 0.5f + 0.4f * (((float)theY + 100) / (float)200);
+            float newWidth = ((float)nextLevelSize + deltaSize) * fieldXScale;
+            float newHeight = (float)nextLevelSize * fieldXScale;
+            float newX = (theX + 100) * fieldXScale + margin - (newWidth / 2);
+            float newY = (theY + 100) * fieldYScale + margin - (newHeight / 2);
 
-            ta.Duration = 500;
-            animation.AnimationEnd += (s, e) =>
+            // animate to the new location
+            var theView = buns.Button;
+            AnimationSet newAnimation = new AnimationSet(true);
+            MoveResizeAnimation a = new MoveResizeAnimation(theView, (int)newX, (int)newY, (int)(newWidth * scale), (int)(newHeight * scale));
+            //MoveAnimation a = new MoveAnimation(theView, (int)newX, (int)newY);
+
+            a.Duration = 500;
+            newAnimation.AddAnimation(a);
+            newAnimation.FillAfter = true;
+            newAnimation.AnimationEnd += (s, e) =>
             {
                 Activity.RunOnUiThread(() =>
                 {
-                    buns.Button.SetImageBitmap(idleFrames[0]);
+                    buns.Button.SetImageDrawable(idleFrames);
+                    idleFrames.Start();
                     // todo - fix zorder after bunny jump
-                    buns.LinkedBuns.UpdateLocation((int)newX, (int)newY);
+                    buns.LinkedBuns.UpdateLocation((int)theX, (int)theY);
                     _idleTimer.Start();
                     CheckBunnyBreeding();
                 });
             };
-            animation.FillAfter = true;
-            buns.Button.StartAnimation(animation);
+            theView.StartAnimation(newAnimation);
+            
         }
 
         private void CheckBunnyBreeding()
@@ -869,14 +906,15 @@ namespace Fluffle.AndroidApp
                     CarrotImg.Visibility = ViewStates.Visible;
                     field.BringChildToFront(CarrotImg);
                     UpdateScore();
-                    Bitmap[] imageList = SpriteManager.GetImageList(theBuns, "idle", "front");
+                    AnimationDrawable imageList = SpriteManager.GetImageList(theBuns, "idle", "front");
                     ImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
 
                     if (bunBtn != null)
                     {
                         field.BringChildToFront(bunBtn);
-                       
-                        bunBtn.SetImageBitmap(imageList[0]);
+
+                        bunBtn.SetImageDrawable(imageList);
+                        imageList.Start();
                         bool grew = Game.CurrentPlayer.FeedBunny(theBuns);
                         AnimateBunsSizeAndLocation(theBuns, grew);
                     }
@@ -897,21 +935,24 @@ namespace Fluffle.AndroidApp
                 double nextLevelSize = BunnySizeForLevel(thebuns.BunnySize + 1);
                 float deltaSize = (float)((nextLevelSize - bunsSizeBase) * thebuns.Progress);
                 CarrotImg.Alpha = 1;
+                CarrotImg.Visibility = ViewStates.Visible;
 
-                FrameLayout.LayoutParams layout = new FrameLayout.LayoutParams(96, 96);
-                layout.LeftMargin = theGraphic.Button.Left + theGraphic.Button.Width / 2;
-                layout.TopMargin = theGraphic.Button.Top + theGraphic.Button.Height / 2;
+                FrameLayout.LayoutParams layout = new FrameLayout.LayoutParams(300,300);
+                layout.Width = 300;
+                layout.Height = 300;
+                layout.LeftMargin = theGraphic.Button.Left + theGraphic.Button.Width / 2 - 150;
+                layout.TopMargin = theGraphic.Button.Top - theGraphic.Button.Height / 2;
 
                 CarrotImg.LayoutParameters = layout;
 
-                double duration = 0;
+                int duration = 0;
                 if (grew)
-                    duration = 4;
+                    duration = 4000;
 
                 AnimationSet animateCarrot = new AnimationSet(true);
-                ScaleAnimation scale = new ScaleAnimation(1, 1, 0, 0);
-                scale.Duration = 1000;
-                animateCarrot.AddAnimation(scale);
+                ScaleAnimation scaleAnimation = new ScaleAnimation(1, 0, 1, 0, 150, 150);
+                scaleAnimation.Duration = 1000;
+                animateCarrot.AddAnimation(scaleAnimation);
                 AlphaAnimation alpha = new AlphaAnimation(1, 0);
                 alpha.Duration = 1000;
                 animateCarrot.AddAnimation(alpha);
@@ -925,22 +966,26 @@ namespace Fluffle.AndroidApp
 
                         // now animate the bunny growing
                         AnimationSet sizeAnimator = new AnimationSet(true);
-                        /*
-                        ViewPropertyAnimator
-                        UIView.Animate(duration, () => {
-                            theGraphic.Height.Constant = bunsSizeBase;
-                            theGraphic.Width.Constant = bunsSizeBase + deltaSize;
-                            PlayfieldView.LayoutIfNeeded();
-                        }, () => {
-                            InvokeOnMainThread(() => {
-                                UpdateBunsSizeAndLocation(thebuns);
+                        float scale = 0.5f + 0.4f * (((float)thebuns.VerticalLoc + 100) / (float)200);
+                        float newWidth = (bunsSizeBase + deltaSize) * fieldXScale;
+                        float newHeight = bunsSizeBase * fieldXScale;
+                        newWidth *= scale;
+                        newHeight *= scale;
+                        var resizer = new ResizeAnimation(theGraphic.Button, (int)newWidth, (int)newHeight);
+                        sizeAnimator.AddAnimation(resizer);
+                        resizer.Duration = duration;
+                        sizeAnimator.FillAfter = true;
+                        sizeAnimator.AnimationEnd += (source, evnt) =>
+                        {
+                            Activity.RunOnUiThread(() => 
+                            {
+                                //UpdateBunsSizeAndLocation(thebuns);
                                 UpdateBunnyPanel();
                                 givingCarrot = false;
-                                FeedBunnyBtn.Enabled = true;
+                                feedBtn.Enabled = true;
                             });
-                        });
-                        */
-
+                        };
+                        theGraphic.Button.StartAnimation(sizeAnimator);
                     });
                 };
                 CarrotImg.StartAnimation(animateCarrot);

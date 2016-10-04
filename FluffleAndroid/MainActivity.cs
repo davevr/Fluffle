@@ -26,7 +26,7 @@ using Fluffimax.Core;
 
 namespace Fluffle.AndroidApp
 {
-    [Activity(Label = "Fluffle", MainLauncher = true, Icon = "@mipmap/icon",
+    [Activity(Label = "Fluffle", MainLauncher = true, Icon = "@drawable/baseicon",
              Theme = "@style/Theme.AppCompat.Light", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait,
         LaunchMode = Android.Content.PM.LaunchMode.SingleTop)]
     public class MainActivity : Android.Support.V7.App.AppCompatActivity
@@ -163,7 +163,7 @@ namespace Fluffle.AndroidApp
                 if (isAlive)
                 {
                     Server.IsOnline = true;
-                    SpriteManager.Initialize();
+                    //SpriteManager.Initialize();
                     Game.InitBunnyStore();
                     Game.InitGrowthChart();
 

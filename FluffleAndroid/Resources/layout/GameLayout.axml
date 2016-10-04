@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:id="@+id/grassView"
         android:layout_marginTop="150dp"
-        android:background="@drawable/grass">
+        android:background="#00FF00">
         <ImageView
             android:id="@+id/CarrotImage"
             android:layout_width="128dp"
