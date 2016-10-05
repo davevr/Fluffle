@@ -3,14 +3,20 @@
     android:orientation="vertical"
     android:layout_width="150dp"
     android:layout_height="200dp"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@color/Fluffle_white">
     <TextView
         android:id="@+id/priceTag"
-        android:text="1234 carrots"
-        android:textColor="#FFFFFF"
-        android:background="#0000FF"
+        android:text="1234 c"
+        android:textColor="#ff000000"
+        android:background="#00FF00"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:paddingTop="2dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="4dp" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -27,13 +33,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/bunnyNameLabel"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            android:textColor="@color/Fluffle_blue" />
         <TextView
             android:text="A large male Holland Lop with brown fur and green eyes"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/bunnyDescLabel"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            android:textColor="@color/Fluffle_black" />
     </LinearLayout>
 </FrameLayout>
