@@ -23,17 +23,11 @@ namespace Fluffle.AndroidApp
 	{
 		private TextView filterHeader;
 		private LinearLayout filterDetails;
-		private TextView breedLabel;
 		private Button breedChoiceBtn;
-		private TextView sizeLabel;
 		private Button sizeChoiceBtn;
-		private TextView genderLabel;
 		private Button genderChoiceBtn;
-		private TextView furLabel;
 		private Button furChoiceBtn;
-		private TextView eyeLabel;
 		private Button eyeChoiceBtn;
-		private TextView priceLabel;
 		private Button priceChoiceBtn;
 		private GridView resultGrid;
 		private BunnyListAdapter adapter;
@@ -57,17 +51,17 @@ namespace Fluffle.AndroidApp
 
 			filterHeader = FindViewById<TextView>(Resource.Id.filterHeader);
 			filterDetails = FindViewById<LinearLayout>(Resource.Id.FilterDetails);
-			breedLabel = FindViewById<TextView>(Resource.Id.breedLabel);
+
 			breedChoiceBtn = FindViewById<Button>(Resource.Id.breedChoiceBtn);
-			sizeLabel = FindViewById<TextView>(Resource.Id.sizeLabel);
+
 			sizeChoiceBtn = FindViewById<Button>(Resource.Id.sizeChoiceBtn);
-			genderLabel = FindViewById<TextView>(Resource.Id.genderLabel);
+
 			genderChoiceBtn = FindViewById<Button>(Resource.Id.genderChoiceBtn);
-			furLabel = FindViewById<TextView>(Resource.Id.furLabel);
+
 			furChoiceBtn = FindViewById<Button>(Resource.Id.furChoiceBtn);
-			eyeLabel = FindViewById<TextView>(Resource.Id.eyeLabel);
+
 			eyeChoiceBtn = FindViewById<Button>(Resource.Id.eyeChoiceBtn);
-			priceLabel = FindViewById<TextView>(Resource.Id.priceLabel);
+
 			priceChoiceBtn = FindViewById<Button>(Resource.Id.priceChoiceBtn);
 			resultGrid = FindViewById<GridView>(Resource.Id.resultGrid);
 			filterBtn = FindViewById<Button>(Resource.Id.filterBtn);
