@@ -47,7 +47,7 @@ namespace Fluffle.AndroidApp
 		private List<string> furChoices;
 		private List<string> eyeChoices;
 		private List<string> priceChoices;
-
+        private Bunny pendingBunny = null;
 		private List<Bunny> storeList;
 
 		protected override void OnCreate(Bundle savedInstanceState)
@@ -175,23 +175,68 @@ namespace Fluffle.AndroidApp
 				.Show();
 		}
 
-		void ResultGrid_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+
+        void ResultGrid_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
 		{
 			Bunny theBuns = adapter.allItems[e.Position];
-			new Android.Support.V7.App.AlertDialog.Builder(this)
-					   .SetTitle("Adopt Bunny")
-					   .SetMessage(string.Format("Adopt this cute bunny for {0} carrots?", theBuns.Price))
-					   .SetCancelable(true)
-					   .SetPositiveButton("yes!!!", (ps, pe) => { HandleBuyBunny(theBuns.id); })
-					   .SetNegativeButton("not now", (ns, ne) => { })
-					   .Show();
+            if (Game.CurrentPlayer.carrotCount >= theBuns.Price)
+            {
+                pendingBunny = theBuns;
+                new Android.Support.V7.App.AlertDialog.Builder(this)
+                       .SetTitle(Resource.String.Confirm_Adoption_Title.Localize())
+                       .SetMessage(string.Format(Resource.String.Confirm_Adoption_Prompt.Localize(), theBuns.Price))
+                       .SetCancelable(true)
+                       .SetPositiveButton(Resource.String.Adoption_OK_Btn.Localize(), (ps, pe) => { HandleBuyBunny(theBuns.id); })
+                       .SetNegativeButton(Resource.String.Adoption_Cancel_Btn.Localize(), (ns, ne) => { })
+                       .Show();
+            } else
+            {
+                new Android.Support.V7.App.AlertDialog.Builder(this)
+                       .SetTitle(Resource.String.Adoption_Declined_Title.Localize())
+                       .SetMessage(Resource.String.Adoption_Lack_Funds.Localize())
+                       .SetCancelable(true)
+                       .SetPositiveButton(Resource.String.Adoption_Lack_Funds_Confirm.Localize(), (ps, pe) => {  })
+                       .Show();
+            }
 			                       
 		}
 
 		void HandleBuyBunny(long bunnyId)
 		{
-			//todo - do the actual purchase
-		}
+            if (pendingBunny != null)
+            {
+                if (Game.CurrentPlayer.BuyBunny(pendingBunny))
+                {
+                    Game.BunnyStore.Remove(pendingBunny);
+                    UpdateCarrotCount();
+                    pendingBunny = null;
+                    new Android.Support.V7.App.AlertDialog.Builder(this)
+                       .SetTitle(Resource.String.Adoption_Accepted_Title.Localize())
+                       .SetMessage(Resource.String.Adoption_Worked.Localize())
+                       .SetCancelable(false)
+                       .SetPositiveButton(Resource.String.Adoption_Worked_Btn.Localize(), (ps, pe) => { Finish(); })
+                       .Show();
+                }
+                else
+                {
+                    pendingBunny = null;
+                    new Android.Support.V7.App.AlertDialog.Builder(this)
+                       .SetTitle(Resource.String.Adoption_Declined_Title.Localize())
+                       .SetMessage(Resource.String.Adoption_Failed.Localize())
+                       .SetCancelable(false)
+                       .SetPositiveButton(Resource.String.Adoption_Failed_Btn.Localize(), (ps, pe) => { })
+                       .Show();
+                }
+            }
+        }
+
+        void UpdateCarrotCount()
+        {
+            RunOnUiThread(() =>
+            {
+
+            });
+        }
 
 		void HandlePriceChoice(object sender, EventArgs e)
 		{

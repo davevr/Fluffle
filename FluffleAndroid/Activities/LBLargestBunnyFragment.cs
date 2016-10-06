@@ -33,16 +33,25 @@ namespace Fluffle.AndroidApp
 
 			leaderList = theView.FindViewById<ListView>(Resource.Id.theListView);
 
-			adapter = new LargeBunnyAdapter(this.Activity);
+			
 
-			RefreshListView();
+            Update();
 
 			return theView;
 		}
 
 		public void Update()
 		{
+            Server.GetBunnySizeLB((theList) =>
+            {
+                Activity.RunOnUiThread(() =>
+                {
+                    adapter = new LargeBunnyAdapter(this.Activity, theList);
+                    leaderList.Adapter = adapter;
+                    RefreshListView();
+                });
 
+            });
 		}
 
 		private void RefreshListView()
@@ -51,7 +60,9 @@ namespace Fluffle.AndroidApp
 			{
 				Activity.RunOnUiThread(() =>
 				{
+                    
 					adapter.NotifyDataSetChanged();
+                   
 					leaderList.InvalidateViews();
 				});
 			}
@@ -66,10 +77,10 @@ namespace Fluffle.AndroidApp
 		public List<Bunny> itemList;
 		Activity context;
 
-		public LargeBunnyAdapter(Activity context) : base()
+		public LargeBunnyAdapter(Activity context, List<Bunny> theList) : base()
 		{
 			this.context = context;
-			itemList = new List<Bunny>();
+            itemList = theList;
 		}
 		public override long GetItemId(int position)
 		{
@@ -92,9 +103,46 @@ namespace Fluffle.AndroidApp
 				view = context.LayoutInflater.Inflate(Resource.Layout.LBCellLargestBunny, null);
 			}
 
+            var bunImage = view.FindViewById<ImageView>(Resource.Id.bunnyImage);
+            var bunName = view.FindViewById<TextView>(Resource.Id.bunnyNameText);
+            var playerImage = view.FindViewById<ImageView>(Resource.Id.playerImage);
+            var playerName = view.FindViewById<TextView>(Resource.Id.playerNameText);
+            var bunSize = view.FindViewById<TextView>(Resource.Id.bunnySizeText);
+            var bunProgress = view.FindViewById<TextView>(Resource.Id.sizeText);
+            if (convertView == null)
+            { 
+                bunName.SetTypeface(MainActivity.bodyFace, Android.Graphics.TypefaceStyle.Normal);
+                bunSize.SetTypeface(MainActivity.bodyFace, Android.Graphics.TypefaceStyle.Normal);
+            }
+
+            Bunny curBuns = itemList[position];
+
+            Koush.UrlImageViewHelper.SetUrlDrawable(bunImage, curBuns.GetProfileImage(), Resource.Drawable.baseicon);
+           
+
+            string bunnyURL = curBuns.GetProfileImage();
+
+            bunName.Text = string.IsNullOrEmpty(curBuns.BunnyName) ? "Unnamed bunny" : curBuns.BunnyName;
+
+            bunSize.Text = Bunny.SizeString(curBuns.BunnySize);
+            bunProgress.Text = string.Format("{0}/{1}", curBuns.FeedState, curBuns.CarrotsForNextSize(curBuns.BunnySize));
 
 
-			return view;
+            if (curBuns.CurrentOwner == 0)
+            {
+                // no owner
+                playerName.Text = "no owner";
+                playerImage.Visibility = ViewStates.Invisible;
+            }
+            else
+            {
+                playerName.Text = string.IsNullOrEmpty(curBuns.CurrentOwnerName) ? "unknown" : curBuns.CurrentOwnerName;
+                playerImage.Visibility = ViewStates.Visible;
+                Koush.UrlImageViewHelper.SetUrlDrawable(playerImage, curBuns.CurrentOwnerImg, Resource.Drawable.unknown_user);
+                
+            }
+
+            return view;
 		}
 	}
 }

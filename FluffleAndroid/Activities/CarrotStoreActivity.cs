@@ -199,7 +199,8 @@ namespace Fluffle.AndroidApp
 
 					if (titleItem != null && infoItem != null)
 					{
-						titleItem.Text = string.Format("{0} - {1}", curProd.Title, curProd.Price);
+                        var titleText = curProd.Title.Substring(0, curProd.Title.IndexOf(" ("));
+						titleItem.Text = string.Format("{0} - {1}", titleText, curProd.Price);
 						infoItem.Text = curProd.Description;
 					}
 

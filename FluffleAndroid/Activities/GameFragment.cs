@@ -124,6 +124,12 @@ namespace Fluffle.AndroidApp
             else
             {
                 //HomeViewController.ShowMessageBox("Adoption_Agency".Localize(), "Too_Many_Bunnies".Localize(), "Too_Many_Bunnies_Btn".Localize());
+                new Android.Support.V7.App.AlertDialog.Builder(this.Activity)
+                       .SetTitle(Resource.String.Adoption_Agency.Localize())
+                       .SetMessage(Resource.String.Too_Many_Bunnies.Localize())
+                       .SetCancelable(true)
+                       .SetPositiveButton(Resource.String.Too_Many_Bunnies_Btn.Localize(), (ps, pe) => { })
+                       .Show();
             }
         }
 

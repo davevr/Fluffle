@@ -18,9 +18,12 @@
         android:id="@+id/subtitle"
         android:layout_margin="8dp" />
     <ListView
+      xmlns:tools="http://schemas.android.com/tools"
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/LBCellLargestBunny"
         android:id="@+id/theListView" />
 </LinearLayout>
