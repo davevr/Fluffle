@@ -22,7 +22,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/bunnyNameText" />
+            android:id="@+id/bunnyNameText"
+            android:textColor="@color/Fluffle_green" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -30,15 +31,16 @@
             android:id="@+id/linearLayout3">
             <ImageView
                 android:src="@android:drawable/ic_menu_gallery"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:id="@+id/playerImage" />
             <TextView
                 android:text="PlayerName"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/playerNameText"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textColor="@color/Fluffle_black" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -47,18 +49,21 @@
         android:minHeight="25px"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/linearLayout2">
+        android:id="@+id/linearLayout2"
+        android:layout_marginRight="8dp">
         <TextView
             android:text="shares"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/bunnySharesText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/Fluffle_blue" />
         <TextView
             android:text="shares"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/sharesText" />
+            android:id="@+id/sharesText"
+            android:textColor="@color/Fluffle_black" />
     </LinearLayout>
 </LinearLayout>

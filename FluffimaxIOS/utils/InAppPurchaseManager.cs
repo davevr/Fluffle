@@ -96,7 +96,7 @@ namespace Fluffimax.iOS {
 
 			Server.RecordPurchase (transaction.Payment.ProductIdentifier, "apple", receiptData, (theResult) => {
 				// true if it did it
-				FinishTransaction (transaction, theResult);
+				FinishTransaction (transaction, theResult > 0);
 			});
 		}
 

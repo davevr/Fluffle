@@ -33,45 +33,56 @@ namespace Fluffle.AndroidApp
 
 			leaderList = theView.FindViewById<ListView>(Resource.Id.theListView);
 
-			adapter = new MostSharesAdapter(this.Activity);
+            Update();
 
-			RefreshListView();
-
-			return theView;
+            return theView;
 		}
 
-		public void Update()
-		{
+        public void Update()
+        {
+            Server.GetPlayerCountLB((theList) =>
+            {
+                Activity.RunOnUiThread(() =>
+                {
+                    adapter = new MostSharesAdapter(this.Activity, theList);
+                    leaderList.Adapter = adapter;
+                    RefreshListView();
+                });
 
-		}
+            });
+        }
 
-		private void RefreshListView()
-		{
-			if (this.View != null)
-			{
-				Activity.RunOnUiThread(() =>
-				{
-					adapter.NotifyDataSetChanged();
-					leaderList.InvalidateViews();
-				});
-			}
-		}
+        private void RefreshListView()
+        {
+            if (this.View != null)
+            {
+                Activity.RunOnUiThread(() =>
+                {
+
+                    adapter.NotifyDataSetChanged();
+
+                    leaderList.InvalidateViews();
+                });
+            }
+        }
 
 
 
-	}
+    }
 
 	public class MostSharesAdapter : BaseAdapter<Player>
 	{
 		public List<Player> itemList;
 		Activity context;
 
-		public MostSharesAdapter(Activity context) : base()
-		{
-			this.context = context;
-			itemList = new List<Player>();
-		}
-		public override long GetItemId(int position)
+		public MostSharesAdapter(Activity context, List<Player> theList) : base()
+        {
+            this.context = context;
+            itemList = theList;
+
+        }
+
+        public override long GetItemId(int position)
 		{
 			return position;
 		}
@@ -93,8 +104,26 @@ namespace Fluffle.AndroidApp
 			}
 
 
+            var playerImage = view.FindViewById<ImageView>(Resource.Id.profileImage);
+            var playerName = view.FindViewById<TextView>(Resource.Id.playerNameText);
+            var dateJoined = view.FindViewById<TextView>(Resource.Id.dateJoinedText);
+            var shareCount = view.FindViewById<TextView>(Resource.Id.shareCountText);
 
-			return view;
+            if (convertView == null)
+            {
+                playerName.SetTypeface(MainActivity.bodyFace, Android.Graphics.TypefaceStyle.Normal);
+                shareCount.SetTypeface(MainActivity.bodyFace, Android.Graphics.TypefaceStyle.Normal);
+            }
+            Player curPlayer = itemList[position];
+
+            playerName.Text = string.IsNullOrEmpty(curPlayer.nickname) ? "unknown" : curPlayer.nickname;
+            dateJoined.Text = string.Format("joined {0}", curPlayer.creationDate.ToShortDateString());
+            Koush.UrlImageViewHelper.SetUrlDrawable(playerImage, curPlayer.userimage, Resource.Drawable.unknown_user);
+
+            shareCount.Text = curPlayer.totalShares.ToString();
+            return view;
+
+            return view;
 		}
 	}
 }

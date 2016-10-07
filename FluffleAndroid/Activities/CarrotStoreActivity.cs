@@ -109,7 +109,7 @@ namespace Fluffle.AndroidApp
 
 		private void BuyItem(string prodIdStr)
 		{
-            Product _selectedProduct = _products[0];//FindProduct(prodIdStr);
+            Product _selectedProduct = _products[0];// FindProduct(prodIdStr);
 
 			_serviceConnection.BillingHandler.BuyProduct(_selectedProduct);
 		}
@@ -220,7 +220,7 @@ namespace Fluffle.AndroidApp
 				// ok, notify the server
 				Server.RecordPurchase(purchase.ProductId, "google", purchaseData, (theResult) =>
 				{
-					if (theResult)
+					if (theResult > 0)
 						UpdateCarrotCount();
 				});
 			}

@@ -33,44 +33,51 @@ namespace Fluffle.AndroidApp
 
 			leaderList = theView.FindViewById<ListView>(Resource.Id.theListView);
 
-			adapter = new MostBunniesAdapter(this.Activity);
-
-			RefreshListView();
+            Update();
 
 			return theView;
 		}
 
-		public void Update()
-		{
+        public void Update()
+        {
+            Server.GetPlayerCountLB((theList) =>
+            {
+                Activity.RunOnUiThread(() =>
+                {
+                    adapter = new MostBunniesAdapter(this.Activity, theList);
+                    leaderList.Adapter = adapter;
+                    RefreshListView();
+                });
 
-		}
+            });
+        }
 
-		private void RefreshListView()
-		{
-			if (this.View != null)
-			{
-				Activity.RunOnUiThread(() =>
-				{
-					adapter.NotifyDataSetChanged();
-					leaderList.InvalidateViews();
-				});
-			}
-		}
+        private void RefreshListView()
+        {
+            if (this.View != null)
+            {
+                Activity.RunOnUiThread(() =>
+                {
 
+                    adapter.NotifyDataSetChanged();
 
+                    leaderList.InvalidateViews();
+                });
+            }
+        }
+    }
 
-	}
-
-	public class MostBunniesAdapter : BaseAdapter<Player>
+    public class MostBunniesAdapter : BaseAdapter<Player>
 	{
 		public List<Player> itemList;
 		Activity context;
 
-		public MostBunniesAdapter(Activity context) : base()
+		public MostBunniesAdapter(Activity context, List<Player> theList) : base()
 		{
 			this.context = context;
-			itemList = new List<Player>();
-		}
+            itemList = theList;
+
+        }
 		public override long GetItemId(int position)
 		{
 			return position;
@@ -91,10 +98,24 @@ namespace Fluffle.AndroidApp
 			{
 				view = context.LayoutInflater.Inflate(Resource.Layout.LBCellMostBunnies, null);
 			}
+            var playerImage = view.FindViewById<ImageView>(Resource.Id.profileImage);
+            var playerName = view.FindViewById<TextView>(Resource.Id.playerNameText);
+            var dateJoined = view.FindViewById<TextView>(Resource.Id.dateJoinedText);
+            var bunCount = view.FindViewById<TextView>(Resource.Id.bunnyCountText);
 
+            if (convertView == null)
+            {
+                playerName.SetTypeface(MainActivity.bodyFace, Android.Graphics.TypefaceStyle.Normal);
+                bunCount.SetTypeface(MainActivity.bodyFace, Android.Graphics.TypefaceStyle.Normal);
+            }
+            Player curPlayer = itemList[position];
 
+            playerName.Text = string.IsNullOrEmpty(curPlayer.nickname) ? "unknown" : curPlayer.nickname;
+            dateJoined.Text = string.Format("joined {0}", curPlayer.creationDate.ToShortDateString());
+            Koush.UrlImageViewHelper.SetUrlDrawable(playerImage, curPlayer.userimage, Resource.Drawable.unknown_user);
 
-			return view;
+            bunCount.Text = curPlayer.totalBunnies.ToString();
+            return view;
 		}
 	}
 }

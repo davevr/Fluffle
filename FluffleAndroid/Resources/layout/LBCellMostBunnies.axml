@@ -19,12 +19,14 @@
         android:id="@+id/linearLayout1">
         <TextView
             android:text="PlayerName"
+            android:textColor="@color/Fluffle_green"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/playerNameText" />
         <TextView
             android:text="Date Joined"
+            android:textColor="@color/Fluffle_black"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,17 +38,20 @@
         android:minHeight="25px"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginRight="8px"
         android:id="@+id/linearLayout2">
         <TextView
             android:text="#Buns"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/bunnyCountText"
+            android:textColor="@color/Fluffle_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:text="bunnies"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="wrap_content"
+            android:textColor="@color/Fluffle_black"
             android:layout_height="wrap_content"
             android:id="@+id/bunnyText" />
     </LinearLayout>

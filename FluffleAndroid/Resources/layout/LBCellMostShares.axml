@@ -22,13 +22,15 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/playerNameText" />
+            android:id="@+id/playerNameText"
+            android:textColor="@color/Fluffle_green" />
         <TextView
             android:text="Date Joined"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/dateJoinedText" />
+            android:id="@+id/dateJoinedText"
+            android:textColor="@color/Fluffle_black" />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -36,18 +38,21 @@
         android:minHeight="25px"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/linearLayout2">
+        android:id="@+id/linearLayout2"
+        android:layout_marginRight="8dp">
         <TextView
             android:text="#Shares"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/shareCountText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/Fluffle_blue" />
         <TextView
             android:text="shares"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/shareText" />
+            android:id="@+id/shareText"
+            android:textColor="@color/Fluffle_black" />
     </LinearLayout>
 </LinearLayout>

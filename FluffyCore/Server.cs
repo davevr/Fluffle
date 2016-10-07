@@ -103,7 +103,7 @@ namespace Fluffimax.Core
 				});
 		}
 
-		public static void RecordPurchase(string productStr, string store, string receipt, bool_callback callback) {
+		public static void RecordPurchase(string productStr, string store, string receipt, int_callback callback) {
 			string fullURL = "store";
 			RestRequest request = new RestRequest(fullURL, Method.POST);
 		
@@ -112,9 +112,10 @@ namespace Fluffimax.Core
 			request.AddParameter ("product", productStr);
 
 
-			apiClient.ExecuteAsync<bool>(request, (response) => 
+			apiClient.ExecuteAsync<int>(request, (response) => 
 				{
-					bool result = response.Data;
+					int result = response.Data;
+                    Game.CurrentPlayer.carrotCount += result;
 					callback(result);
 
 				});

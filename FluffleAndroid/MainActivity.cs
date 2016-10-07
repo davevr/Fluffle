@@ -391,7 +391,6 @@ namespace Fluffle.AndroidApp
                 {
                     // to do - deactivate it
                     ft.Hide(oldPage);
-
                 }
 
                 oldPage = newPage;
@@ -402,6 +401,8 @@ namespace Fluffle.AndroidApp
                         ft.Add(Resource.Id.fragmentContainer, newPage);
                     else
                         ft.Show(newPage);
+
+                    
                 }
 
                 ft.Commit();

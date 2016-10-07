@@ -43,7 +43,7 @@ namespace Fluffle.AndroidApp
         private int margin = 200;
         private float fieldXScale;
         private float fieldYScale;
-
+        private bool paused = false;
         private FrameLayout field;
         private LinearLayout detailView;
         private TextView bunnyNameLabel;
@@ -367,7 +367,7 @@ namespace Fluffle.AndroidApp
             AlphaAnimation alpha = new AlphaAnimation(1, 0);
             alpha.Duration = 1000;
             animateHeart.AddAnimation(alpha);
-            animateHeart.Interpolator = new AccelerateInterpolator(2);
+            animateHeart.Interpolator = new AccelerateInterpolator(1.1f);
             animateHeart.FillAfter = false;
             animateHeart.AnimationEnd += (s, e) =>
             {
@@ -545,7 +545,7 @@ namespace Fluffle.AndroidApp
                     }
                     HideBunnyPanel();
                     UpdateScore();
-                    StartTimers();
+                    InitTimer();
                     inited = true;
                 });
             }
@@ -670,7 +670,55 @@ namespace Fluffle.AndroidApp
             }
         }
 
-        private void StartTimers()
+        public void PauseView()
+        {
+            if (_idleTimer != null)
+                _idleTimer.Stop();
+            paused = true;
+        }
+
+        public void ResumeView()
+        {
+            if (paused)
+                _idleTimer.Start();
+            paused = false;
+        }
+
+        public override void OnHiddenChanged(bool hidden)
+        {
+            if (hidden)
+                PauseView();
+            else
+                ResumeView();
+        }
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            ResumeView();
+        }
+
+        public override void OnPause()
+        {
+            base.OnPause();
+            PauseView();
+        }
+
+        public override bool UserVisibleHint
+        {
+            get
+            {
+                return base.UserVisibleHint;
+            }
+
+            set
+            {
+                base.UserVisibleHint = value;
+            }
+        }
+
+
+        private void InitTimer()
         {
             View.Post(() =>
             {
@@ -682,7 +730,6 @@ namespace Fluffle.AndroidApp
                 };
                 _idleTimer.Start();
             });
-            
         }
 
         private void MaybeBunniesHop()
