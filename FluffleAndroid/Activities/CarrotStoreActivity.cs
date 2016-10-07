@@ -109,7 +109,7 @@ namespace Fluffle.AndroidApp
 
 		private void BuyItem(string prodIdStr)
 		{
-			Product _selectedProduct = FindProduct(prodIdStr);
+            Product _selectedProduct = _products[0];//FindProduct(prodIdStr);
 
 			_serviceConnection.BillingHandler.BuyProduct(_selectedProduct);
 		}
@@ -127,7 +127,8 @@ namespace Fluffle.AndroidApp
 		private async void UpdateInventory()
 		{
 			_products = await _serviceConnection.BillingHandler.QueryInventoryAsync(new List<string> {
-				"carrot_level_01",
+                                ReservedTestProductIDs.Purchased,
+                "carrot_level_01",
 				"carrot_level_02",
 				"carrot_level_03",
 				"carrot_level_04",
@@ -217,7 +218,7 @@ namespace Fluffle.AndroidApp
 			if (result)
 			{
 				// ok, notify the server
-				Server.RecordPurchase(purchase.ProductId, "google", purchaseSignature, (theResult) =>
+				Server.RecordPurchase(purchase.ProductId, "google", purchaseData, (theResult) =>
 				{
 					if (theResult)
 						UpdateCarrotCount();
