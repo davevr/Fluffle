@@ -20,7 +20,7 @@ using Android.Text;
 using Android.Text.Style;
 using Android.Provider;
 using Android.Views.InputMethods;
-
+using File = Java.IO.File;
 using Fluffimax.Core;
 
 
@@ -46,13 +46,19 @@ namespace Fluffle.AndroidApp
 
         private const string flurryId = "3F7MBBRCTW9NBJJB4CGG";
         private const string hockeyId = "366012d76c5f4328951a1c08534c7865";
-		public static int PURCHASE_RESULT = 0x4569;
-		public static int ADOPTION_RESULT = 0x4432;
+		public static int PURCHASE_RESULT = 0x01;
+		public static int ADOPTION_RESULT = 0x02;
+        public static int PHOTO_CAPTURE_EVENT = 0x03;
+        public static int SELECTIMAGE_REQUEST = 0x04;
 
         public static Typeface bodyFace;
         public string RewardString;
         public static MainActivity instance;
         private Android.Support.V4.App.Fragment oldPage = null;
+        public static File _dir;
+        public static File _file;
+        public static int MAX_IMAGE_SIZE = 1024;
+
 
         class MyDrawerToggle : Android.Support.V7.App.ActionBarDrawerToggle
         {
@@ -151,11 +157,20 @@ namespace Fluffle.AndroidApp
             // Register the crash manager before Initializing the trace writer
             CrashManager.Register(this);
             instance = this;
-
+            CreateDirectoryForPictures();
             SupportActionBar.Show();
 
             ResumeGame();
 
+        }
+
+        private void CreateDirectoryForPictures()
+        {
+            _dir = new File(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures), "FluffleImages");
+            if (!_dir.Exists())
+            {
+                _dir.Mkdirs();
+            }
         }
 
         private void ResumeGame()
@@ -219,6 +234,10 @@ namespace Fluffle.AndroidApp
 			{
 				//todo - handle an adoption result
 			}
+            else if (requestCode == SELECTIMAGE_REQUEST || requestCode == PHOTO_CAPTURE_EVENT)
+            {
+                profilePage.HandleActivityResult(requestCode, resultCode, data);
+            }
 		}
 
 

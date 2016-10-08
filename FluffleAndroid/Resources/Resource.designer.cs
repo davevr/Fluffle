@@ -3330,6 +3330,21 @@ namespace Fluffle.AndroidApp
 			// aapt resource value: 0x7f08007d
 			public const int Catch_Title = 2131230845;
 			
+			// aapt resource value: 0x7f0800a8
+			public const int Change_Btn_Title = 2131230888;
+			
+			// aapt resource value: 0x7f0800a6
+			public const int Change_Pwd_Msg = 2131230886;
+			
+			// aapt resource value: 0x7f0800a7
+			public const int Change_Pwd_Title = 2131230887;
+			
+			// aapt resource value: 0x7f0800aa
+			public const int Change_Username_Err_Btn = 2131230890;
+			
+			// aapt resource value: 0x7f0800a9
+			public const int Change_Username_Err_Msg = 2131230889;
+			
 			// aapt resource value: 0x7f080091
 			public const int Confirm_Adoption_Prompt = 2131230865;
 			
@@ -3339,8 +3354,17 @@ namespace Fluffle.AndroidApp
 			// aapt resource value: 0x7f08006e
 			public const int Connection_Err_Btn = 2131230830;
 			
+			// aapt resource value: 0x7f08009f
+			public const int Delete_Current_Msg = 2131230879;
+			
 			// aapt resource value: 0x7f08006c
 			public const int Error_Title = 2131230828;
+			
+			// aapt resource value: 0x7f08009d
+			public const int From_Camera_Msg = 2131230877;
+			
+			// aapt resource value: 0x7f08009e
+			public const int From_Gallery_Msg = 2131230878;
 			
 			// aapt resource value: 0x7f080064
 			public const int Game_Menu = 2131230820;
@@ -3348,11 +3372,47 @@ namespace Fluffle.AndroidApp
 			// aapt resource value: 0x7f080066
 			public const int Leaderboards_Menu = 2131230822;
 			
+			// aapt resource value: 0x7f0800ad
+			public const int Login_Btn = 2131230893;
+			
+			// aapt resource value: 0x7f0800af
+			public const int Login_Failure_Title = 2131230895;
+			
+			// aapt resource value: 0x7f0800b1
+			public const int Login_Failure_btn = 2131230897;
+			
+			// aapt resource value: 0x7f0800b0
+			public const int Login_Failure_msg = 2131230896;
+			
+			// aapt resource value: 0x7f0800ac
+			public const int Login_Prompt = 2131230892;
+			
+			// aapt resource value: 0x7f0800ab
+			public const int Login_Title = 2131230891;
+			
+			// aapt resource value: 0x7f0800a5
+			public const int Must_Change_Pwd_Msg = 2131230885;
+			
+			// aapt resource value: 0x7f08009c
+			public const int New_Image_Msg = 2131230876;
+			
+			// aapt resource value: 0x7f0800a4
+			public const int Nickname_Btn = 2131230884;
+			
+			// aapt resource value: 0x7f0800a3
+			public const int Nickname_Msg = 2131230883;
+			
 			// aapt resource value: 0x7f08006d
 			public const int No_Fluffle_Cloud_Msg = 2131230829;
 			
 			// aapt resource value: 0x7f080065
 			public const int Profile_Menu = 2131230821;
+			
+			// aapt resource value: 0x7f0800a0
+			public const int Profile_Title = 2131230880;
+			
+			// aapt resource value: 0x7f0800ae
+			public const int Profile_Title_Unknown = 2131230894;
 			
 			// aapt resource value: 0x7f08008b
 			public const int Rename_Err_Btn = 2131230859;
@@ -3386,6 +3446,9 @@ namespace Fluffle.AndroidApp
 			
 			// aapt resource value: 0x7f08008e
 			public const int Unamed_Bunny = 2131230862;
+			
+			// aapt resource value: 0x7f0800a1
+			public const int Username_Msg = 2131230881;
 			
 			// aapt resource value: 0x7f080000
 			public const int abc_action_bar_home_description = 2131230720;
@@ -3692,6 +3755,9 @@ namespace Fluffle.AndroidApp
 			
 			// aapt resource value: 0x7f080061
 			public const int test = 2131230817;
+			
+			// aapt resource value: 0x7f0800a2
+			public const int username_Btn = 2131230882;
 			
 			static String()
 			{

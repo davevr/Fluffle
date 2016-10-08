@@ -198,12 +198,25 @@ namespace Fluffle.AndroidApp
 
             try 
             {
+                /*
                 cursor = activity.ContentResolver.Query(uri, projection, selection, selectionArgs, null);
                 if (cursor != null && cursor.MoveToFirst()) 
                 {
                     int column_index = cursor.GetColumnIndexOrThrow(column);
                     return cursor.GetString(column_index);
                 }
+                */
+                String[] filePathColumn = { MediaStore.Images.Media.InterfaceConsts.Data };
+
+                cursor = activity.ContentResolver.Query(uri,
+                        filePathColumn, null, null, null);
+                cursor.MoveToFirst();
+
+                int columnIndex = cursor.GetColumnIndex(filePathColumn[0]);
+                string picturePath = cursor.GetString(columnIndex);
+
+                return picturePath;
+
             } 
             finally 
             {

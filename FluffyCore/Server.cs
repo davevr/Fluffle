@@ -472,6 +472,8 @@ namespace Fluffimax.Core
 			string uploadURL = GetImageUploadURL();
 			int pathSplit = uploadURL.IndexOf("/", 10);
 			string appPath = uploadURL.Substring(0, pathSplit);
+            if (appPath == "http://MasterSheep:8080")
+                appPath = networkHostStr;
 			string requestPath = uploadURL.Substring(pathSplit);
 			RestClient onetimeClient = new RestClient(appPath);
 			//onetimeClient.CookieContainer = apiClient.CookieContainer;
@@ -483,7 +485,9 @@ namespace Fluffimax.Core
 				{
 					if (response.StatusCode == HttpStatusCode.OK)
 					{
-						callback(response.Content);
+                        string urlStr = response.Content;
+                        urlStr = urlStr.Replace("http://0.0.0.0:8080", networkHostStr);
+                        callback(urlStr);
 					}
 					else
 					{
