@@ -16,6 +16,7 @@ namespace FlurryAdsAndroidSample
 	{
 		private FlurryAdBanner adBanner;
 		private FlurryAdInterstitial adInterstitial;
+        
 
 		private TextView statusLabel;
 		private ViewGroup bannerContainer;
@@ -46,9 +47,11 @@ namespace FlurryAdsAndroidSample
 				bannerContainer.RemoveAllViews ();
 			}
 
-			adBanner = new FlurryAdBanner (this, bannerContainer, "Banner");
+            adBanner = new FlurryAdBanner(this, bannerContainer, "flufflebanner");
 
-			adBanner.Fetched += delegate {
+
+
+            adBanner.Fetched += delegate {
 				statusLabel.Text = "Banner.Fetched";
 
 				adBanner.DisplayAd ();
@@ -87,7 +90,7 @@ namespace FlurryAdsAndroidSample
 				adInterstitial.Destroy ();
 			}
 
-			adInterstitial = new FlurryAdInterstitial (this, "Takeover");
+			adInterstitial = new FlurryAdInterstitial (this, "flufflevideo");
 
 			adInterstitial.Fetched += delegate {
 				statusLabel.Text = "Interstitial.Fetched";

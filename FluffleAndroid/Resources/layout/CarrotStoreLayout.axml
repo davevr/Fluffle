@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -22,172 +23,194 @@
             android:layout_height="match_parent"
             android:id="@+id/availableLabel" />
     </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:minWidth="25px"
-        android:minHeight="25px"
+    <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp">
+            <LinearLayout
+                android:id="@+id/buyItem01"
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/carrot_bag"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:tint="#ff0000ff"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center_vertical" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Bag of Carrots"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item01title" />
+                    <TextView
+                        android:text="Bag of carrots details"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item01details" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/buyItem02"
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/carrot_sack"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:tint="#ff0000ff"
+                    android:layout_margin="8dp" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Sack of Carrots"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item02title" />
+                    <TextView
+                        android:text="Sack of Carrots Details"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item02details" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/buyItem03"
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/carrot_crate"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:tint="#ff0000ff"
+                    android:layout_margin="8dp" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Crate of Carrots"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item03title" />
+                    <TextView
+                        android:text="Crate of Carrots details"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item03details" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/buyItem04"
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/carrot_wheelbarrow"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:tint="#ff0000ff"
+                    android:layout_margin="8dp" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Wheelbarrow of Carrots"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item04title" />
+                    <TextView
+                        android:text="Wheelbarrow of Carrots details"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item04details" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/buyItem05"
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/carrot_truck"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:tint="#ff0000ff"
+                    android:layout_margin="8dp" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Truckload of Carrots"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item05title" />
+                    <TextView
+                        android:text="Truckload of Carrots Details"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item05details" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout2"
-        android:paddingRight="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="16dp">
-        <LinearLayout
-            android:id="@+id/buyItem01"
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/carrot_bag"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:tint="#ff0000ff"
-                android:layout_margin="8dp"
-                android:layout_gravity="center_vertical" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="Bag of Carrots"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item01title" />
-                <TextView
-                    android:text="Bag of carrots details"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item01details" />
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/buyItem02"
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/carrot_sack"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:tint="#ff0000ff"
-                android:layout_margin="8dp" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="Sack of Carrots"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item02title" />
-                <TextView
-                    android:text="Sack of Carrots Details"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item02details" />
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/buyItem03"
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/carrot_crate"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:tint="#ff0000ff"
-                android:layout_margin="8dp" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="Crate of Carrots"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item03title" />
-                <TextView
-                    android:text="Crate of Carrots details"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item03details" />
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/buyItem04"
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/carrot_wheelbarrow"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:tint="#ff0000ff"
-                android:layout_margin="8dp" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="Wheelbarrow of Carrots"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item04title" />
-                <TextView
-                    android:text="Wheelbarrow of Carrots details"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item04details" />
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/buyItem05"
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/carrot_truck"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:tint="#ff0000ff"
-                android:layout_margin="8dp" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="Truckload of Carrots"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item05title" />
-                <TextView
-                    android:text="Truckload of Carrots Details"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item05details" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+        android:id="@+id/load_interstitial_button"
+        android:text="Show Full Screen Ad"
+        android:textColor="@android:color/white"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal" />
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/test_banner_ad_unit_id"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

@@ -1,3 +1,66 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="Free to Good Home"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/titleText"
+        android:gravity="center"
+        android:textColor="@color/Fluffle_blue"
+        android:layout_marginTop="8dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1"
+        android:layout_margin="8dp">
+        <ImageView
+            android:src="@drawable/baseicon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/bunnyImg"
+            android:layout_marginRight="8dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2">
+            <TextView
+                android:text="Bunny Name"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bunnyName"
+                android:textColor="@color/Fluffle_green" />
+            <TextView
+                android:text="This is all of the information that you need to know abou tthis super cute bunny in order to buy it."
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bunnyInfo"
+                android:textColor="@color/Fluffle_black"
+                android:scrollHorizontally="false"
+                android:ellipsize="none"
+                android:singleLine="false"
+                android:maxLines="4" />
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        android:id="@+id/aztekView"
+        android:layout_margin="8dp" />
+    <Button
+        android:text="done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/doneBtn"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="4dp" />
 </LinearLayout>

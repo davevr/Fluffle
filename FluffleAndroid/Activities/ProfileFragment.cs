@@ -29,6 +29,7 @@ namespace Fluffle.AndroidApp
         private Button saveChangesBtn;
         private Button changePwdBtn;
         private Button signinBtn;
+        private AlertDialog progressDlg;
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
@@ -47,6 +48,9 @@ namespace Fluffle.AndroidApp
             changePwdBtn = view.FindViewById<Button>(Resource.Id.changePwdBtn);
             signinBtn = view.FindViewById<Button>(Resource.Id.signInBtn);
 
+            nicknameField.AfterTextChanged += TextFieldChanged;
+            usernameField.AfterTextChanged += TextFieldChanged;
+
             setImageBtn.Click += SetImageBtn_Click;
             saveChangesBtn.Click += SaveChangesBtn_Click;
             changePwdBtn.Click += ChangePwdBtn_Click;
@@ -55,6 +59,11 @@ namespace Fluffle.AndroidApp
 
 			return view;
 		}
+
+        private void TextFieldChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
+        {
+            UpdateButtonStates();
+        }
 
         private void SigninBtn_Click(object sender, EventArgs e)
         {
@@ -66,6 +75,7 @@ namespace Fluffle.AndroidApp
             var passWordFld = new EditText(this.Context);
             newView.AddView(passWordFld);
             passWordFld.Hint = "password";
+            passWordFld.InputType = Android.Text.InputTypes.TextVariationPassword;
 
             var dialog = new AlertDialog.Builder(this.Context)
                 .SetTitle(Resource.String.Login_Title.Localize())
@@ -82,20 +92,26 @@ namespace Fluffle.AndroidApp
                         if (thePlayer != null)
                         {
                             // log in with the new player
+                            thePlayer.pwd = pwd;
                             Game.CurrentPlayer = thePlayer;
                             Game.SavePlayer(true);
                             Game.NewPlayerLoaded = true;
                             this.Activity.RunOnUiThread(() =>
                             {
                                 UpdateForUser();
+                               
                             });
                         }
                         else
                         {
                             // error - probably bad password
-                            MainActivity.ShowAlert(this.Context, Resource.String.Login_Failure_Title.Localize(),
+                            this.Activity.RunOnUiThread(() =>
+                            {
+                                MainActivity.ShowAlert(this.Context, Resource.String.Login_Failure_Title.Localize(),
                                 Resource.String.Login_Failure_msg.Localize(),
                                 Resource.String.Login_Failure_btn.Localize());
+                            });
+
                         }
                     });
                 })
@@ -123,6 +139,7 @@ namespace Fluffle.AndroidApp
             else
                 titleStr = Resource.String.Change_Pwd_Msg.Localize();
             var theText = new EditText(this.Context);
+            theText.InputType = Android.Text.InputTypes.TextVariationPassword;
             var dialog = new Android.Support.V7.App.AlertDialog.Builder(this.Context)
                .SetTitle(Resource.String.Change_Pwd_Title.Localize())
                .SetMessage(titleStr)
@@ -368,6 +385,18 @@ namespace Fluffle.AndroidApp
                 UpdateButtonStates();
 
             });
+        }
+
+        public override void OnHiddenChanged(bool hidden)
+        {
+            if (hidden)
+            {
+                
+            }
+            else
+            {
+                UpdateForUser();
+            }
         }
 
         private void UpdateButtonStates()

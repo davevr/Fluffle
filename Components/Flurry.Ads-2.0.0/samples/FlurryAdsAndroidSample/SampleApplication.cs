@@ -26,7 +26,7 @@ namespace FlurryAdsAndroidSample
 			FlurryAgent.SetLogEnabled (true);
 			FlurryAgent.SetLogEvents (true);
 			FlurryAgent.SetLogLevel (LogPriority.Verbose);
-			FlurryAgent.Init (this, "36TWHT3RMTBTF2G46KGH");
+			FlurryAgent.Init (this, "3F7MBBRCTW9NBJJB4CGG");
 		}
 	}
 }

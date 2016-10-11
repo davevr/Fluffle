@@ -82,7 +82,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="left" />
             <Button
-                android:text="Trade"
+                android:text="Toss"
                 android:id="@+id/TossBunnyBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
             android:layout_weight="1"
             android:layout_gravity="left" />
         <Button
-            android:text="Trade"
+            android:text="Catch"
             android:id="@+id/CatchBunnyBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

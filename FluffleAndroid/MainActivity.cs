@@ -44,12 +44,13 @@ namespace Fluffle.AndroidApp
         private LiveCamFragment camPage;
         private AboutFragment aboutPage;
 
-        private const string flurryId = "3F7MBBRCTW9NBJJB4CGG";
+        public const string flurryId = "3F7MBBRCTW9NBJJB4CGG";
         private const string hockeyId = "366012d76c5f4328951a1c08534c7865";
 		public static int PURCHASE_RESULT = 0x01;
 		public static int ADOPTION_RESULT = 0x02;
         public static int PHOTO_CAPTURE_EVENT = 0x03;
         public static int SELECTIMAGE_REQUEST = 0x04;
+        public static int TOSS_RESULT = 0x05;
 
         public static Typeface bodyFace;
         public string RewardString;
@@ -215,6 +216,8 @@ namespace Fluffle.AndroidApp
                 }
             });
         }
+
+       
 
         private void FinishLoad()
         {

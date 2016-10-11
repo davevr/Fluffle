@@ -87,6 +87,8 @@ namespace Fluffle.AndroidApp
             adoptBunnyBtn = view.FindViewById<Button>(Resource.Id.AdoptShopBtn);
             CarrotImg = view.FindViewById<ImageView>(Resource.Id.CarrotImage);
             CarrotImg.Visibility = ViewStates.Gone;
+            bunnyNameLabel.SetTypeface(MainActivity.bodyFace, TypefaceStyle.Normal);
+            
 
             detailView.Visibility = ViewStates.Gone;
 
@@ -155,7 +157,9 @@ namespace Fluffle.AndroidApp
         {
             Game.BunnyBeingSold = _currentBuns;
             Game.BunnySellPrice = 0;
-            //NavigationController.PushViewController(new GiveBunnyViewController(), true);
+            Intent tossIntent = new Intent(this.Activity, typeof(TossBunnyActivity));
+
+            StartActivityForResult(tossIntent, MainActivity.TOSS_RESULT);
         }
 
         private void FeedBtn_Click(object sender, EventArgs e)
@@ -226,6 +230,7 @@ namespace Fluffle.AndroidApp
                             }
                         });
                     });
+                    builder.SetNegativeButton(Resource.String.cancel_btn, (sender, args) => { });
                     builder.Show();
 
                 });
@@ -549,25 +554,24 @@ namespace Fluffle.AndroidApp
                     inited = true;
                 });
             }
-            else if (Game.NewPlayerLoaded)
+        }
+
+        private void HandleNewPlayer()
+        {
+            Game.NewPlayerLoaded = false;
+            Activity.RunOnUiThread(() =>
             {
-                // a new player was loaded - get rid of existing bunnies and add new ones.
-                Game.NewPlayerLoaded = false;
-                Activity.RunOnUiThread(() =>
+                CarrotImg.Visibility = ViewStates.Gone;
+                HideBunnyPanel();
+                UpdateScore();
+                field.RemoveAllViews();
+                _bunnyGraphicList.Clear();
+                foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies)
                 {
-                    CarrotImg.Visibility = ViewStates.Gone;
-                    HideBunnyPanel();
-                    UpdateScore();
-                    field.RemoveAllViews();
-                    _bunnyGraphicList.Clear();
-                    foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies)
-                    {
-                        AddBunnyToScreen(curBunny);
-                    }
+                    AddBunnyToScreen(curBunny);
+                }
 
-                });
-
-            }
+            });
         }
 
         private void SetCurrentBunny(Bunny newBuns)
@@ -640,7 +644,14 @@ namespace Fluffle.AndroidApp
                 Activity.RunOnUiThread(() => {
                     string nameStr = _currentBuns.BunnyName;
                     if (string.IsNullOrEmpty(nameStr))
+                    {
                         nameStr = Resource.String.Unamed_Bunny.Localize();
+                        bunnyNameLabel.SetTextColor(Resources.GetColor(Resource.Color.Fluffle_black));
+                    } else
+                    {
+                        bunnyNameLabel.SetTextColor(Resources.GetColor(Resource.Color.Fluffle_blue));
+                    }
+                        
                     bunnyNameLabel.Text = nameStr;
                     bunnyDescLabel.Text = _currentBuns.Description;
                     var current = _currentBuns.FeedState;
@@ -679,9 +690,19 @@ namespace Fluffle.AndroidApp
 
         public void ResumeView()
         {
-            if (paused)
-                _idleTimer.Start();
-            paused = false;
+            if (inited)
+            {
+                if (Game.NewPlayerLoaded)
+                {
+                    // a new player was loaded - get rid of existing bunnies and add new ones.
+                    HandleNewPlayer();
+
+                }
+                if (paused)
+                    _idleTimer.Start();
+                paused = false;
+            }
+
         }
 
         public override void OnHiddenChanged(bool hidden)

@@ -13,14 +13,14 @@ using Android.Widget;
 using Xamarin.InAppBilling;
 using Android.Graphics;
 using Fluffimax.Core;
-
-
+using Android.Gms.Ads;
+using Android.Gms.Ads.Reward;
 
 namespace Fluffle.AndroidApp
 {
 	[Activity(Label = "CarrotStoreActivity", Icon = "@drawable/baseicon",
 			 Theme = "@style/Theme.AppCompat.Light", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-	public class CarrotStoreActivity : Activity
+	public class CarrotStoreActivity : Activity, IRewardedVideoAdListener
 	{
 		public static string apikey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwBQMKprukm36hOk5CeswtMHNMXFD604Yqk82DhlPIsSjEEQA9tTjrSxeoN59OjQ98cjrDEl4au2QINE0epNWYUgCVrGGTnqMOKJz3U2BxXvjlpiq8nOy0XLjpnWNiZC8GWRcTVz1T8HbMveps4GBqfEdioLERot/aaFNh+AdFq7S8e0dGCxrChy0n8yIglkKvxRvK7AjwE/amI1X/xYnhzy4Lf5ocCWh3CPmyU6BaAwGyoEMrr1WwflquztOaA4Q6T2TQUH8oJS+7ZOG9VzKidmsUssJw9n0lWZ8BqG653/0mVDv94F2ii9xYJmilbX0M4Et1F7tjIh5Y0nXXnfWeQIDAQAB";
 		private InAppBillingServiceConnection _serviceConnection;
@@ -42,9 +42,11 @@ namespace Fluffle.AndroidApp
 		TextView item05title;
 		TextView item05desc;
 		TextView availableLabel;
+        protected AdView mAdView;
+        protected IRewardedVideoAd mRewardAd;
+        protected Button mLoadInterstitialButton;
 
-
-		protected override void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
 
@@ -72,8 +74,10 @@ namespace Fluffle.AndroidApp
 			item05title = FindViewById<TextView>(Resource.Id.item05title);
 			item05desc = FindViewById<TextView>(Resource.Id.item05details);
 
-			// fonts
-			item01title.SetTypeface(MainActivity.bodyFace, TypefaceStyle.Normal);
+            
+
+            // fonts
+            item01title.SetTypeface(MainActivity.bodyFace, TypefaceStyle.Normal);
 			item02title.SetTypeface(MainActivity.bodyFace, TypefaceStyle.Normal);
 			item03title.SetTypeface(MainActivity.bodyFace, TypefaceStyle.Normal);
 			item04title.SetTypeface(MainActivity.bodyFace, TypefaceStyle.Normal);
@@ -94,9 +98,30 @@ namespace Fluffle.AndroidApp
 
 			_serviceConnection.OnInAppBillingError += HandleOnInAppBillingErrorDelegate;
 			UpdateCarrotCount();
-		}
+            mAdView = FindViewById<AdView>(Resource.Id.adView);
+            var adRequest = new AdRequest.Builder().AddTestDevice("4B5B3CDF6F421EC8A06A35832AC88E9B").Build();
+            mAdView.LoadAd(adRequest);
 
-		private Product FindProduct(string prodIdStr)
+            mRewardAd = MobileAds.GetRewardedVideoAdInstance(this);
+            mRewardAd.RewardedVideoAdListener = this;
+
+            mLoadInterstitialButton = FindViewById<Button>(Resource.Id.load_interstitial_button);
+            //mLoadInterstitialButton.SetOnClickListener(new OnClickListener(this));
+            mLoadInterstitialButton.Click += MLoadInterstitialButton_Click;
+            mLoadInterstitialButton.Visibility = ViewStates.Gone ;
+        }
+
+        private void MLoadInterstitialButton_Click(object sender, EventArgs e)
+        {
+            if (mRewardAd.IsLoaded)
+            {
+                mLoadInterstitialButton.Visibility = ViewStates.Gone;
+                mRewardAd.UserId = Game.CurrentPlayer.id.ToString();
+                mRewardAd.Show();
+            }
+        }
+
+        private Product FindProduct(string prodIdStr)
 		{
 			foreach (Product curProd in _products)
 			{
@@ -107,7 +132,100 @@ namespace Fluffle.AndroidApp
 			return null;
 		}
 
-		private void BuyItem(string prodIdStr)
+        public void RequestNewRewardAd()
+        {
+            var adRequest = new AdRequest.Builder().AddTestDevice("4B5B3CDF6F421EC8A06A35832AC88E9B").Build();
+            mRewardAd.LoadAd(GetString(Resource.String.test_reward_ad_unit_id), adRequest);
+            
+        }
+
+        public void OnRewardedVideoAdClosed()
+        {
+
+        }
+
+        public void OnRewardedVideoAdFailedToLoad(int errCode)
+        {
+
+        }
+
+        public void OnRewardedVideoAdLeftApplication()
+        {
+
+        }
+
+        public void OnRewarded(IRewardItem theItem)
+        {
+            Toast.MakeText(this, "Thanks for supporting Fluffle!", ToastLength.Short).Show();
+
+            Server.RecordPurchase("video_ad", "ad", theItem.Type, (theResult) =>
+            {
+                UpdateCarrotCount();
+            });
+           
+
+        }
+
+        public void OnRewardedVideoAdLoaded()
+        {
+            mLoadInterstitialButton.Visibility = ViewStates.Visible;
+        }
+
+        public void OnRewardedVideoAdOpened()
+        {
+
+        }
+
+        public void OnRewardedVideoStarted()
+        {
+
+        }
+
+
+
+
+
+
+      
+
+        protected override void OnPause()
+        {
+            if (mAdView != null)
+            {
+                mAdView.Pause();
+            }
+            mRewardAd.Pause();
+            base.OnPause();
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            _serviceConnection.Connect();
+            if (mAdView != null)
+            {
+                mAdView.Resume();
+            }
+            if (!mRewardAd.IsLoaded)
+            {
+                RequestNewRewardAd();
+            }
+            mRewardAd.Resume();
+        }
+
+        protected override void OnDestroy()
+        {
+            if (mAdView != null)
+            {
+                mAdView.Destroy();
+            }
+            mRewardAd.Destroy();
+            base.OnDestroy();
+        }
+
+
+
+        private void BuyItem(string prodIdStr)
 		{
             Product _selectedProduct = _products[0];// FindProduct(prodIdStr);
 
@@ -146,11 +264,6 @@ namespace Fluffle.AndroidApp
 			}
 		}
 
-		protected override void OnResume()
-		{
-			base.OnResume();
-			_serviceConnection.Connect();
-		}
 
 		protected override void OnStop()
 		{
@@ -239,6 +352,8 @@ namespace Fluffle.AndroidApp
 
 			});
 		}
-	}
+    }
+
+    
 }
 

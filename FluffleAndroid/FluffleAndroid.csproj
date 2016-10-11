@@ -83,6 +83,14 @@
     <Reference Include="Xamarin.Android.Support.Design">
       <HintPath>..\packages\Xamarin.Android.Support.Design.23.4.0.1\lib\MonoAndroid43\Xamarin.Android.Support.Design.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.GooglePlayServices.Ads, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.GooglePlayServices.Ads.29.0.0.2\lib\MonoAndroid41\Xamarin.GooglePlayServices.Ads.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.GooglePlayServices.Basement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.GooglePlayServices.Basement.29.0.0.2\lib\MonoAndroid41\Xamarin.GooglePlayServices.Basement.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ZXing.Net.Mobile.Core, Version=2.1.12.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ZXing.Net.Mobile.2.1.12\lib\MonoAndroid403\ZXing.Net.Mobile.Core.dll</HintPath>
       <Private>True</Private>
@@ -161,16 +169,24 @@
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\layout\AboutLayout.axml" />
     <AndroidResource Include="Resources\layout\AdoptionCenterLayout.axml" />
-    <AndroidResource Include="Resources\layout\CarrotStoreLayout.axml" />
-    <AndroidResource Include="Resources\layout\GameLayout.axml" />
+    <AndroidResource Include="Resources\layout\CarrotStoreLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\GameLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\LBLargestBunnyLayout.axml" />
     <AndroidResource Include="Resources\layout\LBMostBunniesLayout.axml" />
     <AndroidResource Include="Resources\layout\LBMostSharesLayout.axml" />
     <AndroidResource Include="Resources\layout\LBMostSpreadLayout.axml" />
     <AndroidResource Include="Resources\layout\LeaderboardLayout.axml" />
     <AndroidResource Include="Resources\layout\LiveCamLayout.axml" />
-    <AndroidResource Include="Resources\layout\ProfileLayout.axml" />
-    <AndroidResource Include="Resources\layout\TossBunnyLayout.axml" />
+    <AndroidResource Include="Resources\layout\ProfileLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TossBunnyLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\carrot_bag.png" />
     <AndroidResource Include="Resources\drawable\carrot_crate.png" />
     <AndroidResource Include="Resources\drawable\carrot_sack.png" />
@@ -194,9 +210,9 @@
     <AndroidResource Include="Resources\layout\AdoptionCell.axml" />
   </ItemGroup>
   <ItemGroup>
-    <XamarinComponentReference Include="Flurry.Ads">
+    <XamarinComponentReference Include="googleplayservices-ads">
       <Visible>False</Visible>
-      <Version>2.0.0</Version>
+      <Version>29.0.0.2</Version>
     </XamarinComponentReference>
     <XamarinComponentReference Include="hockeyappandroid">
       <Visible>False</Visible>
@@ -271,4 +287,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
+  <Import Project="..\packages\Xamarin.GooglePlayServices.Basement.29.0.0.2\build\Xamarin.GooglePlayServices.Basement.targets" Condition="Exists('..\packages\Xamarin.GooglePlayServices.Basement.29.0.0.2\build\Xamarin.GooglePlayServices.Basement.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Xamarin.GooglePlayServices.Basement.29.0.0.2\build\Xamarin.GooglePlayServices.Basement.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.GooglePlayServices.Basement.29.0.0.2\build\Xamarin.GooglePlayServices.Basement.targets'))" />
+  </Target>
 </Project>
