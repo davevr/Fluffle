@@ -109,6 +109,8 @@ namespace Fluffle.AndroidApp
             //mLoadInterstitialButton.SetOnClickListener(new OnClickListener(this));
             mLoadInterstitialButton.Click += MLoadInterstitialButton_Click;
             mLoadInterstitialButton.Visibility = ViewStates.Gone ;
+
+
         }
 
         private void MLoadInterstitialButton_Click(object sender, EventArgs e)
@@ -227,7 +229,7 @@ namespace Fluffle.AndroidApp
 
         private void BuyItem(string prodIdStr)
 		{
-            Product _selectedProduct = _products[0];// FindProduct(prodIdStr);
+            Product _selectedProduct = FindProduct(prodIdStr);
 
 			_serviceConnection.BillingHandler.BuyProduct(_selectedProduct);
 		}
@@ -245,7 +247,6 @@ namespace Fluffle.AndroidApp
 		private async void UpdateInventory()
 		{
 			_products = await _serviceConnection.BillingHandler.QueryInventoryAsync(new List<string> {
-                                ReservedTestProductIDs.Purchased,
                 "carrot_level_01",
 				"carrot_level_02",
 				"carrot_level_03",
@@ -317,6 +318,9 @@ namespace Fluffle.AndroidApp
 						titleItem.Text = string.Format("{0} - {1}", titleText, curProd.Price);
 						infoItem.Text = curProd.Description;
 					}
+
+					MainActivity.ShowTutorialStep(this, "carrot_shop_tutorial", Resource.String.carrot_shop_tutorial);
+
 
 				}
 			});

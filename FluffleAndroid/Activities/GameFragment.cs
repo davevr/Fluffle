@@ -18,7 +18,6 @@ using Android.Graphics;
 using Android.Views.Animations;
 using Android.Graphics.Drawables;
 
-
 namespace Fluffle.AndroidApp
 {
 	public class GameFragment : Android.Support.V4.App.Fragment
@@ -551,10 +550,18 @@ namespace Fluffle.AndroidApp
                     HideBunnyPanel();
                     UpdateScore();
                     InitTimer();
-                    inited = true;
+
+					if (MainActivity.ShowTutorialStep("click_bunny_tutorial", Resource.String.click_bunny_tutorial)) { }
+					else if (MainActivity.ShowTutorialStep("bunny_breed_tutorial", Resource.String.bunny_breed_tutorial)) { }
+					else if (MainActivity.ShowTutorialStep("buy_carrots_tutorial", Resource.String.buy_carrots_tutorial)) { }
+                    else if (MainActivity.ShowTutorialStep("bunny_catch_tutorial", Resource.String.bunny_catch_tutorial)) { }inited = true;
                 });
             }
         }
+
+
+
+
 
         private void HandleNewPlayer()
         {
@@ -632,6 +639,14 @@ namespace Fluffle.AndroidApp
                     detailView.StartAnimation(animation);
                     
                 }
+
+				// maybe show the next tutorial step
+				if (MainActivity.ShowTutorialStep("button_details_tutorial", Resource.String.button_details_tutorial)) { }
+				else if (MainActivity.ShowTutorialStep("rename_tutorial", Resource.String.rename_tutorial)) { }
+				else if (MainActivity.ShowTutorialStep("bunny_pet_tutorial", Resource.String.bunny_pet_tutorial)) { }
+				else if (MainActivity.ShowTutorialStep("sell_bunny_tutorial", Resource.String.sell_bunny_tutorial)) { }
+				else if (MainActivity.ShowTutorialStep("bunny_toss_tutorial", Resource.String.bunny_toss_tutorial)) { }
+				    
             });
         }
 
@@ -1061,6 +1076,10 @@ namespace Fluffle.AndroidApp
                                 UpdateBunnyPanel();
                                 givingCarrot = false;
                                 feedBtn.Enabled = true;
+								if (grew)
+								{
+									MainActivity.ShowTutorialStep("bunny_grow_tutorial", Resource.String.bunny_grow_tutorial);
+								}
                             });
                         };
                         theGraphic.Button.StartAnimation(sizeAnimator);

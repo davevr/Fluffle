@@ -383,6 +383,8 @@ namespace Fluffle.AndroidApp
                     changePwdBtn.Enabled = true;
                 }
                 UpdateButtonStates();
+				MainActivity.ShowTutorialStep("profile_tutorial", Resource.String.profile_tutorial);
+
 
             });
         }

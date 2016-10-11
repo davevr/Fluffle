@@ -123,7 +123,7 @@ namespace Fluffle.AndroidApp
 
             bunName.Text = string.IsNullOrEmpty(curBuns.BunnyName) ? "Unnamed bunny" : curBuns.BunnyName;
 
-            shares.Text = Bunny.SizeString(curBuns.BunnySize);
+			shares.Text = curBuns.TotalShares.ToString();
 
             if (curBuns.CurrentOwner == 0)
             {

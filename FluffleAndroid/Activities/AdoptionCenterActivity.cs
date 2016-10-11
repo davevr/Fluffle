@@ -87,6 +87,7 @@ namespace Fluffle.AndroidApp
 			furChoiceBtn.Click += HandleFurChoice;
 			eyeChoiceBtn.Click += HandleEyeChoice;
 			priceChoiceBtn.Click += HandlePriceChoice;
+			UpdateCarrotCount();
 
 		}
 
@@ -404,6 +405,9 @@ namespace Fluffle.AndroidApp
 				filterHeader.Text = string.Format("{0} bunnies available", bunsList.Count);
 				adapter.NotifyDataSetChanged();
 				resultGrid.InvalidateViews();
+
+				MainActivity.ShowTutorialStep(this, "adoption_store_tutorial", Resource.String.adoption_store_tutorial);
+
 			});
 		}
 

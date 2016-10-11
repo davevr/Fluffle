@@ -1,27 +1,18 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
-using Android.Support.V7.Widget;
-using Android.Support.V7.View;
-using Android.Support.V7.AppCompat;
-using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Graphics;
-using Android.Media;
 using Android.Content;
-using Android.Runtime;
 using Android.Views;
-using System.Collections.Generic;
-using System.IO.IsolatedStorage;
 using HockeyApp.Android;
-
-using Android.Util;
 using Android.Text;
 using Android.Text.Style;
-using Android.Provider;
 using Android.Views.InputMethods;
 using File = Java.IO.File;
 using Fluffimax.Core;
+
+using Android.Preferences;
 
 
 namespace Fluffle.AndroidApp
@@ -37,6 +28,7 @@ namespace Fluffle.AndroidApp
         private LinearLayout mDrawerView;
         private MyDrawerToggle mDrawerToggle;
         private bool refreshInProgress = false;
+		public static bool skipTutorial = false;
 
         private GameFragment gamePage;
         private ProfileFragment profilePage;
@@ -161,6 +153,10 @@ namespace Fluffle.AndroidApp
             CreateDirectoryForPictures();
             SupportActionBar.Show();
 
+			// check on tutorials
+			ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.instance); 
+			skipTutorial = prefs.GetBoolean("skipTutorials", false);
+
             ResumeGame();
 
         }
@@ -211,7 +207,10 @@ namespace Fluffle.AndroidApp
                 else
                 {
                     Server.IsOnline = false;
-                    ShowAlert(Resource.String.Error_Title.Localize(), Resource.String.No_Fluffle_Cloud_Msg.Localize(), Resource.String.Connection_Err_Btn.Localize());
+					RunOnUiThread(() =>
+					{
+						ShowAlert(Resource.String.Error_Title.Localize(), Resource.String.No_Fluffle_Cloud_Msg.Localize(), Resource.String.Connection_Err_Btn.Localize());
+					});
 
                 }
             });
@@ -272,6 +271,52 @@ namespace Fluffle.AndroidApp
                 .SetPositiveButton(buttonText, (s2, e2) => { })
                 .Show();
         }
+
+		public static bool ShowTutorialStep(string keyName, int messageStr)
+		{
+			return ShowTutorialStep(MainActivity.instance, keyName, messageStr);
+		}
+
+		private static bool forceTutorials = true;
+		public static bool ShowTutorialStep(Activity activity, string keyName, int messageStr)
+		{
+			bool shown = false;
+			if (!skipTutorial)
+			{
+				ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(activity);
+				bool didStep = prefs.GetBoolean(keyName, false);
+
+				if (forceTutorials || !didStep)
+				{
+					shown = true;
+					activity.RunOnUiThread(() =>
+					{
+						CheckBox newBox = new CheckBox(activity);
+						newBox.Checked = false;
+						newBox.Text = Resource.String.skip_tutorials.Localize();
+
+						new Android.Support.V7.App.AlertDialog.Builder(activity)
+								   .SetTitle(Resource.String.tutorial_title.Localize())
+								   .SetMessage(messageStr.Localize())
+								   .SetView(newBox)
+								   .SetCancelable(true)
+								   .SetPositiveButton(Resource.String.ok_btn.Localize(), (ps, pe) =>
+						{
+							var editor = prefs.Edit();
+							editor.PutBoolean(keyName, true);
+							if (newBox.Checked)
+							{
+								skipTutorial = true;
+								editor.PutBoolean("skipTutorial", true);
+							}
+							editor.Apply();
+						})
+								   .Show();
+					});
+				}
+			}
+			return shown;
+		}
 
         public static void ShowAlert(Context context, string title, string msg, string buttonText = null)
         {
