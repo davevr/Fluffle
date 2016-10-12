@@ -22,6 +22,10 @@ namespace Fluffimax.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel CarrotCountLabel { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton FilterBtn { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
             if (BunnySaleList != null) {
@@ -32,6 +36,11 @@ namespace Fluffimax.iOS
             if (CarrotCountLabel != null) {
                 CarrotCountLabel.Dispose ();
                 CarrotCountLabel = null;
+            }
+
+            if (FilterBtn != null) {
+                FilterBtn.Dispose ();
+                FilterBtn = null;
             }
         }
     }

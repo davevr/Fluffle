@@ -35,8 +35,8 @@
                                     <exclude reference="agW-31-heA"/>
                                 </mask>
                             </variation>
-                            <variation key="widthClass=compact" ambiguous="YES">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                            <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                 <mask key="constraints">
                                     <include reference="LKB-Av-jn8"/>
                                     <include reference="agW-31-heA"/>
@@ -49,8 +49,8 @@
                             <state key="normal" title="Bunny Garden">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <variation key="widthClass=compact" ambiguous="YES">
-                                <rect key="frame" x="45" y="200" width="110" height="32"/>
+                            <variation key="widthClass=compact" ambiguous="YES" fixedFrame="YES">
+                                <rect key="frame" x="125.5" y="375" width="124" height="38"/>
                             </variation>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11" fixedFrame="YES">
@@ -59,8 +59,8 @@
                             <state key="normal" title="Profile">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <variation key="widthClass=compact" ambiguous="YES">
-                                <rect key="frame" x="76" y="264" width="48" height="32"/>
+                            <variation key="widthClass=compact" ambiguous="YES" fixedFrame="YES">
+                                <rect key="frame" x="157" y="413" width="61" height="38"/>
                             </variation>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12" fixedFrame="YES">
@@ -69,8 +69,8 @@
                             <state key="normal" title="Leaderboards">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <variation key="widthClass=compact" ambiguous="YES">
-                                <rect key="frame" x="47" y="296" width="106" height="32"/>
+                            <variation key="widthClass=compact" ambiguous="YES" fixedFrame="YES">
+                                <rect key="frame" x="126" y="451" width="123" height="38"/>
                             </variation>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15" fixedFrame="YES">
@@ -79,8 +79,8 @@
                             <state key="normal" title="Live Bunny Cam!">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <variation key="widthClass=compact" ambiguous="YES">
-                                <rect key="frame" x="35" y="328" width="130" height="32"/>
+                            <variation key="widthClass=compact" ambiguous="YES" fixedFrame="YES">
+                                <rect key="frame" x="114" y="489" width="147" height="38"/>
                             </variation>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16" fixedFrame="YES">
@@ -89,13 +89,13 @@
                             <state key="normal" title="About Fluffle">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <variation key="widthClass=compact" ambiguous="YES">
-                                <rect key="frame" x="52" y="360" width="97" height="32"/>
+                            <variation key="widthClass=compact" ambiguous="YES" fixedFrame="YES">
+                                <rect key="frame" x="127.5" y="527" width="120" height="38"/>
                             </variation>
                         </button>
                     </subviews>
                     <variation key="widthClass=compact" alignment="center" axis="vertical" fixedFrame="YES">
-                        <rect key="frame" x="5" y="5" width="200" height="392"/>
+                        <rect key="frame" x="-15" y="-15" width="375" height="565"/>
                     </variation>
                 </stackView>
             </subviews>

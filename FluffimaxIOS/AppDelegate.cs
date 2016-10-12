@@ -59,15 +59,15 @@ namespace Fluffimax.iOS
 
 			Window.MakeKeyAndVisible();
 
-			/*
 
+			/*
 			if (Flurry.Ads.FlurryAds.IsAdReady ("Fluffle Test Ad")) {
 				Flurry.Ads.FlurryAds.DisplayAd ("Fluffle Test Ad", UITableViewHeaderFooterView, theViewController);
 
 			} else {
 				Flurry.Ads.FlurryAds.FetchAndDisplayAd ("space", UITableViewHeaderFooterView, theViewController, Flurry.Ads.AdSize.Fullscreen);
 			}
-			*/
+*/
 			return true;
 
 		}

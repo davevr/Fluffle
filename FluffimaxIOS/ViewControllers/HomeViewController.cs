@@ -138,6 +138,55 @@ namespace Fluffimax.iOS
 				alert.Show ();
 			});
 		}
+		private static bool forceTutorials = true;
+		public static bool skipTutorial = false;
+
+
+		public static bool ShowTutorialStep(string keyName, string messageStrKey)
+		{
+			bool shown = false;
+			if (!skipTutorial)
+			{
+				// todo - figure out iOS prefs
+				//ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(activity);
+				bool didStep = false;// prefs.GetBoolean(keyName, false);
+
+				if (forceTutorials || !didStep)
+				{
+					shown = true;
+					(UIApplication.SharedApplication.Delegate as AppDelegate).RootController.InvokeOnMainThread(() =>
+					{
+						UIButton newbox = new UIButton(UIButtonType.System);
+						newbox.SetTitle("skip_tutorials".Localize(), UIControlState.Normal);
+
+						UIAlertView alert = new UIAlertView();
+						alert.Title = "tutorial_title".Localize();
+						alert.AddButton("ok_btn".Localize());
+						alert.Message = messageStrKey.Localize();
+						alert.AlertViewStyle = UIAlertViewStyle.Default;
+						alert.AddSubview(newbox);
+						alert.Clicked += (object s, UIButtonEventArgs ev) =>
+						{
+							// todo - set the new prefs
+							/*
+							var editor = prefs.Edit();
+							editor.PutBoolean(keyName, true);
+							if (newBox.Checked)
+							{
+								skipTutorial = true;
+								editor.PutBoolean("skipTutorial", true);
+							}
+							editor.Apply();
+							*/
+						};
+
+						alert.Show();
+
+					});
+				}
+			}
+			return shown;
+		}
 
 
 	}

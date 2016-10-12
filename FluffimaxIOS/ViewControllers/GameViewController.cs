@@ -405,56 +405,13 @@ namespace Fluffimax.iOS
 			CheckForRecentPurchase ();
 
 			DoBunnyHop(_bunnyGraphicList[0]);
-			UpdateOverlay();
 
-			TestBtn.TouchUpInside += (sender, e) =>
-			{
-				CGRect bounds = PlayfieldView.Frame;
-				nfloat xScale = bounds.Width / 200;
-				nfloat yScale = bounds.Height / 200;
 
-				BunnyGraphic curBuns = _bunnyGraphicList[0];
-				Bunny curBunny = curBuns.LinkedBuns;
-				curBunny.HorizontalLoc = int.Parse( xLocField.Text);
-				curBunny.VerticalLoc = int.Parse(yLocField.Text);
-				curBunny.BunnySize = int.Parse(SizeField.Text);
-
-				nfloat bunsSizeBase = (nfloat)BunnySizeForLevel(curBunny.BunnySize);
-				double nextLevelSize = BunnySizeForLevel(curBunny.BunnySize + 1);
-				nfloat deltaSize = (nfloat)((nextLevelSize - bunsSizeBase) * curBunny.Progress);
-				curBuns.Height.Constant = bunsSizeBase;
-				curBuns.Width.Constant = bunsSizeBase + deltaSize;
-
-				nfloat scale = 1;
-				if (curBunny.VerticalLoc < 100)
-				{
-					scale = 0.5f + 0.4f * (((float)curBunny.VerticalLoc + 100) / (float)200);
-
-					//scale -= (nfloat)(((double)Math.Abs(curBunny.VerticalLoc) / Math.Abs(kMinHeight)) * .6);
-				}
-
-				curBuns.Button.Transform = CGAffineTransform.MakeScale(scale, scale);
-				nfloat hLoc = (curBunny.HorizontalLoc + 100) * xScale;
-				curBuns.Horizontal.Constant = hLoc;
-				nfloat vLoc = (curBunny.VerticalLoc + 100) * yScale;
-				curBuns.Vertical.Constant = vLoc;
-				PlayfieldView.LayoutIfNeeded();
-				UpdateOverlay();
-			};
 
 		}
 
 
-		private void UpdateOverlay()
-		{
-			InvokeOnMainThread(() =>
-			{
-				BunnyGraphic curBuns = _bunnyGraphicList[0];
-				xLocField.Text = curBuns.LinkedBuns.HorizontalLoc.ToString();
-				yLocField.Text = curBuns.LinkedBuns.VerticalLoc.ToString();
-				SizeField.Text = curBuns.LinkedBuns.BunnySize.ToString();
-			});
-		}
+
 
 		private void CheckForNewBunnies() {
 			if (Game.RecentlyPurchased) {
@@ -680,14 +637,18 @@ namespace Fluffimax.iOS
 				InvokeOnMainThread (() => {
 					string nameStr = _currentBuns.BunnyName;
 					if (string.IsNullOrEmpty(nameStr))
+					{
 						nameStr = "Unamed_Bunny".Localize();
+						BunnyNameLabel.TextColor = UIColor.Black;
+					}
+					else {
+						BunnyNameLabel.TextColor = UIColor.Blue;
+					}
 					BunnyNameLabel.Text = nameStr;
-					BunnyBreedLabel.Text = _currentBuns.BreedName;
-					BunnyGenderLabel.Text = _currentBuns.Female ? "Female_Str".Localize() : "Male_Str".Localize();
-					FurColorLabel.Text = string.Format("EyeColor_Prompt".Localize(), _currentBuns.FurColorName);
-					EyeColorLabel.Text = string.Format("FurColor_Prompt".Localize(), _currentBuns.EyeColorName);
-					SizeCount.Text = _currentBuns.BunnySize.ToString();
-					ProgressCount.Text = String.Format("{0}/{1}", _currentBuns.FeedState,_currentBuns.CarrotsForNextSize(_currentBuns.BunnySize));
+					BunnyInfoLabel.Text = _currentBuns.Description;
+
+					ProgressIndicator.SetProgress((float)_currentBuns.FeedState / (float)_currentBuns.CarrotsForNextSize(_currentBuns.BunnySize), true);
+					SizeCount.Text = String.Format("{0}/{1}", _currentBuns.FeedState,_currentBuns.CarrotsForNextSize(_currentBuns.BunnySize));
 				});
 			}
 		}

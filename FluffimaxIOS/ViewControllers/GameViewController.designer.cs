@@ -15,16 +15,7 @@ namespace Fluffimax.iOS
     partial class GameViewController
     {
         [Outlet]
-        UIKit.UILabel BunnyBreedLabel { get; set; }
-
-
-        [Outlet]
         UIKit.UIView BunnyDetailView { get; set; }
-
-
-        [Outlet]
-        UIKit.UILabel BunnyGenderLabel { get; set; }
-
 
         [Outlet]
         UIKit.UILabel BunnyNameLabel { get; set; }
@@ -63,15 +54,7 @@ namespace Fluffimax.iOS
 
 
         [Outlet]
-        UIKit.UILabel EyeColorLabel { get; set; }
-
-
-        [Outlet]
         UIKit.UIButton FeedBunnyBtn { get; set; }
-
-
-        [Outlet]
-        UIKit.UILabel FurColorLabel { get; set; }
 
 
         [Outlet]
@@ -95,6 +78,10 @@ namespace Fluffimax.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel BunnyInfoLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton CatchBtn { get; set; }
 
         [Outlet]
@@ -103,35 +90,18 @@ namespace Fluffimax.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField SizeField { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton TestBtn { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField xLocField { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField yLocField { get; set; }
+        UIKit.UIProgressView ProgressIndicator { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (BunnyBreedLabel != null) {
-                BunnyBreedLabel.Dispose ();
-                BunnyBreedLabel = null;
-            }
-
             if (BunnyDetailView != null) {
                 BunnyDetailView.Dispose ();
                 BunnyDetailView = null;
             }
 
-            if (BunnyGenderLabel != null) {
-                BunnyGenderLabel.Dispose ();
-                BunnyGenderLabel = null;
+            if (BunnyInfoLabel != null) {
+                BunnyInfoLabel.Dispose ();
+                BunnyInfoLabel = null;
             }
 
             if (BunnyNameLabel != null) {
@@ -179,19 +149,9 @@ namespace Fluffimax.iOS
                 CSCarrotY = null;
             }
 
-            if (EyeColorLabel != null) {
-                EyeColorLabel.Dispose ();
-                EyeColorLabel = null;
-            }
-
             if (FeedBunnyBtn != null) {
                 FeedBunnyBtn.Dispose ();
                 FeedBunnyBtn = null;
-            }
-
-            if (FurColorLabel != null) {
-                FurColorLabel.Dispose ();
-                FurColorLabel = null;
             }
 
             if (GiveBtn != null) {
@@ -209,9 +169,9 @@ namespace Fluffimax.iOS
                 PlayfieldView = null;
             }
 
-            if (ProgressCount != null) {
-                ProgressCount.Dispose ();
-                ProgressCount = null;
+            if (ProgressIndicator != null) {
+                ProgressIndicator.Dispose ();
+                ProgressIndicator = null;
             }
 
             if (SellBunnyBtn != null) {
@@ -222,26 +182,6 @@ namespace Fluffimax.iOS
             if (SizeCount != null) {
                 SizeCount.Dispose ();
                 SizeCount = null;
-            }
-
-            if (SizeField != null) {
-                SizeField.Dispose ();
-                SizeField = null;
-            }
-
-            if (TestBtn != null) {
-                TestBtn.Dispose ();
-                TestBtn = null;
-            }
-
-            if (xLocField != null) {
-                xLocField.Dispose ();
-                xLocField = null;
-            }
-
-            if (yLocField != null) {
-                yLocField.Dispose ();
-                yLocField = null;
             }
         }
     }

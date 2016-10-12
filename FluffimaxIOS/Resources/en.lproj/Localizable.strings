@@ -139,5 +139,19 @@
 "Login_Failure_msg" = "Unable to sign in.  Check username and password.";
 "Login_Failure_btn" = "alright";
 
-// Side Menu
-
+// Tutorials
+"skip_tutorials" = "skip tutorials";
+"tutorial_title" = "Tutorial";
+"click_bunny_tutorial" = "Welcome to Fluffle!  You already have one bunny, hopping around.  Tap it to get started!";
+"button_details_tutorial" = "Most of the time bunnies just eat grass.  But you can click on Feed to give your bunny a carrot.  After enough carrots, it will grow to the next size.";
+"bunny_grow_tutorial" = "Your bunny grew!  Now that it is no longer a baby, it can breed with other bunnies.  To get more bunnies, click the Adopt button.";
+"bunny_toss_tutorial" = "You can loan a bunny to a friend by tossing it to their phone.  Click the toss button on your phone to toss a button, and have your friend press catch on their phone to catch it.  Sharing is super fun!";
+"bunny_pet_tutorial" = "Bunnies love to be petted.  Tap your bunny to pet it.  Happy bunnies are more likely to breed!";
+"bunny_breed_tutorial" = "Male and female bunnies of the same size and breed have a chance to have babies.  The bigger and happier they are, the more likely it is.  Each girl bunny can have one baby every day.";
+"bunny_catch_tutorial" = "Need another bunny?  Borrow from a friend!  Have your friend toss a bunny to you, and then press catch.  When the camera starts, point the camera at your friend's phone.";
+"sell_bunny_tutorial" = "Need carrots?  You can sell a bunny back to the adoption agency.  Larger bunnies sell for more than smaller ones!";
+"buy_carrots_tutorial" = "Short on carrots?  You get more every day you play.  If you are in a hurry, click the carrots button to go to the store";
+"carrot_shop_tutorial" = "You can buy carrots for real money here.  When you buy carrots, you support fluffle!  Thanks in advance!!!";
+"adoption_store_tutorial" = "Adopt more bunnies here!\n  If you want to have baby bunnies, be sure to get a bunny of the same breed but opposite gender from the bunny you already have.  Bigger bunnies and rare bunnies cost more than babies.";
+"profile_tutorial" = "In profile you can change your profile photo and nickname.  These show up on the leaderboards!  You can also change your username and password.  That will let you log in to Fluffle from another phone.  Always keep your username and password private.";
+"rename_tutorial" = "Click the name of your bunny to rename it.  Once a bunny is named, only the person who named it can change that name - even if the bunny is adopted by someone else!";

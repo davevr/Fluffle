@@ -9,6 +9,7 @@
                 <outlet property="BunnySaleList" destination="6" id="name-outlet-6"/>
                 <outlet property="CarrotCountLabel" destination="KUK-BD-Hoe" id="name-outlet-KUK-BD-Hoe"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+                <outlet property="FilterBtn" destination="9" id="name-outlet-9"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -28,6 +29,15 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="334" y="46" width="46" height="30"/>
+                    <state key="normal" title="Filter">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="widthClass=compact" fixedFrame="YES">
+                        <rect key="frame" x="334" y="46" width="46" height="30"/>
+                    </variation>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -43,6 +53,7 @@
                 <mask key="subviews">
                     <exclude reference="6"/>
                     <exclude reference="KUK-BD-Hoe"/>
+                    <exclude reference="9"/>
                 </mask>
                 <mask key="constraints">
                     <exclude reference="9SP-br-Bhi"/>
@@ -58,6 +69,7 @@
                 <mask key="subviews">
                     <include reference="6"/>
                     <include reference="KUK-BD-Hoe"/>
+                    <include reference="9"/>
                 </mask>
                 <mask key="constraints">
                     <include reference="9SP-br-Bhi"/>
