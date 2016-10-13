@@ -258,6 +258,9 @@ namespace Fluffle.AndroidApp
                 return finalRes;
             };
 
+            scanner.TopText = "Point the camera at the phone that is tossing the bunny";
+            scanner.BottomText = "The catch will happen automatically when the tag is detected.";
+
             var result = await scanner.Scan(this.Context, options);
 
             if (result != null)

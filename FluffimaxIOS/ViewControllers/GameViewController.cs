@@ -404,7 +404,8 @@ namespace Fluffimax.iOS
 			CheckForNewBunnies ();
 			CheckForRecentPurchase ();
 
-			DoBunnyHop(_bunnyGraphicList[0]);
+			if (_bunnyGraphicList.Count > 0)
+                DoBunnyHop(_bunnyGraphicList[0]);
 			UpdateOverlay();
 
 			TestBtn.TouchUpInside += (sender, e) =>
