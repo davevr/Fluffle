@@ -405,7 +405,7 @@ namespace Fluffimax.iOS
 			CheckForRecentPurchase ();
 
 			if (_bunnyGraphicList.Count > 0)
-				DoBunnyHop(_bunnyGraphicList[0]);
+                DoBunnyHop(_bunnyGraphicList[0]);
 
 
 

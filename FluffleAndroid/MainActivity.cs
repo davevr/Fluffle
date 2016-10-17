@@ -51,7 +51,7 @@ namespace Fluffle.AndroidApp
         public static File _dir;
         public static File _file;
         public static int MAX_IMAGE_SIZE = 1024;
-
+        private static bool forceTutorials = false;
 
         class MyDrawerToggle : Android.Support.V7.App.ActionBarDrawerToggle
         {
@@ -277,7 +277,7 @@ namespace Fluffle.AndroidApp
 			return ShowTutorialStep(MainActivity.instance, keyName, messageStr);
 		}
 
-		private static bool forceTutorials = true;
+
 		public static bool ShowTutorialStep(Activity activity, string keyName, int messageStr)
 		{
 			bool shown = false;

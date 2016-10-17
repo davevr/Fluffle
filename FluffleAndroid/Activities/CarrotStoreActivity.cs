@@ -109,7 +109,7 @@ namespace Fluffle.AndroidApp
             //mLoadInterstitialButton.SetOnClickListener(new OnClickListener(this));
             mLoadInterstitialButton.Click += MLoadInterstitialButton_Click;
             mLoadInterstitialButton.Visibility = ViewStates.Gone ;
-
+            MainActivity.ShowTutorialStep(this, "carrot_shop_tutorial", Resource.String.carrot_shop_tutorial);
 
         }
 
@@ -319,7 +319,7 @@ namespace Fluffle.AndroidApp
 						infoItem.Text = curProd.Description;
 					}
 
-					MainActivity.ShowTutorialStep(this, "carrot_shop_tutorial", Resource.String.carrot_shop_tutorial);
+					
 
 
 				}
