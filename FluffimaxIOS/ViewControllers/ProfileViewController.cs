@@ -367,11 +367,7 @@ namespace Fluffimax.iOS
 			};
 			alert.Show ();
 
-
 		}
-
-
-
 
 		public override void ViewWillAppear (bool animated)
 		{
@@ -414,6 +410,7 @@ namespace Fluffimax.iOS
 			}
 
 			UpdateButtonStates ();
+			HomeViewController.ShowTutorialStep("profile_tutorial", "profile_tutorial".Localize());
 		}
 
 		private void MaybeLogin()

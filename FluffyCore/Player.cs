@@ -44,6 +44,14 @@ namespace Fluffimax.Core
 			}
 		}
 
+		public void SaveBunnies()
+		{
+			foreach (Bunny curBuns in this.Bunnies)
+			{
+				curBuns.SaveBunny();
+			}
+		}
+
 		public void GiveCarrots(int numCarrots) {
 			carrotCount += numCarrots;
 			Server.RecordGiveCarrots (numCarrots);

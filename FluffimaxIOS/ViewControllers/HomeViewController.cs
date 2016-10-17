@@ -1,7 +1,10 @@
 ﻿using System;
 
 using UIKit;
+using Foundation;
 using System.Collections.Generic;
+using CoreGraphics;
+using CoreAnimation;
 
 using Fluffimax.Core;
 
@@ -31,8 +34,9 @@ namespace Fluffimax.iOS
 
 			View.BackgroundColor = UIColor.Green;
 
+			var prefs = NSUserDefaults.StandardUserDefaults;
+			skipTutorial = prefs.BoolForKey("skipTutorials");
 
-			//NavController.PushViewController (new InitialLoadViewController (), false);
 			ResumeGame ();
 		}
 
@@ -138,7 +142,8 @@ namespace Fluffimax.iOS
 				alert.Show ();
 			});
 		}
-		private static bool forceTutorials = true;
+
+		private static bool forceTutorials = false;
 		public static bool skipTutorial = false;
 
 
@@ -147,37 +152,45 @@ namespace Fluffimax.iOS
 			bool shown = false;
 			if (!skipTutorial)
 			{
-				// todo - figure out iOS prefs
-				//ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(activity);
-				bool didStep = false;// prefs.GetBoolean(keyName, false);
+				var prefs = NSUserDefaults.StandardUserDefaults;
+
+				bool didStep = false;
+
+				if (prefs != null)
+					didStep = prefs.BoolForKey(keyName);
 
 				if (forceTutorials || !didStep)
 				{
 					shown = true;
 					(UIApplication.SharedApplication.Delegate as AppDelegate).RootController.InvokeOnMainThread(() =>
 					{
-						UIButton newbox = new UIButton(UIButtonType.System);
-						newbox.SetTitle("skip_tutorials".Localize(), UIControlState.Normal);
+						UISwitch newbox = new UISwitch(new CGRect(10, 0, 40, 10));
+						newbox.Transform = CGAffineTransform.MakeScale(0.75f, 0.75f);
+						UILabel newLabel = new UILabel(new CGRect(65, 5, 200, 20));
+						newbox.On = false;
+						newLabel.Text = "skip_tutorials".Localize();
+						newLabel.Font = newLabel.Font.WithSize(12);
+
+						UIView newView = new UIView(new CGRect(0, 0, 300, 40));
+						newView.AddSubview(newbox);
+						newView.AddSubview(newLabel);
 
 						UIAlertView alert = new UIAlertView();
 						alert.Title = "tutorial_title".Localize();
 						alert.AddButton("ok_btn".Localize());
 						alert.Message = messageStrKey.Localize();
 						alert.AlertViewStyle = UIAlertViewStyle.Default;
-						alert.AddSubview(newbox);
+						alert.SetValueForKey(newView, new NSString("accessoryView"));
 						alert.Clicked += (object s, UIButtonEventArgs ev) =>
 						{
-							// todo - set the new prefs
-							/*
-							var editor = prefs.Edit();
-							editor.PutBoolean(keyName, true);
-							if (newBox.Checked)
+							prefs.SetBool(true, keyName);
+							if (newbox.On)
 							{
 								skipTutorial = true;
-								editor.PutBoolean("skipTutorial", true);
+								prefs.SetBool(true, "skipTutorial");
 							}
-							editor.Apply();
-							*/
+
+							prefs.Synchronize();
 						};
 
 						alert.Show();

@@ -95,15 +95,6 @@
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.105.2.3\lib\Xamarin.iOS10\RestSharp.dll</HintPath>
     </Reference>
-    <Reference Include="zxing.portable">
-      <HintPath>..\packages\ZXing.Net.Mobile.2.0.4.46\lib\Xamarin.iOS10\zxing.portable.dll</HintPath>
-    </Reference>
-    <Reference Include="ZXing.Net.Mobile.Core">
-      <HintPath>..\packages\ZXing.Net.Mobile.2.0.4.46\lib\Xamarin.iOS10\ZXing.Net.Mobile.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="ZXingNetMobile">
-      <HintPath>..\packages\ZXing.Net.Mobile.2.0.4.46\lib\Xamarin.iOS10\ZXingNetMobile.dll</HintPath>
-    </Reference>
     <Reference Include="SDWebImage">
       <HintPath>..\packages\Xamarin.SDWebImage.3.7.5\lib\Xamarin.iOS\SDWebImage.dll</HintPath>
     </Reference>
@@ -115,6 +106,15 @@
     </Reference>
     <Reference Include="Xamarin-Sidebar-Unified">
       <HintPath>_ext\Xamarin-Sidebar-Unified.dll</HintPath>
+    </Reference>
+    <Reference Include="ZXing.Net.Mobile.Core">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.1.47\lib\Xamarin.iOS10\ZXing.Net.Mobile.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.portable">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.1.47\lib\Xamarin.iOS10\zxing.portable.dll</HintPath>
+    </Reference>
+    <Reference Include="ZXingNetMobile">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.1.47\lib\Xamarin.iOS10\ZXingNetMobile.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +157,6 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
-    <InterfaceDefinition Include="Views\BunnyCellView.xib" />
     <InterfaceDefinition Include="Views\BunnySizeCellView.xib" />
     <InterfaceDefinition Include="Views\BunnySpreadCellView.xib" />
     <InterfaceDefinition Include="Views\PlayerCountCellView.xib" />
@@ -177,6 +176,7 @@
     <InterfaceDefinition Include="Base.lproj\ProfileViewController.xib" />
     <InterfaceDefinition Include="Base.lproj\SideMenuController.xib" />
     <InterfaceDefinition Include="Base.lproj\AboutViewController.xib" />
+    <InterfaceDefinition Include="Views\AdoptionViewCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -220,11 +220,7 @@
     <Compile Include="ViewControllers\BunnyCamViewController.designer.cs">
       <DependentUpon>BunnyCamViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\BunnyCellView.cs" />
-    <Compile Include="Views\BunnyCellView.designer.cs">
-      <DependentUpon>BunnyCellView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Collections\BunnyShopTableSource.cs" />
+    <Compile Include="Collections\BunnyShopCollectionSource.cs" />
     <Compile Include="..\FluffyCore\Server.cs">
       <Link>FluffyCore\Server.cs</Link>
     </Compile>
@@ -301,6 +297,10 @@
     <Compile Include="utils\ShapedImageView.cs" />
     <Compile Include="utils\UIImageHelper.cs" />
     <Compile Include="utils\UIResources.cs" />
+    <Compile Include="Views\AdoptionViewCell.cs" />
+    <Compile Include="Views\AdoptionViewCell.designer.cs">
+      <DependentUpon>AdoptionViewCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -356,16 +356,16 @@
       <Version>105.2.3</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
-    <XamarinComponentReference Include="zxing.net.mobile">
-      <Version>2.0.4.17</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
     <XamarinComponentReference Include="sdwebimage">
       <Version>3.7.5</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="Flurry.Ads">
       <Version>2.0.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="zxing.net.mobile">
+      <Version>2.1.12</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

@@ -290,6 +290,32 @@ namespace Fluffimax.Core
 				});
 		}
 
+		public static void BreedBunnies(Bunny firstBuns, Bunny secondBuns, Bunny_callback callback)
+		{
+			string fullURL = "bunny";
+
+			RestRequest request = new RestRequest(fullURL, Method.POST);
+			request.AddParameter("mom", firstBuns.id);
+			request.AddParameter("dad", secondBuns.id);
+
+			apiClient.ExecuteAsync(request, (response) =>
+				{
+					if (response.StatusCode == HttpStatusCode.OK)
+					{
+						if (!string.IsNullOrEmpty(response.Content) && response.Content != "null")
+						{
+							Bunny newBuns = response.Content.FromJson<Bunny>();
+							if (newBuns != null)
+							{
+								Game.CurrentPlayer.Bunnies.Add(newBuns);
+							}
+							callback(newBuns);
+						}
+						else callback(null);
+					}
+				});
+		}
+
 		public static void RecordPlayerAction(string actionName, object valueObj)
 		{
 			string fullURL = "player";
@@ -302,6 +328,7 @@ namespace Fluffimax.Core
 					// todo:  check for error?
 				});
 		}
+
 
 		public static void RecordFeedBunny(Bunny theBuns)
 		{

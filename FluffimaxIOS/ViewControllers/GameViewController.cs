@@ -404,7 +404,8 @@ namespace Fluffimax.iOS
 			CheckForNewBunnies ();
 			CheckForRecentPurchase ();
 
-			DoBunnyHop(_bunnyGraphicList[0]);
+			if (_bunnyGraphicList.Count > 0)
+				DoBunnyHop(_bunnyGraphicList[0]);
 
 
 
@@ -489,8 +490,9 @@ namespace Fluffimax.iOS
 
 			// todo:  add a gesture recognizer  
 			//bunsBtn.TouchUpInside += HandleBunnyClick;
+			UpdateBunsSizeAndLocation(thebuns);
 			PlayfieldView.UpdateConstraints ();
-			UpdateBunsSizeAndLocation (thebuns);
+
 			PlayfieldView.BringSubviewToFront (bunsBtn);
 			bunsBtn.StartAnimating();
 			PlayfieldView.LayoutIfNeeded();
@@ -529,6 +531,21 @@ namespace Fluffimax.iOS
 			}
 		}
 
+		public override void ViewWillDisappear(bool animated)
+		{
+			base.ViewWillDisappear(animated);
+			Game.CurrentPlayer.SaveBunnies();
+			_idleTimer.Stop();
+		}
+
+		public override void ViewDidAppear(bool animated)
+		{
+			base.ViewDidAppear(animated);
+			if (inited)
+			{
+				_idleTimer.Start();
+			}
+		}
 
 
 		public double BunnySizeForLevel(int level) {
@@ -557,6 +574,13 @@ namespace Fluffimax.iOS
 					UpdateScore();
 					StartTimers();
 					inited = true;
+
+					if (HomeViewController.ShowTutorialStep("click_bunny_tutorial", "click_bunny_tutorial".Localize())) { }
+					else if (HomeViewController.ShowTutorialStep("bunny_breed_tutorial", "bunny_breed_tutorial".Localize())) { }
+					else if (HomeViewController.ShowTutorialStep("buy_carrots_tutorial", "buy_carrots_tutorial".Localize())) { }
+					else if (HomeViewController.ShowTutorialStep("bunny_catch_tutorial", "bunny_catch_tutorial".Localize())) { }
+					inited = true;
+
 				});
 			}
 			else if (Game.NewPlayerLoaded) {
@@ -628,6 +652,14 @@ namespace Fluffimax.iOS
 						BunnyDetailView.Layer.Opacity = 1;
 						UpdateBunnyPanel();
 					});
+
+					// tutorial
+					if (HomeViewController.ShowTutorialStep("button_details_tutorial", "button_details_tutorial".Localize())) { }
+					else if (HomeViewController.ShowTutorialStep("rename_tutorial", "rename_tutorial".Localize())) { }
+					else if (HomeViewController.ShowTutorialStep("bunny_pet_tutorial", "bunny_pet_tutorial".Localize())) { }
+					else if (HomeViewController.ShowTutorialStep("sell_bunny_tutorial", "sell_bunny_tutorial".Localize())) { }
+					else if (HomeViewController.ShowTutorialStep("bunny_toss_tutorial", "bunny_toss_tutorial".Localize())) { }
+
 				}
 			});
 		}
@@ -821,32 +853,27 @@ namespace Fluffimax.iOS
 
 						if (firstBuns.Button.Frame.IntersectsWith (secondBuns.Button.Frame)) {
 							if (Bunny.BunniesCanBreed(secondBuns.LinkedBuns, firstBuns.LinkedBuns))
+							{
 								HappyBuns(firstBuns.LinkedBuns);
+								Server.BreedBunnies(firstBuns.LinkedBuns, secondBuns.LinkedBuns, (newBuns) =>
+								{
+									if (newBuns != null)
+									{
+										firstBuns.LinkedBuns.LastBredDate = DateTime.Now;
+										secondBuns.LinkedBuns.LastBredDate = DateTime.Now;
+										newBuns.HorizontalLoc = firstBuns.LinkedBuns.HorizontalLoc;
+										newBuns.VerticalLoc = secondBuns.LinkedBuns.VerticalLoc;
+										AddBunnyToScreen(newBuns);
+									}
+								});
+							}
 						}
 					}
 				}
 			}
 		}
 
-		private void SetBunnyDirectionGraphic(BunnyGraphic buns, int dir) {
-			BeginInvokeOnMainThread (() => {
-				// to do - change the bunny to face the direction
-			});
-		}
 
-		private void SetBunnyIdleGraphic(BunnyGraphic buns) {
-			BeginInvokeOnMainThread (() => {
-				// to do - change the bunny to a random idle state
-			});
-		}
-
-		private void PauseTimers() {
-			_idleTimer.Stop ();
-		}
-
-		private void ResumeTimers() {
-			_idleTimer.Start ();
-		}
 
 		private void UpdateScore() {
 			InvokeOnMainThread (() => {
@@ -924,6 +951,10 @@ namespace Fluffimax.iOS
 								UpdateBunnyPanel(); 
 								givingCarrot = false;
 								FeedBunnyBtn.Enabled = true;
+								if (grew)
+								{
+									HomeViewController.ShowTutorialStep("bunny_grow_tutorial", "bunny_grow_tutorial".Localize());
+								}
 							});
 						});
 

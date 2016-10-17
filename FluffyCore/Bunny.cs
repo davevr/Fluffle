@@ -4,7 +4,6 @@ using System.Collections.Generic;
 namespace Fluffimax.Core
 {
 	public class Bunny : IComparable<Bunny> {
-		public List<long>	Children { get; set; }
 		public int HorizontalLoc { get; set; }
 		public int VerticalLoc { get; set; }
 		public long OriginalOwner { get; set; }
@@ -30,12 +29,11 @@ namespace Fluffimax.Core
 		public string CurrentOwnerImg { get; set; }
 		public static List<int> _growthStages = null;
 		public int Happiness { get; set;}
+		public bool isDirty { get; set;}
 
 
 		public Bunny() {
-			
-
-			Children = new List<long> ();
+			isDirty = false;
 		}
 
 		public static string SizeString(int size)
@@ -96,7 +94,16 @@ namespace Fluffimax.Core
 		public void UpdateLocation(int xLoc, int yLoc) {
 			HorizontalLoc = xLoc;
 			VerticalLoc = yLoc;
-			Server.RecordBunnyLoc (this);
+			isDirty = true;
+		}
+
+		public void SaveBunny()
+		{
+			if (isDirty)
+			{
+				Server.RecordBunnyLoc(this);
+				isDirty = false;
+			}
 		}
 			
 		public double Progress {

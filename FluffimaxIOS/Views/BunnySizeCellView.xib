@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,11 +13,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cxk-wN-pdQ" id="YTl-1W-gDM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="95"/>
+                <frame key="frameInset" width="320" height="95.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2">
-                        <rect key="frame" x="-1" y="-72" width="160" height="240"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2">
+                        <frame key="frameInset" minX="-1" minY="-72" width="160" height="240"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="64" id="UCv-3T-3qd"/>
                             <constraint firstAttribute="width" constant="64" id="hs9-fU-6wj"/>
@@ -33,39 +33,38 @@
                                 <include reference="UCv-3T-3qd"/>
                                 <include reference="hs9-fU-6wj"/>
                             </mask>
-                            <rect key="frame" x="4" y="4" width="64" height="64"/>
                         </variation>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="8" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="3">
-                        <rect key="frame" x="176" y="8" width="42" height="21"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="8" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                        <frame key="frameInset" minX="176" minY="8" width="42" height="21"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="32"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="80/100" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                        <rect key="frame" x="226" y="54" width="42" height="21"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="80/100" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                        <frame key="frameInset" minX="226" minY="54" width="42" height="21"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="BunnyName" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                        <rect key="frame" x="217" y="44" width="42" height="21"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="BunnyName" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                        <frame key="frameInset" minX="217" minY="44" width="42" height="21"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="24"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="owner" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                        <rect key="frame" x="167" y="73" width="42" height="21"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="owner" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                        <frame key="frameInset" minX="167" minY="73" width="42" height="21"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                        <rect key="frame" x="45" y="-84" width="160" height="240"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                        <frame key="frameInset" minX="45" minY="-84" width="160" height="240"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="Ayr-Mo-vLs"/>
                             <constraint firstAttribute="width" constant="32" id="eMu-ys-mBd"/>
@@ -76,12 +75,11 @@
                                 <exclude reference="eMu-ys-mBd"/>
                             </mask>
                         </variation>
-                        <variation key="widthClass=compact" misplaced="YES">
+                        <variation key="widthClass=compact">
                             <mask key="constraints">
                                 <include reference="Ayr-Mo-vLs"/>
                                 <include reference="eMu-ys-mBd"/>
                             </mask>
-                            <rect key="frame" x="76" y="37" width="32" height="32"/>
                         </variation>
                     </imageView>
                 </subviews>
@@ -146,7 +144,6 @@
                         <include reference="C3K-cI-kdO"/>
                         <include reference="F4S-jf-Bm7"/>
                     </mask>
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="95.5"/>
                 </variation>
             </tableViewCellContentView>
             <connections>
@@ -160,18 +157,4 @@
             <point key="canvasLocation" x="-206" y="150"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="carrot.png" width="512" height="512"/>
-        <image name="bunny.png" width="512" height="512"/>
-        <image name="grass.png" width="1024" height="1024"/>
-        <image name="baseicon.png" width="375" height="375"/>
-        <image name="menu-48.png" width="24" height="24"/>
-        <image name="about-48.png" width="24" height="24"/>
-        <image name="ask_question-48.png" width="24" height="24"/>
-        <image name="business_contact-48.png" width="24" height="24"/>
-        <image name="cancel-48.png" width="24" height="24"/>
-        <image name="delete_sign-48.png" width="24" height="24"/>
-        <image name="home-48.png" width="24" height="24"/>
-        <image name="unknown_user.png" width="512" height="512"/>
-    </resources>
 </document>

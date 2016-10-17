@@ -701,6 +701,7 @@ namespace Fluffle.AndroidApp
             if (_idleTimer != null)
                 _idleTimer.Stop();
             paused = true;
+			Game.CurrentPlayer.SaveBunnies();
         }
 
         public void ResumeView()
@@ -969,7 +970,7 @@ namespace Fluffle.AndroidApp
             });
         }
 
-        private void PauseTimers()
+        private void over()
         {
             _idleTimer.Stop();
         }

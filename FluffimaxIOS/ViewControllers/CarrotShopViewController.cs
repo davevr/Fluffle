@@ -81,6 +81,11 @@ namespace Fluffimax.iOS
 
 		}
 			
+		public override void ViewDidAppear(bool animated)
+		{
+			HomeViewController.ShowTutorialStep("carrot_shop_tutorial", "carrot_shop_tutorial".Localize());
+
+		}
 
 		private void HandleAdView() {
 			int carrotCount = 10;

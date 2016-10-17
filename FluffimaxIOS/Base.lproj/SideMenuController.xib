@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SideMenuController">
@@ -18,13 +18,12 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="2">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEL-pu-LdR" fixedFrame="YES">
-                    <rect key="frame" x="-15" y="-15" width="950" height="375"/>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEL-pu-LdR">
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="baseicon.png" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="200" id="LKB-Av-jn8"/>
                                 <constraint firstAttribute="height" constant="200" id="agW-31-heA"/>
@@ -35,97 +34,80 @@
                                     <exclude reference="agW-31-heA"/>
                                 </mask>
                             </variation>
-                            <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                            <variation key="widthClass=compact">
                                 <mask key="constraints">
                                     <include reference="LKB-Av-jn8"/>
                                     <include reference="agW-31-heA"/>
                                 </mask>
                             </variation>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9" fixedFrame="YES">
-                            <rect key="frame" x="375" y="0.0" width="124" height="375"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9">
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="a5L-kM-DlJ"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="Bunny Garden">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
-                            <variation key="widthClass=compact" ambiguous="YES" fixedFrame="YES">
-                                <rect key="frame" x="125.5" y="375" width="124" height="38"/>
-                            </variation>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11" fixedFrame="YES">
-                            <rect key="frame" x="499" y="0.0" width="61" height="375"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11">
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="ja4-z3-LSZ"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="Profile">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
-                            <variation key="widthClass=compact" ambiguous="YES" fixedFrame="YES">
-                                <rect key="frame" x="157" y="413" width="61" height="38"/>
-                            </variation>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12" fixedFrame="YES">
-                            <rect key="frame" x="560" y="0.0" width="123" height="375"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12">
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="90l-s7-HCY"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="Leaderboards">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
-                            <variation key="widthClass=compact" ambiguous="YES" fixedFrame="YES">
-                                <rect key="frame" x="126" y="451" width="123" height="38"/>
-                            </variation>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15" fixedFrame="YES">
-                            <rect key="frame" x="683" y="0.0" width="147" height="375"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15">
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="U6m-lp-nhe"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="Live Bunny Cam!">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
-                            <variation key="widthClass=compact" ambiguous="YES" fixedFrame="YES">
-                                <rect key="frame" x="114" y="489" width="147" height="38"/>
-                            </variation>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16" fixedFrame="YES">
-                            <rect key="frame" x="830" y="0.0" width="120" height="375"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="dV4-Lm-XTc"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="17"/>
                             <state key="normal" title="About Fluffle">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
-                            <variation key="widthClass=compact" ambiguous="YES" fixedFrame="YES">
-                                <rect key="frame" x="127.5" y="527" width="120" height="38"/>
-                            </variation>
                         </button>
                     </subviews>
-                    <variation key="widthClass=compact" alignment="center" axis="vertical" fixedFrame="YES">
-                        <rect key="frame" x="-15" y="-15" width="375" height="565"/>
-                    </variation>
+                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="15" firstAttribute="leading" secondItem="uEL-pu-LdR" secondAttribute="leading" constant="10" id="PiA-am-eo6"/>
+                        <constraint firstAttribute="width" constant="220" id="WXz-Vc-n2F"/>
+                        <constraint firstItem="11" firstAttribute="leading" secondItem="uEL-pu-LdR" secondAttribute="leading" constant="10" id="cHw-h3-67N"/>
+                        <constraint firstItem="12" firstAttribute="leading" secondItem="uEL-pu-LdR" secondAttribute="leading" constant="10" id="cm5-4N-Jev"/>
+                        <constraint firstAttribute="trailing" secondItem="6" secondAttribute="trailing" id="dpy-UE-WiS"/>
+                        <constraint firstItem="9" firstAttribute="leading" secondItem="uEL-pu-LdR" secondAttribute="leading" constant="10" id="eCI-zW-dOh"/>
+                        <constraint firstItem="16" firstAttribute="leading" secondItem="uEL-pu-LdR" secondAttribute="leading" constant="10" id="rqi-aD-E61"/>
+                    </constraints>
+                    <variation key="widthClass=compact" alignment="center" axis="vertical"/>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="uEL-pu-LdR" firstAttribute="top" secondItem="2" secondAttribute="top" id="8NF-ai-DRK"/>
+                <constraint firstItem="uEL-pu-LdR" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="CN6-7G-uAv"/>
+            </constraints>
         </view>
     </objects>
     <resources>
         <image name="baseicon.png" width="375" height="375"/>
-        <image name="carrot.png" width="512" height="512"/>
-        <image name="bunny.png" width="512" height="512"/>
-        <image name="grass.png" width="1024" height="1024"/>
-        <image name="menu-48.png" width="24" height="24"/>
-        <image name="about-48.png" width="24" height="24"/>
-        <image name="ask_question-48.png" width="24" height="24"/>
-        <image name="business_contact-48.png" width="24" height="24"/>
-        <image name="cancel-48.png" width="24" height="24"/>
-        <image name="delete_sign-48.png" width="24" height="24"/>
-        <image name="home-48.png" width="24" height="24"/>
-        <image name="unknown_user.png" width="512" height="512"/>
-        <image name="heart.png" width="128" height="128"/>
-        <image name="carrot_bag.png" width="512" height="512"/>
-        <image name="carrot_crate.png" width="512" height="512"/>
-        <image name="carrot_sack.png" width="512" height="512"/>
-        <image name="carrot_truck.png" width="512" height="512"/>
-        <image name="carrot_wheelbarrow.png" width="512" height="512"/>
-        <image name="flopsy.jpg" width="565" height="565"/>
-        <image name="juju.jpg" width="471" height="471"/>
-        <image name="mostBunnie_48.png" width="48" height="48"/>
-        <image name="shareBunnies_48.png" width="48" height="48"/>
-        <image name="spreadBunnies_48.png" width="48" height="48"/>
-        <image name="biggestBunnies_48.png" width="48" height="48"/>
     </resources>
 </document>
