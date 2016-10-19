@@ -39,6 +39,7 @@ namespace Fluffle.AndroidApp
         private Bunny _currentBuns = null;
         private bool inited = false;
         private Timer _idleTimer = new Timer();
+		private Timer _eventTimer = new Timer();
         private int margin = 200;
         private float fieldXScale;
         private float fieldYScale;
@@ -55,7 +56,10 @@ namespace Fluffle.AndroidApp
         private Button buyCarrotsBtn;
         private Button catchBtn;
         private Button adoptBunnyBtn;
-        private ImageView CarrotImg;
+		private ImageView CarrotImg;
+		private static int kMinEventTime = 100;//10000;
+		private static int kMaxEventTime = 100;//50000;
+		private static double kCarrotGrowth = 2;
 
         private class BunnyGraphic
         {
@@ -360,8 +364,8 @@ namespace Fluffle.AndroidApp
             yLoc = theGraphic.Button.Top + theGraphic.Button.Height / 2;
             layout.LeftMargin = (int)xLoc;
             layout.TopMargin = (int)yLoc;
-
             heartImage.LayoutParameters = layout;
+			heartImage.Tag = 1000;
 
 
             AnimationSet animateHeart = new AnimationSet(true);
@@ -491,6 +495,52 @@ namespace Fluffle.AndroidApp
                     DoPetBunny();
             }
         }
+
+		/*
+		private void PutViewInPlace(View theView)
+		{
+			int curLoc = 0, newLoc = -1;
+			Rect bottomRect = new Rect();
+			theView.GetDrawingRect(bottomRect);
+			int theBottom = bottomRect.Bottom;
+
+			for (int i = 0; i < field.ChildCount; i++) {
+				View curView = field.GetChildAt(i);
+				if (theView.
+				if (curView == theView)
+					curLoc = i;
+				curView.GetDrawingRect(bottomRect);
+				if (bottomRect.Bottom > theBottom) {
+					newLoc = i;
+			}
+		}
+		*/
+
+		private void Carrot_Click(object sender, EventArgs e)
+		{
+			ImageView carrotBtn = sender as ImageView;
+			if (carrotBtn != null)
+			{
+				AnimationSet animateCarrot = new AnimationSet(true);
+				AlphaAnimation alpha = new AlphaAnimation(1, 0);
+				alpha.Duration = 250;
+				animateCarrot.AddAnimation(alpha);
+				animateCarrot.FillAfter = true;
+				animateCarrot.AnimationEnd += (sndr, evt) =>
+				{
+					Activity.RunOnUiThread(() =>
+					{
+						carrotBtn.Post(() =>
+						{
+							Game.CurrentPlayer.GiveCarrots(1);
+							field.RemoveView(carrotBtn);
+							UpdateScore();
+						});
+					});
+				};
+				carrotBtn.StartAnimation(animateCarrot);
+			}
+		}
 
         private void UpdateBunsSizeAndLocation(Bunny thebuns)
         {
@@ -703,6 +753,8 @@ namespace Fluffle.AndroidApp
         {
             if (_idleTimer != null)
                 _idleTimer.Stop();
+			if (_eventTimer != null)
+				_eventTimer.Stop();
             paused = true;
 			Game.CurrentPlayer.SaveBunnies();
         }
@@ -719,6 +771,7 @@ namespace Fluffle.AndroidApp
                 }
                 if (paused)
                     _idleTimer.Start();
+				_eventTimer.Start();
                 paused = false;
             }
 
@@ -769,8 +822,57 @@ namespace Fluffle.AndroidApp
                     MaybeBunniesHop();
                 };
                 _idleTimer.Start();
+
+				_eventTimer.Interval = kMinEventTime;
+				_eventTimer.AutoReset = false;
+				_eventTimer.Elapsed += (sender, e) => { MaybeDoEvent(); };
+
+				_eventTimer.Start();
             });
         }
+
+
+
+		private void MaybeDoEvent()
+		{
+			this.Activity.RunOnUiThread(() =>
+			{
+				float x = Game.Rnd.Next((int)field.Width);
+				float y = Game.Rnd.Next((int)field.Height);
+				float scale = 0.5f + (0.5f * (y / (float)field.Height));
+				float width = (float)field.Width / 25 * scale;
+				float height = width * 2;
+				y -= height;
+				if (y < -width) y = -width;
+				ImageView theView = new ImageView(this.Context);
+				theView.SetImageResource(Resource.Drawable.carrotplant);
+				field.AddView(theView);
+				theView.Click += Carrot_Click;
+
+				theView.Tag = 100 + (int)(200 * (y / (float)field.Height));
+				FrameLayout.LayoutParams theParams = new FrameLayout.LayoutParams((int)width, (int)height);
+				theParams.LeftMargin = (int)x;
+				theParams.TopMargin = (int)y;
+				theView.LayoutParameters = theParams;
+
+				AnimationSet animateCarrot = new AnimationSet(true);
+				ScaleAnimation scaleAnim = new ScaleAnimation(1, 1, 0, 1, Dimension.RelativeToSelf, 0, Dimension.RelativeToSelf, 1);
+				scaleAnim.Duration = 2000;
+				animateCarrot.AddAnimation(scaleAnim);
+				animateCarrot.FillAfter = true;
+				animateCarrot.AnimationEnd += (sndr, evt) =>
+				{
+					Activity.RunOnUiThread(() =>
+					{
+						_eventTimer.Interval = kMinEventTime + Game.Rnd.Next(kMaxEventTime);
+						_eventTimer.Start();
+					});
+				};
+				theView.StartAnimation(animateCarrot);
+
+			});
+		}
+
 
         private void MaybeBunniesHop()
         {
@@ -921,42 +1023,47 @@ namespace Fluffle.AndroidApp
                 {
                     buns.Button.SetImageDrawable(idleFrames);
                     idleFrames.Start();
-                    // todo - fix zorder after bunny jump
+					buns.Button.Tag =  200 + (int)newY;
                     buns.LinkedBuns.UpdateLocation((int)theX, (int)theY);
                     _idleTimer.Start();
-                    CheckBunnyBreeding();
+                    CheckBunnyBreeding(buns);
                 });
             };
             theView.StartAnimation(newAnimation);
             
         }
 
-        private void CheckBunnyBreeding()
+        private void CheckBunnyBreeding(BunnyGraphic firstBuns)
         {
-            if (_bunnyGraphicList.Count > 1)
-            {
-                for (int i = 0; i < _bunnyGraphicList.Count - 1; i++)
-                {
-                    BunnyGraphic firstBuns = _bunnyGraphicList[i];
-                    Rect firstRect = new Rect();
-                    firstBuns.Button.GetGlobalVisibleRect(firstRect);
-                    for (int j = 1; j < _bunnyGraphicList.Count; j++)
-                    {
-                        BunnyGraphic secondBuns = _bunnyGraphicList[j];
-                        Rect secondRect = new Rect();
-                        secondBuns.Button.GetGlobalVisibleRect(secondRect);
+			Rect firstRect = new Rect();
+			firstBuns.Button.GetGlobalVisibleRect(firstRect);
 
-                        if (secondRect.Intersect(firstRect))
-                        {
-                            if (Bunny.BunniesCanBreed(secondBuns.LinkedBuns, firstBuns.LinkedBuns))
-                            {
-                                HappyBuns(firstBuns.LinkedBuns);
-                                // todo - should they breed??
-                            }
-                        }
-                    }
-                }
-            }
+			foreach (BunnyGraphic secondBuns in _bunnyGraphicList)
+			{
+				if (firstBuns != secondBuns)
+				{
+					Rect secondRect = new Rect();
+					secondBuns.Button.GetGlobalVisibleRect(secondRect);
+					if (secondRect.Intersect(firstRect))
+					{
+						if (Bunny.BunniesCanBreed(secondBuns.LinkedBuns, firstBuns.LinkedBuns))
+						{
+							HappyBuns(firstBuns.LinkedBuns);
+							Server.BreedBunnies(firstBuns.LinkedBuns, secondBuns.LinkedBuns, (newBuns) =>
+								{
+									if (newBuns != null)
+									{
+										firstBuns.LinkedBuns.LastBredDate = DateTime.Now;
+										secondBuns.LinkedBuns.LastBredDate = DateTime.Now;
+										newBuns.HorizontalLoc = firstBuns.LinkedBuns.HorizontalLoc;
+										newBuns.VerticalLoc = secondBuns.LinkedBuns.VerticalLoc;
+										AddBunnyToScreen(newBuns);
+									}
+								});
+						}
+					}
+				}
+			}
         }
 
         private void SetBunnyDirectionGraphic(BunnyGraphic buns, int dir)
@@ -1002,6 +1109,7 @@ namespace Fluffle.AndroidApp
                     feedBtn.Enabled = false;
                     CarrotImg.Visibility = ViewStates.Visible;
                     field.BringChildToFront(CarrotImg);
+					CarrotImg.Tag = 1000;
                     UpdateScore();
                     AnimationDrawable imageList = SpriteManager.GetImageList(theBuns, "idle", "front");
                     ImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
@@ -1076,7 +1184,8 @@ namespace Fluffle.AndroidApp
                         {
                             Activity.RunOnUiThread(() => 
                             {
-                                //UpdateBunsSizeAndLocation(thebuns);
+								//UpdateBunsSizeAndLocation(thebuns);
+								theGraphic.Button.Tag = 200 + layout.TopMargin;
                                 UpdateBunnyPanel();
                                 givingCarrot = false;
                                 feedBtn.Enabled = true;

@@ -38,9 +38,9 @@
 		<true/>
 	</dict>
 	<key>CFBundleShortVersionString</key>
-	<string>1.20</string>
+	<string>1.41</string>
 	<key>CFBundleVersion</key>
-	<string>120</string>
+	<string>141</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>fonts/FingerPaint-Regular.ttf</string>
@@ -68,5 +68,7 @@
 		<string>es</string>
 		<string>zh-Hans</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Gallery access is needed if you want to upload a profile picture.</string>
 </dict>
 </plist>

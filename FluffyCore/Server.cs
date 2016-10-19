@@ -28,10 +28,10 @@ namespace Fluffimax.Core
 		private static string apiBase = "/api/v1";
 		private static string spriteFolderBase = "/images/sprites/";
 		private static string profileFolderBase = "/images/profiles/";
-		private static string localHostStr = "http://localhost:8080"; // "http://localhost:8080"; // "http://10.0.3.2:8080"
+		private static string localHostStr = "http://10.0.3.2:8080"; // "http://localhost:8080"; // "http://10.0.3.2:8080"
 		private static string networkHostStr = "http://192.168.0.22:8080";
 		private static string productionHostStr = "http://fluffle.it";
-		private static string serverBase = networkHostStr; 
+		private static string serverBase = productionHostStr; 
 		private static string apiPath;
 		public static string SpriteImagePath;
 		public static string ProfileImagePath;

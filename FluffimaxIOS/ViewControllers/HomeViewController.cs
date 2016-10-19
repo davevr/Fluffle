@@ -35,7 +35,7 @@ namespace Fluffimax.iOS
 			View.BackgroundColor = UIColor.Green;
 
 			var prefs = NSUserDefaults.StandardUserDefaults;
-			skipTutorial = prefs.BoolForKey("skipTutorials");
+			skipTutorial = prefs.BoolForKey("skipTutorial");
 
 			ResumeGame ();
 		}

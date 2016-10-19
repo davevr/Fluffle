@@ -19,6 +19,9 @@ namespace Fluffimax.iOS
 		private static int kHorizontalHopMin = 8;
 		private static int kVerticalHopMax = 16;
 		private static int kHorizontalHopMax = 32;
+		private static int kMinEventTime = 10000;
+		private static double kCarrotGrowth = 2; 
+		private static int kMaxEventTime = 50000;
 		private static nfloat kMinWidth = -100;
 		private static nfloat kMinHeight = -100;
 		private static nfloat kMaxWidth = 100;
@@ -26,6 +29,8 @@ namespace Fluffimax.iOS
 		private Bunny _currentBuns = null;
 		private bool inited = false;
 		private Timer _idleTimer = new Timer ();
+		private Timer _eventTimer = new Timer();
+		private bool bunsPositioned = false;
 
 		private class BunnyGraphic
 		{
@@ -123,6 +128,8 @@ namespace Fluffimax.iOS
 				CatchBtn.Font = smallFont;
 				View.LayoutIfNeeded();
 			}
+
+			//CatchBtn.Superview.Layer.ZPosition = 1000;
 		}
 
 		private void MaybeSellBunny() {
@@ -258,6 +265,22 @@ namespace Fluffimax.iOS
 
 			if (theBuns == null) {
 				SetCurrentBunny (null);
+				// see if any carrots were clicked
+				UIImageView theCarrot = null;
+
+				foreach (UIView curView in PlayfieldView.Subviews)
+				{
+					if (curView.Tag == 12345 && curView.Frame.Contains(theLoc))
+					{
+						theCarrot = curView as UIImageView;
+						break;
+					}
+				}
+
+				if (theCarrot != null)
+				{
+					PlayerGetsCarrot(theCarrot);
+				}
 			} 
 			else 
 			{
@@ -266,6 +289,48 @@ namespace Fluffimax.iOS
 				
 				SetCurrentBunny (theBuns);
 			}
+		}
+
+		public override void MotionEnded(UIEventSubtype motion, UIEvent evt)
+		{
+			if (motion == UIEventSubtype.MotionShake)
+			{
+				HandleShake();
+			}
+			base.MotionEnded(motion, evt);
+		}
+
+		private void HandleShake()
+		{
+			// do something here, like rearrange all the bunnies
+			foreach (BunnyGraphic curBun in _bunnyGraphicList)
+			{
+				int newX = Game.Rnd.Next(180) - 90;
+				int newY = Game.Rnd.Next(180) - 90;
+				curBun.LinkedBuns.HorizontalLoc = newX;
+				curBun.LinkedBuns.VerticalLoc = newY;
+				BunnyMoveToNewLoc(curBun);
+			}
+		}
+
+		private void PlayerGetsCarrot(UIImageView theCarrot)
+		{
+			InvokeOnMainThread(() =>
+			{
+				UIView.Animate(.25, () =>
+				{
+					theCarrot.Layer.Opacity = 0;
+				}, () =>
+				{
+					InvokeOnMainThread(() =>
+					{
+						Game.CurrentPlayer.GiveCarrots(1);
+						theCarrot.RemoveFromSuperview();
+						UpdateScore();
+						theCarrot.Image = null;
+					});
+				});
+			});
 		}
 
 		private void HandleBunnySwipe(UISwipeGestureRecognizer recognizer)
@@ -291,7 +356,8 @@ namespace Fluffimax.iOS
 
 		public void DoPetBunny()
 		{
-			HappyBuns(this._currentBuns);
+			if (bunsPositioned)
+				HappyBuns(this._currentBuns);
 		}
 
 		public void HappyBuns(Bunny whichBuns)
@@ -403,13 +469,9 @@ namespace Fluffimax.iOS
 
 			CheckForNewBunnies ();
 			CheckForRecentPurchase ();
-
-			if (_bunnyGraphicList.Count > 0)
-                DoBunnyHop(_bunnyGraphicList[0]);
-
-
-
 		}
+
+
 
 
 
@@ -536,14 +598,26 @@ namespace Fluffimax.iOS
 			base.ViewWillDisappear(animated);
 			Game.CurrentPlayer.SaveBunnies();
 			_idleTimer.Stop();
+			_eventTimer.Stop();
 		}
 
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
+
+			if (!bunsPositioned)
+			{
+				foreach (BunnyGraphic buns in _bunnyGraphicList)
+				{
+					BunnyMoveToNewLoc(buns);
+				}
+				bunsPositioned = true;
+			}
+
 			if (inited)
 			{
 				_idleTimer.Start();
+				_eventTimer.Start();
 			}
 		}
 
@@ -706,7 +780,44 @@ namespace Fluffimax.iOS
 			_idleTimer.Elapsed += (object sender, ElapsedEventArgs e) => {
 				MaybeBunniesHop();
 			};
+
+			_eventTimer.Interval = kMinEventTime;
+			_eventTimer.AutoReset = false;
+			_eventTimer.Elapsed += (sender, e) => { MaybeDoEvent(); };
+
+			_eventTimer.Start();
 			_idleTimer.Start ();
+		}
+
+		private void MaybeDoEvent()
+		{
+			InvokeOnMainThread(() =>
+			{
+				CGRect playFieldBounds = PlayfieldView.Frame;
+				float x = Game.Rnd.Next((int)playFieldBounds.Width);
+				float y = Game.Rnd.Next((int)playFieldBounds.Height);
+				float scale = 0.5f + (0.5f * (y / (float)playFieldBounds.Height));
+				float width = (float)playFieldBounds.Width / 25 * scale;
+				float height = width * 2;
+				y -= height;
+				if (y < -width) y = -width;
+				CGRect theBounds = new CGRect(x, y, width, height);
+				UIImageView theView = new UIImageView(theBounds);
+				theView.Tag = 12345;
+				theView.Image = UIImage.FromBundle("carrotplant");
+				PlayfieldView.AddSubview(theView);
+				theView.Layer.ZPosition = 100 + (200 * (y / (float)playFieldBounds.Height));
+				theView.Layer.Transform = CoreAnimation.CATransform3D.MakeScale(1, 0, 1);
+				UIView.Animate(kCarrotGrowth, () =>
+				{
+					theView.Layer.Transform = CoreAnimation.CATransform3D.MakeScale(1, 1, 1);
+				}, () =>
+				{
+					_eventTimer.Interval = kMinEventTime + Game.Rnd.Next(kMaxEventTime);
+					_eventTimer.Start();
+				});
+
+			});
 		}
 
 		private void MaybeBunniesHop() {
@@ -812,9 +923,28 @@ namespace Fluffimax.iOS
 					buns.Button.Transform = CGAffineTransform.MakeScale(-scale,scale);
 				else
 					buns.Button.Transform = CGAffineTransform.MakeScale(scale, scale);
-				
-				BunnyHopToNewLoc (buns, dir, newX, newY, bunnyJumpImageFrames, bunnyIdleImageFrames);
+
+				BunnyHopToNewLoc(buns, dir, newX, newY, bunnyJumpImageFrames, bunnyIdleImageFrames);
 			});
+		}
+
+
+
+		private void BunnyMoveToNewLoc(BunnyGraphic buns)
+		{
+			nfloat newX = buns.LinkedBuns.HorizontalLoc;
+			nfloat newY = buns.LinkedBuns.VerticalLoc;
+			CGRect bounds = PlayfieldView.Frame;
+			nfloat xScale = bounds.Width / 200;
+			nfloat yScale = bounds.Height / 200;
+
+			buns.Horizontal.Constant = (newX + 100) * xScale;
+			buns.Vertical.Constant = (newY + 100) * yScale;
+			PlayfieldView.LayoutIfNeeded();
+			buns.Button.AnimationDuration = 1 + Game.Rnd.NextDouble();
+			buns.Button.StartAnimating();
+			buns.Button.Layer.ZPosition = 200 + newY;
+			buns.LinkedBuns.UpdateLocation((int)newX, (int)newY);
 		}
 
 		private void BunnyHopToNewLoc(BunnyGraphic buns, int dir, nfloat newX, nfloat newY, UIImage[] jumpFrames, UIImage[] idleFrames) {
@@ -840,35 +970,36 @@ namespace Fluffimax.iOS
 				});
 				buns.LinkedBuns.UpdateLocation((int)newX, (int)newY);
 				_idleTimer.Start();
-				CheckBunnyBreeding();
+				CheckBunnyBreeding(buns);
 			});
 		}
 
-		private void CheckBunnyBreeding() {
-			if (_bunnyGraphicList.Count > 1) {
-				for (int i = 0; i < _bunnyGraphicList.Count - 1; i++) {
-					BunnyGraphic firstBuns = _bunnyGraphicList [i];
-					for (int j = 1; j < _bunnyGraphicList.Count; j++) {
-						BunnyGraphic secondBuns = _bunnyGraphicList [j];
+		private void CheckBunnyBreeding(BunnyGraphic firstBuns)
+		{
 
-						if (firstBuns.Button.Frame.IntersectsWith (secondBuns.Button.Frame)) {
-							if (Bunny.BunniesCanBreed(secondBuns.LinkedBuns, firstBuns.LinkedBuns))
+			foreach (BunnyGraphic secondBuns in _bunnyGraphicList)
+			{
+				if (firstBuns != secondBuns)
+				{
+					if (firstBuns.Button.Frame.IntersectsWith(secondBuns.Button.Frame))
+					{
+						if (Bunny.BunniesCanBreed(secondBuns.LinkedBuns, firstBuns.LinkedBuns))
+						{
+							HappyBuns(firstBuns.LinkedBuns);
+							Server.BreedBunnies(firstBuns.LinkedBuns, secondBuns.LinkedBuns, (newBuns) =>
 							{
-								HappyBuns(firstBuns.LinkedBuns);
-								Server.BreedBunnies(firstBuns.LinkedBuns, secondBuns.LinkedBuns, (newBuns) =>
+								if (newBuns != null)
 								{
-									if (newBuns != null)
-									{
-										firstBuns.LinkedBuns.LastBredDate = DateTime.Now;
-										secondBuns.LinkedBuns.LastBredDate = DateTime.Now;
-										newBuns.HorizontalLoc = firstBuns.LinkedBuns.HorizontalLoc;
-										newBuns.VerticalLoc = secondBuns.LinkedBuns.VerticalLoc;
-										AddBunnyToScreen(newBuns);
-									}
-								});
-							}
+									firstBuns.LinkedBuns.LastBredDate = DateTime.Now;
+									secondBuns.LinkedBuns.LastBredDate = DateTime.Now;
+									newBuns.HorizontalLoc = firstBuns.LinkedBuns.HorizontalLoc;
+									newBuns.VerticalLoc = secondBuns.LinkedBuns.VerticalLoc;
+									AddBunnyToScreen(newBuns);
+								}
+							});
 						}
 					}
+
 				}
 			}
 		}

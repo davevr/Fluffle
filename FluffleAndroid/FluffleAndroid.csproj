@@ -153,6 +153,7 @@
     <Compile Include="HelperClasses\StreamHelper.cs" />
     <Compile Include="HelperClasses\TypefaceSpan.cs" />
     <Compile Include="HelperClasses\SpriteManager.cs" />
+    <Compile Include="HelperClasses\OrderedFrame.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -208,6 +209,7 @@
     <AndroidResource Include="Resources\layout\LBCellMostSpread.axml" />
     <AndroidResource Include="Resources\color\tabTextColor.xml" />
     <AndroidResource Include="Resources\layout\AdoptionCell.axml" />
+    <AndroidResource Include="Resources\drawable\carrotplant.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="googleplayservices-ads">
