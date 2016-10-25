@@ -155,7 +155,7 @@ namespace Fluffle.AndroidApp
 
 			// check on tutorials
 			ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.instance); 
-			skipTutorial = prefs.GetBoolean("skipTutorials", false);
+			skipTutorial = prefs.GetBoolean("skipTutorial", false);
 
             ResumeGame();
 

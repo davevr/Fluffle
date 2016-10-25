@@ -57,9 +57,9 @@ namespace Fluffle.AndroidApp
         private Button catchBtn;
         private Button adoptBunnyBtn;
 		private ImageView CarrotImg;
-		private static int kMinEventTime = 100;//10000;
-		private static int kMaxEventTime = 100;//50000;
-		private static double kCarrotGrowth = 2;
+		private static int kMinEventTime = 10000;
+		private static int kMaxEventTime = 50000;
+		private static int kCarrotGrowth = 2000;    // 2 seconds
 
         private class BunnyGraphic
         {
@@ -90,6 +90,7 @@ namespace Fluffle.AndroidApp
             adoptBunnyBtn = view.FindViewById<Button>(Resource.Id.AdoptShopBtn);
             CarrotImg = view.FindViewById<ImageView>(Resource.Id.CarrotImage);
             CarrotImg.Visibility = ViewStates.Gone;
+            CarrotImg.Tag = 10000;
             bunnyNameLabel.SetTypeface(MainActivity.bodyFace, TypefaceStyle.Normal);
             
 
@@ -105,6 +106,7 @@ namespace Fluffle.AndroidApp
             bunnyNameLabel.Click += BunnyNameLabel_Click;
             field.Click += Field_Click;
             field.SetBackgroundResource(Resource.Drawable.grass);
+            field.SetClipChildren(false);
             return view;
 		}
 
@@ -360,7 +362,7 @@ namespace Fluffle.AndroidApp
 
             layout.Width = 24;
             layout.Height = 24;
-            xLoc = theGraphic.Button.Left + theGraphic.Button.Width / 2 - 12; ;
+            xLoc = theGraphic.Button.Left + theGraphic.Button.Width / 2 - 12; 
             yLoc = theGraphic.Button.Top + theGraphic.Button.Height / 2;
             layout.LeftMargin = (int)xLoc;
             layout.TopMargin = (int)yLoc;
@@ -857,7 +859,7 @@ namespace Fluffle.AndroidApp
 
 				AnimationSet animateCarrot = new AnimationSet(true);
 				ScaleAnimation scaleAnim = new ScaleAnimation(1, 1, 0, 1, Dimension.RelativeToSelf, 0, Dimension.RelativeToSelf, 1);
-				scaleAnim.Duration = 2000;
+				scaleAnim.Duration = kCarrotGrowth;
 				animateCarrot.AddAnimation(scaleAnim);
 				animateCarrot.FillAfter = true;
 				animateCarrot.AnimationEnd += (sndr, evt) =>
@@ -1109,7 +1111,7 @@ namespace Fluffle.AndroidApp
                     feedBtn.Enabled = false;
                     CarrotImg.Visibility = ViewStates.Visible;
                     field.BringChildToFront(CarrotImg);
-					CarrotImg.Tag = 1000;
+					CarrotImg.Tag = 10000;
                     UpdateScore();
                     AnimationDrawable imageList = SpriteManager.GetImageList(theBuns, "idle", "front");
                     ImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;

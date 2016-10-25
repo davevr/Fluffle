@@ -1,29 +1,27 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
+
 using Android.Views;
 using Android.Widget;
 using Xamarin.InAppBilling;
 using Android.Graphics;
 using Fluffimax.Core;
-using Android.Gms.Ads;
-using Android.Gms.Ads.Reward;
+
+using Com.Vungle.Publisher;
 
 namespace Fluffle.AndroidApp
 {
 	[Activity(Label = "CarrotStoreActivity", Icon = "@drawable/baseicon",
 			 Theme = "@style/Theme.AppCompat.Light", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-	public class CarrotStoreActivity : Activity, IRewardedVideoAdListener
+	public class CarrotStoreActivity : Activity, IEventListener
 	{
 		public static string apikey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwBQMKprukm36hOk5CeswtMHNMXFD604Yqk82DhlPIsSjEEQA9tTjrSxeoN59OjQ98cjrDEl4au2QINE0epNWYUgCVrGGTnqMOKJz3U2BxXvjlpiq8nOy0XLjpnWNiZC8GWRcTVz1T8HbMveps4GBqfEdioLERot/aaFNh+AdFq7S8e0dGCxrChy0n8yIglkKvxRvK7AjwE/amI1X/xYnhzy4Lf5ocCWh3CPmyU6BaAwGyoEMrr1WwflquztOaA4Q6T2TQUH8oJS+7ZOG9VzKidmsUssJw9n0lWZ8BqG653/0mVDv94F2ii9xYJmilbX0M4Et1F7tjIh5Y0nXXnfWeQIDAQAB";
 		private InAppBillingServiceConnection _serviceConnection;
+        private static string vungleIdStr = "57fc36e29776c22a3b000059";
 		IList<Product> _products;
 
 		LinearLayout item1area;
@@ -42,9 +40,9 @@ namespace Fluffle.AndroidApp
 		TextView item05title;
 		TextView item05desc;
 		TextView availableLabel;
-        protected AdView mAdView;
-        protected IRewardedVideoAd mRewardAd;
+
         protected Button mLoadInterstitialButton;
+        protected VunglePub vunglePub;
 
         protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -98,29 +96,26 @@ namespace Fluffle.AndroidApp
 
 			_serviceConnection.OnInAppBillingError += HandleOnInAppBillingErrorDelegate;
 			UpdateCarrotCount();
-            mAdView = FindViewById<AdView>(Resource.Id.adView);
-            var adRequest = new AdRequest.Builder().AddTestDevice("4B5B3CDF6F421EC8A06A35832AC88E9B").Build();
-            mAdView.LoadAd(adRequest);
-
-            mRewardAd = MobileAds.GetRewardedVideoAdInstance(this);
-            mRewardAd.RewardedVideoAdListener = this;
 
             mLoadInterstitialButton = FindViewById<Button>(Resource.Id.load_interstitial_button);
-            //mLoadInterstitialButton.SetOnClickListener(new OnClickListener(this));
             mLoadInterstitialButton.Click += MLoadInterstitialButton_Click;
             mLoadInterstitialButton.Visibility = ViewStates.Gone ;
             MainActivity.ShowTutorialStep(this, "carrot_shop_tutorial", Resource.String.carrot_shop_tutorial);
 
+            // vungle stuff
+            vunglePub = VunglePub.Instance;
+
+            vunglePub.Init(this, vungleIdStr);
+            vunglePub.SetEventListeners(new IEventListener[] { this });
+            vunglePub.GlobalAdConfig.Incentivized = true;
+            vunglePub.GlobalAdConfig.IncentivizedUserId = Game.CurrentPlayer.id.ToString();
         }
 
         private void MLoadInterstitialButton_Click(object sender, EventArgs e)
         {
-            if (mRewardAd.IsLoaded)
-            {
-                mLoadInterstitialButton.Visibility = ViewStates.Gone;
-                mRewardAd.UserId = Game.CurrentPlayer.id.ToString();
-                mRewardAd.Show();
-            }
+            
+            if (vunglePub.IsAdPlayable)
+                vunglePub.PlayAd();
         }
 
         private Product FindProduct(string prodIdStr)
@@ -134,54 +129,7 @@ namespace Fluffle.AndroidApp
 			return null;
 		}
 
-        public void RequestNewRewardAd()
-        {
-            var adRequest = new AdRequest.Builder().AddTestDevice("4B5B3CDF6F421EC8A06A35832AC88E9B").Build();
-            mRewardAd.LoadAd(GetString(Resource.String.test_reward_ad_unit_id), adRequest);
-            
-        }
-
-        public void OnRewardedVideoAdClosed()
-        {
-
-        }
-
-        public void OnRewardedVideoAdFailedToLoad(int errCode)
-        {
-
-        }
-
-        public void OnRewardedVideoAdLeftApplication()
-        {
-
-        }
-
-        public void OnRewarded(IRewardItem theItem)
-        {
-            Toast.MakeText(this, "Thanks for supporting Fluffle!", ToastLength.Short).Show();
-
-            Server.RecordPurchase("video_ad", "ad", theItem.Type, (theResult) =>
-            {
-                UpdateCarrotCount();
-            });
-           
-
-        }
-
-        public void OnRewardedVideoAdLoaded()
-        {
-            mLoadInterstitialButton.Visibility = ViewStates.Visible;
-        }
-
-        public void OnRewardedVideoAdOpened()
-        {
-
-        }
-
-        public void OnRewardedVideoStarted()
-        {
-
-        }
+       
 
 
 
@@ -192,11 +140,7 @@ namespace Fluffle.AndroidApp
 
         protected override void OnPause()
         {
-            if (mAdView != null)
-            {
-                mAdView.Pause();
-            }
-            mRewardAd.Pause();
+            vunglePub.OnPause();
             base.OnPause();
         }
 
@@ -204,24 +148,12 @@ namespace Fluffle.AndroidApp
         {
             base.OnResume();
             _serviceConnection.Connect();
-            if (mAdView != null)
-            {
-                mAdView.Resume();
-            }
-            if (!mRewardAd.IsLoaded)
-            {
-                RequestNewRewardAd();
-            }
-            mRewardAd.Resume();
+
+            vunglePub.OnResume();
         }
 
         protected override void OnDestroy()
         {
-            if (mAdView != null)
-            {
-                mAdView.Destroy();
-            }
-            mRewardAd.Destroy();
             base.OnDestroy();
         }
 
@@ -231,8 +163,9 @@ namespace Fluffle.AndroidApp
 		{
             Product _selectedProduct = FindProduct(prodIdStr);
 
-			_serviceConnection.BillingHandler.BuyProduct(_selectedProduct);
-		}
+            _serviceConnection.BillingHandler.BuyProduct(_selectedProduct);
+
+        }
 
 		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
 		{
@@ -350,12 +283,55 @@ namespace Fluffle.AndroidApp
 
 		void UpdateCarrotCount()
 		{
-			RunOnUiThread(() =>
-			{
-				availableLabel.Text = string.Format("{0} carrots available", Game.CurrentPlayer.carrotCount);
-
-			});
+            Server.GetCarrotCount((theCount) =>
+            {
+                RunOnUiThread(() =>
+                {
+                    availableLabel.Text = string.Format("{0} carrots available", Game.CurrentPlayer.carrotCount);
+                });
+            });
 		}
+
+        public void OnAdEnd(bool sawAd, bool clickedAd)
+        {
+            if (sawAd)
+            {
+                RunOnUiThread(() =>
+                {
+                    // to do:  need to push this value from the server
+                    Game.CurrentPlayer.carrotCount += 50;
+                    availableLabel.Text = string.Format("{0} carrots available", Game.CurrentPlayer.carrotCount);
+                });
+            }
+        }
+
+        public void OnAdPlayableChanged(bool isPlayable)
+        {
+            Console.WriteLine("Ad Playable now -" + isPlayable.ToString());
+            RunOnUiThread(() =>
+            {
+                if (isPlayable)
+                    mLoadInterstitialButton.Visibility = ViewStates.Visible;
+                else
+                    mLoadInterstitialButton.Visibility = ViewStates.Gone;
+            });
+            
+        }
+
+        public void OnAdStart()
+        {
+            Console.WriteLine("Ad started");
+        }
+
+        public void OnAdUnavailable(string p0)
+        {
+            Console.WriteLine("Ad Unavailable - " + p0);
+        }
+
+        public void OnVideoView(bool p0, int p1, int p2)
+        {
+            Console.WriteLine(string.Format("Video viewed! {0}, p1:{1}, p2:{2}", p0, p1, p2));
+        }
     }
 
     

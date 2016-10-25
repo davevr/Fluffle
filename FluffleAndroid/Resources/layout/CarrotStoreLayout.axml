@@ -200,17 +200,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/load_interstitial_button"
-        android:text="Show Full Screen Ad"
-        android:textColor="@android:color/white"
+        android:text="Watch a Video for 50 carrots"
+        android:textColor="@color/Fluffle_green"
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal" />
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/test_banner_ad_unit_id"
-        android:layout_gravity="center_horizontal" />
+    
 </LinearLayout>

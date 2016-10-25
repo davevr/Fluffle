@@ -79,7 +79,6 @@ namespace Fluffle.AndroidApp
 
 		public BunnyStateSprite idleState;
 		public BunnyStateSprite hopState;
-		public BunnyStateSprite eatState;
 
 		public void Inflate() {
 			string urlStr = Server.SpriteImagePath + spriteKey + ".png";
@@ -92,7 +91,6 @@ namespace Fluffle.AndroidApp
 			// now do the states
 			idleState = InflateState(0, 2); // idle has two frames
 			hopState = InflateState(2, 3); // hop has three frames
-			eatState = InflateState(5, 3);	// eat has three frames
 			masterImage.Dispose();
 			masterImage = null;
 		}

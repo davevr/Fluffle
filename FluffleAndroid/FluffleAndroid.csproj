@@ -65,6 +65,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
+    <Reference Include="vungleandroid">
+      <HintPath>..\..\vungleandroid\vungleandroid\bin\Release\vungleandroid.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\packages\Xamarin.Android.Support.v4.23.4.0.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
@@ -208,14 +211,12 @@
     <AndroidResource Include="Resources\layout\LBCellMostShares.axml" />
     <AndroidResource Include="Resources\layout\LBCellMostSpread.axml" />
     <AndroidResource Include="Resources\color\tabTextColor.xml" />
-    <AndroidResource Include="Resources\layout\AdoptionCell.axml" />
+    <AndroidResource Include="Resources\layout\AdoptionCell.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\carrotplant.png" />
   </ItemGroup>
   <ItemGroup>
-    <XamarinComponentReference Include="googleplayservices-ads">
-      <Visible>False</Visible>
-      <Version>29.0.0.2</Version>
-    </XamarinComponentReference>
     <XamarinComponentReference Include="hockeyappandroid">
       <Visible>False</Visible>
       <Version>4.1.0.3</Version>
