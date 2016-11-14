@@ -1013,30 +1013,124 @@ namespace Fluffimax.iOS
 			});
 		}
 
-		private void MaybeGiveCarrot(Bunny theBuns) {
-			
-			if ((Game.CurrentPlayer.carrotCount > 0) && !givingCarrot) {
+		private void MaybeGiveCarrot(Bunny theBuns)
+		{
+
+			if (Game.CurrentPlayer.carrotCount > 0)
+			{
 				givingCarrot = true;
 				// ok give one
-				InvokeOnMainThread (() => {
-					FeedBunnyBtn.Enabled = false;
-					CarrotImg.Hidden = false;
-					CarrotImg.Layer.ZPosition = 10000;
+				InvokeOnMainThread(() =>
+				{
+					// create a carrot image
+					BunnyGraphic theGraphic = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns);
+					nfloat baseX = theGraphic.Horizontal.Constant;
+					nfloat baseY = theGraphic.Vertical.Constant;
+
+					UIImageView carrotImage = new UIImageView(new CGRect(100, 100, 24, 24));
+					carrotImage.Image = UIImage.FromBundle("carrot");
+					PlayfieldView.AddSubview(carrotImage);
+					carrotImage.TranslatesAutoresizingMaskIntoConstraints = false;
+					NSLayoutConstraint csWidth = NSLayoutConstraint.Create(carrotImage, NSLayoutAttribute.Width, NSLayoutRelation.Equal,
+													null, NSLayoutAttribute.NoAttribute, 1, 96);
+					csWidth.Active = true;
+
+					NSLayoutConstraint csHeight = NSLayoutConstraint.Create(carrotImage, NSLayoutAttribute.Height, NSLayoutRelation.Equal,
+						null, NSLayoutAttribute.NoAttribute, 1, 96);
+					csHeight.Active = true;
+					NSLayoutConstraint csHorizontal = NSLayoutConstraint.Create(carrotImage, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal,
+						PlayfieldView, NSLayoutAttribute.Left, 1, baseX);
+					csHorizontal.Active = true;
+					NSLayoutConstraint csVertical = NSLayoutConstraint.Create(carrotImage, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal,
+						PlayfieldView, NSLayoutAttribute.Top, 1, baseY);
+					csVertical.Active = true;
+					carrotImage.AddConstraint(csHeight);
+					carrotImage.AddConstraint(csWidth);
+					PlayfieldView.AddConstraint(csHorizontal);
+					PlayfieldView.AddConstraint(csVertical);
+					carrotImage.UpdateConstraints();
+					PlayfieldView.UpdateConstraints();
+
+					carrotImage.Hidden = false;
+					carrotImage.Layer.Opacity = 1;
+					carrotImage.Layer.ZPosition = 10000;
+					PlayfieldView.LayoutIfNeeded();
+
+
+
 					UpdateScore();
 					UIImage[] imageList = SpriteManager.GetImageList(theBuns, "idle", "front");
 					ShapedImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
 
-					if (bunBtn != null) {
+					if (bunBtn != null)
+					{
 						View.BringSubviewToFront(bunBtn);
 						bunBtn.AnimationImages = imageList;
 						bunBtn.AnimationDuration = 1;
-						bunBtn.StartAnimating ();
+						bunBtn.StartAnimating();
 					}
+
+
+					bool grew = Game.CurrentPlayer.FeedBunny(theBuns);
+					nfloat bunsSizeBase = (nfloat)BunnySizeForLevel(theBuns.BunnySize);
+					double nextLevelSize = BunnySizeForLevel(theBuns.BunnySize + 1);
+					nfloat deltaSize = (nfloat)((nextLevelSize - bunsSizeBase) * theBuns.Progress);
+					csHorizontal.Constant = theGraphic.Horizontal.Constant;
+					csVertical.Constant = 0;//theGraphic.Vertical.Constant - 100;
+					csWidth.Constant = 96;
+					csHeight.Constant = 96;
+
+					carrotImage.Layer.Opacity = 1;
+					double duration = 0;
+					if (grew)
+						duration = 4;
+					PlayfieldView.LayoutIfNeeded();
+					carrotImage.Layer.Transform.Rotate((nfloat)Math.PI / 4, 0, 0, 1);
+
+					UIView.Animate(1, () =>
+					{
+						csWidth.Constant = 0;
+						csHeight.Constant = 0;
+						csVertical.Constant = theGraphic.Vertical.Constant + 24;
+						//carrotImage.Layer.Opacity = 0;
+						carrotImage.Layer.Transform.Rotate(0, 0, 0, 1);
+						PlayfieldView.LayoutIfNeeded();
+					}, () =>
+					{
+						InvokeOnMainThread(() =>
+						{
+							carrotImage.Hidden = true;
+							carrotImage.Layer.Opacity = 1;
+							carrotImage.RemoveFromSuperview();
+							PlayfieldView.RemoveConstraint(csHorizontal);
+							PlayfieldView.RemoveConstraint(csVertical);
+							carrotImage.RemoveConstraint(csWidth);
+							carrotImage.RemoveConstraint(csHeight);
+							carrotImage.Dispose();
+
+							UIView.Animate(duration, () =>
+							{
+								theGraphic.Height.Constant = bunsSizeBase;
+								theGraphic.Width.Constant = bunsSizeBase + deltaSize;
+								PlayfieldView.LayoutIfNeeded();
+							}, () =>
+							{
+								InvokeOnMainThread(() =>
+								{
+									UpdateBunsSizeAndLocation(theBuns);
+									UpdateBunnyPanel();
+									givingCarrot = false;
+								//FeedBunnyBtn.Enabled = true;
+								if (grew)
+									{
+										HomeViewController.ShowTutorialStep("bunny_grow_tutorial", "bunny_grow_tutorial".Localize());
+									}
+								});
+							});
+
+						});
+					});
 				});
-
-				bool grew = Game.CurrentPlayer.FeedBunny(theBuns);
-				AnimateBunsSizeAndLocation (theBuns, grew);
-
 			}
 		}
 
@@ -1081,7 +1175,7 @@ namespace Fluffimax.iOS
 								UpdateBunsSizeAndLocation(thebuns);
 								UpdateBunnyPanel(); 
 								givingCarrot = false;
-								FeedBunnyBtn.Enabled = true;
+								//FeedBunnyBtn.Enabled = true;
 								if (grew)
 								{
 									HomeViewController.ShowTutorialStep("bunny_grow_tutorial", "bunny_grow_tutorial".Localize());

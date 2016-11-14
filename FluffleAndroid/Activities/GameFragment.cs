@@ -56,7 +56,6 @@ namespace Fluffle.AndroidApp
         private Button buyCarrotsBtn;
         private Button catchBtn;
         private Button adoptBunnyBtn;
-		private ImageView CarrotImg;
 		private static int kMinEventTime = 10000;
 		private static int kMaxEventTime = 50000;
 		private static int kCarrotGrowth = 2000;    // 2 seconds
@@ -88,9 +87,6 @@ namespace Fluffle.AndroidApp
             buyCarrotsBtn = view.FindViewById<Button>(Resource.Id.CarrotShopBtn);
             catchBtn = view.FindViewById<Button>(Resource.Id.CatchBunnyBtn);
             adoptBunnyBtn = view.FindViewById<Button>(Resource.Id.AdoptShopBtn);
-            CarrotImg = view.FindViewById<ImageView>(Resource.Id.CarrotImage);
-            CarrotImg.Visibility = ViewStates.Gone;
-            CarrotImg.Tag = 10000;
             bunnyNameLabel.SetTypeface(MainActivity.bodyFace, TypefaceStyle.Normal);
             
 
@@ -1103,18 +1099,36 @@ namespace Fluffle.AndroidApp
         private void MaybeGiveCarrot(Bunny theBuns)
         {
 
-            if ((Game.CurrentPlayer.carrotCount > 0) && !givingCarrot)
+            if (Game.CurrentPlayer.carrotCount > 0)
             {
                 givingCarrot = true;
-                // ok give one
                 Activity.RunOnUiThread(() => {
-                    feedBtn.Enabled = false;
-                    CarrotImg.Visibility = ViewStates.Visible;
-                    field.BringChildToFront(CarrotImg);
-					CarrotImg.Tag = 10000;
+                   // generate a carrot
+					float bunsSizeBase = (float)BunnySizeForLevel(theBuns.BunnySize);
+					double nextLevelSize = BunnySizeForLevel(theBuns.BunnySize + 1);
+					float deltaSize = (float)((nextLevelSize - bunsSizeBase) * theBuns.Progress);
+					var carrotImage = new ImageView(this.Context);
+					field.AddView(carrotImage);
+					carrotImage.SetImageResource(Resource.Drawable.carrot);
+					BunnyGraphic theGraphic = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns);
+					ImageView bunBtn = theGraphic.Button;
+					FrameLayout.LayoutParams layout = new FrameLayout.LayoutParams(24, 24);
+					float xLoc, yLoc, endX;
+
+					layout.Width = 96;
+					layout.Height = 96;
+					xLoc = theGraphic.Button.Left + theGraphic.Button.Width / 2 - 12;
+					yLoc = theGraphic.Button.Top + theGraphic.Button.Height / 2;
+					layout.LeftMargin = (int)xLoc;
+					layout.TopMargin = (int)yLoc;
+					carrotImage.LayoutParameters = layout;
+
+                    carrotImage.Visibility = ViewStates.Visible;
+                    field.BringChildToFront(carrotImage);
+					carrotImage.Tag = 10000;
                     UpdateScore();
                     AnimationDrawable imageList = SpriteManager.GetImageList(theBuns, "idle", "front");
-                    ImageView bunBtn = _bunnyGraphicList.Find(b => b.LinkedBuns == theBuns).Button;
+                    
 
                     if (bunBtn != null)
                     {
@@ -1123,7 +1137,62 @@ namespace Fluffle.AndroidApp
                         bunBtn.SetImageDrawable(imageList);
                         imageList.Start();
                         bool grew = Game.CurrentPlayer.FeedBunny(theBuns);
-                        AnimateBunsSizeAndLocation(theBuns, grew);
+                        
+						// animate it
+						carrotImage.Alpha = 1;
+						carrotImage.Visibility = ViewStates.Visible;
+
+
+						int duration = 0;
+						if (grew)
+							duration = 4000;
+
+						AnimationSet animateCarrot = new AnimationSet(true);
+						ScaleAnimation scaleAnimation = new ScaleAnimation(1, 0, 1, 0, 150, 150);
+						scaleAnimation.Duration = 1000;
+						animateCarrot.AddAnimation(scaleAnimation);
+						AlphaAnimation alpha = new AlphaAnimation(1, 0);
+						alpha.Duration = 1000;
+						animateCarrot.AddAnimation(alpha);
+						animateCarrot.FillAfter = true;
+						animateCarrot.AnimationEnd += (s, e) =>
+						{
+							Activity.RunOnUiThread(() =>
+							{
+								CarrotImg.Visibility = ViewStates.Gone;
+								CarrotImg.Alpha = 1;
+
+						// now animate the bunny growing
+						AnimationSet sizeAnimator = new AnimationSet(true);
+								float scale = 0.5f + 0.4f * (((float)thebuns.VerticalLoc + 100) / (float)200);
+								float newWidth = (bunsSizeBase + deltaSize) * fieldXScale;
+								float newHeight = bunsSizeBase * fieldXScale;
+								newWidth *= scale;
+								newHeight *= scale;
+								var resizer = new ResizeAnimation(theGraphic.Button, (int)newWidth, (int)newHeight);
+								sizeAnimator.AddAnimation(resizer);
+								resizer.Duration = duration;
+								sizeAnimator.FillAfter = true;
+								sizeAnimator.AnimationEnd += (source, evnt) =>
+								{
+									Activity.RunOnUiThread(() =>
+									{
+										theGraphic.Button.Tag = 200 + layout.TopMargin;
+										UpdateBunnyPanel();
+
+										feedBtn.Enabled = true;
+										if (grew)
+										{
+											MainActivity.ShowTutorialStep("bunny_grow_tutorial", Resource.String.bunny_grow_tutorial);
+										}
+									});
+								};
+								theGraphic.Button.StartAnimation(sizeAnimator);
+							});
+						};
+						CarrotImg.StartAnimation(animateCarrot);
+
+
                     }
                 });
 
@@ -1186,10 +1255,9 @@ namespace Fluffle.AndroidApp
                         {
                             Activity.RunOnUiThread(() => 
                             {
-								//UpdateBunsSizeAndLocation(thebuns);
 								theGraphic.Button.Tag = 200 + layout.TopMargin;
                                 UpdateBunnyPanel();
-                                givingCarrot = false;
+                                
                                 feedBtn.Enabled = true;
 								if (grew)
 								{
