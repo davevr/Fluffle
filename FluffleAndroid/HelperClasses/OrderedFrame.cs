@@ -76,7 +76,19 @@ namespace Fluffle.AndroidApp
 		protected override int GetChildDrawingOrder(int childCount, int i)
 		{
 			View targetView = viewList[i];
-			return this.IndexOfChild(targetView);
+            int newIndex =  this.IndexOfChild(targetView);
+
+            if (newIndex < 0)
+            {
+                newIndex = 0;
+                System.Console.WriteLine("undershot index");
+            }
+            else if (newIndex >= ChildCount)
+            { 
+                newIndex = ChildCount;
+                System.Console.WriteLine("overshot index");
+            }
+            return newIndex;
 		}
 	}
 }

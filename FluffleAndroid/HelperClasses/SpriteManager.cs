@@ -170,9 +170,6 @@ namespace Fluffle.AndroidApp
 			case "idle":
 				theStateSprite = theSprite.idleState;
 				break;
-			case "eat":
-				theStateSprite = theSprite.eatState;
-				break;
 			case "hop":
 				theStateSprite = theSprite.hopState;
 				break;
