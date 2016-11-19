@@ -75,20 +75,51 @@ namespace Fluffle.AndroidApp
 
 		protected override int GetChildDrawingOrder(int childCount, int i)
 		{
-			View targetView = viewList[i];
-            int newIndex =  this.IndexOfChild(targetView);
+            return _intChildDrawingIndex(childCount, i, false);
+		}
+
+        private int _intChildDrawingIndex(int childCount, int i, bool reindexed)
+        {
+            bool reindexNeeded = false;
+
+            if (i >= viewList.Count)
+            {
+                i = viewList.Count - 1;
+                reindexNeeded = true;
+            }
+
+            View targetView = viewList[i];
+            int newIndex = this.IndexOfChild(targetView);
 
             if (newIndex < 0)
             {
                 newIndex = 0;
-                System.Console.WriteLine("undershot index");
+                reindexNeeded = true;
             }
             else if (newIndex >= ChildCount)
-            { 
+            {
                 newIndex = ChildCount;
-                System.Console.WriteLine("overshot index");
+                reindexNeeded = true;
             }
-            return newIndex;
-		}
+
+            if (reindexNeeded && !reindexed)
+            {
+                RegenerateViewList();
+                return _intChildDrawingIndex(childCount, i, true);
+            }
+            else
+                return newIndex;
+        }
+
+        private void RegenerateViewList()
+        {
+            viewList.Clear();
+            for (int i = 0; i < ChildCount; i++)
+            {
+                viewList.Add(this.GetChildAt(i));
+            }
+
+            ResortList();
+        }
 	}
 }

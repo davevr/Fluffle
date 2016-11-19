@@ -3,18 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffcbe8f7">
-    <com.eweware.fluffle.Fluffle.AndroidApp.OrderLayout xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/grassView"
         android:layout_marginTop="150dp"
         android:background="#00FF00">
-        <ImageView
-            android:id="@+id/CarrotImage"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:src="@drawable/carrot" />
-    </com.eweware.fluffle.Fluffle.AndroidApp.OrderLayout>
+
+    </FrameLayout>
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/detailView"

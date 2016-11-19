@@ -592,7 +592,7 @@ namespace Fluffle.AndroidApp
                     fieldXScale = (float)(field.Width - (margin * 2)) / 200;
                     fieldYScale = (float)(field.Height - (margin * 3)) / 200;
                     
-                    CarrotImg.Visibility = ViewStates.Gone;
+                    
                     // ad bunnies
                     foreach (Bunny curBunny in Game.CurrentPlayer.Bunnies)
                     {
@@ -619,7 +619,6 @@ namespace Fluffle.AndroidApp
             Game.NewPlayerLoaded = false;
             Activity.RunOnUiThread(() =>
             {
-                CarrotImg.Visibility = ViewStates.Gone;
                 HideBunnyPanel();
                 UpdateScore();
                 field.RemoveAllViews();
@@ -1098,7 +1097,6 @@ namespace Fluffle.AndroidApp
 
         private void MaybeGiveCarrot(Bunny theBuns)
         {
-
             if (Game.CurrentPlayer.carrotCount > 0)
             {
                 givingCarrot = true;
@@ -1159,12 +1157,12 @@ namespace Fluffle.AndroidApp
 						{
 							Activity.RunOnUiThread(() =>
 							{
-								CarrotImg.Visibility = ViewStates.Gone;
-								CarrotImg.Alpha = 1;
+                                carrotImage.Visibility = ViewStates.Gone;
+                                carrotImage.Alpha = 1;
 
 						// now animate the bunny growing
 						AnimationSet sizeAnimator = new AnimationSet(true);
-								float scale = 0.5f + 0.4f * (((float)thebuns.VerticalLoc + 100) / (float)200);
+								float scale = 0.5f + 0.4f * (((float)theBuns.VerticalLoc + 100) / (float)200);
 								float newWidth = (bunsSizeBase + deltaSize) * fieldXScale;
 								float newHeight = bunsSizeBase * fieldXScale;
 								newWidth *= scale;
@@ -1190,85 +1188,12 @@ namespace Fluffle.AndroidApp
 								theGraphic.Button.StartAnimation(sizeAnimator);
 							});
 						};
-						CarrotImg.StartAnimation(animateCarrot);
+                        carrotImage.StartAnimation(animateCarrot);
 
 
                     }
                 });
 
-                
-
-            }
-        }
-
-        private void AnimateBunsSizeAndLocation(Bunny thebuns, bool grew)
-        {
-            BunnyGraphic theGraphic = _bunnyGraphicList.Find(b => b.LinkedBuns == thebuns);
-            field.BringChildToFront(CarrotImg);
-            if (theGraphic != null)
-            {
-                float bunsSizeBase = (float)BunnySizeForLevel(thebuns.BunnySize);
-                double nextLevelSize = BunnySizeForLevel(thebuns.BunnySize + 1);
-                float deltaSize = (float)((nextLevelSize - bunsSizeBase) * thebuns.Progress);
-                CarrotImg.Alpha = 1;
-                CarrotImg.Visibility = ViewStates.Visible;
-
-                FrameLayout.LayoutParams layout = new FrameLayout.LayoutParams(300,300);
-                layout.Width = 300;
-                layout.Height = 300;
-                layout.LeftMargin = theGraphic.Button.Left + theGraphic.Button.Width / 2 - 150;
-                layout.TopMargin = theGraphic.Button.Top - theGraphic.Button.Height / 2;
-
-                CarrotImg.LayoutParameters = layout;
-
-                int duration = 0;
-                if (grew)
-                    duration = 4000;
-
-                AnimationSet animateCarrot = new AnimationSet(true);
-                ScaleAnimation scaleAnimation = new ScaleAnimation(1, 0, 1, 0, 150, 150);
-                scaleAnimation.Duration = 1000;
-                animateCarrot.AddAnimation(scaleAnimation);
-                AlphaAnimation alpha = new AlphaAnimation(1, 0);
-                alpha.Duration = 1000;
-                animateCarrot.AddAnimation(alpha);
-                animateCarrot.FillAfter = true;
-                animateCarrot.AnimationEnd += (s, e) =>
-                {
-                    Activity.RunOnUiThread(() =>
-                    {
-                        CarrotImg.Visibility = ViewStates.Gone;
-                        CarrotImg.Alpha = 1;
-
-                        // now animate the bunny growing
-                        AnimationSet sizeAnimator = new AnimationSet(true);
-                        float scale = 0.5f + 0.4f * (((float)thebuns.VerticalLoc + 100) / (float)200);
-                        float newWidth = (bunsSizeBase + deltaSize) * fieldXScale;
-                        float newHeight = bunsSizeBase * fieldXScale;
-                        newWidth *= scale;
-                        newHeight *= scale;
-                        var resizer = new ResizeAnimation(theGraphic.Button, (int)newWidth, (int)newHeight);
-                        sizeAnimator.AddAnimation(resizer);
-                        resizer.Duration = duration;
-                        sizeAnimator.FillAfter = true;
-                        sizeAnimator.AnimationEnd += (source, evnt) =>
-                        {
-                            Activity.RunOnUiThread(() => 
-                            {
-								theGraphic.Button.Tag = 200 + layout.TopMargin;
-                                UpdateBunnyPanel();
-                                
-                                feedBtn.Enabled = true;
-								if (grew)
-								{
-									MainActivity.ShowTutorialStep("bunny_grow_tutorial", Resource.String.bunny_grow_tutorial);
-								}
-                            });
-                        };
-                        theGraphic.Button.StartAnimation(sizeAnimator);
-                    });
-                };
-                CarrotImg.StartAnimation(animateCarrot);
             }
         }
     }
